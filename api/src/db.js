@@ -28,20 +28,42 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-// En sequelize.models están todos los modelos importados como propiedades
-// Para relacionarlos hacemos un destructuring
 const { Products, Categories, Authors, Series} = sequelize.models;
 
 Products.belongsToMany(Categories, { through: "products_categories"});
 Categories.belongsToMany(Products,{ through: "products_categories"});
 ///dataTypes.ARRAY(dataTypes.STRING)
 
+Series.hasMany(Products, {as: "products"});
+Products.belongsTo(Series,{ 
+  foreignKey: "seriesId",
+  as: "series"
+});
 
-Series.hasMany(Products);
 
-//DARIO: Revisar estas relaciones, por lo planteado de Angel la relacion seria de 1 a 1 por lo que se carga 1 products con un Author
-Products.hasMany(Authors);
+Authors.hasMany(Products, {as: "products"});
+Products.belongsTo(Authors,{ 
+  foreignKey: "authorsId",
+  as: "authors"
+});
 
+// -->>> MODELOS AUN PAR ARMAR, PARA QUIEN QUIERA HACERLO BY EDITH
+
+// Order-user - OneToMany
+// User.hasMany(Order, {as: "orders"});
+// Order.belongsTo(User,{ 
+//   foreignKey: "userId",
+//   as: "user"
+// });
+
+// Order-product - ManyToMany
+// Order.belongsToMany(Product, { 
+//   through: {model: "order_prod"},
+//   as: "product",
+// });
+// Product.belongsToMany(Order,{ 
+//   through: "order_prod"
+// });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -12,30 +12,18 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    autor_id:{ 
-      type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  price:{
-    type: DataTypes.DECIMAL,
-    allowNull: false,
-  },
-  available: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-  image_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  serie_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  discount: {
-    type: DataTypes.FLOAT,
-    allowNull: true
-  }
+    price:{
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+    },
+    available: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    discount: {
+      type: DataTypes.FLOAT,
+      allowNull: true
+    }
 
 
   });
