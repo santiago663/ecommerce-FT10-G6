@@ -1,0 +1,18 @@
+[
+    {
+      "idAuthors": 45860,
+      "name": "Sam Gilliam",
+      "email": "",
+      "paymentData": "",
+      "commission": "",
+      "origin": "United States"
+    },
+    {
+        "idAuthors": 257872,
+        "name": "Mary Lovelace O'Neal",
+        "email": "",
+        "paymentData": "",
+        "commission": "",
+        "origin": null
+    }
+]
