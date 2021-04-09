@@ -20,11 +20,14 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    discount: {
-      type: DataTypes.FLOAT,
-      allowNull: true
-    }
-
-
+    fileLink: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    preview:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   });
+  
 };

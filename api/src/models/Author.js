@@ -11,18 +11,7 @@ module.exports = (sequelize) => {
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false,
-        
+        allowNull: false,        
     },
-    paymentData: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        
-    },
-    commission: {
-        type: DataTypes.DECIMAL,
-        allowNull: true,
-        
-    }
   });
 };
