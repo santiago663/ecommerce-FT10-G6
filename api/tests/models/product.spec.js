@@ -49,7 +49,7 @@ describe('Product Model', () => {
       it('should throw an error if available is not a boolean', (done) => {
         Products.create({
           name: "product1",
-          description: 1,
+          description: "product1",
           price: 99.99,
           available: 1,
           discount: 0.2
@@ -61,7 +61,7 @@ describe('Product Model', () => {
       it('should throw an error if discount is not a float', (done) => {
         Products.create({
           name: "product1",
-          description: 1,
+          description: "product1",
           price: 99.99,
           available: true,
           discount: 100
@@ -73,7 +73,7 @@ describe('Product Model', () => {
       it('should throw an error if discount is not defined', (done) => {
         Products.create({
           name: "product1",
-          description: 1,
+          description: "product1",
           price: 99.99,
           available: true
         })
