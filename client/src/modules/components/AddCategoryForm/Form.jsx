@@ -9,10 +9,7 @@ function CategoryForm(){
 
 
    function handleChange(e) {
-    setInput({
-        ...input,
-        [e.target.id]:e.target.value
-    });
+    setInput(e.target.value);
   };
 
   function handleSubmit(e){
