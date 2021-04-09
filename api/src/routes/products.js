@@ -9,20 +9,9 @@ server.get('/', (req, res, next) => {
 		.catch(next);
 });
 
-server.get('/:id', (req, res)=>{
-	
-	Videogames.findByPk(id)
-		.then(resp => {
-		   return res.json(resp)
-		}).catch((error) =>{
-			console.error(error.message)
-		})
-});
 
 server.post('/', (req, res)=>{
-    // const elem = products;
-
-    const { 
+      const { 
         name, 
         description, 
         price, 
@@ -43,12 +32,13 @@ server.post('/', (req, res)=>{
                 preview: preview,
                 authorId: authorId,
                 seriesId: seriesId
-            }
-
-                
+            }          
         }).then(resp => {
-            res.send('Producto cargado correctamente')
-        })
-})
+			res.status(201).json(resp[0])
+        }).catch(err => {
+			res.status(401).send(err.message)
+		})
+});
+
 
 module.exports = server;
