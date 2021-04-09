@@ -23,23 +23,34 @@ const { conn } = require('./src/db.js');
 const {Products, Series, Authors} = conn.models
 //PRUEBA INGRESO DE DATOS EN AUTORES SE DEBE BORRAR
 
-// const seed = () => {
-//   return Promise.all([
-//     Authors.create(
-//       {
-//         "name": "Sam Gilliam",
-//         "email": "",
+const seed = () => {
+  return Promise.all([
+    Authors.findOrCreate({
+      where:{
+        "name": "Sam Gilliam",
+        "email": "",
+      }
+    }),
+  ])
+};
+const seed2 = () => {
+  return Promise.all([
+    Series.findOrCreate({
+      where:{
+        "name": "Sam Gilliam",
+        "description": "alalalalla",
 
-//       }),
-//   ])
-// };
-
+      }
+    }),
+  ])
+};
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ truncate: true }).then(() => {
   
   server.listen(3001, () => {
-    // seed();
+    seed();
+    seed2();
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });

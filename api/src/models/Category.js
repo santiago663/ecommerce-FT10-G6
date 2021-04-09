@@ -9,5 +9,10 @@ module.exports = (sequelize) => {
       allowNull: false,
       
     },
+  },
+  {
+   timestamps: false, 
+  //  charset: 'utf8',
+  //  collate: 'utf8_general_ci', 
   });
 };
