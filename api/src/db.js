@@ -28,24 +28,18 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
+
 const { Products, Categories, Authors, Series} = sequelize.models;
 
 Products.belongsToMany(Categories, { through: "products_categories"});
 Categories.belongsToMany(Products,{ through: "products_categories"});
 ///dataTypes.ARRAY(dataTypes.STRING)
 
-Series.hasMany(Products, {as: "products"});
-Products.belongsTo(Series,{ 
-  foreignKey: "seriesId",
-  as: "series"
-});
+Series.hasMany(Products);
+Products.belongsTo(Series);
 
-
-Authors.hasMany(Products, {as: "products"});
-Products.belongsTo(Authors,{ 
-  foreignKey: "authorsId",
-  as: "authors"
-});
+Authors.hasMany(Products);
+Products.belongsTo(Authors);
 
 // -->>> MODELOS AUN PAR ARMAR, PARA QUIEN QUIERA HACERLO BY EDITH
 
