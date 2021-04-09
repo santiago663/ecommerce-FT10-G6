@@ -15,6 +15,7 @@ server.get('/', (req, res, next) => {
 });
 
 
+
 server.get('/id/:id', (req, res)=>{
 
 	const id = req.params.id;
@@ -27,10 +28,8 @@ server.get('/id/:id', (req, res)=>{
         })
 });
 
-
 server.post('/', (req, res)=>{
-
-    const { 
+      const { 
         name, 
         description, 
         price, 
@@ -43,7 +42,7 @@ server.post('/', (req, res)=>{
 
     Products.findOrCreate({
 
-		    where:{
+            where:{
                 name: name,
                 description: description,
                 price: price,
@@ -52,12 +51,13 @@ server.post('/', (req, res)=>{
                 preview: preview,
                 authorId: authorId,
                 seriesId: seriesId
-			}
-  
+                }       
         }).then(resp => {
-            console.log(resp)
-            res.send('ok')
-        })
-})
+			res.status(201).json(resp[0])
+        }).catch(err => {
+			res.status(401).send(err.message)
+		})
+});
+		
 
 module.exports = server;
