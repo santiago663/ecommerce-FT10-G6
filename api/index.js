@@ -17,29 +17,12 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
-
-const {Products, Series, Authors} = conn.models
-//PRUEBA INGRESO DE DATOS EN AUTORES SE DEBE BORRAR
-
-const seed2 = () => {
-  return Promise.all([
-    Series.findOrCreate({
-      where:{
-        "name": "Sam Gilliam",
-        "description": "alalalalla",
-
-      }
-    }),
-  ])
-};
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
 
 // Syncing all the models at once.
 conn.sync({ truncate: true }).then(() => {
-  
   server.listen(3001, () => {
-    seed2();
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+    console.log("%s listening at 3001"); // eslint-disable-line no-console
   });
 });
