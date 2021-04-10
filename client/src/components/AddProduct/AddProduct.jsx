@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './AddProduct.styl';
+import addProduct from "../../redux/actions/index"
 
 function AddProduct() {
 
@@ -20,8 +21,8 @@ function AddProduct() {
         available: true,
         fileLink: "",
         preview: "",
-        authorId: "",
-        seriesId: ""
+        authorId: 1,
+        seriesId: 1
     })
 
     function handleInputChange(event) {
@@ -38,11 +39,11 @@ function AddProduct() {
             }
         }
         setProduct({ ...product, [event.target.name]: option })
-    }
+    }    
 
     function submitForm(event) {
         event.preventDefault();
-        dispatch(addProduct(product))
+        addProduct(product)
     }
 
     return (
@@ -69,6 +70,7 @@ function AddProduct() {
                 <select name="" id="">
                         {/* {authors.map(a => {<option key={`CP${key++}`} value="1"></option>})} */}
                     </select>
+                <input type="submit" name="Add" value="Add"/>
                 </form>
             </div>
         </div>

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from 'react';
 import './Component.styl';
 
@@ -15,7 +16,7 @@ function Component() {
         as a CSS preprocessor!
       </p>
     </div>
-  );
+  )
 }
 
 export default Component;
