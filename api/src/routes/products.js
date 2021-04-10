@@ -34,33 +34,34 @@ server.get('/:id', (req, res)=>{
 server.post('/', (req, res)=>{
 	
 	const { 
-	name, 
-	description, 
-	price, 
-	available, 
-	fileLink, 
-	preview, 
-	authorId,
-	seriesId
-	} = req.body
+	  name, 
+	  description, 
+	  price, 
+	  available, 
+	  fileLink, 
+	  preview,
+	  categories,
+	  authorId,
+	  seriesId
+	  } = req.body
 
-    Products.findOrCreate({
-
-		where:{
-			name: name,
-			description: description,
-			price: price,
-			available: available,
-			fileLink: fileLink,
-			preview: preview,
-			authorId: authorId,
-			seriesId: seriesId
-			}       
-	}).then(resp => {
-		res.status(201).json(resp[0])
-	}).catch(err => {
-		res.status(401).send(err.message)
-	})
+  Products.findOrCreate({
+		  where:{
+			  name: name,
+			  description: description,
+			  price: price,
+			  available: available,
+			  fileLink: fileLink,
+			  preview: preview,
+			  authorId: authorId,
+			  seriesId: seriesId
+			  }       
+	  }).then((newProduct) =>{
+		  categories.forEach(id => newProduct[0].addCategories(id))
+		  res.json(newProduct[0])
+	  }).catch(err => {
+		  res.status(401).send(err.message)
+	  })
 });
 
 server.put('/:id', (req, res)=>{
