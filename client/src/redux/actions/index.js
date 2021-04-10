@@ -7,11 +7,22 @@ import db from '../../db';
 /* LOCAL FAKE-DB ACTIONS */
 /* ----------------------*/
 
-export const getAll = () => (
+export const getAllProducts = () => (
   (dispatch) => {
     const response = db;
     dispatch({
-      type: TYPES.GET_ALL,
+      type: TYPES.GET_ALL_PRODUCTS,
+      payload: response,
+    });
+  }
+);
+
+export const getOneProduct = (id) => (
+  (dispatch) => {
+    const index = db.findIndex((artwork) => artwork.id === id);
+    const response = db[index];
+    dispatch({
+      type: TYPES.GET_ONE_PRODUCT,
       payload: response,
     });
   }
