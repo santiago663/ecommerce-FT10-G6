@@ -21,7 +21,7 @@ server.put("/:id", async (req, res) => {
   });
 
   if (resp1[0] === 0) {
-    return res.send("No existe la Cateoria");
+    return res.send("No existe la Categoría");
   }
   return res.json(resp2);
 });
