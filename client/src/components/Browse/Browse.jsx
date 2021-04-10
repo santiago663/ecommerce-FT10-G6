@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAll } from '../../redux/actions/index';
+import { getAllProducts } from '../../redux/actions/index';
 
 import SearchBar from '../SearchBar/SearchBar';
 import Catalogue from '../Catalogue/Catalogue';
@@ -9,7 +9,7 @@ import Pagination from '../Pagination/Pagination';
 import './Browse.styl';
 
 function Browse() {
-  const allArtworks = useSelector((state) => state.artworkCache);
+  const allArtworks = useSelector((store) => store.artworkCache);
   const dispatch = useDispatch();
 
   const [cards, setCards] = useState([]);
@@ -17,13 +17,9 @@ function Browse() {
   const [cardsPerPage] = useState(12);
 
   useEffect(() => {
-    const fetchData = () => {
-      dispatch(getAll());
-      setCards(allArtworks);
-    };
-
-    fetchData();
-  }, [dispatch]);
+    dispatch(getAllProducts());
+    setCards(allArtworks);
+  }, [allArtworks, dispatch]);
 
   // Pagination logic
   const indexOfLastCard = currentPage * cardsPerPage;
