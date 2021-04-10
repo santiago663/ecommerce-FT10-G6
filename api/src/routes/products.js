@@ -45,7 +45,7 @@ server.post('/', (req, res)=>{
 	  seriesId
 	  } = req.body
 
-  Products.findOrCreate({
+	  Products.findOrCreate({
 		  where:{
 			  name: name,
 			  description: description,
