@@ -9,7 +9,7 @@ import Pagination from '../Pagination/Pagination';
 import './Browse.styl';
 
 function Browse() {
-  const allArtworks = useSelector((state) => state.artworkCache);
+  const allArtworks = useSelector((store) => store.artworkCache);
   const dispatch = useDispatch();
 
   const [cards, setCards] = useState([]);
