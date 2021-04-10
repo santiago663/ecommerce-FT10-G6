@@ -20,8 +20,6 @@
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 
-const { Products, Series, Authors } = conn.models;
-
 // Syncing all the models at once.
 conn.sync({ truncate: true }).then(() => {
   server.listen(3001, () => {
