@@ -1,34 +1,38 @@
 const server = require('express').Router();
 const products = require('../utils/products.json');
 
-const { Products } = require('../db.js');
+const { Products, Categories, Authors } = require('../db.js');
 
 
+server.get('/', async (_req, res, next) => {
+	
+	try {
+		let products = await Products.findAll({
+			attributes: ['id', 'name', 'description', 'price', 'available', 'fileLink', 'preview'],
+			include: [{ model: Authors },{ model: Categories }],			
+		});
 
-server.get('/', (req, res, next) => {
-
-	Products.findAll()
-		.then(products => {
-			res.send(products);
-		})
-		.catch(next);
+		products === null ? res.send('hubo un error al encontrar los productos') : res.json(products);
+	} catch (err) {
+		res.status(401).send(err.message);
+	}
 });
 
 
 
-server.get('/:id', (req, res)=>{
-
+server.get('/:id', (req, res) => {
 	const id = req.params.id;
-	
-    Products.findByPk(id)
-        .then(resp => {
-			if(resp === null){
-				return res.send("Producto inexistente")
+
+	Products.findByPk(id)
+		.then((resp) => {
+			if (resp === null) {
+				return res.send('Producto inexistente');
 			}
-           return res.json(resp)
-        }).catch((error) =>{
-            console.error(error.message)
-        })
+			return res.json(resp);
+		})
+		.catch((error) => {
+			console.error(error.message);
+		});
 });
 
 server.get('/:idProduct/category/:idCategory', (req, res)=>{
@@ -85,48 +89,40 @@ server.post('/', (req, res)=>{
 	  })
 });
 
-server.put('/:id', (req, res)=>{
-	const idProduct = req.params.id
+server.put('/:id', (req, res) => {
+	const idProduct = req.params.id;
 
-	const { 
-		name, 
-		description, 
-		price, 
-		available, 
-		fileLink, 
-		preview, 
-		authorId,
-		seriesId
-	} = req.body
+	const { name, description, price, available, fileLink, preview, authorId, seriesId } = req.body;
 
-	Products.update({
-		name: name,
-		description: description,
-		price: price,
-		available: available,
-		fileLink: fileLink,
-		preview: preview,
-		authorId: authorId,
-		seriesId: seriesId
-	}, {
-
-		where: {
-			id: idProduct,
-		}
-	}).then(() => {
-	
-		Products.findOrCreate({
-
+	Products.update(
+		{
+			name: name,
+			description: description,
+			price: price,
+			available: available,
+			fileLink: fileLink,
+			preview: preview,
+			authorId: authorId,
+			seriesId: seriesId,
+		},
+		{
 			where: {
 				id: idProduct,
-			}
-		}).then(resp2 =>{
-			res.status(201).json(resp2[0])
-		}).catch( () => {
-			res.status(401).send("Producto inexistente")
+			},
+		}
+	).then(() => {
+		Products.findOrCreate({
+			where: {
+				id: idProduct,
+			},
 		})
-	
-	})
+			.then((resp2) => {
+				res.status(201).json(resp2[0]);
+			})
+			.catch(() => {
+				res.status(401).send('Producto inexistente');
+			});
+	});
 });
 
 module.exports = server;
