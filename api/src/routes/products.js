@@ -57,8 +57,11 @@ server.post('/', (req, res)=>{
 			  seriesId: seriesId
 			  }       
 	  }).then((newProduct) =>{
+		  if(categories === null || categories === undefined){
+			return res.json(newProduct[0])
+		  }
 		  categories.forEach(id => newProduct[0].addCategories(id))
-		  res.json(newProduct[0])
+		 return res.json(newProduct[0])
 	  }).catch(err => {
 		  res.status(401).send(err.message)
 	  })
