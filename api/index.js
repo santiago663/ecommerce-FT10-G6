@@ -20,7 +20,7 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
-const {Products, Series, Authors} = conn.models
+const {Products, Series, Authors, Categories} = conn.models
 //PRUEBA INGRESO DE DATOS EN AUTORES SE DEBE BORRAR
 
 const seed = () => {
@@ -44,6 +44,17 @@ const seed2 = () => {
     }),
   ])
 };
+const seed3 = () => {
+  return Promise.all([
+    Categories.findOrCreate({
+      where:{
+        "name": "ART MOD",
+       
+
+      }
+    }),
+  ])
+};
 
 // Syncing all the models at once.
 conn.sync({ truncate: true }).then(() => {
@@ -51,6 +62,7 @@ conn.sync({ truncate: true }).then(() => {
   server.listen(3001, () => {
     seed();
     seed2();
+    seed3();
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });
