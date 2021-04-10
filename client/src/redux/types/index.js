@@ -1,3 +1,2 @@
-/* eslint-disable */
-export const REQUEST_DATA = 'REQUEST_DATA' //ejemplo
-
+export const GET_ALL = 'GET_ALL';
+export const FILTER_ARTISTS = 'FILTER_ARTISTS';

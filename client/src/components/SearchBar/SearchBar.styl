@@ -1,0 +1,59 @@
+gray = #455a64
+gray-light = #b0bec5
+
+.searchbar-wrapper
+  width 85%
+  padding 5rem 2rem
+  margin 0 auto
+  & > form
+    display grid
+    grid-template 1fr / 3fr 1fr
+    & > label
+      /* input position on grid */
+      grid-area 1 / 1 / 2 / 2
+
+.searchbar-input
+  width 100%
+  height 3rem
+  padding 0 1.5rem
+  border-radius 30px 0 0 30px
+  border solid 1px gray-light
+  border-right none
+  background #fafafa
+  font-size 1rem
+  font-family 'Montserrat', sans-serif
+  font-weight 700
+  &:focus
+    outline none
+    box-shadow 0 0 5px rgba(0, 0, 0, 0.2)
+
+.searchbar-filters
+  grid-area 1 / 2 / 2 / 3
+  display flex
+  flex-flow row no-wrap
+  justify-content space-around
+  width 15rem
+  height 3rem
+  padding 0.5rem
+  border-radius 0 30px 30px 0
+  border solid 1px gray-light
+
+.searchbar-filters--btn_inactive
+  font-size 0.6rem
+  border none 
+  background none
+  font-weight 700
+  &:hover
+    opacity 0.4
+
+.searchbar-filters--btn_active
+  font-size 0.6rem
+  border none 
+  background black
+  color #fff
+  font-weight 700
+
+.search_results
+  display flex
+  flex-flow row wrap
+  justify-content center

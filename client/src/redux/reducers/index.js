@@ -1,22 +1,28 @@
-/* eslint-disable */
-import * as TYPES from '../types/index'
+import * as TYPES from '../types/index';
+
 const initialState = {
-    searchRecetas: [1, 2, 3, 4, 5],
-    listaDietas: [],
-}
+  artistCache: [],
+  artworkCache: [],
+  testCache: [],
+};
 
-function rootReducer(state = initialState, action) {
-    switch (action.type) {
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case TYPES.GET_ALL:
+      return {
+        ...state,
+        artworkCache: action.payload,
+      };
 
-        case TYPES.REQUEST_DATA: // ejemplo
-            return {
-                ...state,
-                loading: true
-            }
+    case TYPES.FILTER_ARTISTS:
+      return {
+        ...state,
+        artistCache: action.payload,
+      };
 
-        default:
-            return state
-    }
-}
+    default:
+      return state;
+  }
+};
 
-export default rootReducer
+export default rootReducer;
