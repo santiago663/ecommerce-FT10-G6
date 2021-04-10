@@ -1,17 +1,25 @@
-/* eslint-disable */
 import React from 'react';
+import PropTypes from 'prop-types';
+import ProductCard from '../ProductCard/ProductCard';
+
 import './Catalogue.styl';
-import { useSelector } from 'react-redux'
 
-function Catalogue() {
+function Catalogue(props) {
+  const { data } = props;
 
-  const datos = useSelector(store => store.searchRecetas)
-  console.log(datos);
   return (
-    <div>
-      <h1>Catálogo</h1>
+    <div className="catalogue-wrapper">
+      {
+        data && data.map((artwork) => (
+          <ProductCard key={artwork.id} data={artwork} />
+        ))
+      }
     </div>
   );
 }
+
+Catalogue.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default Catalogue;
