@@ -31,6 +31,24 @@ server.get('/:id', (req, res)=>{
         })
 });
 
+server.get('/:idProduct/category/:idCategory', (req, res)=>{
+
+	const {idProduct, idCategory} = req.params;
+    Products.findByPk(idProduct)
+        .then(product => {
+			if(product === null){
+				return res.send("Product does not exists")
+			}
+		product.addCategories(idCategory)
+			.then(p => res.status(200).json(product))		
+			.catch(err =>{
+			return res.status(250).send(err.parent.detail)
+			})	
+        }).catch((error) =>{
+            console.error(error.message)
+        })
+});
+
 server.post('/', (req, res)=>{
 	
 	const { 
