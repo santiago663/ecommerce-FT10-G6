@@ -7,7 +7,7 @@ const initialState = {
   artworkCache: [],
   productCache: [],
   testCache: [],
-  categories:[]
+  categories:[],
 };
 
 const rootReducer = (state = initialState, action) => {
