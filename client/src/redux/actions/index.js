@@ -9,11 +9,11 @@ import dbArtists from '../../dbArtists';
 /* ----------------------*/
 
 export const getAllProducts = () => (
-  (dispatch) => {
-    const response = db;
+  async (dispatch) => {
+    const response = await axios.get('http://localhost:3001/products');
     dispatch({
       type: TYPES.GET_ALL_PRODUCTS,
-      payload: response,
+      payload: response.data,
     });
   }
 );

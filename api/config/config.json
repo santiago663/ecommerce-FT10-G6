@@ -1,23 +1,23 @@
 {
   "development": {
     "username": "postgres",
-    "password": 12345,
+    "password": "yara2603",
     "database": "digitalart",
-    "host": "localhost",
+    "host": "localhost:5433",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": 12345,
+    "password": "yara2603",
     "database": "digitalart",
-    "host": "localhost",
+    "host": "localhost:5433",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": 12345,
+    "password": "yara2603",
     "database": "digitalart",
-    "host": "localhost",
+    "host": "localhost:5433",
     "dialect": "postgres"
   }
 }

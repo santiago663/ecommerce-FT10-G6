@@ -87,7 +87,8 @@ server.get("/:idProduct/category/:idCategory", (req, res) => {
     .catch((error) => {
       console.error(error.message);
     });
-
+  })
+  
 server.delete('/id', (req, res, next) => {
 
     const id = req.query.id

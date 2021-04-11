@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddProduct from '../AddProduct/AddProduct';
 import DeleteProduct from '../DeleteProduct/DeleteProduct';
 import EditProduct from '../EditProduct/EditProduct';

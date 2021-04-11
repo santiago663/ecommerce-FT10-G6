@@ -1,5 +1,4 @@
 const { Router } = require('express');
-// import all routers;
 const productRouter = require('./products.js');
 const categoryRouter = require('./category');
 const authorRouter = require('./author.js');
