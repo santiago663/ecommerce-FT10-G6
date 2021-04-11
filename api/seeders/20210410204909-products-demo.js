@@ -4,114 +4,132 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return await queryInterface.bulkInsert("products", [
       {
+        id: 1,
         name: "Hold My Last Breath",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "2000",
         available: "true",
         fileLink:
-          "https://media.istockphoto.com/vectors/vector-geometric-seamless-pattern-with-squares-lines-grid-repeat-vector-id1285663254?k=6&m=1285663254&s=612x612&w=0&h=DyYP6fwAZ5RYxuJU6_ys2Q1JwdwO52VYkA1GY28ANEE=",
+          "https://blog.tubikstudio.com/wp-content/uploads/2019/12/zombie-date-illustration-halloween.png",
         preview:
-          "https://media.istockphoto.com/vectors/vector-geometric-seamless-pattern-with-squares-lines-grid-repeat-vector-id1285663254?k=6&m=1285663254&s=612x612&w=0&h=DyYP6fwAZ5RYxuJU6_ys2Q1JwdwO52VYkA1GY28ANEE=",
+          "https://blog.tubikstudio.com/wp-content/uploads/2019/12/zombie-date-illustration-halloween.png",
+        authorId: 1,
       },
       {
+        id: 2,
         name: "Going Under",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "340",
         available: "true",
         fileLink:
-          "https://media.istockphoto.com/vectors/vector-illustration-mid-century-modern-graphic-70s-retro-funky-vector-id1272863803?k=6&m=1272863803&s=612x612&w=0&h=gaP7K0qYZfTkG0-PyEU0qgL7mHax5q7mnIRhCE-hc2M=",
+          "https://i.pinimg.com/originals/60/b2/28/60b2288698ba4db05ab9c1bc88ce7405.png",
         preview:
-          "https://media.istockphoto.com/vectors/vector-illustration-mid-century-modern-graphic-70s-retro-funky-vector-id1272863803?k=6&m=1272863803&s=612x612&w=0&h=gaP7K0qYZfTkG0-PyEU0qgL7mHax5q7mnIRhCE-hc2M=",
+          "https://i.pinimg.com/originals/60/b2/28/60b2288698ba4db05ab9c1bc88ce7405.png",
+        authorId: 2,
       },
       {
+        id: 3,
         name: "My Immortal",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "576",
         available: "true",
-        fileLink:
-          "https://media.istockphoto.com/vectors/vector-illustration-abstract-contemporary-aesthetic-backgrounds-set-vector-id1280226124?k=6&m=1280226124&s=612x612&w=0&h=nFKDQQ5Wps9lsSqeEpnWQYjDGNzrQLfKNOy5iWfFwbY=",
-        preview:
-          "https://media.istockphoto.com/vectors/vector-illustration-abstract-contemporary-aesthetic-backgrounds-set-vector-id1280226124?k=6&m=1280226124&s=612x612&w=0&h=nFKDQQ5Wps9lsSqeEpnWQYjDGNzrQLfKNOy5iWfFwbY=",
+        fileLink: "https://wallpaperaccess.com/thumb/1506254.jpg",
+        preview: "https://wallpaperaccess.com/thumb/1506254.jpg",
+        authorId: 3,
       },
       {
+        id: 4,
         name: "Whisper",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "5000",
         available: "true",
         fileLink:
-          "https://media.istockphoto.com/vectors/opart-abstract-background-with-diagonal-lines-stylish-wavy-striped-vector-id1263462769?k=6&m=1263462769&s=612x612&w=0&h=ijZ_zDSzobSesafD-I0Eni26iK0ISwWrsRok4xeSJqQ=",
+          "https://deliciousthemes-ourtutscom.netdna-ssl.com/wp-content/uploads/2013/02/link-2-flaming_cat___psd_by_pshoudini-d4uzbee.jpg",
         preview:
-          "https://media.istockphoto.com/vectors/opart-abstract-background-with-diagonal-lines-stylish-wavy-striped-vector-id1263462769?k=6&m=1263462769&s=612x612&w=0&h=ijZ_zDSzobSesafD-I0Eni26iK0ISwWrsRok4xeSJqQ=",
+          "https://deliciousthemes-ourtutscom.netdna-ssl.com/wp-content/uploads/2013/02/link-2-flaming_cat___psd_by_pshoudini-d4uzbee.jpg",
+        authorId: 4,
       },
       {
+        id: 5,
         name: "What You Want",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "130",
         available: "true",
         fileLink:
-          "https://media.istockphoto.com/vectors/abstract-geometric-black-and-white-glitch-background-vector-id1168965356?k=6&m=1168965356&s=612x612&w=0&h=MvrPld-SQxCeGmyQPtdvK_YOwzTlMNFGLm2zgvYWYTE=",
+          "https://p4.wallpaperbetter.com/wallpaper/796/270/435/cyberpunk-digital-art-futuristic-wallpaper-preview.jpg",
         preview:
-          "https://media.istockphoto.com/vectors/abstract-geometric-black-and-white-glitch-background-vector-id1168965356?k=6&m=1168965356&s=612x612&w=0&h=MvrPld-SQxCeGmyQPtdvK_YOwzTlMNFGLm2zgvYWYTE=",
+          "https://p4.wallpaperbetter.com/wallpaper/796/270/435/cyberpunk-digital-art-futuristic-wallpaper-preview.jpg",
+        authorId: 5,
       },
       {
+        id: 6,
         name: "Sick",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "289",
         available: "true",
         fileLink:
-          "https://media.istockphoto.com/vectors/botany-set-vintage-medical-realistic-isolated-flowers-nature-baroque-vector-id1065395070?k=6&m=1065395070&s=612x612&w=0&h=FNLtN8hWsi0RT_kSop6E0U4UKgoadBrBwT4oNfWQv_k=",
+          "https://c4.wallpaperflare.com/wallpaper/846/57/155/digital-art-rabbits-horns-women-comic-art-hd-wallpaper-preview.jpg",
         preview:
-          "https://media.istockphoto.com/vectors/botany-set-vintage-medical-realistic-isolated-flowers-nature-baroque-vector-id1065395070?k=6&m=1065395070&s=612x612&w=0&h=FNLtN8hWsi0RT_kSop6E0U4UKgoadBrBwT4oNfWQv_k=",
+          "https://c4.wallpaperflare.com/wallpaper/846/57/155/digital-art-rabbits-horns-women-comic-art-hd-wallpaper-preview.jpg",
+        authorId: 6,
       },
       {
+        id: 7,
         name: "Cold Nine",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "579",
         available: "true",
         fileLink:
-          "https://media.istockphoto.com/vectors/brazilian-symbols-vector-id1015332974?k=6&m=1015332974&s=612x612&w=0&h=JBzq3QHBbSL2teJMokUNxllbJMVX4Wo5xytdxMEKlIM=",
+          "https://wallpapercrafter.com/desktop/149370-digital-digital-art-artwork-illustration-simple-simple-background-minimalism-black-colorful-Marvel-Comics-Marvel-Cinematic-Universe-superhero-Ant-Man-fictional-fiction.jpg",
         preview:
-          "https://media.istockphoto.com/vectors/brazilian-symbols-vector-id1015332974?k=6&m=1015332974&s=612x612&w=0&h=JBzq3QHBbSL2teJMokUNxllbJMVX4Wo5xytdxMEKlIM=",
+          "https://wallpapercrafter.com/desktop/149370-digital-digital-art-artwork-illustration-simple-simple-background-minimalism-black-colorful-Marvel-Comics-Marvel-Cinematic-Universe-superhero-Ant-Man-fictional-fiction.jpg",
+        authorId: 7,
       },
       {
+        id: 8,
         name: "Push The Bottom",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "1000",
         available: "true",
         fileLink:
-          "https://media.istockphoto.com/vectors/brain-with-glasses-drawing-illustration-isolated-on-white-bg-vector-id1170984187?k=6&m=1170984187&s=612x612&w=0&h=WDNVyxBYh_vGhmDQAq2Xrh0KU9wx81Dln245Z95Teqc=",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/23444447985543.588ab66d222dd.jpg",
         preview:
-          "https://media.istockphoto.com/vectors/brain-with-glasses-drawing-illustration-isolated-on-white-bg-vector-id1170984187?k=6&m=1170984187&s=612x612&w=0&h=WDNVyxBYh_vGhmDQAq2Xrh0KU9wx81Dln245Z95Teqc=",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/23444447985543.588ab66d222dd.jpg",
+        authorId: 8,
       },
       {
+        id: 9,
         name: "Lost In Paradise",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "300",
         available: "true",
         fileLink:
-          "https://media.istockphoto.com/vectors/seafood-vector-illustrations-healthy-marine-food-hand-drawn-set-vector-id1048785072?k=6&m=1048785072&s=612x612&w=0&h=odw2ZqODJXpk_d3QdaaajLyaLjwmoPQerqFmFdKkQzQ=",
+          "https://c4.wallpaperflare.com/wallpaper/670/870/564/colors-digital-art-3d-geometric-wallpaper-preview.jpg",
         preview:
-          "https://media.istockphoto.com/vectors/seafood-vector-illustrations-healthy-marine-food-hand-drawn-set-vector-id1048785072?k=6&m=1048785072&s=612x612&w=0&h=odw2ZqODJXpk_d3QdaaajLyaLjwmoPQerqFmFdKkQzQ=",
+          "https://c4.wallpaperflare.com/wallpaper/670/870/564/colors-digital-art-3d-geometric-wallpaper-preview.jpg",
+        authorId: 9,
       },
       {
+        id: 10,
         name: "Blah",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "458",
         available: "false",
         fileLink:
-          "https://media.istockphoto.com/vectors/engraving-illustration-of-honey-bee-vector-id888100382?k=6&m=888100382&s=612x612&w=0&h=1ntSyFhTFadNKf8b2w-gVfGG7AUVhYUvdsbTJJ1E_4Y=",
+          "https://papers.co/wallpaper/papers.co-bb02-digital-art-color-circle-illustration-art-3d-green-40-wallpaper.jpg",
         preview:
-          "https://media.istockphoto.com/vectors/engraving-illustration-of-honey-bee-vector-id888100382?k=6&m=888100382&s=612x612&w=0&h=1ntSyFhTFadNKf8b2w-gVfGG7AUVhYUvdsbTJJ1E_4Y=",
+          "https://papers.co/wallpaper/papers.co-bb02-digital-art-color-circle-illustration-art-3d-green-40-wallpaper.jpg",
+        authorId: 10,
       },
     ]);
   },
