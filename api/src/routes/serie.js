@@ -13,21 +13,26 @@ server.delete('/id', (req, res, next) => {
         
     })      
     .then(serie => {
+        console.log(serie)
 
-            if(serie[0].products.length > 0){
-              
-                return res.send("La Serie pertenece a uno o varios Productos. No es posible eliminar la Serie") 
-            }
-            else if(serie[0].products.length === 0){
+        if(serie.length === 0){
+            return res.send("No existe la Serie")   
+        }
+        if(serie[0].products.length > 0){
 
-                Series.destroy({
-                    where:{ id: id}
-                })
-                .then(algo => console.log(algo))
-                return res.send("Serie Eliminada") 
-            }
+            return res.send(serie[0].products) 
+
+        }
+        else if(serie[0].products.length === 0){
+
+            Series.destroy({
+                where:{ id: id}
+            })
+            .then(algo => console.log(algo))
+            return res.send("Serie Eliminada") 
+        } 
         
-    })  
+    }) 
 });
 
 server.post('/', (req, res)=>{
