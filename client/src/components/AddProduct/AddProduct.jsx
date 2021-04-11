@@ -2,17 +2,22 @@
 import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllArtists } from '../../redux/actions/index';
+import { getAllAuthors, getAllCategories, getAllSeries } from '../../redux/actions/index';
 import './AddProduct.css';
 
 function AddProduct() {
 
     const dispatch = useDispatch()
+    
+    useEffect(()=>{
+        dispatch(getAllAuthors());
+        dispatch(getAllCategories());
+        dispatch(getAllSeries()); 
+    },[])
 
-    dispatch(getAllArtists());
     const allArtist = useSelector((store) => store.allArtistCache)
-
-    // const series = useSelector(store => store.series)
+    const allCategories = useSelector((store) => store.allCategoriesCache)
+    const allSeries = useSelector((store) => store.allSeriesCache)  
 
     const [product, setProduct] = useState({
         name: "",
@@ -22,7 +27,7 @@ function AddProduct() {
         fileLink: "",
         preview: "",
         categories: [],
-        author: {id:1, name: "", email: ""},        
+        authorId: allArtist[0]?.id,        
         seriesId: null
     })
 
@@ -44,15 +49,27 @@ function AddProduct() {
         setProduct({ ...product, [event.target.name]: option })
     }
 
-
     //Handle input para artist
     function handleInputChangeAr(event) {
-        event.preventDefault();
         console.log(Number(event.target.value))
-        setProduct({ ...product, [event.target.name]: {id:Number(event.target.value), name: "", email: ""}})
+        setProduct({ ...product, [event.target.name]: Number(event.target.value)})
     }
 
-    function submitForm(event) {
+    //Handle input para categories
+    function handleInputChangeCa(event) {           
+        var cat = product.categories
+        cat.push(allCategories.find(c => c.id == Number(event.target.value))) 
+        setProduct({ ...product, [event.target.name]: cat })
+    }
+
+    //Handle input para borrar categoria
+    function handleInputDeleteCa(event, id) {           
+        var cat = product.categories
+        cat = cat.filter( c => c.id != Number(id))        
+        setProduct({ ...product, categories: cat })
+    }
+
+    function submitForm(event) {        
         event.preventDefault();
         console.log(product)
         axios.post('http://localhost:3001/products', product);
@@ -89,18 +106,25 @@ function AddProduct() {
                     </div>
                     <div>
                         Artist:
-                        <select name="author" id="selectorArAP" onChange={handleInputChangeAr}>
-                            {allArtist.map(a => <option key={`AP${key++}`} value={a.idAuthors}>{a.name}</option>)}
+                        
+                        <select name="authorId" id="selectorArAP" onChange={handleInputChangeAr}>
+                            <option key={`AP${key++}`}> </option>
+                            {allArtist.map(a => <option key={`AP${key++}`} value={a.id}>{a.name}</option>)}
                         </select>
                     </div>
                     <div>
-                        Series: <input type="text" onChange={handleInputChange} name="series" value="Coming soon" readOnly />
-                        {/* <select name="" id="">
-                            {authors.map(a => {<option key={`AP${key++}`} value="1"></option>})}
-                        </select> */}
+                        Series:
+                        <select name="seriesId" id="selectorSeAP">
+                            {allSeries.map(s => <option key={`AP${key++}`} value={s.id}>{s.name}</option>)}
+                        </select>
                     </div>
                     <div>
-                        Categories: <input type="text" onChange={handleInputChange} name="categories" value="Coming soon" readOnly />
+                        Categories:                        
+                        <select name="categories" id="selectorCaAP" onChange={handleInputChangeCa}>
+                            <option key={`AP${key++}`}> </option>
+                            {allCategories.map(c => <option key={`AP${key++}`} value={c.id}>{c.name}</option>)}
+                        </select>
+                        {product.categories.map(p => <span onClick={(event)=>handleInputDeleteCa(event, p.id)} >{p.name}</span> )}
                     </div>
                     <input type="submit" value="Add" />
                 </form>

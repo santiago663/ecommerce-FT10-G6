@@ -21,7 +21,7 @@ function DeleteProduct() {
     }    
 
     function submitForm(event) {
-        if(id.confirm=="Yes") axios.delete(`http://localhost:3001/products/id?id=${id.id}`);
+        if(id.confirm=="yes") axios.delete(`http://localhost:3001/products/${id.id}`);
     }
 
     var key = 1;
@@ -38,7 +38,7 @@ function DeleteProduct() {
                         </select>
                     </div>
                     <div>
-                        Confirm: <input type="text" placeholder="Type Yes" onChange={handleInputChange} />
+                        Confirm: <input type="text" placeholder="Type yes" onChange={handleInputChange} />
                     </div>
                     <input type="submit" value="Delete" />
                 </form>

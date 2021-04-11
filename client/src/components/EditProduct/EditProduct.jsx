@@ -10,7 +10,11 @@ function EditProduct() {
     const dispatch = useDispatch()
 
     const allArtist = useSelector((store) => store.allArtistCache)
+    const allCategories = useSelector((store) => store.allCategoriesCache)
+    const allSeries = useSelector((store) => store.allSeriesCache)
     const allProducts = useSelector((store) => store.artworkCache) 
+
+    // console.log(allProducts)
 
     useEffect(()=>{
         dispatch(getAllProducts());
@@ -139,13 +143,16 @@ function EditProduct() {
                         </select>
                     </div>
                     <div>
-                        Series: <input type="text" onChange={handleInputChange} name="series" value="Coming soon" readOnly/>
-                        {/* <select name="" id="">
-                            {authors.map(a => {<option key={`EP${key++}`} value="1"></option>})}
-                        </select> */}
+                        Series:
+                        <select name="series" id="selectorSeAP" >
+                            {allSeries.map(s => <option key={`AP${key++}`} value={s.id}>{s.name}</option>)}
+                        </select>
                     </div>
                     <div>
-                        Categories: <input type="text" onChange={handleInputChange} name="categories" value="Coming soon" readOnly/>
+                        Categories:
+                        <select name="categories" id="selectorCaAP" >
+                            {allCategories.map(c => <option key={`AP${key++}`} value={c.id}>{c.name}</option>)}
+                        </select>
                     </div>
                     <input type="submit" value="Edit" />
                 </form>
