@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import axios from 'axios';
 import * as TYPES from '../types/index';
 import db from '../../db';
@@ -21,20 +22,52 @@ export const getAllProducts = () => (
   }
 );
 
-export const getAllArtists = () => (
-  (dispatch) => {
-    const response = dbArtists;
-    dispatch({
-      type: TYPES.GET_ALL_ARTISTS,
-      payload: response,
-    });
+export const getAllAuthors = () => (
+  async (dispatch) => {    
+    try {
+      const response = await axios.get('http://localhost:3001/author');
+      dispatch({
+        type: TYPES.GET_ALL_AUTHORS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+);
+
+export const getAllCategories = () => (
+  async (dispatch) => {    
+    try {
+      const response = await axios.get('http://localhost:3001/category');
+      dispatch({
+        type: TYPES.GET_ALL_CATEGORIES,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+);
+
+export const getAllSeries = () => (
+  async (dispatch) => {    
+    try {
+      const response = await axios.get('http://localhost:3001/serie');
+      dispatch({
+        type: TYPES.GET_ALL_SERIES,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 );
 
 export const getOneProduct = (id) => (
   async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:3001/products/:' + id);
+      const response = await axios.get(`http://localhost:3001/products/:${id}`);
       dispatch({
         type: TYPES.GET_ONE_PRODUCT,
         payload: response.data,
