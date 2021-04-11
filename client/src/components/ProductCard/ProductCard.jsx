@@ -1,29 +1,25 @@
-/* eslint-disable  */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux'
-import { getOneProduct } from '../../redux/actions/index'
 import './ProductCard.styl';
 
 function ProductCard(props) {
-  const dispatch = useDispatch()
   const {
     data: {
-      name,
-      author,
-      preview,
+      title,
+      artist,
+      imgurl,
       id,
     },
   } = props;
 
   return (
     <>
-      <Link onClick={()=>dispatch(getOneProduct(id))} className="link" to={`/products/${id}`}>
+      <Link to={`/product/${id}`}>
         <div className="product-card">
-          <img src={preview} alt="" />
-          <h4>{name}</h4>
-          <h6>{author.name}</h6>
+          <img src={imgurl} alt="" />
+          <h4>{title}</h4>
+          <h6>{artist}</h6>
         </div>
       </Link>
     </>
@@ -33,13 +29,9 @@ function ProductCard(props) {
 ProductCard.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.number,
-    name: PropTypes.string,
-    preview: PropTypes.string,
-    author: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      email: PropTypes.string,
-    }),
+    title: PropTypes.string,
+    artist: PropTypes.string,
+    imgurl: PropTypes.string,
   }).isRequired,
 };
 
