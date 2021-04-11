@@ -7,7 +7,9 @@ const initialState = {
   artworkCache: [],
   productCache: [],
   testCache: [],
+
   categories:[],
+  allArtistCache: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -16,6 +18,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         artworkCache: action.payload,
+      };
+
+    case TYPES.GET_ALL_ARTISTS:
+      return {
+        ...state,
+        allArtistCache: action.payload,
       };
 
     case TYPES.GET_ONE_PRODUCT:
