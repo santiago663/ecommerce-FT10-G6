@@ -19,7 +19,7 @@ function Browse() {
   useEffect(() => {
     dispatch(getAllProducts());
     setCards(allArtworks);
-  }, [allArtworks, dispatch]);
+  }, []);
 
   // Pagination logic
   const indexOfLastCard = currentPage * cardsPerPage;
