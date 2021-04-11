@@ -3,4 +3,6 @@ export const GET_ONE_PRODUCT = 'GET_ONE_PRODUCT';
 export const FILTER_ARTISTS = 'FILTER_ARTISTS';
 export const NEW_CATEGORY = 'NEW_CATEGORY';
 export const NEW_AUTHOR = 'NEW_AUTHOR';
-export const GET_ALL_ARTISTS = 'GET_ALL_ARTISTS';
+export const GET_ALL_AUTHORS = 'GET_ALL_AUTHORS';
+export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES';
+export const GET_ALL_SERIES = 'GET_ALL_SERIES';

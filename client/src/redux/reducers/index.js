@@ -7,8 +7,10 @@ const initialState = {
   artworkCache: [],
   productCache: [],
   testCache: [],
-  categories:[],
+  categories: [],
   allArtistCache: [],
+  allCategoriesCache: [],
+  allSeriesCache: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -19,11 +21,23 @@ const rootReducer = (state = initialState, action) => {
         artworkCache: action.payload,
       };
 
-    case TYPES.GET_ALL_ARTISTS:
+    case TYPES.GET_ALL_AUTHORS:
       return {
         ...state,
         allArtistCache: action.payload,
       };
+
+    case TYPES.GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        allCategoriesCache: action.payload,
+      };
+
+    case TYPES.GET_ALL_SERIES:
+      return {
+        ...state,
+        allSeriesCache: action.payload,
+      };      
 
     case TYPES.GET_ONE_PRODUCT:
       return {
@@ -36,17 +50,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         artistCache: action.payload,
       };
-      case TYPES.NEW_CATEGORY:
-        return {
-            ...state,
-            categories:[...state.categories].concat(action.payload),
+    case TYPES.NEW_CATEGORY:
+      return {
+        ...state,
+        categories: [...state.categories].concat(action.payload),
 
-        }
-        case TYPES.NEW_AUTHOR:
-            return {
-                ...state,
-                artistCache: [...state.artistCache].concat(action.payload)
-            }
+      }
+    case TYPES.NEW_AUTHOR:
+      return {
+        ...state,
+        artistCache: [...state.artistCache].concat(action.payload)
+      }
 
     default:
       return state;
