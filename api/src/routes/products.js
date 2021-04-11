@@ -5,11 +5,11 @@ const { Products, Categories, Authors } = require('../db.js');
 
 
 server.get('/', async (_req, res, next) => {
-	
+
 	try {
 		let products = await Products.findAll({
 			attributes: ['id', 'name', 'description', 'price', 'available', 'fileLink', 'preview'],
-			include: [{ model: Authors },{ model: Categories }],			
+			include: [{ model: Authors }, { model: Categories }],
 		});
 
 		products === null ? res.send('hubo un error al encontrar los productos') : res.json(products);
@@ -35,58 +35,77 @@ server.get('/:id', (req, res) => {
 		});
 });
 
-server.get('/:idProduct/category/:idCategory', (req, res)=>{
+server.get('/:idProduct/category/:idCategory', (req, res) => {
 
-	const {idProduct, idCategory} = req.params;
-    Products.findByPk(idProduct)
-        .then(product => {
-			if(product === null){
+	const { idProduct, idCategory } = req.params;
+	Products.findByPk(idProduct)
+		.then(product => {
+			if (product === null) {
 				return res.send("Product does not exists")
 			}
-		product.addCategories(idCategory)
-			.then(p => res.status(200).json(product))		
-			.catch(err =>{
-			return res.status(250).send(err.parent.detail)
-			})	
-        }).catch((error) =>{
-            console.error(error.message)
-        })
+			product.addCategories(idCategory)
+				.then(p => res.status(200).json(product))
+				.catch(err => {
+					return res.status(250).send(err.parent.detail)
+				})
+		}).catch((error) => {
+			console.error(error.message)
+		})
 });
 
-server.post('/', (req, res)=>{
-	
-	const { 
-	  name, 
-	  description, 
-	  price, 
-	  available, 
-	  fileLink, 
-	  preview,
-	  categories,
-	  authorId,
-	  seriesId
-	  } = req.body
+server.delete('/:idProduct/category/:idCategory', (req, res) => {
+	const { idProduct, idCategory } = req.params;
+	Products.findOne({
+		where: { id: idProduct }
+	}).then(product => {
+		if (product === null) {
+			return res.status(401).send('Product does not exists')
+		}
+		product.removeCategories([idCategory])
+			.then(resp => {
+				if (resp === 0) {
+					return res.send('Product does not belong to this category')
+				} else {
+					return res.status(200).send('Category deleted')
+				}
+			})
+	}).catch(e => console.log(e));
+});
 
-	  Products.findOrCreate({
-		  where:{
-			  name: name,
-			  description: description,
-			  price: price,
-			  available: available,
-			  fileLink: fileLink,
-			  preview: preview,
-			  authorId: authorId,
-			  seriesId: seriesId
-			  }       
-	  }).then((newProduct) =>{
-		  if(categories === null || categories === undefined){
+server.post('/', (req, res) => {
+
+	const {
+		name,
+		description,
+		price,
+		available,
+		fileLink,
+		preview,
+		categories,
+		authorId,
+		seriesId
+	} = req.body
+
+	Products.findOrCreate({
+		where: {
+			name: name,
+			description: description,
+			price: price,
+			available: available,
+			fileLink: fileLink,
+			preview: preview,
+			authorId: authorId,
+			seriesId: seriesId
+		}
+	}).then((newProduct) => {
+		if (categories === null || categories === undefined) {
 			return res.json(newProduct[0])
-		  }
-		  categories.forEach(id => newProduct[0].addCategories(id))
-		 return res.json(newProduct[0])
-	  }).catch(err => {
-		  res.status(401).send(err.message)
-	  })
+		}
+		categories.forEach(id => newProduct[0].addCategories(id))
+		return res.json(newProduct[0])
+	}).catch(err => {
+		res.status(401).send(err.message)
+	})
 });
 
 server.put('/:id', (req, res) => {

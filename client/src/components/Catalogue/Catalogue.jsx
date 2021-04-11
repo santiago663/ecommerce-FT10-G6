@@ -6,7 +6,6 @@ import './Catalogue.styl';
 
 function Catalogue(props) {
   const { data } = props;
-
   return (
     <div className="catalogue-wrapper">
       {
