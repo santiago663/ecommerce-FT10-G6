@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import * as TYPES from '../types/index';
 import db from '../../db';
@@ -9,12 +8,16 @@ import dbArtists from '../../dbArtists';
 /* ----------------------*/
 
 export const getAllProducts = () => (
-  (dispatch) => {
-    const response = db;
-    dispatch({
-      type: TYPES.GET_ALL_PRODUCTS,
-      payload: response,
-    });
+  async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3001/products');
+      dispatch({
+        type: TYPES.GET_ALL_PRODUCTS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 );
 
@@ -29,13 +32,16 @@ export const getAllArtists = () => (
 );
 
 export const getOneProduct = (id) => (
-  (dispatch) => {
-    const index = db.findIndex((artwork) => artwork.id === id);
-    const response = db[index];
-    dispatch({
-      type: TYPES.GET_ONE_PRODUCT,
-      payload: response,
-    });
+  async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3001/products/:' + id);
+      dispatch({
+        type: TYPES.GET_ONE_PRODUCT,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 );
 
@@ -87,27 +93,25 @@ export const searchByTitle = () => (
 
 export const addCategory = (form) => (
   (dispatch) => (
-    axios.post("http://localhost:3001/products/category" , form)
-    )
-    .then(res =>{
+    axios.post('http://localhost:3001/category', form)
+  )
+    .then((res) => {
       dispatch({
         type: TYPES.NEW_CATEGORY,
-        payload: res.data
-      }) 
+        payload: res.data,
+      });
     })
     .catch((error) => console.error(error))
 );
 
-export const addAuthor = (author) =>(
-    (dispatch) => (
-        axios.post("http://localhost:3001/products/author", author)
-        )
-        .then ( res =>{
-          dispatch({
-            type: TYPES.NEW_AUTHOR,
-            payload: res.data
-          })
-        }) 
-        .catch((error) => console.error(error))
-        );
-
+export const addAuthor = (author) => (
+  (dispatch) => (
+    axios.post('http://localhost:3001/author', author)
+  )
+    .then((res) => {
+      dispatch({
+        type: TYPES.NEW_AUTHOR,
+        payload: res.data,
+      });
+    }).catch((error) => console.error(error))
+);
