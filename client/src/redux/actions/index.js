@@ -15,7 +15,7 @@ export const getAllProducts = () => (
         type: TYPES.GET_ALL_PRODUCTS,
         payload: response.data,
       });
-    } catch (error) {
+    } catch (error) {      
       console.error(error);
     }
   }

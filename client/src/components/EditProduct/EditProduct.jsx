@@ -14,7 +14,7 @@ function EditProduct() {
 
     useEffect(()=>{
         dispatch(getAllProducts());
-    },[])
+    },[])    
 
     var availableOption = document.querySelectorAll("#selectorAvEP option");
     var artistOption = document.querySelectorAll("#selectorArEP option");

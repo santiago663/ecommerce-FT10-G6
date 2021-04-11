@@ -1,8 +1,7 @@
 /*eslint-disable*/
 import axios from "axios"
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts } from '../../redux/actions/index';
+import { useSelector } from 'react-redux';
 import './DeleteProduct.css';
 
 function DeleteProduct() {

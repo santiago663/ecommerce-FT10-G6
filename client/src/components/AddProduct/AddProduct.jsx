@@ -54,11 +54,10 @@ function AddProduct() {
     //Handle input para artist
     function handleInputChangeAr(event) {
         event.preventDefault();
-        var option = 1
+        var option = 1;
         for (var i = 0; i < artistOption.length; i++) {
             if (artistOption[i].selected) {
                 option = artistOption[i].value
-                console.log(artistOption[i].value)
             }
         }
         setProduct({ ...product, [event.target.name]: Number(option) })
@@ -103,7 +102,7 @@ function AddProduct() {
                     </div>
                     <div>
                         Artist:
-                        <select name="authorId" id="selectorArAP" onChange={handleInputChangeAr}>
+                        <select name="author" id="selectorArAP" onChange={handleInputChangeAr}>
                             {allArtist.map(a => <option key={`AP${key++}`} value={a.idAuthors}>{a.name}</option>)}
                         </select>
                     </div>
