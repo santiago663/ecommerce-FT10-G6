@@ -11,6 +11,9 @@ function NavBar() {
         <li>About Us</li>
       </ul>
       <div className="nav-buttons_authentication">
+        <ul className="nav-buttons_navigation">
+          <Link className="nav-link" to="/Admin"><li>Dashboard Admin</li></Link>
+        </ul>
         <button className="btn-secondary" type="button">Sign in</button>
         <button className="btn-primary" type="button">Sign up</button>
       </div>
