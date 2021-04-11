@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const GET_ONE_PRODUCT = 'GET_ONE_PRODUCT';
 export const FILTER_ARTISTS = 'FILTER_ARTISTS';

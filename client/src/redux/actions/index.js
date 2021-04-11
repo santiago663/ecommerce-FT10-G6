@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import axios from 'axios';
 import * as TYPES from '../types/index';
 import db from '../../db';

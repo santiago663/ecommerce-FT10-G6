@@ -1,3 +1,4 @@
+/* eslint-disable  */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllProducts } from '../../redux/actions/index';
@@ -30,7 +31,7 @@ function Browse() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
+    <div className="containerBrowse">
       <SearchBar />
       <Catalogue data={currentCards} />
       <Pagination cardsPerPage={cardsPerPage} totalCards={allArtworks.length} paginate={paginate} />
