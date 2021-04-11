@@ -2,7 +2,6 @@
 import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllArtists } from '../../redux/actions/index';
 import { getAllProducts } from '../../redux/actions/index';
 import './EditProduct.css';
 
@@ -11,14 +10,11 @@ function EditProduct() {
     const dispatch = useDispatch()
 
     const allArtist = useSelector((store) => store.allArtistCache)
-    dispatch(getAllArtists());
+    const allProducts = useSelector((store) => store.artworkCache) 
 
-    const allProducts = useSelector((store) => store.artworkCache)
-    dispatch(getAllProducts());
-
-    var availableOption = document.querySelectorAll("#selectorAvEP option");
-    var artistOption = document.querySelectorAll("#selectorArEP option");
-    var productOption = document.querySelectorAll("#selectorPrEP option");
+    useEffect(()=>{
+        dispatch(getAllProducts());
+    },[])
 
     const [product, setProduct] = useState({
         id:1,
@@ -29,84 +25,74 @@ function EditProduct() {
         fileLink: "",
         preview: "",
         categories:[],
-        authorId: "",
+        author: {id:1, name: "", email: ""},
         seriesId: null
     })
 
     useEffect(() => {
-        if (allProducts[0]) {
+        if (allProducts[0]?.id) {
             setProduct({
-                id: 1,
-                name: allProducts[0].title,
-                description: "",
-                price: 0,
-                available: true,
-                fileLink: allProducts[0].imgurl,
-                preview: allProducts[0].imgurl,
-                categories:[],
-                authorId: allArtist.find(a => allProducts[0].artist === a.name).idAuthors,
-                seriesId: null
+                id: allProducts[0].id,
+                name: allProducts[0].name,
+                description: allProducts[0].description,
+                price: allProducts[0].price,
+                available: allProducts[0].available,
+                fileLink: allProducts[0].fileLink,
+                preview: allProducts[0].preview,
+                categories: allProducts[0].categories,
+                author: allArtist.find(a => allProducts[0].author.name === a.name),
+                seriesId: null,               
             })
-        }
-    }, [allProducts[0]])
+        }        
+    }, [allProducts[0]?.id])
 
     function handleInputChange(event) {
         setProduct({ ...product, [event.target.name]: event.target.value })
     }
 
+    //Handle input para price
+    function handleInputChangePr(event) {
+        setProduct({ ...product, [event.target.name]: Number(event.target.value) })
+    }
+
     //Handle input para available
-    function handleInputChangeAv(event) {
+    function handleInputChangeAv(event) {        
         event.preventDefault();
-        var option = false
-        for (var i = 0; i < availableOption.length; i++) {
-            if (availableOption[i].selected) {
-                if (availableOption[i].value === "Yes") option = true
-                else option = false
-            }
-        }
-        console.log(availableOption)
+        var option;
+        if (event.target.value === "Yes") option = true;
+        if (event.target.value === "No") option = false; 
         setProduct({ ...product, [event.target.name]: option })
     }
 
     //Handle input para artist
     function handleInputChangeAr(event) {
         event.preventDefault();
-        var option = 1
-        for (var i = 0; i < artistOption.length; i++) {
-            if (artistOption[i].selected) {
-                option = artistOption[i].value
-            }
-        }
-        setProduct({ ...product, [event.target.name]: option })
+        console.log(event.target.value)
+        setProduct({ ...product, [event.target.name]: allArtist.find(a => event.target.value === a.idAuthors)})
     }
 
     //Handle input para product
     function handleInputChangePr(event) {
         event.preventDefault();
-        var option = allProducts[0].id
-        for (var i = 0; i < productOption.length; i++) {
-            if (productOption[i].selected) {
-                option = productOption[i].value
-            }
-        }
 
+        var option = event.target.value 
         var newProduct = allProducts.filter(p => p.id == option)[0]
+
         setProduct({
             id: newProduct.id,
-            name: newProduct.title,
+            name: newProduct.name,
             description: newProduct.description,
             price: newProduct.price,
             available: newProduct.available,
-            fileLink: newProduct.imgurl,
-            preview: newProduct.imgurl,
-            categories:[],
-            authorId: allArtist.find(a => newProduct.artist === a.name)?.idAuthors,
+            fileLink: newProduct.fileLink,
+            preview: newProduct.preview,
+            categories: newProduct.categories,
+            author: allArtist.find(a => newProduct.author.name === a.name),
             seriesId: null
         })
     }
 
     function submitForm(event) {
-        event.preventDefault();
         axios.put(`http://localhost:3001/products/${product.id}`, product)
     }
 
@@ -120,7 +106,7 @@ function EditProduct() {
                     <div>
                         Product:
                         <select name="id" id="selectorPrEP" onChange={handleInputChangePr}>
-                            {allProducts.map(p => <option key={`EP${key++}`} value={p.id}>{p.title.slice(0, 30)} --- {p.artist}</option>)}
+                            {allProducts.map(p => <option key={`EP${key++}`} value={p.id}>{p.name.slice(0, 30)} --- {p.author.name}</option>)}
                         </select>
                     </div>
                     <div>
@@ -130,7 +116,7 @@ function EditProduct() {
                         Description: <input type="text" onChange={handleInputChange} value={product.description} name="description" />
                     </div>
                     <div>
-                        Price: <input type="text" onChange={handleInputChange} value={product.price} name="price" />
+                        Price: <input type="text" onChange={handleInputChangePr} value={product.price} name="price" />
                     </div>
                     <div>
                         Available:
@@ -138,10 +124,7 @@ function EditProduct() {
                             <option key={`EP${key++}`} value="Yes">Yes</option>
                             <option key={`EP${key++}`} value="No">No</option>
                         </select>
-                    </div>
-                    <div>
-                        Categories: <input type="text" onChange={handleInputChange} name="categories" value="Coming soon" readOnly/>
-                    </div>
+                    </div>                    
                     <div>
                         FileLink: <input type="text" onChange={handleInputChange} value={product.fileLink} name="fileLink" />
                     </div>
@@ -149,11 +132,10 @@ function EditProduct() {
                         Preview: <input type="text" onChange={handleInputChange} value={product.preview} name="preview" />
                     </div>
                     <div>
-                        Artists:
-                        <select name="authorId" id="selectorArEP" value={product.authorId} onChange={handleInputChangeAr}>
-                            { 
-                                allArtist.map(a => <option key={`EP${key++}`} value={a.idAuthors}>{a.name}</option>)
-                            }
+                        Artist:
+                        <select name="author" id="selectorArEP" onChange={handleInputChangeAr}>
+                            <option key={`EP${key++}`}> </option>
+                            {allArtist.map(a => <option key={`EP${key++}`} value={a.idAuthors}>{a.name}</option>)}
                         </select>
                     </div>
                     <div>
@@ -162,12 +144,14 @@ function EditProduct() {
                             {authors.map(a => {<option key={`EP${key++}`} value="1"></option>})}
                         </select> */}
                     </div>
+                    <div>
+                        Categories: <input type="text" onChange={handleInputChange} name="categories" value="Coming soon" readOnly/>
+                    </div>
                     <input type="submit" value="Edit" />
                 </form>
             </div>
         </div>
     );
 }
-
 
 export default EditProduct
