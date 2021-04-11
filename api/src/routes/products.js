@@ -69,6 +69,7 @@ server.get("/:id", (req, res) => {
     });
 });
 
+
 server.get("/:idProduct/category/:idCategory", (req, res) => {
   const { idProduct, idCategory } = req.params;
   Products.findByPk(idProduct)
@@ -86,6 +87,49 @@ server.get("/:idProduct/category/:idCategory", (req, res) => {
     .catch((error) => {
       console.error(error.message);
     });
+
+server.delete('/id', (req, res, next) => {
+
+    const id = req.query.id
+
+    Products.findAll({
+        where:{ id: id},
+        include: Categories
+        
+    })   
+    .then(product => {
+
+            if(product.length > 0){
+
+                Products.destroy({
+                    where:{ id: id}
+                })
+                
+                return res.send("Producto Eliminado") 
+            }
+			else{
+				return res.send("El producto no exite en la Base de Datos")
+			}
+    })  
+});
+
+server.delete('/:idProduct/category/:idCategory', (req, res) => {
+	const { idProduct, idCategory } = req.params;
+	Products.findOne({
+		where: { id: idProduct }
+	}).then(product => {
+		if (product === null) {
+			return res.status(401).send('Product does not exists')
+		}
+		product.removeCategories([idCategory])
+			.then(resp => {
+				if (resp === 0) {
+					return res.send('Product does not belong to this category')
+				} else {
+					return res.status(200).send('Category deleted')
+				}
+			})
+	}).catch(e => console.log(e));
 });
 
 server.delete("/:idProduct/category/:idCategory", (req, res) => {

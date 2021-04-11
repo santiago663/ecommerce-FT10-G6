@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import * as TYPES from '../types/index';
 
 const initialState = {
@@ -5,6 +7,7 @@ const initialState = {
   artworkCache: [],
   productCache: [],
   testCache: [],
+  categories:[],
   allArtistCache: [],
 };
 
@@ -33,6 +36,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         artistCache: action.payload,
       };
+      case TYPES.NEW_CATEGORY:
+        return {
+            ...state,
+            categories:[...state.categories].concat(action.payload),
+
+        }
+        case TYPES.NEW_AUTHOR:
+            return {
+                ...state,
+                artistCache: [...state.artistCache].concat(action.payload)
+            }
 
     default:
       return state;
