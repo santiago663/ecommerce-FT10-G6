@@ -1,8 +1,8 @@
-/*eslint-disable*/
+
 
 import React,{useState} from "react";
 import {useDispatch} from "react-redux";
-//import {addAuthor} from "../../../Redux/Actions/index";
+import {addAuthor} from "../../redux/actions/index";
 
 
 function CreateAuthor(){
@@ -26,7 +26,7 @@ function CreateAuthor(){
         name: input.name,
         email: input.email
     }
-    dispatch(addAuthor(input))
+    dispatch(addAuthor(author))
     setInput({...input, 
         name: "",
         email:""
