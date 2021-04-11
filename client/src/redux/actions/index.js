@@ -1,5 +1,5 @@
-import axios from 'axios';
 
+import axios from 'axios';
 import * as TYPES from '../types/index';
 import db from '../../db';
 
@@ -73,3 +73,30 @@ export const searchByTitle = () => (
     }
   }
 );
+
+export const addCategory = (form) => (
+  (dispatch) => (
+    axios.post("http://localhost:3001/products/category" , form)
+    )
+    .then(res =>{
+      dispatch({
+        type: TYPES.NEW_CATEGORY,
+        payload: res.data
+      }) 
+    })
+    .catch((error) => console.error(error))
+);
+
+export const addAuthor = (author) =>(
+    (dispatch) => (
+        axios.post("http://localhost:3001/products/author", author)
+        )
+        .then ( res =>{
+          dispatch({
+            type: TYPES.NEW_AUTHOR,
+            payload: res.data
+          })
+        }) 
+        .catch((error) => console.error(error))
+        );
+

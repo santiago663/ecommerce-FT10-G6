@@ -1,23 +1,36 @@
-/*eslint-disable*/
+
 
 import React,{useState} from "react";
 import {useDispatch} from "react-redux";
-//import {addCategory} from "../../../Redux/Actions/index";
+import {addCategory} from "../../redux/actions/index";
 
 
 function CategoryForm(){
    const dispatch = useDispatch();
-   const [input,setInput]= useState("");
+   const [input,setInput]= useState({
+     name:"",
+   });
 
 
    function handleChange(e) {
-    setInput(e.target.value);
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+   })
   };
 
   function handleSubmit(e){
     e.preventDefault();
-    dispatch(addCategory(input))
+    const category ={
+        name: input.name,
+    }
+       dispatch(addCategory(category))
+     
+       setInput({...input, 
+        name: "",
+    })
   }
+  
 
   return(
       <div className="form_container">
@@ -29,7 +42,7 @@ function CategoryForm(){
                       placeholder="New Category"
                       type="text"
                       name="name"
-                      value={input}
+                      value={input.name}
                       onChange={handleChange}
                       />
                   </label>
