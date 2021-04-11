@@ -1,10 +1,39 @@
-const server = require('express').Router();
-const products = require('../utils/products.json');
+const server = require("express").Router();
+const { Op } = require("sequelize");
+const { Products, Categories, Authors } = require("../db.js");
 
-const { Products, Categories, Authors } = require('../db.js');
+server.get("/search", (req, res) => {
+  let keyword = req.query.keyword;
+
+  if (!keyword) {
+    return res
+      .status(400)
+      .json({ message: "Search criteria must be provided" });
+  } else {
+    Products.findAll({
+      where: {
+        [Op.or]: [
+          {
+            name: {
+              [Op.iLike]: `%${keyword}%`,
+            },
+          },
+          {
+            description: {
+              [Op.like]: `%${keyword}%`,
+            },
+          },
+        ],
+      },
+	  include: [Categories]
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((error) => console.log(error));
+  }
+});
 
 
-server.get('/', async (_req, res, next) => {
+server.get('/', async ( req, res ) => {
 
 	try {
 		let products = await Products.findAll({
@@ -19,11 +48,15 @@ server.get('/', async (_req, res, next) => {
 });
 
 
-
 server.get('/:id', (req, res) => {
 	const id = req.params.id;
 
-	Products.findByPk(id)
+	Products.findOne({
+		where:{
+			id: id
+		},
+		include: Categories
+	})
 		.then((resp) => {
 			if (resp === null) {
 				return res.send('Producto inexistente');
@@ -35,27 +68,10 @@ server.get('/:id', (req, res) => {
 		});
 });
 
-server.get('/:idProduct/category/:idCategory', (req, res) => {
 
-	const { idProduct, idCategory } = req.params;
-	Products.findByPk(idProduct)
-		.then(product => {
-			if (product === null) {
-				return res.send("Product does not exists")
-			}
-			product.addCategories(idCategory)
-				.then(p => res.status(200).json(product))
-				.catch(err => {
-					return res.status(250).send(err.parent.detail)
-				})
-		}).catch((error) => {
-			console.error(error.message)
-		})
-});
+server.delete('/:id', (req, res ) => {
 
-server.delete('/id', (req, res, next) => {
-
-    const id = req.query.id
+    const id = req.params.id
 
     Products.findAll({
         where:{ id: id},
@@ -76,6 +92,24 @@ server.delete('/id', (req, res, next) => {
 				return res.send("El producto no exite en la Base de Datos")
 			}
     })  
+});
+
+server.put('/:idProduct/category/:idCategory', (req, res) => {
+
+	const { idProduct, idCategory } = req.params;
+	Products.findByPk(idProduct)
+		.then(product => {
+			if (product === null) {
+				return res.send("Product does not exists")
+			}
+			product.addCategories(idCategory)
+				.then(p => res.status(200).json(product))
+				.catch(err => {
+					return res.status(250).send(err.parent.detail)
+				})
+		}).catch((error) => {
+			console.error(error.message)
+		})
 });
 
 server.delete('/:idProduct/category/:idCategory', (req, res) => {
@@ -122,7 +156,8 @@ server.post('/', (req, res) => {
 			authorId: authorId,
 			seriesId: seriesId
 		}
-	}).then((newProduct) => {
+	})
+	.then((newProduct) => {
 		if (categories === null || categories === undefined) {
 			return res.json(newProduct[0])
 		}

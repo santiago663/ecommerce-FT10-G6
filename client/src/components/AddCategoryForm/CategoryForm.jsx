@@ -20,6 +20,7 @@ function CategoryForm() {
     const category = {
       name: input.name,
     };
+
     dispatch(addCategory(category));
 
     setInput({
