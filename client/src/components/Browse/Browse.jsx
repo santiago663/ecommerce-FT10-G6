@@ -30,7 +30,10 @@ function Browse() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
+    <div className="container-main">
+      <div className="shopping-cart">
+        <i className="fas fa-shopping-cart" />
+      </div>
       <SearchBar />
       <Catalogue data={currentCards} />
       <Pagination cardsPerPage={cardsPerPage} totalCards={allArtworks.length} paginate={paginate} />
