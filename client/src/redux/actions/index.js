@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import * as TYPES from '../types/index';
 import db from '../../db';
+import dbArtists from '../../dbArtists';
 
 /* ----------------------*/
 /* LOCAL FAKE-DB ACTIONS */
@@ -12,6 +13,16 @@ export const getAllProducts = () => (
     const response = db;
     dispatch({
       type: TYPES.GET_ALL_PRODUCTS,
+      payload: response,
+    });
+  }
+);
+
+export const getAllArtists = () => (
+  (dispatch) => {
+    const response = dbArtists;
+    dispatch({
+      type: TYPES.GET_ALL_ARTISTS,
       payload: response,
     });
   }
