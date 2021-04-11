@@ -1,7 +1,35 @@
-const server = require('express').Router();
-const products = require('../utils/products.json');
+const server = require("express").Router();
+const { Op } = require("sequelize");
+const { Products, Categories, Authors } = require("../db.js");
 
-const { Products, Categories, Authors } = require('../db.js');
+server.get("/search", (req, res) => {
+  let keyword = req.query.keyword;
+
+  if (!keyword) {
+    return res
+      .status(400)
+      .json({ message: "Search criteria must be provided" });
+  } else {
+    Products.findAll({
+      where: {
+        [Op.or]: [
+          {
+            name: {
+              [Op.iLike]: `%${keyword}%`,
+            },
+          },
+          {
+            description: {
+              [Op.like]: `%${keyword}%`,
+            },
+          },
+        ],
+      },
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((error) => console.log(error));
+  }
+});
 
 
 server.get('/', async ( req, res ) => {
