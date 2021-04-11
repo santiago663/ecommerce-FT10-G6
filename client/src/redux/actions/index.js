@@ -1,8 +1,6 @@
-/*eslint-disable*/
 import axios from 'axios';
 import * as TYPES from '../types/index';
 import db from '../../db';
-import dbArtists from '../../dbArtists';
 
 /* ----------------------*/
 /* LOCAL FAKE-DB ACTIONS */
@@ -23,7 +21,7 @@ export const getAllProducts = () => (
 );
 
 export const getAllAuthors = () => (
-  async (dispatch) => {    
+  async (dispatch) => {
     try {
       const response = await axios.get('http://localhost:3001/author');
       dispatch({
@@ -37,7 +35,7 @@ export const getAllAuthors = () => (
 );
 
 export const getAllCategories = () => (
-  async (dispatch) => {    
+  async (dispatch) => {
     try {
       const response = await axios.get('http://localhost:3001/category');
       dispatch({
@@ -51,7 +49,7 @@ export const getAllCategories = () => (
 );
 
 export const getAllSeries = () => (
-  async (dispatch) => {    
+  async (dispatch) => {
     try {
       const response = await axios.get('http://localhost:3001/serie');
       dispatch({
