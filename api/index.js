@@ -46,7 +46,7 @@ const seed2 = () => {
 };
 
 // Syncing all the models at once.
-conn.sync({ truncate: true }).then(() => {
+conn.sync({ force: true }).then(() => {
   
   server.listen(3001, () => {
     seed();
