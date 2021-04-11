@@ -11,11 +11,11 @@ function AddProduct() {
 
     const allArtist = useSelector((store) => store.allArtistCache)
     dispatch(getAllArtists());
-    
+
     // const series = useSelector(store => store.series)
 
     var availableOption = document.querySelectorAll("#selectorAvAP option");
-    var artistOption = document.querySelectorAll("#selectorArAP option");   
+    var artistOption = document.querySelectorAll("#selectorArAP option");
 
     const [product, setProduct] = useState({
         name: "",
@@ -24,17 +24,17 @@ function AddProduct() {
         available: true,
         fileLink: "",
         preview: "",
-        categories:[],
+        categories: [],
         authorId: 1,
         seriesId: null
     })
-    
+
     function handleInputChange(event) {
         setProduct({ ...product, [event.target.name]: event.target.value })
     }
 
     //Handle input para price
-    function handleInputChangePr (event) {
+    function handleInputChangePr(event) {
         setProduct({ ...product, [event.target.name]: Number(event.target.value) })
     }
 
@@ -66,7 +66,6 @@ function AddProduct() {
 
     function submitForm(event) {
         console.log(product)
-        event.preventDefault();
         axios.post('http://localhost:3001/products', product);
     }
 
@@ -94,7 +93,7 @@ function AddProduct() {
                         </select>
                     </div>
                     <div>
-                        Categories: <input type="text" onChange={handleInputChange} name="categories" value="Coming soon" readOnly/>
+                        Categories: <input type="text" onChange={handleInputChange} name="categories" value="Coming soon" readOnly />
                     </div>
                     <div>
                         FileLink: <input type="text" onChange={handleInputChange} name="fileLink" />
@@ -109,12 +108,12 @@ function AddProduct() {
                         </select>
                     </div>
                     <div>
-                        Series: <input type="text" onChange={handleInputChange} name="series" value="Coming soon" readOnly/>
+                        Series: <input type="text" onChange={handleInputChange} name="series" value="Coming soon" readOnly />
                         {/* <select name="" id="">
                             {authors.map(a => {<option key={`AP${key++}`} value="1"></option>})}
                         </select> */}
                     </div>
-                    <input type="submit" value="Add" />                    
+                    <input type="submit" value="Add" />
                 </form>
             </div>
         </div>

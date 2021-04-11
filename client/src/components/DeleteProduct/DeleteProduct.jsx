@@ -7,14 +7,13 @@ import './DeleteProduct.css';
 
 function DeleteProduct() {
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const allProducts = useSelector((store) => store.artworkCache)
-    dispatch(getAllProducts());
+    const allProducts = useSelector((store) => store.artworkCache)    
 
     var productOption = document.querySelectorAll("#selectorPrDP option");
 
-    const [id, setId] = useState({id: allProducts[0].id, confirm:false})
+    const [id, setId] = useState({id: allProducts[0]?.id, confirm:false})
 
     function handleInputChange (event) {
         setId({ ...id, confirm: event.target.value })
@@ -34,9 +33,8 @@ function DeleteProduct() {
     } 
 
     function submitForm(event) {
-        event.preventDefault();
         console.log(id)
-        if(id.confirm=="Yes") axios.delete(`http://localhost:3001/products/${id.id}`);
+        if(id.confirm=="Yes") axios.delete(`http://localhost:3001/products/id?id=${id.id}`);
     }
 
     var key = 1;
@@ -52,7 +50,7 @@ function DeleteProduct() {
                     <div>
                         Product:
                         <select name="id" id="selectorPrDP" onChange={handleInputChangePr}>
-                            {allProducts.map(p => <option key={`DP${key++}`} value={p.id}>{p.title.slice(0, 30)} --- {p.artist}</option>)}
+                            {allProducts.map(p => <option key={`DP${key++}`} value={p.id}>{p.name.slice(0, 30)} --- {p.author.name}</option>)}
                         </select>
                     </div>
                     <input type="submit" value="Delete" />

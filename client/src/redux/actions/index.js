@@ -1,7 +1,6 @@
-
+/*eslint-disable*/
 import axios from 'axios';
 import * as TYPES from '../types/index';
-import db from '../../db';
 import dbArtists from '../../dbArtists';
 
 /* ----------------------*/
@@ -9,12 +8,16 @@ import dbArtists from '../../dbArtists';
 /* ----------------------*/
 
 export const getAllProducts = () => (
-  (dispatch) => {
-    const response = db;
-    dispatch({
-      type: TYPES.GET_ALL_PRODUCTS,
-      payload: response,
-    });
+  async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3001/products');
+      dispatch({
+        type: TYPES.GET_ALL_PRODUCTS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 );
 
