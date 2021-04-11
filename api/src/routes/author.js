@@ -14,24 +14,25 @@ server.delete('/id', (req, res, next) => {
     })      
     .then(author => {
 
-            if(author[0].products.length > 0){
+        if(author.length === 0){
+            return res.send("No existe el Autor")   
+        }
+        if(author[0].products.length > 0){
 
-                return res.send("El Autor pertenece a uno o varios Productos. No es posible eliminar el Autor") 
-            }
-            else if(author[0].products.length === 0){
+            return res.send(author[0].dataValues.products) 
+        }
+        else if(author[0].products.length === 0){
 
-                Authors.destroy({
-                    where:{ id: id}
-                })
-                .then(algo => console.log(algo))
-                return res.send("Autor Eliminado") 
-            }
-        
+            Authors.destroy({
+                where:{ id: id}
+            })
+            .then(algo => console.log(algo))
+            return res.send("Autor Eliminado") 
+        } 
     })  
 });
 
 server.post('/', (req, res)=>{
-	
 	
 	const { 
 	  name,
