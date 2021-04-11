@@ -25,6 +25,7 @@ server.get("/search", (req, res) => {
           },
         ],
       },
+	  include: [Categories]
     })
       .then((result) => res.status(200).json(result))
       .catch((error) => console.log(error));
@@ -50,7 +51,12 @@ server.get('/', async ( req, res ) => {
 server.get('/:id', (req, res) => {
 	const id = req.params.id;
 
-	Products.findByPk(id)
+	Products.findOne({
+		where:{
+			id: id
+		},
+		include: Categories
+	})
 		.then((resp) => {
 			if (resp === null) {
 				return res.send('Producto inexistente');
@@ -150,7 +156,8 @@ server.post('/', (req, res) => {
 			authorId: authorId,
 			seriesId: seriesId
 		}
-	}).then((newProduct) => {
+	})
+	.then((newProduct) => {
 		if (categories === null || categories === undefined) {
 			return res.json(newProduct[0])
 		}
