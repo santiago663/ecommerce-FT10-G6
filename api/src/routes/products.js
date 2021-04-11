@@ -31,67 +31,41 @@ server.get("/search", (req, res) => {
   }
 });
 
-server.get("/", async (_req, res, next) => {
-  try {
-    let products = await Products.findAll({
-      attributes: [
-        "id",
-        "name",
-        "description",
-        "price",
-        "available",
-        "fileLink",
-        "preview",
-      ],
-      include: [{ model: Authors }, { model: Categories }],
-    });
 
-    products === null
-      ? res.send("hubo un error al encontrar los productos")
-      : res.json(products);
-  } catch (err) {
-    res.status(401).send(err.message);
-  }
-});
+server.get('/', async ( req, res ) => {
 
-server.get("/:id", (req, res) => {
-  const id = req.params.id;
+	try {
+		let products = await Products.findAll({
+			attributes: ['id', 'name', 'description', 'price', 'available', 'fileLink', 'preview'],
+			include: [{ model: Authors }, { model: Categories }],
+		});
 
-  Products.findByPk(id)
-    .then((resp) => {
-      if (resp === null) {
-        return res.send("Producto inexistente");
-      }
-      return res.json(resp);
-    })
-    .catch((error) => {
-      console.error(error.message);
-    });
+		products === null ? res.send('hubo un error al encontrar los productos') : res.json(products);
+	} catch (err) {
+		res.status(401).send(err.message);
+	}
 });
 
 
-server.get("/:idProduct/category/:idCategory", (req, res) => {
-  const { idProduct, idCategory } = req.params;
-  Products.findByPk(idProduct)
-    .then((product) => {
-      if (product === null) {
-        return res.send("Product does not exists");
-      }
-      product
-        .addCategories(idCategory)
-        .then((p) => res.status(200).json(product))
-        .catch((err) => {
-          return res.status(250).send(err.parent.detail);
-        });
-    })
-    .catch((error) => {
-      console.error(error.message);
-    });
-  })
-  
-server.delete('/id', (req, res, next) => {
+server.get('/:id', (req, res) => {
+	const id = req.params.id;
 
-    const id = req.query.id
+	Products.findByPk(id)
+		.then((resp) => {
+			if (resp === null) {
+				return res.send('Producto inexistente');
+			}
+			return res.json(resp);
+		})
+		.catch((error) => {
+			console.error(error.message);
+		});
+});
+
+
+server.delete('/:id', (req, res ) => {
+
+    const id = req.params.id
 
     Products.findAll({
         where:{ id: id},
@@ -114,6 +88,24 @@ server.delete('/id', (req, res, next) => {
     })  
 });
 
+server.put('/:idProduct/category/:idCategory', (req, res) => {
+
+	const { idProduct, idCategory } = req.params;
+	Products.findByPk(idProduct)
+		.then(product => {
+			if (product === null) {
+				return res.send("Product does not exists")
+			}
+			product.addCategories(idCategory)
+				.then(p => res.status(200).json(product))
+				.catch(err => {
+					return res.status(250).send(err.parent.detail)
+				})
+		}).catch((error) => {
+			console.error(error.message)
+		})
+});
+
 server.delete('/:idProduct/category/:idCategory', (req, res) => {
 	const { idProduct, idCategory } = req.params;
 	Products.findOne({
@@ -133,106 +125,76 @@ server.delete('/:idProduct/category/:idCategory', (req, res) => {
 	}).catch(e => console.log(e));
 });
 
-server.delete("/:idProduct/category/:idCategory", (req, res) => {
-  const { idProduct, idCategory } = req.params;
-  Products.findOne({
-    where: { id: idProduct },
-  })
-    .then((product) => {
-      if (product === null) {
-        return res.status(401).send("Product does not exists");
-      }
-      product.removeCategories([idCategory]).then((resp) => {
-        if (resp === 0) {
-          return res.send("Product does not belong to this category");
-        } else {
-          return res.status(200).send("Category deleted");
-        }
-      });
-    })
-    .catch((e) => console.log(e));
+server.post('/', (req, res) => {
+
+	const {
+		name,
+		description,
+		price,
+		available,
+		fileLink,
+		preview,
+		categories,
+		authorId,
+		seriesId
+	} = req.body
+
+	Products.findOrCreate({
+		where: {
+			name: name,
+			description: description,
+			price: price,
+			available: available,
+			fileLink: fileLink,
+			preview: preview,
+			authorId: authorId,
+			seriesId: seriesId
+		}
+	}).then((newProduct) => {
+		if (categories === null || categories === undefined) {
+			return res.json(newProduct[0])
+		}
+		categories.forEach(id => newProduct[0].addCategories(id))
+		return res.json(newProduct[0])
+	}).catch(err => {
+		res.status(401).send(err.message)
+	})
 });
 
-server.post("/", (req, res) => {
-  const {
-    name,
-    description,
-    price,
-    available,
-    fileLink,
-    preview,
-    categories,
-    authorId,
-    seriesId,
-  } = req.body;
+server.put('/:id', (req, res) => {
+	const idProduct = req.params.id;
 
-  Products.findOrCreate({
-    where: {
-      name: name,
-      description: description,
-      price: price,
-      available: available,
-      fileLink: fileLink,
-      preview: preview,
-      authorId: authorId,
-      seriesId: seriesId,
-    },
-  })
-    .then((newProduct) => {
-      if (categories === null || categories === undefined) {
-        return res.json(newProduct[0]);
-      }
-      categories.forEach((id) => newProduct[0].addCategories(id));
-      return res.json(newProduct[0]);
-    })
-    .catch((err) => {
-      res.status(401).send(err.message);
-    });
-});
+	const { name, description, price, available, fileLink, preview, authorId, seriesId } = req.body;
 
-server.put("/:id", (req, res) => {
-  const idProduct = req.params.id;
-
-  const {
-    name,
-    description,
-    price,
-    available,
-    fileLink,
-    preview,
-    authorId,
-    seriesId,
-  } = req.body;
-
-  Products.update(
-    {
-      name: name,
-      description: description,
-      price: price,
-      available: available,
-      fileLink: fileLink,
-      preview: preview,
-      authorId: authorId,
-      seriesId: seriesId,
-    },
-    {
-      where: {
-        id: idProduct,
-      },
-    }
-  ).then(() => {
-    Products.findOrCreate({
-      where: {
-        id: idProduct,
-      },
-    })
-      .then((resp2) => {
-        res.status(201).json(resp2[0]);
-      })
-      .catch(() => {
-        res.status(401).send("Producto inexistente");
-      });
-  });
+	Products.update(
+		{
+			name: name,
+			description: description,
+			price: price,
+			available: available,
+			fileLink: fileLink,
+			preview: preview,
+			authorId: authorId,
+			seriesId: seriesId,
+		},
+		{
+			where: {
+				id: idProduct,
+			},
+		}
+	).then(() => {
+		Products.findOrCreate({
+			where: {
+				id: idProduct,
+			},
+		})
+			.then((resp2) => {
+				res.status(201).json(resp2[0]);
+			})
+			.catch(() => {
+				res.status(401).send('Producto inexistente');
+			});
+	});
 });
 
 module.exports = server;

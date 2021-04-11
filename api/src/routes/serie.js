@@ -2,83 +2,93 @@ const server = require('express').Router();
 const { Products, Series } = require('../db.js');
 
 //name, email
+server.get('/', async (req, res) => {
 
-server.delete('/id', (req, res, next) => {
+    try {
+        let series = await Series.findAll();
+        console.log(series)
+        series === null ? res.send('hubo un error al buscar series') : res.json(series);
+    } catch (err) {
+        res.status(401).send(err.message);
+    }
+})
 
-    const id = req.query.id
+server.post('/', (req, res) => {
 
-    Series.findAll({
-        where:{ id: id},
-        include: Products
-        
-    })      
-    .then(serie => {
-        console.log(serie)
+    const {
+        name,
+        description
+    } = req.body
 
-        if(serie.length === 0){
-            return res.send("No existe la Serie")   
+    Series.findOrCreate({
+        where: {
+            name: name,
+            description: description
         }
-        if(serie[0].products.length > 0){
+    }).then((newSerie) => {
 
-            return res.send(serie[0].products) 
-
-        }
-        else if(serie[0].products.length === 0){
-
-            Series.destroy({
-                where:{ id: id}
-            })
-            .then(algo => console.log(algo))
-            return res.send("Serie Eliminada") 
-        } 
-        
-    }) 
+        res.json(newSerie[0])
+    }).catch(err => {
+        res.status(401).send(err.message)
+    })
 });
 
-server.post('/', (req, res)=>{
-	
-	
-	const { 
-	  name,
-      description 
-	  } = req.body
+server.put('/:id', async (req, res) => {
 
-	  Series.findOrCreate({
-		  where:{
-			  name: name,
-              description: description
-			  }       
-	  }).then((newSerie) =>{
-		 
-		  res.json(newSerie[0])
-	  }).catch(err => {
-		  res.status(401).send(err.message)
-	  })
-});
+    let id = req.params.id;
 
-server.put('/:id', async(req, res)=>{
-
-	let id = req.params.id;
-
-    const {name, description} = req.body;
+    const { name, description } = req.body;
 
     let resp1 = await Series.update({
         name: name, description: description
-    },{
-        where:{id:id}
+    }, {
+        where: { id: id }
     })
-   
+
     let resp2 = await Series.findOne({
-        where:{
+        where: {
             id: id
         }
     })
 
-    if(resp1[0] === 0){
+    if (resp1[0] === 0) {
         return res.send("No existe la Serie")
     }
     return res.json(resp2)
 
+});
+
+
+// if(products.length === 0){
+//        
+// }
+
+server.delete('/:id', (req, res, next) => {
+
+    const id = req.params.id
+
+    Products.findAll({
+        where: { seriesId: id },
+    })
+        .then(products => {
+            console.log("produuucts", products)
+
+            if (products.length > 0) {
+                return res.send(products)
+            }
+            else {
+                Series.destroy({
+                    where: { id: id }
+                })
+                    .then(resp => {
+                        if (resp === 0) {
+                            return res.send("No existe la Serie")
+                        } else {
+                            return res.send("Serie eliminada")
+                        }
+                    })
+            }
+        })
 });
 
 module.exports = server;
