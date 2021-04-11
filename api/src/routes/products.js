@@ -53,6 +53,31 @@ server.get('/:idProduct/category/:idCategory', (req, res) => {
 		})
 });
 
+server.delete('/id', (req, res, next) => {
+
+    const id = req.query.id
+
+    Products.findAll({
+        where:{ id: id},
+        include: Categories
+        
+    })   
+    .then(product => {
+
+            if(product.length > 0){
+
+                Products.destroy({
+                    where:{ id: id}
+                })
+                
+                return res.send("Producto Eliminado") 
+            }
+			else{
+				return res.send("El producto no exite en la Base de Datos")
+			}
+    })  
+});
+
 server.delete('/:idProduct/category/:idCategory', (req, res) => {
 	const { idProduct, idCategory } = req.params;
 	Products.findOne({
