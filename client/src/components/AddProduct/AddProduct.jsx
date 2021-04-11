@@ -9,13 +9,10 @@ function AddProduct() {
 
     const dispatch = useDispatch()
 
-    const allArtist = useSelector((store) => store.allArtistCache)
     dispatch(getAllArtists());
+    const allArtist = useSelector((store) => store.allArtistCache)
 
     // const series = useSelector(store => store.series)
-
-    var availableOption = document.querySelectorAll("#selectorAvAP option");
-    var artistOption = document.querySelectorAll("#selectorArAP option");
 
     const [product, setProduct] = useState({
         name: "",
@@ -25,7 +22,7 @@ function AddProduct() {
         fileLink: "",
         preview: "",
         categories: [],
-        authorId: 1,
+        author: {id:1, name: "", email: ""},
         seriesId: null
     })
 
@@ -39,31 +36,24 @@ function AddProduct() {
     }
 
     //Handle input para available
-    function handleInputChangeAv(event) {
+    function handleInputChangeAv(event) {        
         event.preventDefault();
-        var option = false
-        for (var i = 0; i < availableOption.length; i++) {
-            if (availableOption[i].selected) {
-                if (availableOption[i].value === "Yes") option = true
-                else option = false
-            }
-        }
+        var option;
+        if (event.target.value === "Yes") option = true;
+        if (event.target.value === "No") option = false; 
         setProduct({ ...product, [event.target.name]: option })
     }
+
 
     //Handle input para artist
     function handleInputChangeAr(event) {
         event.preventDefault();
-        var option = 1;
-        for (var i = 0; i < artistOption.length; i++) {
-            if (artistOption[i].selected) {
-                option = artistOption[i].value
-            }
-        }
-        setProduct({ ...product, [event.target.name]: Number(option) })
+        console.log(Number(event.target.value))
+        setProduct({ ...product, [event.target.name]: {id:Number(event.target.value), name: "", email: ""}})
     }
 
     function submitForm(event) {
+        event.preventDefault();
         console.log(product)
         axios.post('http://localhost:3001/products', product);
     }
@@ -90,10 +80,7 @@ function AddProduct() {
                             <option key={`AP${key++}`} value="Yes">Yes</option>
                             <option key={`AP${key++}`} value="No">No</option>
                         </select>
-                    </div>
-                    <div>
-                        Categories: <input type="text" onChange={handleInputChange} name="categories" value="Coming soon" readOnly />
-                    </div>
+                    </div>                    
                     <div>
                         FileLink: <input type="text" onChange={handleInputChange} name="fileLink" />
                     </div>
@@ -111,6 +98,9 @@ function AddProduct() {
                         {/* <select name="" id="">
                             {authors.map(a => {<option key={`AP${key++}`} value="1"></option>})}
                         </select> */}
+                    </div>
+                    <div>
+                        Categories: <input type="text" onChange={handleInputChange} name="categories" value="Coming soon" readOnly />
                     </div>
                     <input type="submit" value="Add" />
                 </form>
