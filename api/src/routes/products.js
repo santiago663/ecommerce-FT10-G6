@@ -4,7 +4,7 @@ const products = require('../utils/products.json');
 const { Products, Categories, Authors } = require('../db.js');
 
 
-server.get('/', async (_req, res, next) => {
+server.get('/', async ( req, res ) => {
 
 	try {
 		let products = await Products.findAll({
@@ -17,7 +17,6 @@ server.get('/', async (_req, res, next) => {
 		res.status(401).send(err.message);
 	}
 });
-
 
 
 server.get('/:id', (req, res) => {
@@ -35,27 +34,10 @@ server.get('/:id', (req, res) => {
 		});
 });
 
-server.get('/:idProduct/category/:idCategory', (req, res) => {
 
-	const { idProduct, idCategory } = req.params;
-	Products.findByPk(idProduct)
-		.then(product => {
-			if (product === null) {
-				return res.send("Product does not exists")
-			}
-			product.addCategories(idCategory)
-				.then(p => res.status(200).json(product))
-				.catch(err => {
-					return res.status(250).send(err.parent.detail)
-				})
-		}).catch((error) => {
-			console.error(error.message)
-		})
-});
+server.delete('/:id', (req, res ) => {
 
-server.delete('/id', (req, res, next) => {
-
-    const id = req.query.id
+    const id = req.params.id
 
     Products.findAll({
         where:{ id: id},
@@ -76,6 +58,24 @@ server.delete('/id', (req, res, next) => {
 				return res.send("El producto no exite en la Base de Datos")
 			}
     })  
+});
+
+server.put('/:idProduct/category/:idCategory', (req, res) => {
+
+	const { idProduct, idCategory } = req.params;
+	Products.findByPk(idProduct)
+		.then(product => {
+			if (product === null) {
+				return res.send("Product does not exists")
+			}
+			product.addCategories(idCategory)
+				.then(p => res.status(200).json(product))
+				.catch(err => {
+					return res.status(250).send(err.parent.detail)
+				})
+		}).catch((error) => {
+			console.error(error.message)
+		})
 });
 
 server.delete('/:idProduct/category/:idCategory', (req, res) => {
