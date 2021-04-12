@@ -1,18 +1,27 @@
-const { Router } = require('express');
-// import all routers;
-const productRouter = require('./products.js');
-const categoryRouter = require('./category');
-const authorRouter = require('./author.js');
-const serieRouter = require('./serie');
-
-
+const { Router } = require("express");
 const router = Router();
 
-// load each router on a route
-// i.e: router.use('/auth', authRouter);
-// router.use('/auth', authRouter);
-router.use('/products', productRouter);
-router.use('/category', categoryRouter);
-router.use('/author', authorRouter);
-router.use('/serie', serieRouter);
+// ################ Routes.
+// => Authors.
+router.use("/delete/author", require("./authors/DELETE"));
+router.use("/get/author", require("./authors/GET"));
+router.use("/post/author", require("./authors/POST"));
+router.use("/put/author", require("./authors/PUT"));
+// => Categories.
+router.use("/delete/category", require("./categories/DELETE"));
+router.use("/get/category", require("./categories/GET"));
+router.use("/post/category", require("./categories/POST"));
+router.use("/put/category", require("./categories/PUT"));
+// => Products.
+router.use("/delete/product", require("./products/DELETE"));
+router.use("/get/product", require("./products/GET"));
+router.use("/post/product", require("./products/POST"));
+router.use("/put/product", require("./products/PUT"));
+// => Series.
+router.use("/delete/serie", require("./series/DELETE"));
+router.use("/get/serie", require("./series/GET"));
+router.use("/post/serie", require("./series/POST"));
+router.use("/put/serie", require("./series/PUT"));
+// => Users.
+
 module.exports = router;

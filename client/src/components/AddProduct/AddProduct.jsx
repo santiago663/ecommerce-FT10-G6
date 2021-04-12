@@ -76,7 +76,7 @@ function AddProduct() {
     function submitForm(event) {        
         event.preventDefault();
         console.log(product)   
-        axios.post('http://localhost:3001/products', product);
+        axios.post('http://localhost:3001/post/product', product);
     }
 
     var key = 1;
