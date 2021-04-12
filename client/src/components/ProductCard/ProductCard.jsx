@@ -21,7 +21,7 @@ function ProductCard(props) {
 
   return (
     <>
-      <Link onClick={()=>dispatch(getOneProduct(id))} className="link" to={`/products/${id}`}>
+      <Link onClick={()=>dispatch(getOneProduct(id))} className="link" to={`/product/${id}`}>
         <div className="product-card">
           <img src={preview} alt="" />
           <h4>{name}</h4>
