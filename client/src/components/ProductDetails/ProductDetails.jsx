@@ -1,37 +1,55 @@
+/*eslint-disable*/
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import './ProductDetails.css';
 
-function ProductDetails(props) {
-  const {
-    data: {
-      title,
-      artist,
-      origin,
-      imgurl,
-    },
-  } = props;
+function ProductDetails() {
+  const productCache = useSelector(store=>store.productCache)
+  let {
+  name,
+  description,
+  price,
+  available,
+  fileLink,
+  preview,
+  seriesId,
+  authorId,
+  categories} = productCache;
+  if(available){
+    available = "Available"
+  }else{
+    available = "Not Available"
+  }
 
   return (
     <div className="product-wrapper">
       <div className="product-preview">
-        <img src={imgurl} alt="" />
+        <img className="preview" src={preview} alt={name} />
       </div>
-      <div>
-        <h2>{title}</h2>
-        <h3>{artist}</h3>
-        <h3>{origin}</h3>
+      <div className="detailProd">
+        <div className="det">
+          <h2>Obra:{name}</h2>
+        </div>
+        <div className="det">
+          <h3>Description:</h3>
+          <p className="description">{description}</p>
+        </div>
+        <div className="det">
+          <h3>Artista:{authorId}</h3>
+        </div>
+        <div className="det">
+          <h3>Price:{price}</h3>
+        </div>
+        <div className="det">
+          <h3>{available}</h3>
+        </div>
+        <div className="det">
+          <h3>Categories:</h3>
+          {categories?.map(cate => cate.name)}
+        </div>
       </div>
     </div>
   );
 }
-
-ProductDetails.propTypes = {
-  data: PropTypes.shape({
-    title: PropTypes.string,
-    artist: PropTypes.string,
-    origin: PropTypes.string,
-    imgurl: PropTypes.string,
-  }).isRequired,
-};
 
 export default ProductDetails;

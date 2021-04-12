@@ -76,7 +76,7 @@ export const getOneProduct = (id) => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get(`http://localhost:3001/products/:${id}`);
+      const response = await axios.get(`http://localhost:3001/products/${id}`);
       dispatch({
         type: TYPES.GET_ONE_PRODUCT,
         payload: response.data,
