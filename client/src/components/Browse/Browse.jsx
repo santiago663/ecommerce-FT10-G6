@@ -5,6 +5,7 @@ import Loading from '../Loading/Loading';
 import SearchBar from '../SearchBar/SearchBar';
 import Catalogue from '../Catalogue/Catalogue';
 import Pagination from '../Pagination/Pagination';
+import Filters from '../Filters/Filters';
 
 import './Browse.styl';
 
@@ -37,11 +38,11 @@ function Browse() {
     );
   }
   return (
-    <div className="container-main">
-      <div className="shopping-cart">
-        <i className="fas fa-shopping-cart" />
-      </div>
+    <div>
       <SearchBar />
+      <Filters 
+        setCards={setCards}
+      />
       <Catalogue data={currentCards} />
       <Pagination cardsPerPage={cardsPerPage} totalCards={allArtworks.length} paginate={paginate} />
     </div>
