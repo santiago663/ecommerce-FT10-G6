@@ -12,14 +12,14 @@ server.get('/', async (req, res) => {
     }
 })
 
-server.post('/', (req, res)=>{
+server.post('/', async (req, res)=>{
 
     const { 
       name,
-      email 
-      } = req.body
+      email,
+    } = req.body      
 
-      Authors.findOrCreate({
+      await Authors.findOrCreate({
           where:{
               name: name,
               email: email

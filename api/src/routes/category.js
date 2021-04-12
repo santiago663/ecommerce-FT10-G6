@@ -12,12 +12,12 @@ server.get('/', async (req, res) => {
 	}
 })
 
-server.post('/', (req, res)=>{
+server.post('/', async (req, res)=>{
 	
 	const { 
 	  name, 
 	  } = req.body
-	  Categories.findOrCreate({
+	  await Categories.findOrCreate({
 		  where:{
 			  name: name,
 			  }       
