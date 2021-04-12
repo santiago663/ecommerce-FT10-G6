@@ -1,35 +1,19 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchByTitle } from '../../redux/actions/index';
 import './SearchBar.styl';
 
 function SearchBar() {
   const [input, setInput] = useState('');
-  const [byArtist, setByArtist] = useState(false);
-  const [byArtwork, setByArtwork] = useState(true);
-
+  const dispatch = useDispatch();
   const handleInputChange = (event) => {
     setInput(event.target.value);
   };
 
-  const toggleByArtist = (event) => {
-    event.preventDefault();
-
-    if (!byArtist) {
-      setByArtist(true);
-      setByArtwork(false);
-    }
-  };
-
-  const toggleByArtwork = (event) => {
-    event.preventDefault();
-
-    if (!byArtwork) {
-      setByArtist(false);
-      setByArtwork(true);
-    }
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
+    dispatch(searchByTitle(input));
+    // crear acion para buscar por nombre
   };
 
   return (
@@ -56,23 +40,13 @@ function SearchBar() {
 
         <div className="searchbar-filters">
           <button
-            className={byArtwork ? 'btn-rounded searchbar-filters--btn_active' : 'btn-rounded searchbar-filters--btn_inactive'}
-            type="button"
-            onClick={toggleByArtwork}
+            className="btn-rounded searchbar-filters--btn_active"
+            type="submit"
           >
-            ARTWORK
-          </button>
-
-          <button
-            className={byArtist ? 'btn-rounded searchbar-filters--btn_active' : 'btn-rounded searchbar-filters--btn_inactive'}
-            type="button"
-            onClick={toggleByArtist}
-          >
-            ARTIST
+            Search!
           </button>
         </div>
 
-        {/* <button type="submit">Search!</button> */}
       </form>
     </div>
   );
