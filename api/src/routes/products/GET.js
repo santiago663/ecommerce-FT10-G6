@@ -2,52 +2,66 @@ const server = require("express").Router();
 const { Op } = require("sequelize");
 const { Products, Categories, Authors } = require("../../db");
 
-server.get("/search", (req, res) => {
+server.get("/search", async (req, res) => {
   let keyword = req.query.keyword;
 
-  if (!keyword) {
-    return res
-      .status(400)
-      .json({ message: "Search criteria must be provided" });
-  } else {
-    Products.findAll({
-      where: {
-        [Op.or]: [
-          {
-            name: {
-              [Op.iLike]: `%${keyword}%`,
+  try {
+    if (!keyword) {
+      return res
+        .status(400)
+        .json({ message: "Search criteria must be provided" });
+    } else {
+      const result = await Products.findAll({
+        where: {
+          [Op.or]: [
+            {
+              name: {
+                [Op.iLike]: `%${keyword}%`,
+              },
             },
-          },
-          {
-            description: {
-              [Op.like]: `%${keyword}%`,
+            {
+              description: {
+                [Op.like]: `%${keyword}%`,
+              },
             },
+          ],
+        },
+        include: [
+          { model: Authors },
+          {
+            model: Categories,
+            through: { attributes: [] },
           },
         ],
-      },
-      include: [Categories],
-    })
-      .then((result) => res.status(200).json(result))
-      .catch((error) => console.log(error));
+      });
+      res.status(200).json(result);
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+    console.log(error);
   }
 });
 
-server.get("/category/:name", (req, res) => {
+server.get("/category/:name", async (req, res) => {
   let name = req.params.name;
 
-  Categories.findOne({
-    where: {
-      name,
-    },
-    include: [
-      {
-        model: Products,
-        through: { attributes: [] },
+  try {
+    const result = await Categories.findOne({
+      where: {
+        name,
       },
-    ],
-  })
-    .then((result) => res.status(200).json(result))
-    .catch((error) => console.log(error));
+      include: [
+        {
+          model: Products,
+          through: { attributes: [] },
+        },
+      ],
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+    console.log(error);
+  }
 });
 
 server.get("/", async (req, res) => {
