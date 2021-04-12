@@ -18,7 +18,7 @@ const requestSuccess = () => ({
 /* ----------------------*/
 
 export const getAllProducts = () => async (dispatch) => {
-  const response = await axios.get('http://localhost:3001/products');
+  const response = await axios.get('http://localhost:3001/get/product');
   if (response.status === 200) {
     dispatch({ type: TYPES.GET_ALL_PRODUCTS, payload: response.data });
   }
@@ -28,7 +28,7 @@ export const getAllAuthors = () => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get('http://localhost:3001/author');
+      const response = await axios.get('http://localhost:3001/get/author');
       dispatch({
         type: TYPES.GET_ALL_AUTHORS,
         payload: response.data,
@@ -44,7 +44,7 @@ export const getAllCategories = () => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get('http://localhost:3001/category');
+      const response = await axios.get('http://localhost:3001/get/category');
       dispatch({
         type: TYPES.GET_ALL_CATEGORIES,
         payload: response.data,
@@ -60,7 +60,7 @@ export const getAllSeries = () => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get('http://localhost:3001/serie');
+      const response = await axios.get('http://localhost:3001/get/serie');
       dispatch({
         type: TYPES.GET_ALL_SERIES,
         payload: response.data,
@@ -76,7 +76,7 @@ export const getOneProduct = (id) => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get(`http://localhost:3001/products/${id}`);
+      const response = await axios.get(`http://localhost:3001/get/product/${id}`);
       dispatch({
         type: TYPES.GET_ONE_PRODUCT,
         payload: response.data,
@@ -123,7 +123,7 @@ export const searchByTitle = (keyword) => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get(`http://localhost:3001/products/search?keyword=${keyword}`);
+      const response = await axios.get(`http://localhost:3001/get/product/search?keyword=${keyword}`);
       console.log(response)
       dispatch({
         type: TYPES.GET_ALL_PRODUCTS,
@@ -152,7 +152,7 @@ export const addCategory = (form) => (
   (dispatch) => {
     try {
       dispatch(requestData())
-      axios.post('http://localhost:3001/category', form)
+      axios.post('http://localhost:3001/post/category', form)
         .then((res) => {
           dispatch({
             type: TYPES.NEW_CATEGORY,
@@ -183,7 +183,7 @@ export const addAuthor = (author) => (
   (dispatch) => {
     try {
       dispatch(requestData())
-      axios.post('http://localhost:3001/author', author)
+      axios.post('http://localhost:3001/post/author', author)
         .then((res) => {
           dispatch({
             type: TYPES.NEW_AUTHOR,

@@ -100,11 +100,11 @@ function EditProduct() {
     function handleInputChangeCa(event) {           
         var cat = product.categories
         if (cat.find(c=>c?.id !=event.target.value)) {
-            axios.put(`http://localhost:3001/products/${product.id}/category/${event.target.value}`)
+            axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
             cat.push(allCategories.find(c => c.id == Number(event.target.value))) 
         }
         else if(cat[0]==undefined){
-            axios.put(`http://localhost:3001/products/${product.id}/category/${event.target.value}`)
+            axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
         }
         //borra los repetidos
@@ -115,13 +115,13 @@ function EditProduct() {
     //Handle input para borrar categoria
     function handleInputDeleteCa(event, id) {
         var cat = product.categories
-        axios.delete(`http://localhost:3001/products/${product.id}/category/${id}`)
+        axios.delete(`http://localhost:3001/delete/product/${product.id}/category/${id}`)
         cat = cat.filter( c => c?.id != Number(id))        
         setProduct({ ...product, categories: cat })
     }
 
     function submitForm(event) {
-        axios.put(`http://localhost:3001/products/${product.id}`, product)
+        axios.put(`http://localhost:3001/put/product/${product.id}`, product)
     }
 
     var key = 1;

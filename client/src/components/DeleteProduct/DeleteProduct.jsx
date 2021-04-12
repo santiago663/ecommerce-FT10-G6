@@ -21,7 +21,7 @@ function DeleteProduct() {
     }    
 
     function submitForm(event) {
-        if(id.confirm=="yes") axios.delete(`http://localhost:3001/products/${id.id}`);
+        if(id.confirm=="yes") axios.delete(`http://localhost:3001/delete/product/${id.id}`);
     }
 
     var key = 1;
