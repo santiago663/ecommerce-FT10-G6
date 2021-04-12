@@ -11,10 +11,24 @@ const initialState = {
   allArtistCache: [],
   allCategoriesCache: [],
   allSeriesCache: [],
+  loading: false,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case TYPES.REQUEST_DATA: // Setea el LOADING en TRUE
+      return {
+        ...state,
+        loading: true
+      }
+
+    case TYPES.REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      }
+
     case TYPES.GET_ALL_PRODUCTS:
       return {
         ...state,
@@ -37,7 +51,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allSeriesCache: action.payload,
-      };      
+      };
 
     case TYPES.GET_ONE_PRODUCT:
       return {
