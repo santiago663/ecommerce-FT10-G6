@@ -22,11 +22,11 @@ export const getAllProducts = () => (
     try {
       dispatch(requestData())// --> LLAMA AL ACTION "requestData" y setea el loading en true (osea antes de la request, el loading del reducer, pasa a true)
       const response = await axios.get('http://localhost:3001/products');
-      dispatch(requestSuccess())//ESTO LLAMA AL ACTION "requestSuccess" y setea el loading en false (cuando recibimos la respuesta, el loading del reducer, pasa a false)
       dispatch({
         type: TYPES.GET_ALL_PRODUCTS,
         payload: response.data,
       });
+      dispatch(requestSuccess())//ESTO LLAMA AL ACTION "requestSuccess" y setea el loading en false (cuando recibimos la respuesta, el loading del reducer, pasa a false)
     } catch (error) {
       console.error(error.message);
     }
@@ -38,11 +38,11 @@ export const getAllAuthors = () => (
     try {
       dispatch(requestData())
       const response = await axios.get('http://localhost:3001/author');
-      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ALL_AUTHORS,
         payload: response.data,
       });
+      dispatch(requestSuccess())
     } catch (error) {
       console.error(error.message);
     }
@@ -54,11 +54,11 @@ export const getAllCategories = () => (
     try {
       dispatch(requestData())
       const response = await axios.get('http://localhost:3001/category');
-      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ALL_CATEGORIES,
         payload: response.data,
       });
+      dispatch(requestSuccess())
     } catch (error) {
       console.error(error.message);
     }
@@ -70,11 +70,11 @@ export const getAllSeries = () => (
     try {
       dispatch(requestData())
       const response = await axios.get('http://localhost:3001/serie');
-      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ALL_SERIES,
         payload: response.data,
       });
+      dispatch(requestSuccess())
     } catch (error) {
       console.error(error.message);
     }
@@ -86,11 +86,11 @@ export const getOneProduct = (id) => (
     try {
       dispatch(requestData())
       const response = await axios.get(`http://localhost:3001/products/:${id}`);
-      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ONE_PRODUCT,
         payload: response.data,
       });
+      dispatch(requestSuccess())
     } catch (error) {
       console.error(error.message);
     }
@@ -117,11 +117,11 @@ export const searchByArtist = () => (
     try {
       dispatch(requestData())
       const response = await axios.get('http://jsonplaceholder.typicode.com/users');
-      dispatch(requestSuccess())
       dispatch({
         type: SEARCH_BY_ARTIST,
         payload: response.data,
       });
+      dispatch(requestSuccess())
     } catch (error) {
       console.error(error);
     }
@@ -133,11 +133,11 @@ export const searchByTitle = (keyword) => (
     try {
       dispatch(requestData())
       const response = await axios.get(`http://localhost:3001/products/search?keyword= ${keyword}`);
-      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ALL_PRODUCTS,
         payload: response.data,
       });
+      dispatch(requestSuccess())
     } catch (error) {
       console.error(error); // eslint-disable-line no-console
     }
@@ -162,11 +162,11 @@ export const addCategory = (form) => (
       dispatch(requestData())
       axios.post('http://localhost:3001/category', form)
         .then((res) => {
-          dispatch(requestSuccess())
           dispatch({
             type: TYPES.NEW_CATEGORY,
             payload: res.data,
           });
+          dispatch(requestSuccess())
         })
         .catch((error) => console.error(error))
     } catch (error) {
@@ -193,11 +193,11 @@ export const addAuthor = (author) => (
       dispatch(requestData())
       axios.post('http://localhost:3001/author', author)
         .then((res) => {
-          dispatch(requestSuccess())
           dispatch({
             type: TYPES.NEW_AUTHOR,
             payload: res.data,
           });
+          dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
       console.log(error);
