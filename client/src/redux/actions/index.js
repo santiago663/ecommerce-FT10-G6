@@ -1,6 +1,17 @@
+/*eslint-disable*/
 import axios from 'axios';
 import * as TYPES from '../types/index';
 import db from '../../db';
+
+
+//LOADING ACTIONS
+
+const requestData = () => ({
+  type: TYPES.REQUEST_DATA,
+})
+const requestSuccess = () => ({
+  type: TYPES.REQUEST_SUCCESS,
+})
 
 /* ----------------------*/
 /* LOCAL FAKE-DB ACTIONS */
@@ -9,7 +20,9 @@ import db from '../../db';
 export const getAllProducts = () => (
   async (dispatch) => {
     try {
+      dispatch(requestData())// --> LLAMA AL ACTION "requestData" y setea el loading en true (osea antes de la request, el loading del reducer, pasa a true)
       const response = await axios.get('http://localhost:3001/products');
+      dispatch(requestSuccess())//ESTO LLAMA AL ACTION "requestSuccess" y setea el loading en false (cuando recibimos la respuesta, el loading del reducer, pasa a false)
       dispatch({
         type: TYPES.GET_ALL_PRODUCTS,
         payload: response.data,
@@ -23,7 +36,9 @@ export const getAllProducts = () => (
 export const getAllAuthors = () => (
   async (dispatch) => {
     try {
+      dispatch(requestData())
       const response = await axios.get('http://localhost:3001/author');
+      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ALL_AUTHORS,
         payload: response.data,
@@ -37,7 +52,9 @@ export const getAllAuthors = () => (
 export const getAllCategories = () => (
   async (dispatch) => {
     try {
+      dispatch(requestData())
       const response = await axios.get('http://localhost:3001/category');
+      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ALL_CATEGORIES,
         payload: response.data,
@@ -51,7 +68,9 @@ export const getAllCategories = () => (
 export const getAllSeries = () => (
   async (dispatch) => {
     try {
+      dispatch(requestData())
       const response = await axios.get('http://localhost:3001/serie');
+      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ALL_SERIES,
         payload: response.data,
@@ -65,7 +84,9 @@ export const getAllSeries = () => (
 export const getOneProduct = (id) => (
   async (dispatch) => {
     try {
+      dispatch(requestData())
       const response = await axios.get(`http://localhost:3001/products/:${id}`);
+      dispatch(requestSuccess())
       dispatch({
         type: TYPES.GET_ONE_PRODUCT,
         payload: response.data,
@@ -76,6 +97,7 @@ export const getOneProduct = (id) => (
   }
 );
 
+// esta no sirve porque se usaba con los datos hardcodeados...modificar \\
 export const filterArtists = () => (
   (dispatch) => {
     const response = db.map((artwork) => ({
@@ -90,30 +112,30 @@ export const filterArtists = () => (
   }
 );
 
-/* -------------------------------------------------- */
-/* THESE ACTIONS ARE USELESS UNTIL ROUTES ARE DEFINED */
-/* -------------------------------------------------- */
-
 export const searchByArtist = () => (
   async (dispatch) => {
     try {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+      dispatch(requestData())
+      const response = await axios.get('http://jsonplaceholder.typicode.com/users');
+      dispatch(requestSuccess())
       dispatch({
-        type: 'SEARCH_BY_ARTIST',
+        type: SEARCH_BY_ARTIST,
         payload: response.data,
       });
     } catch (error) {
-      console.error(error); // eslint-disable-line no-console
+      console.error(error);
     }
   }
 );
 
-export const searchByTitle = () => (
+export const searchByTitle = (keyword) => (
   async (dispatch) => {
     try {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+      dispatch(requestData())
+      const response = await axios.get(`http://localhost:3001/products/search?keyword= ${keyword}`);
+      dispatch(requestSuccess())
       dispatch({
-        type: 'SEARCH_BY_TITLE',
+        type: TYPES.GET_ALL_PRODUCTS,
         payload: response.data,
       });
     } catch (error) {
@@ -122,27 +144,64 @@ export const searchByTitle = () => (
   }
 );
 
+// export const addCategory = (form) => (
+//   (dispatch) => (
+//     axios.post('http://localhost:3001/category', form)
+//   )
+//     .then((res) => {
+//       dispatch({
+//         type: TYPES.NEW_CATEGORY,
+//         payload: res.data,
+//       });
+//     })
+//     .catch((error) => console.error(error))
+// );
 export const addCategory = (form) => (
-  (dispatch) => (
-    axios.post('http://localhost:3001/category', form)
-  )
-    .then((res) => {
-      dispatch({
-        type: TYPES.NEW_CATEGORY,
-        payload: res.data,
-      });
-    })
-    .catch((error) => console.error(error))
-);
+  (dispatch) => {
+    try {
+      dispatch(requestData())
+      axios.post('http://localhost:3001/category', form)
+        .then((res) => {
+          dispatch(requestSuccess())
+          dispatch({
+            type: TYPES.NEW_CATEGORY,
+            payload: res.data,
+          });
+        })
+        .catch((error) => console.error(error))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)
 
+//----------------------------------------------------------\\
+// export const addAuthor = (author) => (
+//   (dispatch) => (
+//     axios.post('http://localhost:3001/author', author)
+//   )
+//     .then((res) => {
+//       dispatch({
+//         type: TYPES.NEW_AUTHOR,
+//         payload: res.data,
+//       });
+//     }).catch((error) => console.error(error))
+// );
 export const addAuthor = (author) => (
-  (dispatch) => (
-    axios.post('http://localhost:3001/author', author)
-  )
-    .then((res) => {
-      dispatch({
-        type: TYPES.NEW_AUTHOR,
-        payload: res.data,
-      });
-    }).catch((error) => console.error(error))
-);
+  (dispatch) => {
+    try {
+      dispatch(requestData())
+      axios.post('http://localhost:3001/author', author)
+        .then((res) => {
+          dispatch(requestSuccess())
+          dispatch({
+            type: TYPES.NEW_AUTHOR,
+            payload: res.data,
+          });
+        }).catch((error) => console.error(error))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)
+//------------------------------------------------------\\

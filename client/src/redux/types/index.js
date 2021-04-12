@@ -1,3 +1,4 @@
+/*eslint-disable*/
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const GET_ONE_PRODUCT = 'GET_ONE_PRODUCT';
 export const FILTER_ARTISTS = 'FILTER_ARTISTS';
@@ -6,3 +7,8 @@ export const NEW_AUTHOR = 'NEW_AUTHOR';
 export const GET_ALL_AUTHORS = 'GET_ALL_AUTHORS';
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES';
 export const GET_ALL_SERIES = 'GET_ALL_SERIES';
+export const SEARCH_BY_ARTIST = 'SEARCH_BY_ARTIST';
+
+//LOADING
+export const REQUEST_DATA = 'REQUEST_DATA'
+export const REQUEST_SUCCESS = 'REQUEST_SUCCESS'
