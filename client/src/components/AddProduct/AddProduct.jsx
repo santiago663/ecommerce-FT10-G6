@@ -27,7 +27,7 @@ function AddProduct() {
         fileLink: "",
         preview: "",
         categories: [],
-        authorId: allArtist[0]?.id,        
+        authorId: 1,        
         seriesId: null
     })
 
@@ -58,20 +58,23 @@ function AddProduct() {
     //Handle input para categories
     function handleInputChangeCa(event) {           
         var cat = product.categories
-        cat.push(allCategories.find(c => c.id == Number(event.target.value))) 
+        cat.push(allCategories.find(c => c.id == Number(event.target.value)))
+
+        //borra los repetidos
+        cat = cat.filter((thing, index, self) => index === self.findIndex((t) => (t?.id === thing?.id))) 
         setProduct({ ...product, [event.target.name]: cat })
     }
 
     //Handle input para borrar categoria
     function handleInputDeleteCa(event, id) {           
         var cat = product.categories
-        cat = cat.filter( c => c.id != Number(id))        
+        cat = cat.filter( c => c?.id != Number(id))        
         setProduct({ ...product, categories: cat })
     }
 
     function submitForm(event) {        
         event.preventDefault();
-        console.log(product)
+        console.log(product)        
         axios.post('http://localhost:3001/products', product);
     }
 
@@ -124,7 +127,7 @@ function AddProduct() {
                             <option key={`AP${key++}`}> </option>
                             {allCategories.map(c => <option key={`AP${key++}`} value={c.id}>{c.name}</option>)}
                         </select>
-                        {product.categories.map(p => <span onClick={(event)=>handleInputDeleteCa(event, p.id)} >{p.name}</span> )}
+                        {product.categories.map(p => <span key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, p?.id)} >{p?.name}</span> )}
                     </div>
                     <input type="submit" value="Add" />
                 </form>
