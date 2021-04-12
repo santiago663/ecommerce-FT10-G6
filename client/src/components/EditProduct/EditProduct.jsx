@@ -134,7 +134,7 @@ function EditProduct() {
                     <div>
                         Product:
                         <select name="id" id="selectorPrEP" onChange={handleInputChangePro}>
-                            {allProducts.map(p => <option key={`EP${key++}`} value={p.id}>{p.name.slice(0, 30)} --- {p.author.name}</option>)}
+                            {allProducts.map(p => <option key={`EP${key++}`} value={p.id}>{p?.name.slice(0, 30)} --- {p?.author?.name}</option>)}
                         </select>
                     </div>
                     <div>

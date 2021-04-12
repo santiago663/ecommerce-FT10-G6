@@ -1,6 +1,6 @@
 /*eslint-disable*/
 
-import "./_loading.scss"
+import "./_loading.css"
 
 const Loading = () => {
     return (

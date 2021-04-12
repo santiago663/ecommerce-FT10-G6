@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllProducts } from '../../redux/actions/index';
@@ -20,8 +21,11 @@ function Browse() {
 
   useEffect(() => {
     dispatch(getAllProducts());
-    setCards(allArtworks);
   }, []);
+
+  if(cards.length === 0 && allArtworks.length !== 0){
+    setCards(allArtworks);
+  }
 
   // Pagination logic
   const indexOfLastCard = currentPage * cardsPerPage;

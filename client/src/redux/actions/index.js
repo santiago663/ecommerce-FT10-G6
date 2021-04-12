@@ -17,21 +17,12 @@ const requestSuccess = () => ({
 /* LOCAL FAKE-DB ACTIONS */
 /* ----------------------*/
 
-export const getAllProducts = () => (
-  async (dispatch) => {
-    try {
-      dispatch(requestData())// --> LLAMA AL ACTION "requestData" y setea el loading en true (osea antes de la request, el loading del reducer, pasa a true)
-      const response = await axios.get('http://localhost:3001/products');
-      dispatch({
-        type: TYPES.GET_ALL_PRODUCTS,
-        payload: response.data,
-      });
-      dispatch(requestSuccess())//ESTO LLAMA AL ACTION "requestSuccess" y setea el loading en false (cuando recibimos la respuesta, el loading del reducer, pasa a false)
-    } catch (error) {
-      console.error(error.message);
-    }
+export const getAllProducts = () => async (dispatch) => {
+  const response = await axios.get('http://localhost:3001/products');
+  if (response.status === 200) {
+    dispatch({ type: TYPES.GET_ALL_PRODUCTS, payload: response.data });
   }
-);
+};
 
 export const getAllAuthors = () => (
   async (dispatch) => {
@@ -132,7 +123,8 @@ export const searchByTitle = (keyword) => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get(`http://localhost:3001/products/search?keyword= ${keyword}`);
+      const response = await axios.get(`http://localhost:3001/products/search?keyword=${keyword}`);
+      console.log(response)
       dispatch({
         type: TYPES.GET_ALL_PRODUCTS,
         payload: response.data,

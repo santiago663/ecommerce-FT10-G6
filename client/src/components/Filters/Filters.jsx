@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {getAllCategories, getAllAuthors, getAllProducts} from '../../redux/actions/index'
@@ -21,9 +22,11 @@ function Filters({setCards}) {
     
 
     useEffect(() => {
-        dispatch(getAllCategories());
-        dispatch(getAllAuthors());
-        dispatch(getAllProducts());
+        if(categoryData.length === 0 || authorData.length === 0 || artworkData.length === 0){
+            dispatch(getAllCategories());
+            dispatch(getAllAuthors());
+            dispatch(getAllProducts());
+        }
     }, []);
 
     const artworksProd = () =>{
