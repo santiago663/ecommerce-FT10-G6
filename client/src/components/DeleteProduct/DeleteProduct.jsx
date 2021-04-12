@@ -34,7 +34,8 @@ function DeleteProduct() {
                     <div>
                         Product:
                         <select name="id" id="selectorPrDP" onChange={handleInputChangePr}>
-                            {allProducts.map(p => <option key={`DP${key++}`} value={p.id}>{p.name.slice(0, 30)} --- {p.author.name}</option>)}
+                            <option key={`AP${key++}`}> </option>
+                            {allProducts.map(p => <option key={`DP${key++}`} value={p?.id}>{p?.name.slice(0, 30)} --- {p?.author?.name}</option>)}
                         </select>
                     </div>
                     <div>
