@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getOneProduct } from '../../redux/actions/index'
 import './ProductCard.styl';
 
@@ -17,15 +17,13 @@ function ProductCard(props) {
     },
   } = props;
 
-  const authorData = useSelector((store) => store.allArtistCache);
-
-  return (
+    return (
     <>
       <Link onClick={()=>dispatch(getOneProduct(id))} className="link" to={`/product/${id}`}>
         <div className="product-card">
           <img src={preview} alt="" />
           <h4>{name}</h4>
-          <h6>{authorData.find(a=>a.id=author?.id)?.name}</h6>
+          <h6>{author.name}</h6>
         </div>
       </Link>
     </>
