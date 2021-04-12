@@ -29,7 +29,7 @@ function EditProduct() {
         fileLink: "",
         preview: "",
         categories:[],
-        author: {id:1, name: "", email: ""},
+        authorId: 1, 
         seriesId: null
     })
 
@@ -44,8 +44,8 @@ function EditProduct() {
                 fileLink: allProducts[0].fileLink,
                 preview: allProducts[0].preview,
                 categories: allProducts[0].categories,
-                author: allArtist.find(a => allProducts[0].author.name === a.name),
-                seriesId: null,               
+                authorId: allProducts[0].authorId,
+                seriesId: allProducts[0].seriesId,              
             })
         }        
     }, [allProducts[0]?.id])
@@ -55,7 +55,7 @@ function EditProduct() {
     }
 
     //Handle input para price
-    function handleInputChangePr(event) {
+    function handleInputChangePri(event) {
         setProduct({ ...product, [event.target.name]: Number(event.target.value) })
     }
 
@@ -76,11 +76,11 @@ function EditProduct() {
     }
 
     //Handle input para product
-    function handleInputChangePr(event) {
+    function handleInputChangePro(event) {
         event.preventDefault();
-
         var option = event.target.value 
-        var newProduct = allProducts.filter(p => p.id == option)[0]
+        var newProduct = allProducts.find(p => p.id == option)
+        console.log(newProduct)
 
         setProduct({
             id: newProduct.id,
@@ -91,9 +91,33 @@ function EditProduct() {
             fileLink: newProduct.fileLink,
             preview: newProduct.preview,
             categories: newProduct.categories,
-            author: allArtist.find(a => newProduct.author.name === a.name),
-            seriesId: null
+            authorId: newProduct.authorId,
+            seriesId: newProduct.seriesId,
         })
+    }
+
+    //Handle input para categories
+    function handleInputChangeCa(event) {           
+        var cat = product.categories
+        if (cat.find(c=>c?.id !=event.target.value)) {
+            axios.put(`http://localhost:3001/products/${product.id}/category/${event.target.value}`)
+            cat.push(allCategories.find(c => c.id == Number(event.target.value))) 
+        }
+        else if(cat[0]==undefined){
+            axios.put(`http://localhost:3001/products/${product.id}/category/${event.target.value}`)
+            cat.push(allCategories.find(c => c.id == Number(event.target.value)))
+        }
+        //borra los repetidos
+        cat = cat.filter((thing, index, self) => index === self.findIndex((t) => (t?.id === thing?.id)))
+        setProduct({ ...product, [event.target.name]: cat })
+    }
+
+    //Handle input para borrar categoria
+    function handleInputDeleteCa(event, id) {
+        var cat = product.categories
+        axios.delete(`http://localhost:3001/products/${product.id}/category/${id}`)
+        cat = cat.filter( c => c?.id != Number(id))        
+        setProduct({ ...product, categories: cat })
     }
 
     function submitForm(event) {
@@ -109,7 +133,7 @@ function EditProduct() {
                 <form className="formEP" onSubmit={submitForm}>
                     <div>
                         Product:
-                        <select name="id" id="selectorPrEP" onChange={handleInputChangePr}>
+                        <select name="id" id="selectorPrEP" onChange={handleInputChangePro}>
                             {allProducts.map(p => <option key={`EP${key++}`} value={p.id}>{p.name.slice(0, 30)} --- {p.author.name}</option>)}
                         </select>
                     </div>
@@ -120,7 +144,7 @@ function EditProduct() {
                         Description: <input type="text" onChange={handleInputChange} value={product.description} name="description" />
                     </div>
                     <div>
-                        Price: <input type="text" onChange={handleInputChangePr} value={product.price} name="price" />
+                        Price: <input type="text" onChange={handleInputChangePri} value={product.price} name="price" />
                     </div>
                     <div>
                         Available:
@@ -145,14 +169,16 @@ function EditProduct() {
                     <div>
                         Series:
                         <select name="series" id="selectorSeAP" >
-                            {allSeries.map(s => <option key={`AP${key++}`} value={s.id}>{s.name}</option>)}
+                            {allSeries.map(s => <option key={`EP${key++}`} value={s.id}>{s.name}</option>)}
                         </select>
                     </div>
                     <div>
                         Categories:
-                        <select name="categories" id="selectorCaAP" >
-                            {allCategories.map(c => <option key={`AP${key++}`} value={c.id}>{c.name}</option>)}
+                        <select name="categories" id="selectorCaAP" value={""} onChange={handleInputChangeCa}>
+                        <option key={`EP${key++}`}> </option>
+                            {allCategories.map(c => <option key={`EP${key++}`} value={c.id}>{c.name}</option>)}
                         </select>
+                        {product.categories.map(p => <span key={`EP${key++}`} onClick={(event)=>handleInputDeleteCa(event, p?.id)} >{p?.name}</span> )}
                     </div>
                     <input type="submit" value="Edit" />
                 </form>
