@@ -818,6 +818,72 @@ module.exports = {
         productId: 89,
         categoryId: 20,
       }, 
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 90,
+        categoryId: 2,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 91,
+        categoryId: 2,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 92,
+        categoryId: 2,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 93,
+        categoryId: 4,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 94,
+        categoryId: 4,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 95,
+        categoryId: 15,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 96,
+        categoryId: 2,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 97,
+        categoryId: 2,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 98,
+        categoryId: 2,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 99,
+        categoryId: 6,
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        productId: 100,
+        categoryId: 2,
+      },
     ]);
   },
 
