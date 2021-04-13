@@ -9,7 +9,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "2000",
-        available: "true",
+        available: true,
         fileLink:
           "https://blog.tubikstudio.com/wp-content/uploads/2019/12/zombie-date-illustration-halloween.png",
         preview:
@@ -22,7 +22,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "340",
-        available: "true",
+        available: true,
         fileLink:
           "https://i.pinimg.com/originals/60/b2/28/60b2288698ba4db05ab9c1bc88ce7405.png",
         preview:
@@ -35,7 +35,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "576",
-        available: "true",
+        available: true,
         fileLink: "https://wallpaperaccess.com/thumb/1506254.jpg",
         preview: "https://wallpaperaccess.com/thumb/1506254.jpg",
         authorId: 3,
@@ -46,7 +46,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "5000",
-        available: "true",
+        available: true,
         fileLink:
           "https://deliciousthemes-ourtutscom.netdna-ssl.com/wp-content/uploads/2013/02/link-2-flaming_cat___psd_by_pshoudini-d4uzbee.jpg",
         preview:
@@ -59,7 +59,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "130",
-        available: "true",
+        available: true,
         fileLink:
           "https://p4.wallpaperbetter.com/wallpaper/796/270/435/cyberpunk-digital-art-futuristic-wallpaper-preview.jpg",
         preview:
@@ -72,7 +72,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "289",
-        available: "true",
+        available: true,
         fileLink:
           "https://c4.wallpaperflare.com/wallpaper/846/57/155/digital-art-rabbits-horns-women-comic-art-hd-wallpaper-preview.jpg",
         preview:
@@ -85,7 +85,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "579",
-        available: "true",
+        available: true,
         fileLink:
           "https://wallpapercrafter.com/desktop/149370-digital-digital-art-artwork-illustration-simple-simple-background-minimalism-black-colorful-Marvel-Comics-Marvel-Cinematic-Universe-superhero-Ant-Man-fictional-fiction.jpg",
         preview:
@@ -98,7 +98,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "1000",
-        available: "true",
+        available: true,
         fileLink:
           "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/23444447985543.588ab66d222dd.jpg",
         preview:
@@ -111,7 +111,7 @@ module.exports = {
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "300",
-        available: "true",
+        available: true,
         fileLink:
           "https://c4.wallpaperflare.com/wallpaper/670/870/564/colors-digital-art-3d-geometric-wallpaper-preview.jpg",
         preview:
