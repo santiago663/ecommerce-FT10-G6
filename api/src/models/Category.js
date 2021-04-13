@@ -6,9 +6,12 @@ module.exports = (sequelize) => {
   sequelize.define('categories', {
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      
+      allowNull: false,      
     },
+    available: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,   
+    }
   },
   {
    timestamps: false, 
