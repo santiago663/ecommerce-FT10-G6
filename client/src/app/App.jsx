@@ -1,6 +1,6 @@
 import React from 'react';
 import routes from '../routes/routes';
-import './App.styl';
+import '../scss/containers/_app.scss';
 
 function App() {
   return (

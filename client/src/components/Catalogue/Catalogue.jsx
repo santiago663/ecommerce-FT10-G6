@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProductCard from '../ProductCard/ProductCard';
 
-import './Catalogue.styl';
+import '../../scss/containers/_catalogue.scss';
 
 function Catalogue(props) {
   const { data } = props;

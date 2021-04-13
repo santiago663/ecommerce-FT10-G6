@@ -8,7 +8,7 @@ import Catalogue from '../Catalogue/Catalogue';
 import Pagination from '../Pagination/Pagination';
 import Filters from '../Filters/Filters';
 
-import './Browse.styl';
+import '../../scss/containers/_browse.scss';
 
 function Browse() {
   const allArtworks = useSelector((store) => store.artworkCache);
@@ -23,7 +23,7 @@ function Browse() {
     dispatch(getAllProducts());
   }, []);
 
-  if(cards.length === 0 && allArtworks.length !== 0){
+  if (cards.length === 0 && allArtworks.length !== 0) {
     setCards(allArtworks);
   }
 
@@ -44,7 +44,7 @@ function Browse() {
   return (
     <div>
       <SearchBar />
-      <Filters 
+      <Filters
         setCards={setCards}
       />
       <Catalogue data={currentCards} />

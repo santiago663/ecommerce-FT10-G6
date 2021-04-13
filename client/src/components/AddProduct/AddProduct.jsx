@@ -3,7 +3,7 @@ import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAuthors, getAllCategories, getAllSeries } from '../../redux/actions/index';
-import './AddProduct.css';
+import '../../scss/components/_addProduct.scss';
 
 function AddProduct() {
 

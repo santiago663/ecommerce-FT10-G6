@@ -1,0 +1,367 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Roboto:wght@100;300;400;500;700&display=swap");
+#root {
+  height: 100%;
+  font-size: 10pt;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: #fff;
+  font-family: "Roboto", sans-serif;
+}
+
+/* ------ */
+/* Colors */
+/* ------ */
+/* ----------------------- */
+/* Text & Paragraph Styles */
+/* ----------------------- */
+h1 {
+  font-size: 3rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* --------------------- */
+/* Button General Styles */
+/* --------------------- */
+button {
+  height: auto;
+  width: auto;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.btn-rounded {
+  border-radius: 30px;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background: #384985;
+  border: none;
+}
+.btn-primary:hover {
+  opacity: 0.6;
+}
+
+.btn-secondary {
+  border: solid 1px #ddd;
+  background: none;
+}
+.btn-secondary:hover {
+  background: #eee;
+}
+
+.mainDivAP {
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-bottom: 2%;
+  color: #252525;
+}
+
+.formAP {
+  margin: 1%;
+}
+
+.shopping-cart {
+  position: absolute;
+  right: 20px;
+  top: 100px;
+  border-radius: 50%;
+  background-color: darkorchid;
+  width: 40px;
+  height: 40px;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: whitesmoke;
+}
+
+.catalogue-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.wrapper {
+  padding: 5rem 20%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+h1 {
+  display: block;
+  margin: auto;
+  font-size: 10rem;
+  color: #00ffa2;
+}
+
+p {
+  height: 6rem;
+  padding: 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 200;
+  background: #00ffa2;
+  color: #004466;
+}
+
+.mainDivDP {
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-bottom: 2%;
+  color: #252525;
+}
+
+.formDP {
+  margin: 1%;
+}
+
+.mainDivEP {
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-bottom: 2%;
+  color: #252525;
+  white-space: pre;
+}
+
+.formEP {
+  margin: 1%;
+}
+
+.landing-section {
+  width: 100%;
+  height: 400px;
+  padding: 2rem 0 0 4rem;
+  background-color: #ddd;
+  background-image: url("https://cdn.discordapp.com/attachments/829710868413546511/829924062276485121/face.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+.landing-title {
+  color: #fff;
+  max-width: 50rem;
+  margin: 2rem 0;
+  line-height: 4rem;
+}
+.landing-title .title-bg {
+  padding: 0.35rem;
+  background: rgba(56, 73, 133, 0.4);
+}
+
+.landing-action {
+  border: none;
+  background: #6874b5;
+  color: #fff;
+}
+.landing-action:hover {
+  opacity: 0.8;
+}
+
+.loader-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+}
+
+.loader {
+  width: 100px;
+}
+
+.loader-wheel {
+  -webkit-animation: spin 1s infinite linear;
+          animation: spin 1s infinite linear;
+  border: 2px solid rgba(30, 30, 30, 0.5);
+  border-left: 4px solid #fff;
+  border-radius: 50%;
+  height: 50px;
+  margin-bottom: 10px;
+  width: 50px;
+}
+
+.loader-text {
+  color: #fff;
+  font-family: arial, sans-serif;
+}
+
+.loader-text:after {
+  content: "Loading";
+  -webkit-animation: load 2s linear infinite;
+          animation: load 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes load {
+  0% {
+    content: "Loading";
+  }
+  33% {
+    content: "Loading.";
+  }
+  67% {
+    content: "Loading..";
+  }
+  100% {
+    content: "Loading...";
+  }
+}
+@keyframes load {
+  0% {
+    content: "Loading";
+  }
+  33% {
+    content: "Loading.";
+  }
+  67% {
+    content: "Loading..";
+  }
+  100% {
+    content: "Loading...";
+  }
+}
+nav {
+  height: 5rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-flow: row no-wrap;
+  justify-content: space-between;
+  background: #fafafa;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-buttons_navigation li {
+  display: inline-block;
+  height: 3rem;
+  margin: 0 0.2rem;
+  padding: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #37474f;
+  border-bottom: 3px solid #ddd;
+}
+.nav-buttons_navigation li:hover {
+  border-bottom: 3px solid #384985;
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-buttons_authentication {
+  display: flex;
+}
+
+.product-card {
+  display: grid;
+  grid-template: 155px 3rem 1rem/1fr 1fr 1fr;
+  width: 300px;
+  margin-bottom: 25px;
+  background: linear-gradient(356deg, #7e57c2, #e91e63);
+  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  color: white;
+}
+.product-card > h4 {
+  grid-area: 2/1/3/4;
+  margin-left: 1rem;
+  font-size: 18px;
+  margin-top: 15px;
+  text-shadow: 1px 2px 5px black;
+}
+.product-card > h6 {
+  grid-area: 3/1/4/3;
+  margin-left: 1rem;
+  font-size: 13px;
+  margin-top: -4px;
+  text-shadow: 1px 2px 5px black;
+}
+.product-card img {
+  grid-area: 1/1/2/4;
+  width: 300px;
+  height: 195px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 5px 5px 0 0;
+  transition: transform 0.5s;
+  text-shadow: 1px 2px 5px black;
+}
+.product-card:hover {
+  transition: transform 0.5s;
+  transform: scale(1.3);
+}
+
+a.link {
+  text-decoration: none;
+}
+
+.product-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+.preview {
+  display: flex;
+  margin-top: 20px;
+  /* width: 680px; */
+  height: 500px;
+  border-radius: 5px;
+  box-shadow: 2px 4px 6px blueviolet;
+}
+
+.detailProd {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin-left: 30px;
+  margin-top: 20px;
+  border-right: 20px;
+  /* border: 1px solid blueviolet; */
+  padding-left: 15px;
+  border-radius: 10px;
+  background-color: rgba(236, 235, 232, 0.836);
+}
+
+.det {
+  margin-top: 15px;
+}
+
+.description {
+  font-size: 15px;
+  margin-left: 20px;
+  margin-right: 25px;
+}/*# sourceMappingURL=styles.css.map */

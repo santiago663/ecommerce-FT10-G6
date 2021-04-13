@@ -1,7 +1,8 @@
+/*eslint-disable*/
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchByTitle } from '../../redux/actions/index';
-import './SearchBar.styl';
+import '../../scss/components/_searchBar.scss';
 
 function SearchBar() {
   const [input, setInput] = useState('');
@@ -17,9 +18,9 @@ function SearchBar() {
   };
 
   return (
-  /* ------------ */
-  /* SEARCH INPUT */
-  /* ------------ */
+    /* ------------ */
+    /* SEARCH INPUT */
+    /* ------------ */
 
     <div className="wrapper searchbar-wrapper">
       <form onSubmit={handleSubmit}>

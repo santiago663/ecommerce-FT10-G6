@@ -1,5 +1,5 @@
 import React from 'react';
-import './Home.styl';
+import '../../scss/containers/_home.scss';
 
 function Home() {
   return (
@@ -9,7 +9,6 @@ function Home() {
           <span className="title-bg">Discover the world&apos;s</span>
           <span className="title-bg">best digital artists</span>
         </h1>
-
         <button className="landing-action btn-rounded" type="button">Browse now!</button>
       </div>
     </div>
