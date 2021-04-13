@@ -1,23 +1,23 @@
 /*eslint-disable*/
 import React from 'react';
 import { useSelector } from 'react-redux';
-import './ProductDetails.css';
+import '../../scss/components/_productDetails.scss';
 
 function ProductDetails() {
-  const productCache = useSelector(store=>store.productCache)
+  const productCache = useSelector(store => store.productCache)
   let {
-  name,
-  description,
-  price,
-  available,
-  fileLink,
-  preview,
-  seriesId,
-  authorId,
-  categories} = productCache;
-  if(available){
+    name,
+    description,
+    price,
+    available,
+    fileLink,
+    preview,
+    seriesId,
+    authorId,
+    categories } = productCache;
+  if (available) {
     available = "Available"
-  }else{
+  } else {
     available = "Not Available"
   }
 

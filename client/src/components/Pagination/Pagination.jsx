@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Pagination.styl';
+import '../../scss/components/_pagination.scss';
 
 function Pagination({ cardsPerPage, totalCards, paginate }) {
   const pageNumbers = [];

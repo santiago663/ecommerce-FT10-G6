@@ -2,26 +2,26 @@
 import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import './DeleteProduct.css';
+import '../../scss/components/_deleteProduct.scss';
 
 function DeleteProduct() {
 
-    const allProducts = useSelector((store) => store.artworkCache) 
+    const allProducts = useSelector((store) => store.artworkCache)
 
-    const [id, setId] = useState({id: allProducts[0]?.id, confirm:false})
+    const [id, setId] = useState({ id: allProducts[0]?.id, confirm: false })
 
-    function handleInputChange (event) {
+    function handleInputChange(event) {
         setId({ ...id, confirm: event.target.value })
     }
 
     //Handle input para product
     function handleInputChangePr(event) {
-        event.preventDefault();        
-        setId({...id, id: event.target.value})
-    }    
+        event.preventDefault();
+        setId({ ...id, id: event.target.value })
+    }
 
     function submitForm(event) {
-        if(id.confirm=="yes") axios.delete(`http://localhost:3001/delete/product/${id.id}`);
+        if (id.confirm == "yes") axios.delete(`http://localhost:3001/delete/product/${id.id}`);
     }
 
     var key = 1;
@@ -30,7 +30,7 @@ function DeleteProduct() {
         <div className="mainDivDP">
             <h2>Delete Product</h2>
             <div className="divDP">
-                <form className="formDP" onSubmit={submitForm}>                    
+                <form className="formDP" onSubmit={submitForm}>
                     <div>
                         Product:
                         <select name="id" id="selectorPrDP" onChange={handleInputChangePr}>

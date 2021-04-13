@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux'
 import { getOneProduct } from '../../redux/actions/index'
-import './ProductCard.styl';
+import '../../scss/components/_productCard.scss';
 
 function ProductCard(props) {
   const dispatch = useDispatch()
@@ -17,9 +17,9 @@ function ProductCard(props) {
     },
   } = props;
 
-    return (
+  return (
     <>
-      <Link onClick={()=>dispatch(getOneProduct(id))} className="link" to={`/product/${id}`}>
+      <Link onClick={() => dispatch(getOneProduct(id))} className="link" to={`/product/${id}`}>
         <div className="product-card">
           <img src={preview} alt="" />
           <h4>{name}</h4>
