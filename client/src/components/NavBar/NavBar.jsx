@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../../scss/components/_navBar.scss';
 
 function NavBar() {
-	// const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 	return (
 		<nav className="navbar">
 			<ul className="nav-buttons_navigation">
@@ -20,7 +20,7 @@ function NavBar() {
 			<div className="nav-buttons_authentication">
 				<ul className="Icon-Cart">
 					<Link to="/checkout">
-						{/* <i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i> */}
+						<i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i>
 					</Link>
 				</ul>
 				<ul className="nav-buttons_navigation">
