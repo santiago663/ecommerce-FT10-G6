@@ -1,13 +1,7 @@
 const server = require("express").Router();
 const { Users } = require("../../db");
 
-server.put("/:id", async (req, res) => {
-  const { id } = req.params;
-
-  if (!id) {
-    return res.status(422).json({ error: "User Id is missing" });
-  }
-
+server.post("/", async (req, res) => {
   const {
     name,
     email,
@@ -31,8 +25,11 @@ server.put("/:id", async (req, res) => {
   }
 
   try {
-    var users = await Users.update(
-      {
+    var users = await Users.findOrCreate({
+      where: {
+        email: email,
+      },
+      defaults: {
         name,
         email,
         password,
@@ -41,12 +38,7 @@ server.put("/:id", async (req, res) => {
         role_id,
         available,
       },
-      {
-        where: { id: id },
-        returning: true,
-        plain: true,
-      }
-    );
+    });
     res.status(200).json(users);
   } catch (error) {
     console.log(error);
