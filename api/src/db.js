@@ -48,6 +48,7 @@ Products.belongsTo(Series);
 Authors.hasMany(Products);
 Products.belongsTo(Authors);
 
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importar la conexión { conn } = require('./db.js');
