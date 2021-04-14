@@ -1,10 +1,20 @@
 /*eslint-disable*/
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOneProduct } from '../../redux/actions/actionBack'
 import '../../scss/components/_productDetails.scss';
 
 function ProductDetails() {
-  const productCache = useSelector(store => store.productCache)
+  const dispatch = useDispatch();
+  const {id} = useParams();
+
+  useEffect(()=>{
+    dispatch(getOneProduct(id))
+  }, [])
+
+  const productCache = useSelector(store => store.reducerProduct.productCache)
+
   let {
     name,
     description,
@@ -20,7 +30,7 @@ function ProductDetails() {
   } else {
     available = "Not Available"
   }
-
+  
   return (
     <div className="product-wrapper">
       <div className="product-preview">
