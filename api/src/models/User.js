@@ -13,17 +13,13 @@ module.exports = (sequelize) => {
           },
           password: {
               type: DataTypes.STRING,
-              allowNull: false,
+              allowNull: true,
           },
           phone_Number: {
               type: DataTypes.INTEGER,
               allowNull: true,
           },
           location_id: {
-              type: DataTypes.INTEGER,
-              allowNull: false,
-          },
-          role_id: {
               type: DataTypes.INTEGER,
               allowNull: false,
           },
