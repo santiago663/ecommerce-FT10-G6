@@ -1,9 +1,14 @@
+/*eslint-disable*/
 import * as TYPES from '../types/index';
 
-//LOADING ACTIONS
+// LOADING ACTIONS
 export const requestData = () => ({
-    type: TYPES.REQUEST_DATA,
-})
+  type: TYPES.REQUEST_DATA,
+});
 export const requestSuccess = () => ({
-    type: TYPES.REQUEST_SUCCESS,
-})
+  type: TYPES.REQUEST_SUCCESS,
+});
+export const paginate = (payload) => ({
+    type: 'PAG',
+  payload: payload,
+});
