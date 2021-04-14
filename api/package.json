@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "add-demos": "yarn sequelize-cli db:seed:all",
     "remove-demos": "yarn sequelize-cli db:seed:undo:all"
   },
-  "author": "Dev5",
+  "author": "Team 6",
   "license": "ISC",
   "engines": {
     "node": ">=12.18.3",
