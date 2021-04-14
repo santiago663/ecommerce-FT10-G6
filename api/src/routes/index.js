@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 
-// ################ Routes.
+// ############## Routes.
 // => Authors.
 router.use("/delete/author", require("./authors/DELETE"));
 router.use("/get/author", require("./authors/GET"));

@@ -1,4 +1,4 @@
-/* const { DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 
 module.exports = (sequelize) => {
@@ -33,4 +33,4 @@ module.exports = (sequelize) => {
     //  charset: 'utf8',
     //  collate: 'utf8_general_ci', 
     });
-}; */
+};

@@ -38,7 +38,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { Products, Categories, Authors, Series } = sequelize.models;
 
-// ############################## Relations ###############################
+// ############################## Relations ##############################
 Products.belongsToMany(Categories, { through: "products_categories" });
 Categories.belongsToMany(Products, { through: "products_categories" });
 
