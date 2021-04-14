@@ -1,17 +1,8 @@
 /*eslint-disable*/
 import axios from 'axios';
 import * as TYPES from '../types/index';
-import db from '../../db';
+import {requestData, requestSuccess} from './request.js'
 
-
-//LOADING ACTIONS
-
-const requestData = () => ({
-  type: TYPES.REQUEST_DATA,
-})
-const requestSuccess = () => ({
-  type: TYPES.REQUEST_SUCCESS,
-})
 
 /* ----------------------*/
 /* LOCAL FAKE-DB ACTIONS */
@@ -25,7 +16,9 @@ export const getAllProducts = () => async (dispatch) => {
 };
 
 export const getAllAuthors = () => (
+
   async (dispatch) => {
+
     try {
       dispatch(requestData())
       const response = await axios.get('http://localhost:3001/get/author');
@@ -41,7 +34,9 @@ export const getAllAuthors = () => (
 );
 
 export const getAllCategories = () => (
+
   async (dispatch) => {
+
     try {
       dispatch(requestData())
       const response = await axios.get('http://localhost:3001/get/category');
@@ -57,6 +52,7 @@ export const getAllCategories = () => (
 );
 
 export const getAllSeries = () => (
+
   async (dispatch) => {
     try {
       dispatch(requestData())
@@ -73,7 +69,9 @@ export const getAllSeries = () => (
 );
 
 export const getOneProduct = (id) => (
+
   async (dispatch) => {
+
     try {
       dispatch(requestData())
       const response = await axios.get(`http://localhost:3001/get/product/${id}`);
@@ -88,23 +86,10 @@ export const getOneProduct = (id) => (
   }
 );
 
-// esta no sirve porque se usaba con los datos hardcodeados...modificar \\
-export const filterArtists = () => (
-  (dispatch) => {
-    const response = db.map((artwork) => ({
-      artist: artwork.artist,
-      original: artwork.origin,
-    }));
-
-    dispatch({
-      type: TYPES.FILTER_ARTISTS,
-      payload: response,
-    });
-  }
-);
-
 export const searchByArtist = () => (
+
   async (dispatch) => {
+
     try {
       dispatch(requestData())
       const response = await axios.get('http://jsonplaceholder.typicode.com/users');
@@ -120,7 +105,9 @@ export const searchByArtist = () => (
 );
 
 export const searchByTitle = (keyword) => (
+
   async (dispatch) => {
+
     try {
       dispatch(requestData())
       const response = await axios.get(`http://localhost:3001/get/product/search?keyword=${keyword}`);
@@ -136,20 +123,10 @@ export const searchByTitle = (keyword) => (
   }
 );
 
-// export const addCategory = (form) => (
-//   (dispatch) => (
-//     axios.post('http://localhost:3001/category', form)
-//   )
-//     .then((res) => {
-//       dispatch({
-//         type: TYPES.NEW_CATEGORY,
-//         payload: res.data,
-//       });
-//     })
-//     .catch((error) => console.error(error))
-// );
 export const addCategory = (form) => (
+
   (dispatch) => {
+
     try {
       dispatch(requestData())
       axios.post('http://localhost:3001/post/category', form)
@@ -167,20 +144,10 @@ export const addCategory = (form) => (
   }
 )
 
-//----------------------------------------------------------\\
-// export const addAuthor = (author) => (
-//   (dispatch) => (
-//     axios.post('http://localhost:3001/author', author)
-//   )
-//     .then((res) => {
-//       dispatch({
-//         type: TYPES.NEW_AUTHOR,
-//         payload: res.data,
-//       });
-//     }).catch((error) => console.error(error))
-// );
 export const addAuthor = (author) => (
+
   (dispatch) => {
+
     try {
       dispatch(requestData())
       axios.post('http://localhost:3001/post/author', author)
@@ -196,4 +163,3 @@ export const addAuthor = (author) => (
     }
   }
 )
-//------------------------------------------------------\\
