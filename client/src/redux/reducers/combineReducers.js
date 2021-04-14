@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { combineReducers } from 'redux';
 import reducerProduct from './reducerProduct';
 import reducerArtist from './reducerArtist';
