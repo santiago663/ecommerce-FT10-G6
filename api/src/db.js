@@ -48,8 +48,8 @@ Products.belongsTo(Series);
 Authors.hasMany(Products);
 Products.belongsTo(Authors);
 
-Orders.hasMany(Users);
-Users.belongsTo(Orders); 
+Users.hasMany(Orders);
+Orders.belongsTo(Users); 
 
 Products.belongsToMany(Orders, { through: "products_orders" });
 Orders.belongsToMany(Products, { through: "products_orders" });
