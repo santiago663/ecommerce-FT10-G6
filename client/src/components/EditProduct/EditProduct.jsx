@@ -2,17 +2,17 @@
 import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts } from '../../redux/actions/index';
+import { getAllProducts } from '../../redux/actions/actionBack';
 import '../../scss/components/_editProducts.scss';
 
 function EditProduct() {
 
     const dispatch = useDispatch()
 
-    const allArtist = useSelector((store) => store.allArtistCache)
-    const allCategories = useSelector((store) => store.allCategoriesCache)
-    const allSeries = useSelector((store) => store.allSeriesCache)
-    const allProducts = useSelector((store) => store.artworkCache)
+    const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
+    const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
+    const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
+    const allProducts = useSelector((store) => store.reducerProduct.allProductCache)
 
     // console.log(allProducts)
 

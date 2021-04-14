@@ -1,25 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import ProductCard from '../ProductCard/ProductCard';
-
+import Loading from '../Loading/Loading';
 import '../../scss/containers/_catalogue.scss';
 
-function Catalogue(props) {
-  const { data } = props;
+function Catalogue() {
+  const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
+  const loading = useSelector((store) => store.reducerLoading.loading);
+
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="catalogue-wrapper">
       {
-        data && data.map((artwork) => (
+        allProduct && allProduct.map((artwork) => (
           <ProductCard key={artwork.id} data={artwork} />
         ))
       }
     </div>
   );
 }
-
-Catalogue.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
 export default Catalogue;

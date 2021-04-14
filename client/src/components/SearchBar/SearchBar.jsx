@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchByTitle } from '../../redux/actions/index';
+import { searchByTitle } from '../../redux/actions/actionBack';
 import '../../scss/components/_searchBar.scss';
 
 function SearchBar() {
