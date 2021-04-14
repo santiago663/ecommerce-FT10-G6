@@ -365,18 +365,6 @@ module.exports = {
       {
         createdAt: new Date(),
         updatedAt: new Date(),
-        productId: 50,
-        categoryId: 3,
-      },
-      {
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        productId: 50,
-        categoryId: 6,
-      },
-      {
-        createdAt: new Date(),
-        updatedAt: new Date(),
         productId: 51,
         categoryId: 3,
       },
@@ -461,25 +449,7 @@ module.exports = {
       {
         createdAt: new Date(),
         updatedAt: new Date(),
-        productId: 58,
-        categoryId: 9,
-      },  
-      {
-        createdAt: new Date(),
-        updatedAt: new Date(),
         productId: 59,
-        categoryId: 9,
-      }, 
-      {
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        productId: 59,
-        categoryId: 9,
-      },  
-      {
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        productId: 60,
         categoryId: 9,
       }, 
       {
@@ -487,7 +457,7 @@ module.exports = {
         updatedAt: new Date(),
         productId: 60,
         categoryId: 9,
-      },
+      }, 
       {
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -512,12 +482,6 @@ module.exports = {
         productId: 64,
         categoryId: 4,
       },  
-      {
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        productId: 64,
-        categoryId: 4,
-      }, 
       {
         createdAt: new Date(),
         updatedAt: new Date(),
