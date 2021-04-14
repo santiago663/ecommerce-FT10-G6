@@ -1,13 +1,7 @@
 const server = require("express").Router();
 const { Users } = require("../../db");
 
-server.put("/:id", async (req, res) => {
-
-    const { id } = req.params;
-
-    if (!id) {
-        return res.status(422).json({ error: "User Id is missing" })
-    }
+server.post("/", async (req, res) => {
 
     const {
         name,
@@ -16,34 +10,34 @@ server.put("/:id", async (req, res) => {
         phone_Number,
         location_id,
         role_id,
-    } = req.body
+        available,
+    } = req.body;
 
-    if (!name || !email || !password || !phone_Number || !location_id || !role_id) {
+    if (!name || !email || !password || !phone_Number || !location_id || !role_id || !available) {
         return res.status(422).json({ error: "Data is missing" })
     }
 
     try {
-        var users = await Users.update(
-            {
+        var users = await Users.findOrCreate({
+            where: {
+                email: email,
+            },
+            defaults: {
                 name,
                 email,
                 password,
                 phone_Number,
                 location_id,
-                role_id
-            },
-            {
-                where: { id: id },
-                returning: true,
-                plain: true
-            },
-        )
-        res.status(200).json(users[1])
-
+                role_id,
+                available,
+            }
+        })
+        res.status(200).json(users[0])
     } catch (error) {
         console.log(error)
         res.status(500).send({ message: "Internal server error" })
     }
+    
 });
 
 module.exports = server;
