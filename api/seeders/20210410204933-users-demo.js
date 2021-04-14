@@ -1,24 +1,112 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    return await queryInterface.bulkInsert("users", [
+      {
+        id: 1,
+        name: "henry admin",
+        email: "admin@admin.com",
+        password: "_1234",
+        phone_Number: 123,
+        location_id: 2,
+        role_id: 0,
+        available: true,
+      },
+      {
+        id: 2,
+        name: "angel",
+        email: "angel@ecommerce.com",
+        password: "1234",
+        phone_Number: 456,
+        location_id: 1,
+        role_id: 1,
+        available: true,
+      },
+      {
+        id: 3,
+        name: "santi",
+        email: "santi@ecommerce.com",
+        password: "1234",
+        phone_Number: 789,
+        location_id: 3,
+        role_id: 1,
+        available: true,
+      },
+      {
+        id: 4,
+        name: "dario",
+        email: "dario@ecommerce.com",
+        password: "1234",
+        phone_Number: 100,
+        location_id: 5,
+        role_id: 1,
+        available: true,
+      },
+      {
+        id: 5,
+        name: "lucia",
+        email: "lucia@ecommerce.com",
+        password: "1234",
+        phone_Number: 101,
+        location_id: 3,
+        role_id: 1,
+        available: true,
+      },
+      {
+        id: 6,
+        name: "eze",
+        email: "eze@ecommerce.com",
+        password: "1234",
+        phone_Number: 102,
+        location_id: 3,
+        role_id: 1,
+        available: true,
+      },
+      {
+        id: 7,
+        name: "leandro",
+        email: "leandro@ecommerce.com",
+        password: "1234",
+        phone_Number: 103,
+        location_id: 3,
+        role_id: 1,
+        available: true,
+      },
+      {
+        id: 8,
+        name: "cristian",
+        email: "cristian@ecommerce.com",
+        password: "1234",
+        phone_Number: 104,
+        location_id: 3,
+        role_id: 1,
+        available: true,
+      },
+      {
+        id: 9,
+        name: "lenin",
+        email: "lenin@ecommerce.com",
+        password: "1234",
+        phone_Number: 105,
+        location_id: 9,
+        role_id: 1,
+        available: true,
+      },
+      {
+        id: 10,
+        name: "nahuel",
+        email: "nahuel@ecommerce.com",
+        password: "1234",
+        phone_Number: 106,
+        location_id: 8,
+        role_id: 1,
+        available: true,
+      },
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+    return await queryInterface.bulkDelete("users", null, {});
+  },
 };
