@@ -36,7 +36,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Products, Categories, Authors, Series } = sequelize.models;
+const { Products, Categories, Authors, Series, Users } = sequelize.models;
 
 // ############################## Relations ###############################
 Products.belongsToMany(Categories, { through: "products_categories" });
