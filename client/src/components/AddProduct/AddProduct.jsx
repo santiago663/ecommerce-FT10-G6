@@ -2,7 +2,7 @@
 import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllAuthors, getAllCategories, getAllSeries } from '../../redux/actions/index';
+import { getAllAuthors, getAllCategories, getAllSeries } from '../../redux/actions/actionBack';
 import '../../scss/components/_addProduct.scss';
 
 function AddProduct() {
@@ -15,9 +15,9 @@ function AddProduct() {
         dispatch(getAllSeries()); 
     },[])
 
-    const allArtist = useSelector((store) => store.allArtistCache)
-    const allCategories = useSelector((store) => store.allCategoriesCache)
-    const allSeries = useSelector((store) => store.allSeriesCache)  
+    const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
+    const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
+    const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
 
     const [product, setProduct] = useState({
         name: "",

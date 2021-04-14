@@ -1,4 +1,4 @@
-/* const { DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 
 module.exports = (sequelize) => {
@@ -26,11 +26,15 @@ module.exports = (sequelize) => {
           role_id: {
               type: DataTypes.INTEGER,
               allowNull: false,
-          }
+          },
+          available: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
     },
     {
     timestamps: false, 
     //  charset: 'utf8',
     //  collate: 'utf8_general_ci', 
     });
-}; */
+};

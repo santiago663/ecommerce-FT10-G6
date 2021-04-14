@@ -6,7 +6,7 @@ import '../../scss/components/_deleteProduct.scss';
 
 function DeleteProduct() {
 
-    const allProducts = useSelector((store) => store.artworkCache)
+    const allProducts = useSelector((store) => store.reducerProduct.allProductCache)
 
     const [id, setId] = useState({ id: allProducts[0]?.id, confirm: false })
 
