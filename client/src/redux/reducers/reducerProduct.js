@@ -24,6 +24,19 @@ export default function reducerProduct (state = initialState, action){
         productCache: action.payload,
       };
 
+    case "FIL_ALPH":
+      if(action.payload === 0){
+        return {
+          ...state,
+          allProductCache: [...state.allProductCache].sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
+        };
+      } else {
+        return {
+          ...state,
+          allProductCache: [...state.allProductCache].sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1)
+        };
+      }
+
     default:
       return state;
   }
