@@ -149,6 +149,10 @@ p {
   background-image: url("https://cdn.discordapp.com/attachments/829710868413546511/829924062276485121/face.jpg");
   background-size: cover;
   background-position: center center;
+  -webkit-animation-name: grow;
+          animation-name: grow;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
 }
 
 .landing-title {
@@ -171,6 +175,23 @@ p {
   opacity: 0.8;
 }
 
+@-webkit-keyframes grow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes grow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .loader-container {
   width: 100%;
   height: 100vh;
@@ -364,4 +385,117 @@ a.link {
   font-size: 15px;
   margin-left: 20px;
   margin-right: 25px;
+}
+
+.form-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #384985;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.form-container .form {
+  position: relative;
+  width: 320px;
+  padding: 15px;
+  background-color: #fafafa;
+  top: -100px;
+  border-radius: 1px;
+  box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.37);
+}
+.form-container .form .a-link {
+  margin-top: 30px;
+}
+.form-container .form h5 {
+  margin-bottom: 30px;
+  font-size: 25px;
+  font-family: "Roboto";
+  font-weight: 600;
+  color: #384985;
+}
+.form-container .form p {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.form-container .form .form-control {
+  width: 100%;
+  height: 20px;
+  border: 0px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #dadfe0;
+  transition: border-bottom 0.3s ease;
+}
+.form-container .form .form-control:focus {
+  outline: none;
+  border-bottom: 1px solid #384985;
+}
+.form-container .form .btn {
+  width: 100%;
+  background-color: #384985;
+  border: none;
+  margin-bottom: 25px;
+  padding: 5px 15px;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+}
+.form-container .form .btn:focus {
+  outline: none;
+}
+.form-container .form .btn:disabled {
+  background-color: #9ba8d5;
+}
+.form-container .form .btn:hover {
+  background-color: #293561;
+}
+.form-container .form .google-btn {
+  cursor: pointer;
+  margin-top: 5px;
+  width: 100%;
+  height: 42px;
+  background-color: #4285f4;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+}
+.form-container .form .google-btn .google-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 1px;
+  background-color: #fff;
+}
+.form-container .form .google-btn .google-icon {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 11px;
+  width: 18px;
+  height: 18px;
+}
+.form-container .form .google-btn .btn-text {
+  width: 100%;
+  float: right;
+  margin: 11px 0px 0 0;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  text-align: center;
+}
+.form-container .form .google-btn:hover {
+  box-shadow: 0 0 6px #4285f4;
+}
+.form-container .form .google-btn:active {
+  background: #1669f2;
 }/*# sourceMappingURL=styles.css.map */

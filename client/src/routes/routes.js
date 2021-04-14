@@ -1,12 +1,14 @@
+/*eslint-disable*/
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import NavBar from '../components/NavBar/NavBar';
 import Home from '../components/Home/Home';
-import Browse from '../components/Browse/Browse';
+import Browse from '../components/Browser/Browser';
 // import Product from '../components/Product/Product';
 import Admin from '../components/Admin/Admin';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
+import SignIn from '../components/Auth/SignIn';
 
 const routes = () => (
   <Router>
@@ -15,6 +17,7 @@ const routes = () => (
     <Route path="/browse" component={Browse} />
     <Route path="/admin" component={Admin} />
     <Route path="/product/:id" component={ProductDetails} />
+    <Route path="/signin" component={SignIn} />
   </Router>
 );
 

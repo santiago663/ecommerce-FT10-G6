@@ -14,7 +14,7 @@ function NavBar() {
         <ul className="nav-buttons_navigation">
           <Link className="nav-link" to="/Admin"><li>Dashboard Admin</li></Link>
         </ul>
-        <button className="btn-secondary" type="button">Sign in</button>
+        <Link className="link-btn-secondary" to="/signin"><button className="btn-secondary" type="button">Sign in</button></Link>
         <button className="btn-primary" type="button">Sign up</button>
       </div>
     </nav>
