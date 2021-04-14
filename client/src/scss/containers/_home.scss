@@ -10,6 +10,8 @@ $primary-light: #6874b5;
   background-image: url("https://cdn.discordapp.com/attachments/829710868413546511/829924062276485121/face.jpg");
   background-size: cover;
   background-position: center center;
+  animation-name: grow;
+  animation-duration: 0.5s;
 }
 
 .landing-title {
@@ -29,5 +31,15 @@ $primary-light: #6874b5;
   color: #fff;
   &:hover {
     opacity: 0.8;
+  }
+}
+
+@keyframes grow {
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
   }
 }

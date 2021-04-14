@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addAuthor } from '../../redux/actions/index';
+import { addAuthor } from '../../redux/actions/actionBack';
 
 function CreateAuthor() {
   const dispatch = useDispatch();

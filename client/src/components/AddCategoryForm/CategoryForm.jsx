@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addCategory } from '../../redux/actions/index';
+import { addCategory } from '../../redux/actions/actionBack';
 
 function CategoryForm() {
   const dispatch = useDispatch();

@@ -7,7 +7,7 @@ function NavBar() {
     <nav className="navbar">
       <ul className="nav-buttons_navigation">
         <Link className="nav-link" to="/"><li>Home</li></Link>
-        <Link className="nav-link" to="/Browse"><li>Find Art</li></Link>
+        <Link className="nav-link" to="/Browser/products"><li>Find Art</li></Link>
         <li>About Us</li>
       </ul>
       <div className="nav-buttons_authentication">
