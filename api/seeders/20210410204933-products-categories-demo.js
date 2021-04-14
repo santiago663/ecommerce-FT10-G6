@@ -378,7 +378,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         productId: 51,
-        categoryId: 3,
+        categoryId: 4,
       },
       {
         createdAt: new Date(),
