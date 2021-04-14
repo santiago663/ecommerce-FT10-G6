@@ -23,5 +23,9 @@ router.use("/get/serie", require("./series/GET"));
 router.use("/post/serie", require("./series/POST"));
 router.use("/put/serie", require("./series/PUT"));
 // => Users.
+router.use("/delete/user", require("./users/DELETE"));
+router.use("/get/user", require("./users/GET"));
+router.use("/post/user", require("./users/POST"));
+router.use("/put/user", require("./users/PUT"));
 
 module.exports = router;

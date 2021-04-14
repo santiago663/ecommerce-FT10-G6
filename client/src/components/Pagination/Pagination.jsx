@@ -1,8 +1,11 @@
+/*eslint-disable*/
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux'
+import { paginate } from '../../redux/actions/request';
 import '../../scss/components/_pagination.scss';
 
-function Pagination({ cardsPerPage, totalCards, paginate }) {
+function Pagination({ cardsPerPage, totalCards }) {
+  const dispatch = useDispatch()
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalCards / cardsPerPage); i += 1) {
@@ -15,7 +18,7 @@ function Pagination({ cardsPerPage, totalCards, paginate }) {
         {
           pageNumbers.map((number) => (
             <li key={number} className="page-item'">
-              <a onClick={() => paginate(number)} href="#!" className="page-link">{number}</a>
+              <a onClick={() => dispatch(paginate(number))} href="#!" className="page-link">{number}</a>
             </li>
           ))
         }
@@ -23,11 +26,5 @@ function Pagination({ cardsPerPage, totalCards, paginate }) {
     </div>
   );
 }
-
-Pagination.propTypes = {
-  cardsPerPage: PropTypes.number.isRequired,
-  totalCards: PropTypes.number.isRequired,
-  paginate: PropTypes.func.isRequired,
-};
 
 export default Pagination;

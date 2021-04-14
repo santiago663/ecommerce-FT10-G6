@@ -26,3 +26,11 @@ export const REQUEST_SUCCESS = 'REQUEST_SUCCESS'
 //USER AUTH
 export const AUTH_LOGIN = 'AUTH_LOGIN'
 export const AUTH_LOGOUT = 'AUTH_LOGOUT'
+
+//FILTERS
+export const FILAZZA = 'FILAZZA'
+
+//SHOPPING-CART
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const ADD_TO_CART = 'ADD_TO_CART';
+
