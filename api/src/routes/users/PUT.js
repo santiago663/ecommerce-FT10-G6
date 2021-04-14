@@ -15,7 +15,6 @@ server.put("/:id", async (req, res) => {
     phone_Number,
     location_id,
     role_id,
-    available,
   } = req.body;
 
   if (
@@ -24,8 +23,7 @@ server.put("/:id", async (req, res) => {
     !password ||
     !phone_Number ||
     !location_id ||
-    !role_id ||
-    !available
+    !role_id
   ) {
     return res.status(422).json({ error: "Data is missing" });
   }
@@ -39,7 +37,6 @@ server.put("/:id", async (req, res) => {
         phone_Number,
         location_id,
         role_id,
-        available,
       },
       {
         where: { id: id },
@@ -47,7 +44,7 @@ server.put("/:id", async (req, res) => {
         plain: true,
       }
     );
-    res.status(200).json(users);
+    res.status(200).json(users[1]);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Internal server error" });

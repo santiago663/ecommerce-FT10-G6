@@ -39,7 +39,7 @@ server.post("/", async (req, res) => {
         available,
       },
     });
-    res.status(200).json(users);
+    res.status(200).json(users[0]);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Internal server error" });

@@ -5,6 +5,7 @@ server.get("/", async (req, res) => {
   try {
     var users = await Users.findAll({
       attributes: [
+        "id",
         "name",
         "email",
         "password",
