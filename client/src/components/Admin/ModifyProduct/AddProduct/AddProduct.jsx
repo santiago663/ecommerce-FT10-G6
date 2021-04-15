@@ -51,7 +51,7 @@ function AddProduct() {
 
     //Handle input para artist
     function handleInputChangeAr(event) {
-        console.log(Number(event.target.value))
+
         setProduct({ ...product, [event.target.name]: Number(event.target.value)})
     }
 
@@ -75,7 +75,7 @@ function AddProduct() {
 
     function submitForm(event) {        
         event.preventDefault();
-        console.log(product)   
+ 
         axios.post('http://localhost:3001/post/product', product);
     }
 
