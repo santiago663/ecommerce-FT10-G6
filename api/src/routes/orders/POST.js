@@ -15,7 +15,7 @@ const newOrder= await Orders.create(order);
 
 await newOrder.addProducts(productId,{ through: { price: price }
 }) 
-res.send("GRACIAS, VUELVAS PRONTOS")
+res.status(200).json({ message: "order created successfully" })
 } catch (error) {
     console.log(error)
     res.status(500).send({ message: "Internal server error" })
