@@ -9,6 +9,10 @@ export const requestSuccess = () => ({
   type: TYPES.REQUEST_SUCCESS,
 });
 export const paginate = (payload) => ({
-    type: 'PAG',
+    type: TYPES.PAG,
   payload: payload,
 });
+export const setActive = (payload) => ({
+  type: TYPES.ACTIVE,
+  payload:payload
+})
