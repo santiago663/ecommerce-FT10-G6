@@ -1,0 +1,42 @@
+.Dashboard{
+
+    display: flex;
+    width: 100vmax;
+    background-color: rgb(37, 37, 37);
+
+    .title{
+        margin:20px 0px 5px 30px;
+    }
+    .adminconsole{
+        background-color: cadetblue;
+        width: 200px;
+        height: 100vmax;
+        .UserAdmin{
+            background-color: rgb(65, 121, 123);
+        }
+        .compCreateEditDelete{
+            color: black;
+            text-decoration: none;
+            list-style:none;
+            background-color: rgb(61, 117, 165);
+        }
+    }
+    
+    .rigthContainer{
+        
+        .rightCointainerTop{
+            
+            background-color:rgb(218, 177, 116);
+            
+            height: 350px;
+            margin: 20px;
+        }
+        .rightContainerBottom{
+            
+            background-color:rgb(218, 177, 116);
+            
+            height: 80vh;
+            margin: 20px;
+        }
+    }
+}
