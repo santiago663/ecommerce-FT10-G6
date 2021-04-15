@@ -8,9 +8,9 @@ module.exports = {
         name: "henry admin",
         email: "admin@admin.com",
         password: "_1234",
-        phone_Number: 123,
+        phone_Number: 123, //1 admin, 2: registrados, 3:invitados
         location_id: 2,
-        roleId: 0,
+        roleId: 1,
         available: true,
       },
       {
@@ -20,7 +20,7 @@ module.exports = {
         password: "1234",
         phone_Number: 456,
         location_id: 1,
-        roleId: 1,
+        roleId: 2,
         available: true,
       },
       {
@@ -30,7 +30,7 @@ module.exports = {
         password: "1234",
         phone_Number: 789,
         location_id: 3,
-        roleId: 1,
+        roleId: 2,
         available: true,
       },
       {
@@ -40,7 +40,7 @@ module.exports = {
         password: "1234",
         phone_Number: 100,
         location_id: 5,
-        roleId: 1,
+        roleId: 2,
         available: true,
       },
       {
@@ -50,7 +50,7 @@ module.exports = {
         password: "1234",
         phone_Number: 101,
         location_id: 3,
-        roleId: 1,
+        roleId: 2,
         available: true,
       },
       {
@@ -60,7 +60,7 @@ module.exports = {
         password: "1234",
         phone_Number: 102,
         location_id: 3,
-        roleId: 1,
+        roleId: 2,
         available: true,
       },
       {
@@ -70,7 +70,7 @@ module.exports = {
         password: "1234",
         phone_Number: 103,
         location_id: 3,
-        roleId: 1,
+        roleId: 2,
         available: true,
       },
       {
@@ -80,7 +80,7 @@ module.exports = {
         password: "1234",
         phone_Number: 104,
         location_id: 3,
-        roleId: 1,
+        roleId: 2,
         available: true,
       },
       {
@@ -90,7 +90,7 @@ module.exports = {
         password: "1234",
         phone_Number: 105,
         location_id: 9,
-        roleId: 1,
+        roleId: 3,
         available: true,
       },
       {
@@ -100,7 +100,7 @@ module.exports = {
         password: "1234",
         phone_Number: 106,
         location_id: 8,
-        roleId: 1,
+        roleId: 2,
         available: true,
       },
     ]);
