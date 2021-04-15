@@ -23,7 +23,7 @@ server.delete("/users/:idUser/cart", async (req, res) => {
         let array = cart.products.map(prod => prod.id)
 
         cart.removeProducts(array)
-
+        
         res.status(200).json({ message: "Cart is empty" })
 
     } catch (err) {
