@@ -2,8 +2,10 @@
 import React from 'react';
 import './Order.css';
 import { Link } from 'react-router-dom';
+import {useSelector} from 'react-redux'
 
 const Order = () => {
+	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 	return (
 		<div className="Information">
 			<div className="Information-content">
@@ -14,11 +16,8 @@ const Order = () => {
 					<form>
 						<input type="text" placeholder="Name" name="name" />
 						<input type="text" placeholder="Email" name="Email" />
-						<input type="text" placeholder="Address" name="address" />
 						<input type="text" placeholder="Apto" name="apto" />
 						<input type="text" placeholder="City" name="city" />
-						<input type="text" placeholder="Country" name="country" />
-						<input type="text" placeholder="CP" name="cp" />
 						<input type="text" placeholder="Phone" name="phone" />
 					</form>
 				</div>
@@ -37,48 +36,20 @@ const Order = () => {
 			</div>
 			<div className="Information-sidebar">
 				<h3>Pedido:</h3>
-				<div className="Information-item">
-					<div className="Information-element">
-						<h4>ITEM Name</h4>
-						<span>$10</span>
-					</div>
-					<br />
+					{shoppingCart &&
+						shoppingCart.map((item) => {
+							return (
+								<>
+								<div className="Information-item">
+									<div className="Information-element">
+										<h4>{item.name}</h4>
+										<span>${item.price}</span>
+									</div>
 				</div>
-				<div className="Information-item">
-					<div className="Information-element">
-						<h4>ITEM Name</h4>
-						<span>$300</span>
-					</div>
-					<br />
-				</div>
-				<div className="Information-item">
-					<div className="Information-element">
-						<h4>ITEM Name</h4>
-						<span>$10</span>
-					</div>
-					<br />
-				</div>
-				<div className="Information-item">
-					<div className="Information-element">
-						<h4>ITEM Name</h4>
-						<span>$100</span>
-					</div>
-					<br />
-				</div>
-				<div className="Information-item">
-					<div className="Information-element">
-						<h4>ITEM Name</h4>
-						<span>$40</span>
-					</div>
-					<br />
-				</div>
-				<div className="Information-item">
-					<div className="Information-element">
-						<h4>ITEM Name</h4>
-						<span>$200</span>
-					</div>
-					<br />
-				</div>
+								</>
+							);
+						})}
+				
 			</div>
 		</div>
 	);
