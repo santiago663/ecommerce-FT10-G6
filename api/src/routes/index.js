@@ -30,7 +30,7 @@ router.use("/put/user", require("./users/PUT"));
 // => Orders.
 // router.use("/delete/order", require("./orders/DELETE"));
 router.use("/get/order", require("./orders/GET"));
-// router.use("/post/order", require("./orders/POST"));
+router.use("/post/order", require("./orders/POST"));
 // router.use("/put/order", require("./orders/PUT"));
 
 module.exports = router;
