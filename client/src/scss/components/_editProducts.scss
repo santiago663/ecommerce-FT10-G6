@@ -1,11 +1,48 @@
 .mainDivEP {
+    height: 50%;
     margin-top: 1%;
     margin-left: 1%;
     margin-bottom: 2%;
     color:rgb(37, 37, 37);
     white-space: pre;
+    .divEP{
+        .formEP {
+            margin:1%;
+
+            .EditOrDelete {
+                width: 70px;
+                margin:15px 20px 15px 35px;
+                padding: 0px;
+            }
+        }
+
+    }
+    .divDelete{
+        margin: 0px;
+        font-weight:bold;
+        .Yes{
+           
+            border: 1px solid rgb(17, 177, 75);
+            border-radius: 5px;
+            background-color: rgb(119, 237, 158);
+        }
+        .No{
+            border: 1px solid rgb(221, 58, 58);
+            border-radius: 5px;
+            background-color: rgb(237, 119, 119);
+        }
+        button{ 
+            margin: 10px 0px 0px 35px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    } 
+}
+.input{
+
+    margin: 5px;
 }
 
-.formEP {
-    margin:1%
-}
+
+
+
