@@ -10,7 +10,8 @@ import Admin from '../components/Admin/Admin';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
 import SignIn from '../components/Auth/SignIn';
 import Checkout from '../components/Checkout/Checkout';
-// import Product from '../components/Product/Product';
+import Order from '../components/Order/Order';
+import Payment from '../components/Payment/Payment';
 
 const routes = () => (
   <Router>
@@ -19,6 +20,8 @@ const routes = () => (
     <Route path="/browser" component={Browser} />
     <Route path="/admin" component={Admin} />
   	<Route path="/checkout" component={Checkout} />
+  	<Route path="/checkout/payment" component={Payment} />
+		<Route path="/checkout/information" component={Order} />
     <Route path="/product/:id" component={ProductDetails} />
     <Route path="/signin" component={SignIn} />
   </Router>
