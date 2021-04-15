@@ -1,14 +1,16 @@
 /*eslint-disable*/
 import React, { useEffect, useState } from 'react';
-import '../../scss/components/_signIn.scss'
+import '../../scss/components/_register.scss'
 
-const SignIn = () => {
+const Register = () => {
     const [formState, setFormState] = useState({
+        name: '',
         email: '',
-        password: ''
+        password: '',
+        confirm: ''
     });
 
-    const { email, password } = formState;
+    const { name, email, password, confirm } = formState;
 
     useEffect(() => {
         console.log('formState cambió');
@@ -31,7 +33,19 @@ const SignIn = () => {
                 onSubmit={handleSubmit}
                 className="form"
             >
-                <h5>Login</h5>
+                <h5>Register</h5>
+                <div className="form-group">
+                    <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        autoComplete="off"
+                        placeholder="Name"
+                        value={name}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
                 <div className="form-group">
                     <input
                         type="email"
@@ -55,31 +69,30 @@ const SignIn = () => {
                         required
                     />
                 </div>
-                <div className="input-field">
+                <div className="form-group">
+                    <input
+                        type="password"
+                        name="confirm"
+                        className="form-control confirm"
+                        placeholder="Confirm Password"
+                        value={confirm}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="input-field register">
                     <button
                         type="submit"
                         className="btn"
-                    >Login</button>
+                    >Register</button>
                 </div>
-                <div>
-                    <p>Login whit social networks</p>
-                    <div
-                        className="google-btn"
-                    >
-                        <div className="google-icon-wrapper">
-                            <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />
-                        </div>
-                        <p className="btn-text">
-                            <b>Sign in with google</b>
-                        </p>
-                    </div>
-                </div>
-                <div className="a-link a__signin">
-                    <a href="#">Create New Account</a>
+
+                <div className="a__register">
+                    <a href="#">Already registered?</a>
                 </div>
             </form>
         </div>
     )
 }
 
-export default SignIn
+export default Register
