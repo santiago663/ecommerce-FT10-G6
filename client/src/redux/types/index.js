@@ -25,3 +25,7 @@ export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 
 //FILTERS
 export const FILAZZA = 'FILAZZA'
+
+//SHOPPING-CART
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const ADD_TO_CART = 'ADD_TO_CART';
