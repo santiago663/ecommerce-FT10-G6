@@ -15,7 +15,6 @@ function EditProduct() {
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
     const allProducts = useSelector((store) => store.reducerProduct.allProductCache)
-    // console.log(allProducts)
 
     const [product, setProduct] = useState({
         id: 1,
@@ -34,7 +33,7 @@ function EditProduct() {
 
     useEffect(() => {
         const findProduct = allProducts.find(f => f.id === Number(id))
-        // console.log(findProduct)
+ 
         if (findProduct?.id) {
           
             setProduct({
@@ -76,21 +75,21 @@ function EditProduct() {
     //Handle input para artist
     function handleInputChangeAr(event) {
         event.preventDefault();
-        console.log(event.target.value)
+ 
         setProduct({ ...product, [event.target.name]: allArtist.find(a => event.target.value === a.idAuthors) })
     }
 
     //Handle input para categories
     function handleInputChangeCa(event) {
-        console.log("---------------5")
+
         var cat = product.categories
         if (cat.find(c => c?.id != event.target.value)) {
-            console.log("---------------1")
+  
             axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
         }
         else if (cat[0] == undefined) {
-            console.log("---------------2")
+     
             axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
         }
@@ -101,7 +100,7 @@ function EditProduct() {
 
     //Handle input para borrar categoria
     function handleInputDeleteCa(event, id) {
-        console.log("---------------3")
+
         var cat = product.categories
         axios.delete(`http://localhost:3001/delete/product/${product.id}/category/${id}`)
         cat = cat.filter(c => c?.id != Number(id))
@@ -109,7 +108,7 @@ function EditProduct() {
     }
 
     function submitForm(event) {
-        console.log(event,"---------------4")
+ 
         axios.put(`http://localhost:3001/put/product/${product.id}`, product)
     }
     const deleteProduct = () => {
