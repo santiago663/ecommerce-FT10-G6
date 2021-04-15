@@ -28,9 +28,11 @@ function NavBar() {
 						<li>Dashboard Admin</li>
 					</Link>
 				</ul>
+    <Link className="link-btn-secondary" to="/signin">
 				<button className="btn-secondary" type="button">
 					Sign in
 				</button>
+    </Link>
 				<button className="btn-primary" type="button">
 					Sign up
 				</button>
