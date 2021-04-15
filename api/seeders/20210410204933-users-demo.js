@@ -10,7 +10,7 @@ module.exports = {
         password: "_1234",
         phone_Number: 123,
         location_id: 2,
-        role_id: 0,
+        roleId: 0,
         available: true,
       },
       {
@@ -20,7 +20,7 @@ module.exports = {
         password: "1234",
         phone_Number: 456,
         location_id: 1,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
       {
@@ -30,7 +30,7 @@ module.exports = {
         password: "1234",
         phone_Number: 789,
         location_id: 3,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
       {
@@ -40,7 +40,7 @@ module.exports = {
         password: "1234",
         phone_Number: 100,
         location_id: 5,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
       {
@@ -50,7 +50,7 @@ module.exports = {
         password: "1234",
         phone_Number: 101,
         location_id: 3,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
       {
@@ -60,7 +60,7 @@ module.exports = {
         password: "1234",
         phone_Number: 102,
         location_id: 3,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
       {
@@ -70,7 +70,7 @@ module.exports = {
         password: "1234",
         phone_Number: 103,
         location_id: 3,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
       {
@@ -80,7 +80,7 @@ module.exports = {
         password: "1234",
         phone_Number: 104,
         location_id: 3,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
       {
@@ -90,7 +90,7 @@ module.exports = {
         password: "1234",
         phone_Number: 105,
         location_id: 9,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
       {
@@ -100,7 +100,7 @@ module.exports = {
         password: "1234",
         phone_Number: 106,
         location_id: 8,
-        role_id: 1,
+        roleId: 1,
         available: true,
       },
     ]);
