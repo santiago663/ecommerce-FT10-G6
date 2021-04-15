@@ -12,7 +12,7 @@ export default function reducerPagination (state = initialState, action){
 
   switch (action.type) {
 
-    case 'PAG':
+    case TYPES.PAG:
       return {
         ...state,
         currentPage: action.payload,
