@@ -2,33 +2,57 @@
 import React from 'react';
 import './Checkout.css';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { removeFromCart } from '../../redux/actions/actionFront';
 
 const Checkout = () => {
-	const reducerShoppingCart = useSelector((state) => state.reducerShoppingCart);
+	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+	const dispatch = useDispatch()
+
+	const handleSumTotal = ()=>{
+		const reducer = (accumulator, currentValue) => currentValue.price + accumulator;
+		const sum = shoppingCart.reduce(reducer, 0);
+		return sum;
+	}
 
 	return (
 		<div className="Checkout">
 			<div className="Checkout-conten">
-				<h3>Order List</h3>
+				{shoppingCart.length > 0 ? <h3>Order List</h3> : <h3>Empty Shopping Cart</h3>}
 				<div className="Checkout-item">
-					<div className="Checkout-element">
-						<h4>ITEM name</h4>
-						<span>$10</span>
-						<button type="button">
-							<i class="fas fa-trash"></i>
-						</button>
-					</div>
+					{shoppingCart &&
+						shoppingCart.map((item, i) => {
+							return (
+								<div className="Checkout-element" key={i}>
+									<h4>{item.name}</h4>
+									<img src={item.preview} width="100" />
+									<span>${item.price}</span>
+									<button
+										type="button"
+										onClick={() => dispatch(removeFromCart(item))}
+										className="Trash-item"
+									>
+										<i className="fas fa-trash"></i>
+									</button>
+								</div>
+							);
+						})}
 				</div>
 			</div>
-			<div className="Checkout-sidebar">
-				<h3>Total Price : $10</h3>
-				<Link to="/checkout/information">
-					<button type="button" className="btn-primary">
-						Continue
-					</button>
-				</Link>
-			</div>
+			{shoppingCart && shoppingCart.length > 0 ? (
+				<div className="Checkout-sidebar">
+					<h3>{`Total Price : $ ${handleSumTotal()}`}</h3>
+					<Link to="/checkout/information">
+						<button type="button" className="btn-primary">
+							Continue
+						</button>
+					</Link>
+				</div>
+			) : (
+				<div>
+					<h3>You dont have a items pending</h3>
+				</div>
+			)}
 		</div>
 	);
 };

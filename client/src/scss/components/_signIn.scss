@@ -1,0 +1,189 @@
+$bg-color: #384985;
+$bg-form-color: #fafafa;
+$white: #fff;
+$google-blue: #4285f4;
+$button-active-blue: #1669f2;
+
+.form-container {
+    width: 100%;
+    height: 100vh;
+    background-color: $bg-color;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+    }
+    .form {
+        position: relative;
+        width: 320px;
+        padding: 15px;
+        background-color: $bg-form-color;
+        top: -100px;
+        border-radius: 1px;
+        box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.37);
+        .a__signin {
+            margin-top: 30px;
+            a {
+                color: $bg-color;
+                &:hover {
+                    color: $button-active-blue;
+                }
+            }
+        }
+        h5 {
+            margin-bottom: 30px;
+            font-size: 25px;
+            font-family: "Roboto";
+            font-weight: 600;
+            color: $bg-color;
+        }
+        p {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .form-control {
+            width: 100%;
+            height: 20px;
+            border: 0px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            background-color: $bg-form-color;
+            border-bottom: 1px solid rgb(218, 223, 224);
+            transition: border-bottom 0.3s ease;
+            border-radius: 0px;
+            &:focus {
+                outline: none;
+                border-bottom: 1px solid $bg-color;
+            }
+        }
+        .btn {
+            width: 100%;
+            background-color: $bg-color;
+            border: none;
+            margin-bottom: 25px;
+            padding: 5px 15px;
+            border-radius: 2px;
+            color: $white;
+            cursor: pointer;
+            &:focus {
+                outline: none;
+            }
+            &:disabled {
+                background-color: lighten($color: $bg-color, $amount: 35);
+            }
+            &:hover {
+                background-color: darken($color: $bg-color, $amount: 10);
+            }
+        }
+        .google-btn {
+            cursor: pointer;
+            margin-top: 5px;
+            width: 100%;
+            height: 42px;
+            background-color: $google-blue;
+            border-radius: 2px;
+            box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+            transition: box-shadow 0.3s ease;
+            .google-icon-wrapper {
+                position: absolute;
+                margin-top: 1px;
+                margin-left: 1px;
+                width: 40px;
+                height: 40px;
+                border-radius: 1px;
+                background-color: $white;
+            }
+            .google-icon {
+                position: absolute;
+                margin-top: 11px;
+                margin-left: 11px;
+                width: 18px;
+                height: 18px;
+            }
+            .btn-text {
+                width: 100%;
+                float: right;
+                margin: 11px 0px 0 0;
+                color: $white;
+                font-size: 14px;
+                letter-spacing: 0.2px;
+                text-align: center;
+            }
+            &:hover {
+                box-shadow: 0 0 6px $google-blue;
+            }
+            &:active {
+                background: $button-active-blue;
+            }
+        }
+    }
+    background-image: radial-gradient(
+            circle at 82% 60%,
+            rgba(0, 0, 0, 0.06) 0%,
+            rgba(0, 0, 0, 0.06) 69%,
+            transparent 69%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at 36% 0%,
+            rgba(0, 0, 0, 0.06) 0%,
+            rgba(0, 0, 0, 0.06) 59%,
+            transparent 59%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at 58% 82%,
+            rgba(4, 4, 4, 0.06) 0%,
+            rgba(4, 4, 4, 0.06) 17%,
+            transparent 17%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at 71% 32%,
+            rgba(19, 19, 19, 0.06) 0%,
+            rgba(19, 19, 19, 0.06) 40%,
+            transparent 40%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at 77% 5%,
+            rgba(31, 31, 31, 0.06) 0%,
+            rgba(31, 31, 31, 0.06) 52%,
+            transparent 52%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at 96% 80%,
+            rgba(0, 0, 0, 0.06) 0%,
+            rgba(0, 0, 0, 0.06) 73%,
+            transparent 73%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at 91% 59%,
+            rgba(252, 252, 252, 0.06) 0%,
+            rgba(252, 252, 252, 0.06) 44%,
+            transparent 44%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at 52% 82%,
+            rgba(25, 20, 20, 0.06) 0%,
+            rgba(25, 20, 20, 0.06) 87%,
+            transparent 87%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle at 84% 89%,
+            rgba(160, 160, 160, 0.06) 0%,
+            rgba(160, 160, 160, 0.06) 57%,
+            transparent 57%,
+            transparent 100%
+        ),
+        linear-gradient(450deg, rgb(56, 73, 133), rgb(22, 105, 242));
+}
