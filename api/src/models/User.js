@@ -1,4 +1,4 @@
-/* const { DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 
 module.exports = (sequelize) => {
@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
           },
           password: {
               type: DataTypes.STRING,
-              allowNull: false,
+              allowNull: true,
           },
           phone_Number: {
               type: DataTypes.INTEGER,
@@ -23,14 +23,14 @@ module.exports = (sequelize) => {
               type: DataTypes.INTEGER,
               allowNull: false,
           },
-          role_id: {
-              type: DataTypes.INTEGER,
-              allowNull: false,
-          }
+          available: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
     },
     {
     timestamps: false, 
     //  charset: 'utf8',
     //  collate: 'utf8_general_ci', 
     });
-}; */
+};

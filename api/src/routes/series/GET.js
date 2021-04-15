@@ -4,7 +4,6 @@ const { Series } = require("../../db");
 server.get("/", async (req, res) => {
   try {
     let series = await Series.findAll();
-    console.log(series);
     series === null
       ? res.send("hubo un error al buscar series")
       : res.json(series);
