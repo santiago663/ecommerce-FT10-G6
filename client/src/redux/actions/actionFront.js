@@ -2,7 +2,7 @@
 import * as TYPES from '../types/index';
 
 export const filterAlphabetic = (payload) => ({
-	type: TYPES.FIL_ALPH,
+	type: TYPES.FILAZZA,
 	payload: payload,
 });
 

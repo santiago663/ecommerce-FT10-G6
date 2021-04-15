@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Checkout = () => {
-	const reducerShoppingCart = useSelector((state) => state.reducerShoppingCart);
+	// const reducerShoppingCart = useSelector((state) => state.reducerShoppingCart);
 
 	return (
 		<div className="Checkout">
