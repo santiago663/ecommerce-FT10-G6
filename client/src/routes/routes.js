@@ -1,4 +1,3 @@
-
 /*eslint-disable*/
 
 import React from 'react';
@@ -21,7 +20,7 @@ const routes = () => (
     <Route path="/admin" component={Admin} />
   	<Route path="/checkout" component={Checkout} />
   	<Route path="/checkout/payment" component={Payment} />
-		<Route path="/checkout/information" component={Order} />
+		<Route exact path="/checkout/information" component={Order} />
     <Route path="/product/:id" component={ProductDetails} />
     <Route path="/signin" component={SignIn} />
   </Router>
