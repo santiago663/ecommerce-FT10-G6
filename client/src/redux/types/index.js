@@ -46,5 +46,7 @@ export const ORDER_BY_CATEGORIES = 'ORDER_BY_CATEGORIES';
 export const ALL_PRODUCTS_RESET = 'ALL_PRODUCTS_RESET';
 
 //ERRORS U.I.
-export const UI_SET_ERROR = '[UI] SET_ERROR';
-export const UI_REMOVE_ERROR = '[UI] REMOVE_ERROR';
+export const UI_SET_ERROR = '[UI] SET_ERROR'
+export const UI_REMOVE_ERROR = '[UI] REMOVE_ERROR'
+
+

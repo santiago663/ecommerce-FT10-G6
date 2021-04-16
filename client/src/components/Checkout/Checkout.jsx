@@ -10,7 +10,7 @@ const Checkout = () => {
 	const dispatch = useDispatch()
 
 	const handleSumTotal = ()=>{
-		const reducer = (accumulator, currentValue) => currentValue.price + accumulator;
+		const reducer = (accumulator, currentValue) => Number(currentValue.price) + accumulator;
 		const sum = shoppingCart.reduce(reducer, 0);
 		return sum;
 	}

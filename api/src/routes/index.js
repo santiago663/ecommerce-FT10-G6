@@ -28,9 +28,9 @@ router.use("/get/user", require("./users/GET"));
 router.use("/post/user", require("./users/POST"));
 router.use("/put/user", require("./users/PUT"));
 // => Orders.
-// router.use("/delete/order", require("./orders/DELETE"));
+router.use("/delete/order", require("./orders/DELETE"));
 router.use("/get/order", require("./orders/GET"));
-// router.use("/post/order", require("./orders/POST"));
-// router.use("/put/order", require("./orders/PUT"));
+router.use("/post/order", require("./orders/POST"));
+router.use("/put/order", require("./orders/PUT"));
 
 module.exports = router;

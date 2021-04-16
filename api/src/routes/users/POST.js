@@ -3,17 +3,24 @@ const { Users } = require("../../db");
 
 server.post("/", async (req, res) => {
 
+    function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
     const {
         name,
         email,
         password,
         phone_Number,
         location_id,
-        role_id,
+        roleId,
     } = req.body;
 
     //creación de usuario como guest
     if (!password) {
+
+        if (!validateEmail(email)) return res.status(422).json({ message: "The email is invalid" })
 
         try {
 
@@ -26,7 +33,7 @@ server.post("/", async (req, res) => {
                     email,
                     phone_Number,
                     location_id,
-                    role_id,
+                    roleId,
                     available: false
                 }
             })
@@ -42,9 +49,8 @@ server.post("/", async (req, res) => {
     //creación de usuario al registrarse
     else if (password) {
 
-        if (!name || !email) {
-            return res.status(422).json({ message: "Data is missing " })
-        }
+        if (!name || !email) return res.status(422).json({ message: "Data is missing " }) 
+        if (!validateEmail(email)) return res.status(422).json({ message: "The email is invalid" })
 
         try {
             var users = await Users.findOrCreate({
@@ -57,7 +63,7 @@ server.post("/", async (req, res) => {
                     password,
                     phone_Number,
                     location_id,
-                    role_id,
+                    roleId,
                     available: true
                 }
             })
@@ -74,7 +80,7 @@ server.post("/", async (req, res) => {
                         password,
                         phone_Number,
                         location_id,
-                        role_id,
+                        roleId,
                         available: true
                     },
                     {

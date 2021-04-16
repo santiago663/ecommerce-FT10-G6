@@ -13,6 +13,13 @@ $gray-light: #b0bec5;
       grid-area: 1 / 1 / 2 / 2;
     }
   }
+  .search-button{
+   background-color: white;
+   color: $gray;
+    i{
+      font-size: larger;
+    }
+  }
 }
 .searchbar-input {
   width: 100%;
@@ -29,6 +36,7 @@ $gray-light: #b0bec5;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
+  margin: 0px;
 }
 
 .searchbar-filters {
