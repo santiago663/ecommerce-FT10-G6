@@ -1,41 +1,58 @@
 /*eslint-disable*/
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, Route } from 'react-router-dom';
+import { useDispatch, useSelector} from 'react-redux';
 import AuthorForm from './AuthorForm/AuthorForm'
-import '../../../scss/components/_modifyProduct.scss';
+import EditAuthor from './AuthorForm/EditAuthor'
+import '../../../scss/components/_modify.scss';
 
 const ModifyAuthor = () => {
+
+    const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
+ 
+
+    const [input, setInput] = useState(0);
+
+    const handleChange = (id) => {
+        
+        if(id.target.value !== 0){
+           setInput(id.target.value); 
+        }    
+    }
+
+    const author = allArtist.filter(f => f.id === Number(input))
+
     return ( 
         <div className='ModifyProduct'>
-            <div className='SearchProduct'>
-
-                 <form /*onSubmit={} */>
-                    <label htmlFor="input">
-                    <input
-                        type="text"
-                        name="input"
-                        placeholder="Browse our gallery..."
-                    />
-                    </label>
-                    <div >
-                        <button
-                            type="submit"
-                        >
-                            Search!
-                        </button>
-                    </div>
-                    <div>
-                        <option>Obra 1</option>
-                        <option>Obra 2</option>
-                        <option>Obra 3</option>
-                        <option>Obra 4</option>
-                        <option>Obra 5</option>
-                    </div>
-                </form>
+            <div className='FilterAndProducts'>
+                <div className='authorFilter'>
+                    <select name="authorId" id="selectorArAP" onChange={handleChange}>
+                        <option value="" disabled selected >Exciting Authors</option>    
+                        {allArtist.map(a => <option value={a.id}>{a.name}</option>)}
+                    </select>
+                </div>
+                <div className="productContainer">
+                    <ul>
+                        {author.map(m => {
+                            return(
+                                <li className="product" key={m.id}>
+                                    <Link to={`/Admin/Author/Edit/${m.id}`}>
+                                        <p>{m.name}</p>
+                                        <p>{m.email}</p>
+                                    </Link>
+                                </li>           
+                            )
+                        })}
+                    </ul> 
+                </div>
             </div>
             <div className='compProd'>
+                <Route exact path="/Admin/Author" component={AuthorForm} />
+               
+                <Route exact path="/Admin/Author/Edit/:id" component={EditAuthor} />
             </div>
         </div>
 
-     );
+    );
 }
 export default ModifyAuthor;

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addAuthor } from  '../../../../redux/actions/actionBack';
+import '../../../../scss/components/_editProducts.scss';
 
 function CreateAuthor() {
   const dispatch = useDispatch();
@@ -33,31 +34,42 @@ function CreateAuthor() {
   }
 
   return (
-    <div className="form_container">
-      <h3>Add a new Author</h3>
-      <form className="input_form" onSubmit={handleSubmit}>
-        <label htmlFor="name">
-          <input
-            required
-            placeholder="New Author"
-            type="text"
-            name="name"
-            value={input.name}
-            onChange={handleChange}
+    <div className="mainDivEP">
+      <h2 className="title">Add a new Author</h2>
+      <div className="divEP">
+        <form 
+          className="formEP" 
+          onSubmit={handleSubmit}
+        >
+          <div>
+            <input
+              required
+              placeholder="New Author"
+              className="input"
+              type="text"
+              name="name"
+              value={input.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              required
+              placeholder="email"
+              className="input"
+              type="text"
+              name="email"
+              value={input.email}
+              onChange={handleChange}
+            />
+          </div>
+          <input 
+            className="EditOrAdd"
+            type="submit"
+            value="Add" 
           />
-        </label>
-        <label htmlFor="email">
-          <input
-            required
-            placeholder="email"
-            type="text"
-            name="email"
-            value={input.email}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">Add</button>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

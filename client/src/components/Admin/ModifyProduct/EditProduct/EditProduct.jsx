@@ -1,8 +1,8 @@
 /*eslint-disable*/
-import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
+import { editProductCategory, deleteProductCategory, editProductByBody, deleteProduct } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
 function EditProduct() {
@@ -33,7 +33,7 @@ function EditProduct() {
 
     useEffect(() => {
         const findProduct = allProducts.find(f => f.id === Number(id))
- 
+       
         if (findProduct?.id) {
           
             setProduct({
@@ -75,22 +75,25 @@ function EditProduct() {
     //Handle input para artist
     function handleInputChangeAr(event) {
         event.preventDefault();
- 
+      
         setProduct({ ...product, [event.target.name]: allArtist.find(a => event.target.value === a.idAuthors) })
     }
 
     //Handle input para categories
     function handleInputChangeCa(event) {
-
+       
         var cat = product.categories
         if (cat.find(c => c?.id != event.target.value)) {
-  
-            axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
+           
+            // axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
+            dispatch( editProductCategory(product.id, event.target.value) );
+            
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
         }
         else if (cat[0] == undefined) {
-     
-            axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
+           
+            // axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
+            dispatch( editProductCategory(product.id, event.target.value) );
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
         }
         //borra los repetidos
@@ -100,24 +103,28 @@ function EditProduct() {
 
     //Handle input para borrar categoria
     function handleInputDeleteCa(event, id) {
-
+      
         var cat = product.categories
-        axios.delete(`http://localhost:3001/delete/product/${product.id}/category/${id}`)
+        // axios.delete(`http://localhost:3001/delete/product/${product.id}/category/${id}`)
+        dispatch( deleteProductCategory(product.id, id) );
         cat = cat.filter(c => c?.id != Number(id))
         setProduct({ ...product, categories: cat })
     }
 
     function submitForm(event) {
- 
-        axios.put(`http://localhost:3001/put/product/${product.id}`, product)
+        
+        // axios.put(`http://localhost:3001/put/product/${product.id}`, product)
+        dispatch( editProductByBody(product.id, product) );
     }
-    const deleteProduct = () => {
+    const deleteProducts = () => {
         setBoolean(true)
     }
     const Yes = () => {
 
         if(product.id){
-            axios.delete(`http://localhost:3001/delete/product/${product.id}`);
+
+            // axios.delete(`http://localhost:3001/delete/product/${product.id}`);
+            dispatch( deleteProduct(product.id) );
         }
         setBoolean(false);
     }
@@ -130,15 +137,22 @@ function EditProduct() {
     return (
         <div className="mainDivEP">
             <h2 className="title">Edit Product</h2>
+            <Link 
+                className="nav-link" 
+                to="/admin/Product"
+            ><li>Add Products</li></Link>
             <div className="divEP">
                 <form 
                     className="formEP" 
-                    onSubmit={submitForm} >
+                    onSubmit={submitForm} 
+                >
                     <div>
                         Name: 
                         <input 
                             className="input" type="text" 
-                            onChange={handleInputChange} value={product.name} name="name" 
+                            onChange={handleInputChange} 
+                            value={product.name} 
+                            name="name" 
                         />
                     </div>
                     <div>
@@ -231,15 +245,15 @@ function EditProduct() {
                         {product.categories.map(p => <h4 className="productCategories" key={`EP${key++}`} onClick={(event) => handleInputDeleteCa(event, p?.id)} >{p?.name}</h4>)}
                     </div>
                     <input 
-                        className="EditOrDelete" 
+                        className="EditAndDelete" 
                         type="submit" 
                         value="Edit" 
                     />
                     <input 
-                        className="EditOrDelete"
+                        className="EditAndDelete"
                         type="button" 
                         value="Delete" 
-                        onClick={deleteProduct} 
+                        onClick={deleteProducts} 
                     />
                 </form>
             </div>
