@@ -15,13 +15,13 @@ function AddProduct() {
     },[])
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
-    const allArtistError = useSelector((store) => store.reducerArtist.allArtistError)
+    // const allArtistError = useSelector((store) => store.reducerArtist.allArtistError)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
-    const allCategoriesError = useSelector((store) => store.reducerCategories.allCategoriesError)
+    // const allCategoriesError = useSelector((store) => store.reducerCategories.allCategoriesError)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
-    const allSeriesError = useSelector((store) => store.reducerSeries.allSeriesError)
-    const postProduct = useSelector((store) => store.reducerErrorRoutes.postProduct)
-    const postProductError = useSelector((store) => store.reducerErrorRoutes.postProductError)
+    // const allSeriesError = useSelector((store) => store.reducerSeries.allSeriesError)
+    // const postProduct = useSelector((store) => store.reducerErrorRoutes.postProduct)
+    // const postProductError = useSelector((store) => store.reducerErrorRoutes.postProductError)
 
     // console.log(allArtistError)
     // console.log(allCategoriesError)

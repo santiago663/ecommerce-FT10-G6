@@ -15,8 +15,11 @@ function SearchBar() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    activeButton === "1" && dispatch(searchByTitle(input));
-    // crear acion para buscar por nombre
+    if(input.length >0){
+
+      activeButton === "1" && dispatch(searchByTitle(input));
+      // crear acion para buscar por nombre 
+    }
   };
   
   const buttonHandleChange=(e) =>{
