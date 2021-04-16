@@ -1,34 +1,41 @@
 /*eslint-disable*/
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { startGoogleLogin, startLoginEmailPassword } from '../../redux/actions/auth';
 import '../../scss/components/_signIn.scss'
 
 const SignIn = () => {
-    const [formState, setFormState] = useState({
+    const dispatch = useDispatch()
+    const loading = useSelector((store) => store.reducerLoading.loading);
+    console.log(loading);
+
+    const [signState, setSignState] = useState({
         email: '',
         password: ''
     });
 
-    const { email, password } = formState;
-
-    useEffect(() => {
-        console.log('formState cambió');
-    }, [])
+    const { email, password } = signState;
 
     const handleInputChange = ({ target }) => {
-        setFormState({
-            ...formState,
+        setSignState({
+            ...signState,
             [target.name]: target.value
         })
     }
-    const handleSubmit = (e) => {
+
+    const handleSignIn = (e) => {
         e.preventDefault()
-        console.log('submited');
+        dispatch(startLoginEmailPassword(email, password));
+    }
+
+    const handleGoogleLogin = () => {
+        dispatch(startGoogleLogin());
     }
 
     return (
         <div className="form-container">
             <form
-                onSubmit={handleSubmit}
+                onSubmit={handleSignIn}
                 className="form"
             >
                 <h5>Login</h5>
@@ -55,16 +62,19 @@ const SignIn = () => {
                         required
                     />
                 </div>
-                <div className="input-field">
+                <div
+                    className="input-field">
                     <button
                         type="submit"
                         className="btn"
+                        disabled={loading}
                     >Login</button>
                 </div>
                 <div>
                     <p>Login whit social networks</p>
                     <div
                         className="google-btn"
+                        onClick={handleGoogleLogin}
                     >
                         <div className="google-icon-wrapper">
                             <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />

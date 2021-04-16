@@ -130,15 +130,43 @@ p {
 }
 
 .mainDivEP {
+  height: 50%;
   margin-top: 1%;
   margin-left: 1%;
   margin-bottom: 2%;
   color: #252525;
   white-space: pre;
 }
-
-.formEP {
+.mainDivEP .divEP .formEP {
   margin: 1%;
+}
+.mainDivEP .divEP .formEP .EditOrDelete {
+  width: 70px;
+  margin: 15px 20px 15px 35px;
+  padding: 0px;
+}
+.mainDivEP .divDelete {
+  margin: 0px;
+  font-weight: bold;
+}
+.mainDivEP .divDelete .Yes {
+  border: 1px solid #11b14b;
+  border-radius: 5px;
+  background-color: #77ed9e;
+}
+.mainDivEP .divDelete .No {
+  border: 1px solid #dd3a3a;
+  border-radius: 5px;
+  background-color: #ed7777;
+}
+.mainDivEP .divDelete button {
+  margin: 10px 0px 0px 35px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.input {
+  margin: 5px;
 }
 
 .landing-section {
@@ -433,6 +461,20 @@ a.link {
   top: -100px;
   border-radius: 1px;
   box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.37);
+}
+.form-container .form .auth__alert-error {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 15px;
+  background-color: tomato;
+  margin-bottom: 20px;
+  color: #fff;
+  box-shadow: 0 1px 0px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 3px;
 }
 .form-container .form .a__signin {
   margin-top: 30px;

@@ -40,3 +40,7 @@ export const PAG = 'PAG'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const ADD_TO_CART = 'ADD_TO_CART';
 
+//ERRORS U.I.
+export const UI_SET_ERROR = '[UI] SET_ERROR'
+export const UI_REMOVE_ERROR = '[UI] REMOVE_ERROR'
+
