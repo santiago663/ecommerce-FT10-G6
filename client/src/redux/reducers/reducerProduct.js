@@ -3,12 +3,9 @@
 import * as TYPES from '../types/index';
 
 const initialState = {
-  backUpProducts: [],
+
   productCache: [],
   allProductCache: [],
-  filterBy: 'All',
-  orderBy: 'Select',
-  filteredProducts: []
 };
 
 export default function reducerProduct (state = initialState, action){
@@ -17,39 +14,29 @@ export default function reducerProduct (state = initialState, action){
 
     case TYPES.GET_ALL_PRODUCTS:
       return {
-			...state,
-			allProductCache: action.payload,
-			backUpProducts: action.payload,
-		};
+        ...state,
+        allProductCache: action.payload,
+      };
 
     case TYPES.GET_ONE_PRODUCT:
       return {
         ...state,
         productCache: action.payload,
       };
-      case TYPES.ORDER_ASC_NAME:
+
+    case "FIL_ALPH":
+      if(action.payload === 0){
         return {
           ...state,
-          allProductCache: action.payload.productsOrder,
-          arderBy:action.payload.name,
+          allProductCache: [...state.allProductCache].sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
         };
-      case TYPES.ORDER_DESC_NAME:
+      } else {
         return {
-			...state,
-			allProductCache: action.payload.productsOrder,
-			orderBy: action.payload.name,
-		};
-    case TYPES.ORDER_BY_CATEGORIES:
-      return {
-			...state,
-			allProductCache: action.payload.productCategory,
-      filterBy: action.payload.category
-		};
-    case TYPES.ALL_PRODUCTS_RESET:
-      return {
-			...state,
-			allProductCache: state.backUpProducts,
-		};
+          ...state,
+          allProductCache: [...state.allProductCache].sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1)
+        };
+      }
+
     default:
       return state;
   }
