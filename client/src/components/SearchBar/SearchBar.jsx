@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchByTitle } from '../../redux/actions/actionBack';
 import { setActive } from '../../redux/actions/request'
 import '../../scss/components/_searchBar.scss';
-import Azza from '../Filters/Azza'
 
 function SearchBar() {
   const [input, setInput] = useState('');
@@ -74,7 +73,6 @@ function SearchBar() {
           </button>
         </div>
       </form>
-      <Azza />
     </div>
   );
 }

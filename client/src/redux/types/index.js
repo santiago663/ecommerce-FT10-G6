@@ -27,9 +27,8 @@ export const REQUEST_SUCCESS = 'REQUEST_SUCCESS'
 export const AUTH_LOGIN = 'AUTH_LOGIN'
 export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 
-//FILTERS A-Z, Z-A
-export const ORDER_ASC_NAME = 'ORDER_ASC_NAME';
-export const ORDER_DESC_NAME = 'ORDER_DESC_NAME';
+//FILTERS
+export const FILAZZA = 'FILAZZA'
 
 //ACTIVE BUTTONS BROWSER
 export const ACTIVE = 'ACTIVE'
@@ -41,12 +40,7 @@ export const PAG = 'PAG'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const ADD_TO_CART = 'ADD_TO_CART';
 
-//FILTERS BY CATEGORIES
-export const ORDER_BY_CATEGORIES = 'ORDER_BY_CATEGORIES';
-export const ALL_PRODUCTS_RESET = 'ALL_PRODUCTS_RESET'; 
-
 //ERRORS U.I.
 export const UI_SET_ERROR = '[UI] SET_ERROR'
 export const UI_REMOVE_ERROR = '[UI] REMOVE_ERROR'
-
 
