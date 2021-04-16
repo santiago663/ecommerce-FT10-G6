@@ -12,13 +12,14 @@ import Checkout from '../components/Checkout/Checkout';
 import Order from '../components/Order/Order';
 import Payment from '../components/Payment/Payment';
 import Register from '../components/Auth/Register';
+import PrivateRoute from '../app/PrivateRoute'
 
 const routes = () => (
   <Router>
     <Route path="/" component={NavBar} />
     <Route exact path="/" component={Home} />
     <Route path="/browser" component={Browser} />
-    <Route path="/admin" component={Admin} />
+    <PrivateRoute exact path="/Admin" component={Admin} />
     <Route path="/checkout" component={Checkout} />
     <Route path="/checkout/payment" component={Payment} />
     <Route path="/checkout/information" component={Order} />
