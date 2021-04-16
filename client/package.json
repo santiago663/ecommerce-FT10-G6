@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "env-cmd": "^10.1.0",
+    "firebase": "^8.4.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-app-rewire-stylus-modules": "^0.0.2",
@@ -20,7 +21,8 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "validator": "^13.5.2"
   },
   "scripts": {
     "start": "env-cmd -f .env.local react-app-rewired start",
