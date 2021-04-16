@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
     // defino el modelo
     sequelize.define('products_orders', {
       price: {
-      type: DataTypes.DECIMAL(2,2),
+      type: DataTypes.NUMERIC(50,2),
       allowNull: false,
     }
   },
