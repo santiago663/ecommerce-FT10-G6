@@ -55,14 +55,18 @@ server.put("/:idUser/cart", async (req, res) => {
   try {
     let userId = req.params.idUser;
     let { orderId, productId } = req.body;
-    const orderResult = await Orders.findOne({
-      where: {
-        [Op.and]: [{ userId: userId }, { id: orderId }],
-      },
-      include: [{ model: Products, through: { attributes: [] } }],
-    });
-    let removeProduct = await orderResult.removeProducts(productId);
-    res.status(200).json({ remove: true, id: removeProduct });
+    if (userId && orderId && productId) {
+      const orderResult = await Orders.findOne({
+        where: {
+          [Op.and]: [{ userId: userId }, { id: orderId }],
+        },
+        include: [{ model: Products, through: { attributes: [] } }],
+      });
+      let removeProduct = await orderResult.removeProducts(productId);
+      res.status(200).json({ remove: true, id: removeProduct });
+    } else {
+      res.status(401).json({message: "Incomplete data"})
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Internal server error" });
