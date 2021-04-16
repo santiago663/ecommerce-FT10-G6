@@ -130,15 +130,43 @@ p {
 }
 
 .mainDivEP {
+  height: 50%;
   margin-top: 1%;
   margin-left: 1%;
   margin-bottom: 2%;
   color: #252525;
   white-space: pre;
 }
-
-.formEP {
+.mainDivEP .divEP .formEP {
   margin: 1%;
+}
+.mainDivEP .divEP .formEP .EditOrDelete {
+  width: 70px;
+  margin: 15px 20px 15px 35px;
+  padding: 0px;
+}
+.mainDivEP .divDelete {
+  margin: 0px;
+  font-weight: bold;
+}
+.mainDivEP .divDelete .Yes {
+  border: 1px solid #11b14b;
+  border-radius: 5px;
+  background-color: #77ed9e;
+}
+.mainDivEP .divDelete .No {
+  border: 1px solid #dd3a3a;
+  border-radius: 5px;
+  background-color: #ed7777;
+}
+.mainDivEP .divDelete button {
+  margin: 10px 0px 0px 35px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.input {
+  margin: 5px;
 }
 
 .landing-section {
@@ -198,7 +226,6 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
 }
 
 .loader {
@@ -305,6 +332,19 @@ nav {
   display: flex;
 }
 
+.fa-shopping-cart {
+  font-size: 25px;
+  color: #384985;
+}
+
+.Icon-Cart {
+  background-color: #f2d6d6;
+  padding: 5px;
+  border-radius: 100%;
+  border: 1px solid white;
+  width: 50px;
+}
+
 .product-card {
   display: grid;
   grid-template: 155px 3rem 1rem/1fr 1fr 1fr;
@@ -346,6 +386,16 @@ nav {
 
 a.link {
   text-decoration: none;
+}
+
+.add {
+  font-size: 30px;
+  color: #a99cbf;
+}
+
+.remove {
+  font-size: 30px;
+  color: #291e3d;
 }
 
 .product-wrapper {
@@ -395,6 +445,7 @@ a.link {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: radial-gradient(circle at 82% 60%, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.06) 69%, transparent 69%, transparent 100%), radial-gradient(circle at 36% 0%, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.06) 59%, transparent 59%, transparent 100%), radial-gradient(circle at 58% 82%, rgba(4, 4, 4, 0.06) 0%, rgba(4, 4, 4, 0.06) 17%, transparent 17%, transparent 100%), radial-gradient(circle at 71% 32%, rgba(19, 19, 19, 0.06) 0%, rgba(19, 19, 19, 0.06) 40%, transparent 40%, transparent 100%), radial-gradient(circle at 77% 5%, rgba(31, 31, 31, 0.06) 0%, rgba(31, 31, 31, 0.06) 52%, transparent 52%, transparent 100%), radial-gradient(circle at 96% 80%, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.06) 73%, transparent 73%, transparent 100%), radial-gradient(circle at 91% 59%, rgba(252, 252, 252, 0.06) 0%, rgba(252, 252, 252, 0.06) 44%, transparent 44%, transparent 100%), radial-gradient(circle at 52% 82%, rgba(25, 20, 20, 0.06) 0%, rgba(25, 20, 20, 0.06) 87%, transparent 87%, transparent 100%), radial-gradient(circle at 84% 89%, rgba(160, 160, 160, 0.06) 0%, rgba(160, 160, 160, 0.06) 57%, transparent 57%, transparent 100%), linear-gradient(450deg, #384985, #1669f2);
 }
 .form-container * {
   margin: 0;
@@ -411,8 +462,28 @@ a.link {
   border-radius: 1px;
   box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.37);
 }
-.form-container .form .a-link {
+.form-container .form .auth__alert-error {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 15px;
+  background-color: tomato;
+  margin-bottom: 20px;
+  color: #fff;
+  box-shadow: 0 1px 0px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 3px;
+}
+.form-container .form .a__signin {
   margin-top: 30px;
+}
+.form-container .form .a__signin a {
+  color: #384985;
+}
+.form-container .form .a__signin a:hover {
+  color: #1669f2;
 }
 .form-container .form h5 {
   margin-bottom: 30px;
@@ -434,6 +505,7 @@ a.link {
   background-color: #fafafa;
   border-bottom: 1px solid #dadfe0;
   transition: border-bottom 0.3s ease;
+  border-radius: 0px;
 }
 .form-container .form .form-control:focus {
   outline: none;
@@ -498,4 +570,15 @@ a.link {
 }
 .form-container .form .google-btn:active {
   background: #1669f2;
+}
+
+.register {
+  margin-top: 10px;
+}
+
+.a__register a {
+  color: #384985;
+}
+.a__register a:hover {
+  color: #1669f2;
 }/*# sourceMappingURL=styles.css.map */
