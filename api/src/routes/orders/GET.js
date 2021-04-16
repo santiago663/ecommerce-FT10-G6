@@ -25,8 +25,7 @@ server.get("/users/:idUser/cart", async (req, res) => {
         .send({ message: "This user doesn't have a cart open" });
     }
   } catch (err) {
-    console.log(err);
-    res.status(401).send({ message: "Internal server error" });
+     res.status(401).send({ message: "Internal server error" });
   }
 });
 
@@ -73,12 +72,11 @@ server.get("/", async (req, res) => {
           res.status(200).json(cart);
     }
   } catch (err) {
-    console.log(err);
-    res.status(401).send({ message: "Hubo un error" });
+    res.status(401).send({ message: "Internal server error" });
   }
 });
 
-server.get("/users/:id/orders", async (req, res) => {
+server.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
       let cart = await Orders.findAll({
@@ -101,11 +99,8 @@ server.get("/users/:id/orders", async (req, res) => {
       res.status(200).json(cart);
    
   } catch (err) {
-    console.log(err);
-    res.status(401).send({ message: "Hubo un error" });
+    res.status(401).send({ message: "Internal server error" });
   }
 });
-
-module.exports = server;
 
 module.exports = server;
