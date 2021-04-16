@@ -19,7 +19,7 @@ const routes = () => (
     <Route path="/" component={NavBar} />
     <Route exact path="/" component={Home} />
     <Route path="/browser" component={Browser} />
-    <PrivateRoute exact path="/Admin" component={Admin} />
+    <PrivateRoute path="/Admin" component={Admin} />
     <Route path="/checkout" component={Checkout} />
     <Route path="/checkout/payment" component={Payment} />
     <Route path="/checkout/information" component={Order} />

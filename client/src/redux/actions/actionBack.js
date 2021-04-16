@@ -124,16 +124,16 @@ export const searchByTitle = (keyword) => (
     try {
       dispatch(requestData())
       const response = await axios.get(`http://localhost:3001/get/product/search?keyword=${keyword}`);
-     
-      dispatch({
-        type: TYPES.GET_ALL_PRODUCTS,
-        payload: response.data,
+
+      response.data.length !== 0 && dispatch({
+        type: TYPES.SET_SEARCH_PRODUCTS,
+        payload: response.data ,
       });
       dispatch(requestSuccess())
     } catch (error) {
       console.error(error);
       dispatch({
-        type: TYPES.GET_ALL_PRODUCTS_ERROR,
+        type: TYPES.SET_SEARCH_PRODUCTS_ERROR,
         payload: error,
       });
     }

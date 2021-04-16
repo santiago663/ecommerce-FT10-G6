@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import CategoryForm from './AddCategoryForm/CategoryForm';
-
+import '../../../scss/components/_modify.scss';
 
 const ModifyCategory = () => {
 

@@ -8,6 +8,7 @@ import reducerLoading from './reducerLoading';
 import { authReducer } from './authReducer';
 import reducerPagination from './reducerPagination'
 import reducerShoppingCart from './reducerShoppingCart'
+import reducerErrorRoutes from './reducerErrorRoutes'
 import uiError from './reducerUiError'
 // import reducerTest from './reducerTest';
 
@@ -22,6 +23,6 @@ export default combineReducers({
   reducerShoppingCart: reducerShoppingCart,
   auth: authReducer,
   uiError: uiError,
-  // reducerTest: reducerTest,
+  reducerErrorRoutes: reducerErrorRoutes,
 });
 

@@ -4,7 +4,7 @@ import { Link, Route } from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
 import AuthorForm from './AuthorForm/AuthorForm'
 import EditAuthor from './AuthorForm/EditAuthor'
-
+import '../../../scss/components/_modify.scss';
 
 const ModifyAuthor = () => {
 
