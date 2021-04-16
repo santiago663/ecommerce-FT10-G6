@@ -17,7 +17,6 @@ export default function reducerProduct(state = initialState, action) {
 				allProductCache: action.payload,
 				backUpProducts: action.payload,
 			};
-
 		case TYPES.GET_ONE_PRODUCT:
 			return {
 				...state,

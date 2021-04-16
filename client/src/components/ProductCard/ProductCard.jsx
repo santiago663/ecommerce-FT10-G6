@@ -1,14 +1,23 @@
 /* eslint-disable  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../scss/components/_productCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../../redux/actions/actionFront';
 
+const itemLocal = localStorage.getItem('items')
+
 function ProductCard(props) {
   const dispatch = useDispatch();
+  
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+
+  // useEffect(() => {
+  //   localStorage.setItem('items' , JSON.stringify(shoppingCart))
+  //   shoppingCart.push(itemLocal)
+  // }, [shoppingCart])
+
   const {
     data: {
       name,
@@ -17,6 +26,8 @@ function ProductCard(props) {
       id,
     },
   } = props;
+
+  
 
   return (
 		<>
@@ -28,7 +39,10 @@ function ProductCard(props) {
 				</div>
 			</Link>
 			{!shoppingCart.includes(props.data) ? (
-				<i className="fas fa-cart-plus add" onClick={() => dispatch(addToCart(props.data))}></i>
+				<i
+					className="fas fa-cart-plus add"
+					onClick={(() => dispatch(addToCart(props.data)))}
+				></i>
 			) : (
 				<i className="fas fa-shopping-cart remove" onClick={() => dispatch(removeFromCart(props.data))}>
 					<br />
