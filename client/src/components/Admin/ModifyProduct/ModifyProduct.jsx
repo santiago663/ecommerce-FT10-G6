@@ -4,7 +4,7 @@ import { Link, Route } from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
 import AddProduct from './AddProduct/AddProduct';
 import EditProduct from './EditProduct/EditProduct';
-
+import '../../../scss/components/_modify.scss';
 
 const ModifyProduct = () => {
 
@@ -20,7 +20,7 @@ const ModifyProduct = () => {
         }    
     }
 
-    const authorProducts = allProducts.filter(f => f.author.id === Number(input))
+    const authorProducts = allProducts.filter(f => f.id === Number(input))
 
     return ( 
         <div className='ModifyProduct'>

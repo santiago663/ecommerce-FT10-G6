@@ -11,6 +11,14 @@ const initialState = {
 
 export default function reducerProduct(state = initialState, action) {
 	switch (action.type) {
+
+		case TYPES.SET_SEARCH_PRODUCTS:
+			return {
+				...state,
+				allProductCache: action.payload,
+				
+			};
+
 		case TYPES.GET_ALL_PRODUCTS:
 			return {
 				...state,

@@ -15,6 +15,7 @@ function EditProduct() {
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
     const allProducts = useSelector((store) => store.reducerProduct.allProductCache)
+    console.log(allProducts,"lllll")
 
     const [product, setProduct] = useState({
         id: 1,
