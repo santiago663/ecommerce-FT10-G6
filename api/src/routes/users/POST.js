@@ -1,7 +1,7 @@
 const server = require("express").Router();
 const { Users } = require("../../db");
 
-server.post("/", async (req, res) => {
+server.post("/", async (req, res) => {    
 
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -11,14 +11,13 @@ server.post("/", async (req, res) => {
     const {
         name,
         email,
-        password,
         phone_Number,
         location_id,
-        roleId,
+        isGuest,
     } = req.body;
 
     //creación de usuario como guest
-    if (!password) {
+    if (isGuest) {
 
         if (!validateEmail(email)) return res.status(422).json({ message: "The email is invalid" })
 
@@ -33,7 +32,7 @@ server.post("/", async (req, res) => {
                     email,
                     phone_Number,
                     location_id,
-                    roleId,
+                    roleId:2,
                     available: false
                 }
             })
@@ -47,7 +46,7 @@ server.post("/", async (req, res) => {
     }
 
     //creación de usuario al registrarse
-    else if (password) {
+    else if (!isGuest) {
 
         if (!name || !email) return res.status(422).json({ message: "Data is missing " }) 
         if (!validateEmail(email)) return res.status(422).json({ message: "The email is invalid" })
@@ -60,10 +59,9 @@ server.post("/", async (req, res) => {
                 defaults: {
                     name,
                     email,
-                    password,
                     phone_Number,
                     location_id,
-                    roleId,
+                    roleId: 2,
                     available: true
                 }
             })
@@ -77,10 +75,9 @@ server.post("/", async (req, res) => {
                 var guestUserRegister = await Users.update(
                     {
                         name,
-                        password,
                         phone_Number,
                         location_id,
-                        roleId,
+                        roleId: 2,
                         available: true
                     },
                     {
@@ -88,7 +85,6 @@ server.post("/", async (req, res) => {
                         returning: true,
                         plain: true
                     }
-
                 )
                 return res.status(200).json(guestUserRegister)
             }
