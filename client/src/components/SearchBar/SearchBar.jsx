@@ -47,7 +47,7 @@ function SearchBar() {
         {/* FILTER: SEARCH ARTWORK OR AUTHOR */}
 
         <div className="searchbar-filters">
-          
+          <button type="submit" className="btn-rounded searchbar-filters--btn_active search-button"><i class="fas fa-search"></i></button>
           <button
             className={activeButton === "1" ? "btn-rounded searchbar-filters--btn_active" : "btn-rounded searchbar-filters--btn_inactive " }
             type="submit"
@@ -72,7 +72,6 @@ function SearchBar() {
           >
             Authors
           </button>
-          
         </div>
       </form>
       <Azza />
