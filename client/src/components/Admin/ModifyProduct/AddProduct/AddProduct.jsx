@@ -1,8 +1,7 @@
 /*eslint-disable*/
-import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllAuthors, getAllCategories, getAllSeries } from  '../../../../redux/actions/actionBack';
+import { getAllAuthors, getAllCategories, getAllSeries, addProducts } from  '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_addProduct.scss';
 
 function AddProduct() {
@@ -16,8 +15,19 @@ function AddProduct() {
     },[])
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
+    const allArtistError = useSelector((store) => store.reducerArtist.allArtistError)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
+    const allCategoriesError = useSelector((store) => store.reducerCategories.allCategoriesError)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
+    const allSeriesError = useSelector((store) => store.reducerSeries.allSeriesError)
+    const postProduct = useSelector((store) => store.reducerErrorRoutes.postProduct)
+    const postProductError = useSelector((store) => store.reducerErrorRoutes.postProductError)
+
+    // console.log(allArtistError)
+    // console.log(allCategoriesError)
+    // console.log(allSeriesError)
+    console.log(postProduct,"postProduct")
+    console.log(postProductError,"postProductError")
 
     const [product, setProduct] = useState({
         name: "",
@@ -51,7 +61,7 @@ function AddProduct() {
 
     //Handle input para artist
     function handleInputChangeAr(event) {
-
+ 
         setProduct({ ...product, [event.target.name]: Number(event.target.value)})
     }
 
@@ -75,43 +85,81 @@ function AddProduct() {
 
     function submitForm(event) {        
         event.preventDefault();
- 
-        axios.post('http://localhost:3001/post/product', product);
+      
+        // axios.post('http://localhost:3001/post/product', product);
+        dispatch( addProducts(product) )
     }
 
     var key = 1;
 
     return (
         <div className="mainDivAP">
-            <h2>Add Product</h2>
+            <h2 className="title">Add Product</h2>
             <div className="divAP">
                 <form className="formAP" onSubmit={submitForm}>
                     <div>
-                        Name: <input type="text" onChange={handleInputChange} name="name" />
+                        Name: 
+                        <input
+                            className="input"
+                            type="text"
+                            onChange={handleInputChange}
+                            name="name" 
+                        />
                     </div>
                     <div>
-                        Description: <input type="text" onChange={handleInputChange} name="description" />
+                        Description: 
+                        <input 
+                            className="input" 
+                            type="text" 
+                            onChange={handleInputChange} 
+                            name="description" 
+                        />
                     </div>
                     <div>
-                        Price: <input type="text" onChange={handleInputChangePr} name="price" />
+                        Price: 
+                        <input 
+                            className="input" 
+                            type="text" 
+                            onChange={handleInputChangePr} 
+                            name="price" 
+                        />
                     </div>
                     <div>
                         Available:
-                        <select name="available" id="selectorAvAP" onChange={handleInputChangeAv}>
+                        <select 
+                            name="available" 
+                            id="selectorAvAP" 
+                            onChange={handleInputChangeAv}
+                        >
                             <option key={`AP${key++}`} value="Yes">Yes</option>
                             <option key={`AP${key++}`} value="No">No</option>
                         </select>
                     </div>                    
                     <div>
-                        FileLink: <input type="text" onChange={handleInputChange} name="fileLink" />
+                        FileLink: 
+                        <input 
+                            className="input" 
+                            type="text" 
+                            onChange={handleInputChange} 
+                            name="fileLink" 
+                        />
                     </div>
                     <div>
-                        Preview: <input type="text" onChange={handleInputChange} name="preview" />
+                        Preview: 
+                        <input 
+                            className="input" 
+                            type="text" 
+                            onChange={handleInputChange} 
+                            name="preview" 
+                        />
                     </div>
                     <div>
                         Artist:
-                        
-                        <select name="authorId" id="selectorArAP" onChange={handleInputChangeAr}>
+                        <select 
+                            name="authorId" 
+                            id="selectorArAP" 
+                            onChange={handleInputChangeAr}
+                        >
                             <option key={`AP${key++}`}> </option>
                             {allArtist.map(a => <option key={`AP${key++}`} value={a.id}>{a.name}</option>)}
                         </select>
@@ -124,7 +172,11 @@ function AddProduct() {
                     </div>
                     <div>
                         Categories:                        
-                        <select name="categories" id="selectorCaAP" onChange={handleInputChangeCa}>
+                        <select 
+                            name="categories" 
+                            id="selectorCaAP" 
+                            onChange={handleInputChangeCa}
+                        >
                             <option key={`AP${key++}`}> </option>
                             {allCategories.map(c => <option key={`AP${key++}`} value={c.id}>{c.name}</option>)}
                         </select>
@@ -132,7 +184,11 @@ function AddProduct() {
                         <span key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
                         }
                     </div>
-                    <input type="submit" value="Add" />
+                    <input 
+                        className="EditOrAdd"
+                        type="submit" 
+                        value="Add" 
+                    />
                 </form>
             </div>
         </div>

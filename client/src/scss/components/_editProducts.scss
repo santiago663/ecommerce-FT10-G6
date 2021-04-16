@@ -5,17 +5,38 @@
     margin-bottom: 2%;
     color:rgb(37, 37, 37);
     white-space: pre;
+    .title{
+        margin: 20px 0px 20px 20px ;
+        display: inline-block;
+    }
+    .nav-link{
+        margin-left: 45px;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 5px;
+        list-style:none;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 10px;
+        border: 1px solid rgb(99, 167, 226);
+        background-color:rgb(85, 150, 208);
+        color: black;
+    }
     .divEP{
         .formEP {
             margin:1%;
 
-            .EditOrDelete {
-                width: 70px;
+            .EditAndDelete {
+                width: 60px;
                 margin:15px 20px 15px 35px;
                 padding: 0px;
             }
+            .EditOrAdd {
+                width: 60px;
+                margin-top: 15px;
+                padding: 0px;
+            }
         }
-
     }
     .divDelete{
         margin: 0px;

@@ -1,44 +1,34 @@
 /*eslint-disable*/
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
 import CategoryForm from './AddCategoryForm/CategoryForm';
-import '../../../scss/components/_modifyProduct.scss';
+import '../../../scss/components/_modify.scss';
 
 const ModifyCategory = () => {
+
+    const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
+
+    const handleChange = (id) => {
+        
+        if(id.target.value !== 0){
+           setInput(id.target.value); 
+        }    
+    }
+
     return ( 
         <div className='ModifyProduct'>
-            <div className='SearchProduct'>
-
-                 <form /*onSubmit={} */>
-                    <label htmlFor="input">
-                    <input
-                        type="text"
-                        name="input"
-                        placeholder="Browse our gallery..."
-                    />
-                    </label>
-                    <div >
-                        <button
-                            type="submit"
-                        >
-                            Search!
-                        </button>
-                    </div>
-                    <div>
-                        <option>Obra 1</option>
-                        <option>Obra 2</option>
-                        <option>Obra 3</option>
-                        <option>Obra 4</option>
-                        <option>Obra 5</option>
-                    </div>
-                </form>
+            <div className='FilterAndProducts'>
+                <div className='authorFilter'>
+                    <select name="authorId" id="selectorArAP" onChange={handleChange}>
+                        <option value="" disabled selected >Categories in Use</option>    
+                        {allCategories.map(a => <option value={a.id}>{a.name}</option>)}
+                    </select>
+                </div>
             </div>
             <div className='compProd'>
                 <CategoryForm />
-                {/* <DeleteProduct />
-                <EditProduct /> */}
             </div>
         </div>
-
-     );
+    );
 }
 export default ModifyCategory;

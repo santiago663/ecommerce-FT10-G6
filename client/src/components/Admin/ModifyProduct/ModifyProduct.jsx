@@ -1,19 +1,17 @@
 /*eslint-disable*/
 import React, { useState } from 'react';
+import { Link, Route } from 'react-router-dom';
+import { useDispatch, useSelector} from 'react-redux';
 import AddProduct from './AddProduct/AddProduct';
 import EditProduct from './EditProduct/EditProduct';
-import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { useDispatch, useSelector} from 'react-redux';
-import '../../../scss/components/_modifyProduct.scss';
-
+import '../../../scss/components/_modify.scss';
 
 const ModifyProduct = () => {
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allProducts = useSelector((store) => store.reducerProduct.allProductCache)
 
-    const [input, setInput] = useState(0)
+    const [input, setInput] = useState(0);
 
     const handleChange = (id) => {
         
