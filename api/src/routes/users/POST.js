@@ -32,7 +32,7 @@ server.post("/", async (req, res) => {
                     email,
                     phone_Number,
                     location_id,
-                    roleId:2,
+                    roleId:3,
                     available: false
                 }
             })
