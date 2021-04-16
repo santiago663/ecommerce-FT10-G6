@@ -52,15 +52,10 @@ export const orderByCategories = (categories) => (dispatch, getState) => {
 	var backup = getState().reducerProduct.backUpProducts.slice();
 	let filteredProducts = [];
 
-	if (categories === 'All') {
-		dispatch({
-			type: TYPES.ALL_PRODUCTS_RESET,
-		});
-	} else {
-		backup
-			.slice()
-			.filter((f) => f.categories.forEach((x) => (x.name === categories ? filteredProducts.push(f) : null)));
-	}
+	backup
+		.slice()
+		.filter((f) => f.categories.forEach((x) => (x.name === categories ? filteredProducts.push(f) : null)));
+
 	dispatch({
 		type: 'ORDER_BY_CATEGORIES',
 		payload: {
@@ -74,13 +69,9 @@ export const orderByAuthor = (author) => (dispatch, getState) => {
 	var backup = getState().reducerProduct.backUpProducts.slice();
 
 	let filteredProducts = [];
-	if (author === 'All') {
-		dispatch({
-			type: TYPES.ALL_PRODUCTS_RESET,
-		});
-	} else {
-		backup.slice().filter((f) => (f.author.name === author ? filteredProducts.push(f) : null));
-	}
+
+	backup.slice().filter((f) => (f.author.name === author ? filteredProducts.push(f) : null));
+
 	dispatch({
 		type: 'ORDER_BY_CATEGORIES',
 		payload: {

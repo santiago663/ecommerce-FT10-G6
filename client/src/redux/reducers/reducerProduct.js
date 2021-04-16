@@ -6,9 +6,7 @@ const initialState = {
 	backUpProducts: [],
 	productCache: [],
 	allProductCache: [],
-	filterBy: 'All',
-	orderBy: 'Select',
-	filteredProducts: [],
+	
 };
 
 export default function reducerProduct(state = initialState, action) {
