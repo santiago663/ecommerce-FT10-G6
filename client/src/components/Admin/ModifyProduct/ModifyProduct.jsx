@@ -4,7 +4,7 @@ import { Link, Route } from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
 import AddProduct from './AddProduct/AddProduct';
 import EditProduct from './EditProduct/EditProduct';
-import '../../../scss/components/_modify.scss';
+
 
 const ModifyProduct = () => {
 
