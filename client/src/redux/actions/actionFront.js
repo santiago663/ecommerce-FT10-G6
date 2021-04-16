@@ -57,7 +57,7 @@ export const orderByCategories = (categories) => (dispatch, getState) => {
 		.filter((f) => f.categories.forEach((x) => (x.name === categories ? filteredProducts.push(f) : null)));
 
 	dispatch({
-		type: 'ORDER_BY_CATEGORIES',
+		type: TYPES.ORDER_BY_CATEGORIES,
 		payload: {
 			categories,
 			productCategory: filteredProducts,
@@ -73,7 +73,7 @@ export const orderByAuthor = (author) => (dispatch, getState) => {
 	backup.slice().filter((f) => (f.author.name === author ? filteredProducts.push(f) : null));
 
 	dispatch({
-		type: 'ORDER_BY_CATEGORIES',
+		type: TYPES.ORDER_BY_CATEGORIES,
 		payload: {
 			productCategory: filteredProducts,
 		},
