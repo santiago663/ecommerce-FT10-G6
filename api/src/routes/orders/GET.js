@@ -78,4 +78,35 @@ server.get("/", async (req, res) => {
   }
 });
 
+server.get("/users/:id/orders", async (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  try {
+      let cart = await Orders.findAll({
+        where: {
+          id: id,
+        },
+        include: [
+            {
+              model: Users,
+              attributes:['id','name']
+            },
+            {
+                model: Products,
+                through: { attributes: [] },
+            },
+          ],
+        
+      });
+      
+      res.status(200).json(cart);
+   
+  } catch (err) {
+    console.log(err);
+    res.status(401).send({ message: "Hubo un error" });
+  }
+});
+
+module.exports = server;
+
 module.exports = server;
