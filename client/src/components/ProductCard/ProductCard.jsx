@@ -10,26 +10,22 @@ const itemLocal = localStorage.getItem('items')
 
 function ProductCard(props) {
   const dispatch = useDispatch();
-  
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
-  const [showItem, setShowItem] = useSate();
+  const {data: {name,author,preview,id,},} = props;
+
+  
+
+  
 
   useEffect(() => {
-    shoppingCart.lenght === 0 ? shoppingCart.concat
-    localStorage.setItem('items' , JSON.stringify(shoppingCart))
-  //   shoppingCart.push(itemLocal)
-  }, [shoppingCart])
-
-  const {
-    data: {
-      name,
-      author,
-      preview,
-      id,
-    },
-  } = props;
-
-  
+   // if(shoppingCart.length === 0){
+   let data = localStorage.getItem('items')
+      dispatch(addToCart(JSON.parse(data)))
+   // }
+  }, []);
+   useEffect(() =>{
+      localStorage.setItem('items', JSON.stringify(shoppingCart))
+   },[shoppingCart])
 
   return (
 		<>
