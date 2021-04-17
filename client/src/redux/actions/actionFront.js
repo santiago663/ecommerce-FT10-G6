@@ -13,6 +13,10 @@ export const removeFromCart = (payload) => {
 	return { type: TYPES.REMOVE_FROM_CART, payload };
 };
 
+export const localStorageCart = (payload) => {
+	return {type: TYPES.LOCAL_STORAGE,payload}
+};
+
 //                                                  //
 //          ACTION FILTERS alphabetical:            //
 //                                                  //

@@ -1,33 +1,39 @@
 /* eslint-disable  */
-import React, { useEffect, useSate } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../scss/components/_productCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from '../../redux/actions/actionFront';
+import { addToCart, removeFromCart, localStorageCart } from '../../redux/actions/actionFront';
 
-const itemLocal = localStorage.getItem('items')
+
 
 function ProductCard(props) {
-  const dispatch = useDispatch();
-  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
-  const {data: {name,author,preview,id,},} = props;
+	const dispatch = useDispatch();
+	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+	const {
+		data: { name, author, preview, id },
+	} = props;
 
-  
+	const local = localStorage.getItem(id);
 
-  
+	useEffect(() => {
+		
+		dispatch(addToCart(local));
+		
+	}, []);
 
-  useEffect(() => {
-   // if(shoppingCart.length === 0){
-   let data = localStorage.getItem('items')
-      dispatch(addToCart(JSON.parse(data)))
-   // }
-  }, []);
-   useEffect(() =>{
-      localStorage.setItem('items', JSON.stringify(shoppingCart))
-   },[shoppingCart])
+	const handleAddToCart = (productOnClick) => {
+		dispatch(addToCart(productOnClick));
+		localStorage.setItem(productOnClick, JSON.stringify(productOnClick));
+	};
 
-  return (
+	const handleRemoveFromCart = (productOnClick) => {
+		dispatch(removeFromCart(productOnClick));
+		localStorage.removeItem(productOnClick.id);
+	};
+
+	return (
 		<>
 			<Link className="link" to={`/product/${id}`}>
 				<div className="product-card">
@@ -36,28 +42,28 @@ function ProductCard(props) {
 					<h6>{author.name}</h6>
 				</div>
 			</Link>
-			{!shoppingCart.includes(props.data) ? (
-				<i className="fas fa-cart-plus add" onClick={() => dispatch(addToCart(props.data))}></i>
+			{shoppingCart && !shoppingCart.includes(props.data) ? (
+				<i className="fas fa-cart-plus add" key={id} onClick={() => handleAddToCart(props.data)}></i>
 			) : (
-				<i className="fas fa-shopping-cart remove" onClick={() => dispatch(removeFromCart(props.data))}>
+				<i className="fas fa-shopping-cart remove" key={id}  onClick={() => handleRemoveFromCart(props.data)}>
 					<br />
 				</i>
 			)}
 		</>
-  );
+	);
 }
 
 ProductCard.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    preview: PropTypes.string,
-    author: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      email: PropTypes.string,
-    }),
-  }).isRequired,
+	data: PropTypes.shape({
+		id: PropTypes.number,
+		name: PropTypes.string,
+		preview: PropTypes.string,
+		author: PropTypes.shape({
+			id: PropTypes.number,
+			name: PropTypes.string,
+			email: PropTypes.string,
+		}),
+	}).isRequired,
 };
 
 export default ProductCard;
