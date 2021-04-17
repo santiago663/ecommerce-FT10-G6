@@ -3,7 +3,7 @@ const { Users } = require("../../db");
 
 server.get("/", async (req, res) => {
 
-    const { email } = req.body
+    const { email } = req.query
 
     if (email) {
         try {
@@ -18,7 +18,7 @@ server.get("/", async (req, res) => {
             return res.status(500).send({ message: "Internal server error" })
         }
     }
-
+    else {
     try {
         var users = await Users.findAll({
             attributes:
@@ -28,7 +28,7 @@ server.get("/", async (req, res) => {
                     "email",
                     "phone_Number",
                     "location_id",
-                    "role_id",
+                    "roleId",
                     "available",
                 ]
         })
@@ -37,6 +37,7 @@ server.get("/", async (req, res) => {
         console.log(error)
         res.status(500).send({ message: "Internal server error" })
     }
+}
 });
 
 
