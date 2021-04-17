@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import '../../scss/components/_navBar.scss';
 
 function NavBar() {
-  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+const currentUser = JSON.parse(localStorage.getItem("CurrentUser"))
+const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+
   return (
     <nav className="navbar">
       <ul className="nav-buttons_navigation">
@@ -23,21 +25,26 @@ function NavBar() {
             <i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i>
           </Link>
         </ul>
-        <ul className="nav-buttons_navigation">
+        {currentUser?.roleId === 100 ? <ul className="nav-buttons_navigation">
           <Link className="nav-link" to="/Admin">
             <li>Dashboard Admin</li>
           </Link>
-        </ul>
-        <Link className="link-btn-secondary" to="/signin">
-          <button className="btn-secondary" type="button">
-            Sign in
-				</button>
-        </Link>
-        <Link className="link-btn-secondary" to="/register">
-          <button className="btn-primary" type="button">
-            Sign up
-				</button>
-        </Link>
+        </ul> : <span></span>
+        }
+        {
+          currentUser ? <button type="button">
+            Log Out
+</button> : <> <Link className="link-btn-secondary" to="/signin">
+            <button className="btn-secondary" type="button">
+              Sign in
+</button>
+          </Link>
+            <Link className="link-btn-secondary" to="/register">
+              <button className="btn-primary" type="button">
+                Sign up
+</button>
+            </Link> </>
+        }
       </div>
     </nav>
   );
