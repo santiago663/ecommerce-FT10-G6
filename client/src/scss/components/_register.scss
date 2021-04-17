@@ -1,7 +1,7 @@
 // --> RECIVE STYLES FROM SIGN IN COMPONENT <-- \\
 
-$bg-color: #384985;
-$button-active-blue: #1669f2;
+$bg-color: #1a1a1b;
+$button-active: #969494;
 
 .register {
     margin-top: 10px;
@@ -11,7 +11,7 @@ $button-active-blue: #1669f2;
     a {
         color: $bg-color;
         &:hover {
-            color: $button-active-blue;
+            color: $button-active;
         }
     }
 }

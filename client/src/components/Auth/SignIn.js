@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { startGoogleLogin, startLoginEmailPassword } from '../../redux/actions/auth';
 import '../../scss/components/_signIn.scss';
 import { removeError } from '../../redux/actions/uiError'
@@ -103,9 +103,11 @@ const SignIn = () => {
             </p>
           </div>
         </div>
-        <div className="a-link a__signin">
-          <a href="#">Create New Account</a>
-        </div>
+        <Link to="/register">
+          <div className="a-link a__signin">
+            <a href="#">Create New Account</a>
+          </div>
+        </Link>
       </form>
     </div>
   )
