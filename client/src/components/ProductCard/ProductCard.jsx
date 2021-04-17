@@ -19,13 +19,19 @@ function ProductCard(props) {
 
 	useEffect(() => {
 		
-		dispatch(addToCart(local));
+		if(local !== null){
+			
+			// if (!shoppingCart.includes(JSON.parse(local))) {
 		
+			// 	dispatch(addToCart(JSON.parse(local)));
+			// }
+		} 
+		localStorage.clear()
 	}, []);
 
 	const handleAddToCart = (productOnClick) => {
 		dispatch(addToCart(productOnClick));
-		localStorage.setItem(productOnClick, JSON.stringify(productOnClick));
+		localStorage.setItem(productOnClick.id, JSON.stringify(productOnClick));
 	};
 
 	const handleRemoveFromCart = (productOnClick) => {
