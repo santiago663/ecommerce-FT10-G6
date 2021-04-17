@@ -19,22 +19,22 @@ function ProductCard(props) {
   } = props;
 
   return (
-		<>
-			<Link className="link" to={`/product/${id}`}>
-				<div className="product-card">
-					<img src={preview} alt="" />
-					<h4>{name}</h4>
-					<h6>{author.name}</h6>
-				</div>
-			</Link>
-			{!shoppingCart.includes(props.data) ? (
-				<i className="fas fa-cart-plus add" onClick={() => dispatch(addToCart(props.data))}></i>
-			) : (
-				<i className="fas fa-shopping-cart remove" onClick={() => dispatch(removeFromCart(props.data))}>
-					<br />
-				</i>
-			)}
-		</>
+    <>
+      <div className="product-card">
+        <Link className="link" to={`/product/${id}`}>
+          <img src={preview} alt="" />
+        </Link>
+        <h4>{name}</h4>
+        <h6>{author.name}</h6>
+      </div>
+      {!shoppingCart.includes(props.data) ? (
+        <i className="fas fa-cart-plus add" onClick={() => dispatch(addToCart(props.data))}></i>
+      ) : (
+        <i className="fas fa-shopping-cart remove" onClick={() => dispatch(removeFromCart(props.data))}>
+          <br />
+        </i>
+      )}
+    </>
   );
 }
 
