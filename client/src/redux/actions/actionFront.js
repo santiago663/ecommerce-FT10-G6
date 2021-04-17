@@ -79,3 +79,11 @@ export const orderByAuthor = (author) => (dispatch, getState) => {
 		},
 	});
 };
+
+export const addProductInProductBackup = (product) => (dispatch) => {
+
+	dispatch({
+		type: TYPES.ADD_PRODUCT_IN_PRODUCT_BACKUP,
+		payload: product
+	});
+};

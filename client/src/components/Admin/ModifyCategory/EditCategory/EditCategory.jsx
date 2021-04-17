@@ -2,37 +2,32 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom'
-import { editAuthor, deleteAuthor } from '../../../../redux/actions/actionBack';
+import {  } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
-function EditAuthor() {
+function EditCategory() {
 
     const {id} = useParams();
 
-    const dispatch = useDispatch()
-
-    const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
-    const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
-    const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
 
-    const [author, setAuthor] = useState({
+    
+    const [category, setCategory] = useState({
         id: 1,
         name: "",
-        email: "",
     })
 
     const [boolean, setBoolean] = useState(false)
 
     useEffect(() => {
-        const findAuthor = allArtist.find(f => f.id === Number(id))
+        const findCategory = allCategories.find(f => f.id === Number(id))
        
-        if (findAuthor?.id) {
+        if (findCategory?.id) {
           
-            setAuthor({
-                id: findAuthor.id,
-                name: findAuthor.name,
-                email: findAuthor.email,
+            setCategory({
+                id: findCategory.id,
+                name: findCategory.name,
+
             })
         }
         
@@ -43,38 +38,34 @@ function EditAuthor() {
     }
 
     //Handle input para price
-    function handleInputChangeEmail(event) {
-        setAuthor({ ...author, [event.target.name]: event.target.value })
-    }
 
     function submitForm(event) {
         
-        dispatch( editAuthor(author.id, author) );
+        // dispatch( editAuthor(author.id, author) );
     }
     const deleteProducts = () => {
         setBoolean(true)
     }
     const Yes = () => {
 
-        if(author.id){
+        if(category.id){
 
-            dispatch( deleteAuthor(author.id) );
+            // dispatch( deleteAuthor(author.id) ); //body
         }
         setBoolean(false);
     }
     const No = () => {
         setBoolean(false);
     }
-
-    var key = 1;
+    
 
     return (
         <div className="mainDivEP">
-            <h2 className="title">Edit Author</h2>
+            <h2 className="title">Edit Category</h2>
             <Link 
                 className="nav-link" 
-                to="/Admin/Author"
-            ><li>Add Author</li></Link>
+                to="/Admin/Category"
+            ><li>Add Category</li></Link>
             <div className="divEP">
                 <form 
                     className="formEP" 
@@ -86,18 +77,8 @@ function EditAuthor() {
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
-                            value={author.name} 
+                            value={category.name} 
                             name="name" 
-                        />
-                    </div>
-                    <div>
-                        Email: 
-                        <input 
-                            className="input"
-                            type="text" 
-                            onChange={handleInputChangeEmail} 
-                            value={author.email} 
-                            name="email" 
                         />
                     </div>
                     <input 
@@ -124,4 +105,4 @@ function EditAuthor() {
     );
 }
 
-export default EditAuthor
+export default EditCategory;

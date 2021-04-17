@@ -31,7 +31,7 @@ export default function reducerErrorRoutes(state = initialState, action) {
         case TYPES.PUT_EDIT_PRODUCT_CATEGORY:
             return {
                 ...state,
-                putProductError: action.payload,
+                putProduct: action.payload,
             };
 
         case TYPES.PUT_EDIT_PRODUCT_BYID_ERROR:

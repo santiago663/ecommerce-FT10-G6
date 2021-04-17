@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAuthors, getAllCategories, getAllSeries, addProducts } from  '../../../../redux/actions/actionBack';
+import { addProductInProductBackup } from  '../../../../redux/actions/actionFront';
+import Swal from 'sweetalert2';
 import '../../../../scss/components/_addProduct.scss';
 
 function AddProduct() {
@@ -15,19 +17,9 @@ function AddProduct() {
     },[])
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
-    // const allArtistError = useSelector((store) => store.reducerArtist.allArtistError)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
-    // const allCategoriesError = useSelector((store) => store.reducerCategories.allCategoriesError)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
-    // const allSeriesError = useSelector((store) => store.reducerSeries.allSeriesError)
-    // const postProduct = useSelector((store) => store.reducerErrorRoutes.postProduct)
-    // const postProductError = useSelector((store) => store.reducerErrorRoutes.postProductError)
-
-    // console.log(allArtistError)
-    // console.log(allCategoriesError)
-    // console.log(allSeriesError)
-    console.log(postProduct,"postProduct")
-    console.log(postProductError,"postProductError")
+    const productOrError = useSelector((store) => store.reducerErrorRoutes.postProduct)
 
     const [product, setProduct] = useState({
         name: "",
@@ -40,7 +32,7 @@ function AddProduct() {
         authorId: 1,        
         seriesId: null
     })
-
+ 
     function handleInputChange(event) {
         setProduct({ ...product, [event.target.name]: event.target.value })
     }
@@ -48,6 +40,7 @@ function AddProduct() {
     //Handle input para price
     function handleInputChangePr(event) {
         setProduct({ ...product, [event.target.name]: Number(event.target.value) })
+
     }
 
     //Handle input para available
@@ -83,11 +76,38 @@ function AddProduct() {
         setProduct({ ...product, categories: cat })
     }
 
+    const alertSucces = () =>{
+        Swal.fire({
+           title: "Producto Creado",
+           icon: "success",
+           timer: "1500",
+           showConfirmButton: false,
+        })
+    }
+    const alertError = () =>{
+        Swal.fire({
+           title: "Error Al crear el Producto",
+           icon: "error",
+           timer: "2500",
+           showConfirmButton: false,
+        })
+    }
+    
     function submitForm(event) {        
         event.preventDefault();
       
-        // axios.post('http://localhost:3001/post/product', product);
-        dispatch( addProducts(product) )
+        dispatch( addProducts(product) )  
+    }
+
+    if(productOrError.status === 200){
+
+        dispatch( addProductInProductBackup(product))
+        alertSucces();
+        productOrError.status = 0
+    }
+    if(productOrError.status === 201){
+        alertError();
+        productOrError.status = 0
     }
 
     var key = 1;

@@ -54,6 +54,11 @@ export default function reducerProduct(state = initialState, action) {
 				...state,
 				allProductCache: state.backUpProducts,
 			};
+		case TYPES.ADD_PRODUCT_IN_PRODUCT_BACKUP:
+			return {
+				...state,
+				backUpProducts: [...state.backUpProducts, action.payload],
+			};
 		default:
 			return state;
 	}

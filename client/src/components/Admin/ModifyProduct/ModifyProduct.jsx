@@ -9,7 +9,7 @@ import '../../../scss/components/_modify.scss';
 const ModifyProduct = () => {
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
-    const allProducts = useSelector((store) => store.reducerProduct.allProductCache)
+    const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
 
     const [input, setInput] = useState(0);
 
@@ -20,7 +20,12 @@ const ModifyProduct = () => {
         }    
     }
 
-    const authorProducts = allProducts.filter(f => f.id === Number(input))
+    
+    const authorProducts = allProducts.filter(f => 
+        {if(f.author.id === Number(input)){
+            return f
+        }  
+    })
 
     return ( 
         <div className='ModifyProduct'>
@@ -33,7 +38,7 @@ const ModifyProduct = () => {
                 </div>
                 <div className="productContainer">
                     <ul>
-                        {authorProducts.map(m => {
+                        {authorProducts.length !== 0 && authorProducts.map(m => {
                             return(
                                 <li className="product" key={m.id}>
                                     <Link to={`/Admin/Product/Edit/${m.id}`}>
