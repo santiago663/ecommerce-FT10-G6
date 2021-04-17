@@ -5,38 +5,51 @@ server.put("/:id", async (req, res) => {
   const { id } = req.params;
 
   if (!id) {
-    return res.status(422).json({ error: "User Id is missing" });
+    return res.status(400).json({ error: "User Id is missing", status: 400 });
   }
 
   const {
     name,
     email,
-    password,
     phone_Number,
     location_id,
-    role_id,
+    roleId,
+
   } = req.body;
 
   if (
     !name ||
     !email ||
-    !password ||
-    !phone_Number ||
-    !location_id ||
-    !role_id
+    !roleId
   ) {
-    return res.status(422).json({ error: "Data is missing" });
+    return res.status(400).json({ message: "Data is missing", status: 400 });
   }
 
   try {
-    var users = await Users.update(
+
+    function validateEmail(email) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+  }
+
+    if (!validateEmail(email)) return res.status(400).json({ message: "The email is invalid", status: 400})
+
+    let userSearch = await Users.findOne(
+      {
+        where: {
+          email
+        }
+      })
+
+    if(userSearch) if (userSearch.id != id) return res.status(400).json({ message: "That email is already used", status: 400 })
+    
+    var user = await Users.update(
       {
         name,
         email,
-        password,
         phone_Number,
         location_id,
-        role_id,
+        roleId,
       },
       {
         where: { id: id },
@@ -44,7 +57,7 @@ server.put("/:id", async (req, res) => {
         plain: true,
       }
     );
-    res.status(200).json(users[1]);
+    res.status(200).json({message: "User updated", user: user[1]});
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Internal server error" });
