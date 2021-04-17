@@ -21,7 +21,6 @@ server.post("/", async (req, res) => {
         for (var i = 0; i < productId.length; i++) {
 
             if (i === 0 && !id) {
-
                 newOrder = await Orders.create(order);
 
                 await newOrder.addProducts(productId[i], {
@@ -29,10 +28,8 @@ server.post("/", async (req, res) => {
                 })
                 idOrder = newOrder.id
             }
-
             else {
                 newOrder2 = await Orders.findOrCreate({
-
                     where: {
                         id: idOrder
                     },
