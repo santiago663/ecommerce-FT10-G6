@@ -3,21 +3,16 @@ const { Categories } = require("../../db");
 
 server.post("/", async (req, res) => {
   const { name } = req.body;
-
-  await Categories.findOrCreate({
-    where: {
-      name: name,
-    },
-    defaults: {
-      available: true
-    } 
+   try{
+   const newCategory = await Categories.findOrCreate({
+   where: { name: name, },
+   defaults: { available: true } 
   })
-    .then((newCategory) => {
-      res.json(newCategory[0]);
-    })
-    .catch((err) => {
-      res.status(401).send(err.message);
-    });
+   res.status(205).json(newCategory[0])
+  } catch(error) {
+    console.log(401);
+    res.status(401).json({ message: "Internal server error", status: 401 })
+  }
 });
 
 module.exports = server;
