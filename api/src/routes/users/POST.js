@@ -13,6 +13,7 @@ server.post("/", async (req, res) => {
         email,
         phone_Number,
         location_id,
+        roleId,
         isGuest,
     } = req.body;
 
@@ -25,16 +26,16 @@ server.post("/", async (req, res) => {
 
             var userGuest = await Users.findOrCreate({
                 where: {
-                    email: email,
+                    email,
                 },
                 defaults: {
                     name,
                     email,
                     phone_Number,
                     location_id,
-                    roleId:3,
+                    roleId,
                     available: false
-                }
+                }, 
             })
             return res.status(200).json(userGuest)
             //puede enviar un mail para confirmar si es la misma persona
@@ -48,8 +49,8 @@ server.post("/", async (req, res) => {
     //creación de usuario al registrarse
     else if (!isGuest) {
 
-        if (!name || !email) return res.status(422).json({ message: "Data is missing " }) 
-        if (!validateEmail(email)) return res.status(422).json({ message: "The email is invalid" })
+        if (!name || !email) return res.status(400).json({ message: "Data is missing " }) 
+        if (!validateEmail(email)) return res.status(400).json({ message: "The email is invalid" })
 
         try {
             var users = await Users.findOrCreate({
@@ -61,7 +62,7 @@ server.post("/", async (req, res) => {
                     email,
                     phone_Number,
                     location_id,
-                    roleId: 2,
+                    roleId,
                     available: true
                 }
             })
@@ -77,7 +78,7 @@ server.post("/", async (req, res) => {
                         name,
                         phone_Number,
                         location_id,
-                        roleId: 2,
+                        roleId,
                         available: true
                     },
                     {
