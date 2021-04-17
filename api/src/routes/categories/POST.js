@@ -8,6 +8,9 @@ server.post("/", async (req, res) => {
     where: {
       name: name,
     },
+    defaults: {
+      available: true
+    } 
   })
     .then((newCategory) => {
       res.json(newCategory[0]);
