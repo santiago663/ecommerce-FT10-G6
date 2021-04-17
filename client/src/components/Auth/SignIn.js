@@ -11,7 +11,7 @@ const SignIn = () => {
   const dispatch = useDispatch()
   const loading = useSelector((store) => store.reducerLoading.loading);
   const history = useHistory()
-  const CurrentUser = localStorage.getItem('CurrentUser')
+  const currentUser = JSON.parse(localStorage.getItem('CurrentUser'))
   const { msgError } = useSelector((store) => store.uiError)
   const [signState, setSignState] = useState({
     email: '',
@@ -34,7 +34,7 @@ const SignIn = () => {
   const handleSignIn = (e) => {
     e.preventDefault()
     dispatch(startLoginEmailPassword(email, password));
-    CurrentUser !== null ? history.push("/") : console.log("error")
+    currentUser !== null ? location.assign("http://localhost:3000") : console.log("error")
   }
 
   const handleGoogleLogin = () => {
