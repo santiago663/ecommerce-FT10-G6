@@ -23,12 +23,6 @@ function AddProduct() {
     // const postProduct = useSelector((store) => store.reducerErrorRoutes.postProduct)
     // const postProductError = useSelector((store) => store.reducerErrorRoutes.postProductError)
 
-    // console.log(allArtistError)
-    // console.log(allCategoriesError)
-    // console.log(allSeriesError)
-    console.log(postProduct,"postProduct")
-    console.log(postProductError,"postProductError")
-
     const [product, setProduct] = useState({
         name: "",
         description: "",
