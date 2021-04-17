@@ -2,6 +2,7 @@
 import axios from 'axios';
 import * as TYPES from '../types/index';
 import { firebase, googleAuthProvider } from '../../firebase/firebase-config'
+import Swal from 'sweetalert2';
 import { requestData, requestSuccess } from './request';
 import { setError } from './uiError';
 
@@ -19,14 +20,17 @@ export const logout = (uid, displayName) => ({
 })
 export const startRegister = (name, email, password) => {
     return (dispatch) => {
+        dispatch(requestData())
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(async ({ user }) => {
                 await user.updateProfile({ displayName: name })
                 dispatch(
                     login(user.uid, user.displayName)
                 )
+                dispatch(requestSuccess())
             }).catch(e => {
-                console.log(e);
+                dispatch(requestSuccess())
+                Swal.fire('Error', e.message, 'error')
             })
     }
 }

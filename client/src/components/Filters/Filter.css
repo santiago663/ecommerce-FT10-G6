@@ -1,63 +1,69 @@
 .filter {
-   width: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 4%;
-    background: #fafafa;
-    border: solid 1px #b0bec5;
-    border-radius: 25px;
-    margin-bottom: 2%;
-    margin-top: 1%;
-    position: relative;
-    left:18%;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 4%;
+  background: #fafafa;
+  border: solid 1px #b0bec5;
+  border-radius: 25px;
+  margin-bottom: 50px;
+  /* margin-top: 1%; */
+  padding: 0px 5px;
+  /* position: relative;
+    left:18%; */
 }
 
 .filter div {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
 }
 
 .filter select {
-    margin: 0;
-    padding: 1%;
-    height: 6%;
-    width: 18%;
-    border: none;
-    outline: none;
+  margin: 0;
+  padding: 1%;
+  height: 6%;
+  width: 18%;
+  border: none;
+  outline: none;
 }
-.Option-button{
-   border:none;
+.Option-button {
+  border: none;
 }
-.fa-sort-alpha-down{
-   font-size: 20px;
-   padding:0px;
-   margin: 0px;
-   padding:5px;
-   width: 70px;
-   border:none;
-   border-radius: 20px;
-}
-.fa-sort-alpha-up{
-   font-size: 20px;
-   padding:0px;
-   margin: 0px;
-   padding:5px;
-   width: 70px;
-   border:none;
-   border-radius: 20px;
+.fa-sort-alpha-down,
+.fa-sort-alpha-up {
+  position: relative;
+  right: -8px;
 }
 
-
-.fa-sort-alpha-up:hover{
-   border: solid 1px #b0bec5;
-   background-color: #b0bec5;
-   color: #ffffff;
+.fa-sort-alpha-down {
+  font-size: 20px;
+  padding: 0px;
+  margin: 0px;
+  padding: 5px;
+  width: 70px;
+  border: none;
+  border-radius: 20px;
 }
-.fa-sort-alpha-down:hover{
-   border: solid 1px #b0bec5;
-   background-color: #b0bec5;
-   color: #ffffff;
+.fa-sort-alpha-up {
+  font-size: 20px;
+  padding: 0px;
+  margin: 0px;
+  padding: 5px;
+  width: 70px;
+  border: none;
+  border-radius: 20px;
+}
+
+.fa-sort-alpha-up:hover {
+  border: solid 1px #b0bec5;
+  background-color: #b0bec5;
+  color: #ffffff;
+}
+.fa-sort-alpha-down:hover {
+  border: solid 1px #b0bec5;
+  background-color: #b0bec5;
+  color: #ffffff;
 }

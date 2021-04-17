@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import '../../scss/components/_register.scss'
 import validator from 'validator'
-import { useDispatch, useSelector } from 'react-redux';
-import { removeError, setError } from '../../redux/actions/uiError';
+import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux';
 import { startRegister } from '../../redux/actions/auth';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
 
-    const { msgError } = useSelector(state => state.uiError)
     const dispatch = useDispatch()
 
     const [regState, setRegState] = useState({
@@ -26,6 +26,7 @@ const Register = () => {
             [target.name]: target.value
         })
     }
+
     const handleRegister = (e) => {
         e.preventDefault()
 
@@ -34,19 +35,18 @@ const Register = () => {
         }
     }
 
-    //VALIDACION DEL FORM
     const isFormValid = () => {
         if (name.trim().length === 0) {
-            dispatch(setError('Name is required'))
+            Swal.fire('Warning', 'Name is required', 'warning')
             return false;
         } else if (!validator.isEmail(email)) {
-            dispatch(setError('E-mail is not valid'))
+            Swal.fire('Warning', 'E-mail is not valid', 'warning')
             return false;
         } else if (password !== confirm || password.length < 5) {
-            dispatch(setError('Password should be at least 6 characters and match each other'))
+            Swal.fire('Warning', 'Password should be at least 6 characters and match each other', 'warning')
             return false;
         }
-        dispatch(removeError())
+
         return true
     }
 
@@ -57,11 +57,6 @@ const Register = () => {
                 className="form"
             >
                 <h5>Register</h5>
-                {msgError &&
-                    <div className="auth__alert-error">
-                        {msgError}
-                    </div>
-                }
                 <div className="form-group">
                     <input
                         type="text"
@@ -114,10 +109,11 @@ const Register = () => {
                         className="btn"
                     >Register</button>
                 </div>
-
-                <div className="a__register">
-                    <a href="#">Already registered?</a>
-                </div>
+                <Link to="/signin">
+                    <div className="a__register">
+                        <a href="#">Already registered?</a>
+                    </div>
+                </Link>
             </form>
         </div>
     )

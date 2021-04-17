@@ -45,7 +45,7 @@ button {
 
 .btn-primary {
   color: #ffffff;
-  background: #384985;
+  background: #050505e7;
   border: none;
 }
 .btn-primary:hover {
@@ -66,9 +66,13 @@ button {
   margin-bottom: 2%;
   color: #252525;
 }
-
-.formAP {
+.mainDivAP .divAP .formAP {
   margin: 1%;
+}
+.mainDivAP .divAP .formAP .EditOrAdd {
+  margin-top: 15px;
+  width: 60px;
+  padding: 0px;
 }
 
 .shopping-cart {
@@ -137,12 +141,34 @@ p {
   color: #252525;
   white-space: pre;
 }
+.mainDivEP .title {
+  margin: 20px 0px 20px 20px;
+  display: inline-block;
+}
+.mainDivEP .nav-link {
+  margin-left: 45px;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px;
+  list-style: none;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 10px;
+  border: 1px solid #63a7e2;
+  background-color: #5596d0;
+  color: black;
+}
 .mainDivEP .divEP .formEP {
   margin: 1%;
 }
-.mainDivEP .divEP .formEP .EditOrDelete {
-  width: 70px;
+.mainDivEP .divEP .formEP .EditAndDelete {
+  width: 60px;
   margin: 15px 20px 15px 35px;
+  padding: 0px;
+}
+.mainDivEP .divEP .formEP .EditOrAdd {
+  width: 60px;
+  margin-top: 15px;
   padding: 0px;
 }
 .mainDivEP .divDelete {
@@ -302,6 +328,7 @@ p {
 nav {
   height: 5rem;
   width: 100%;
+  min-width: 650px;
   padding: 1rem 2rem;
   display: flex;
   flex-flow: row no-wrap;
@@ -321,7 +348,7 @@ nav {
   border-bottom: 3px solid #ddd;
 }
 .nav-buttons_navigation li:hover {
-  border-bottom: 3px solid #384985;
+  border-bottom: 3px solid #24262c;
 }
 
 .nav-link {
@@ -334,11 +361,14 @@ nav {
 
 .fa-shopping-cart {
   font-size: 25px;
-  color: #384985;
+  color: #24262c;
 }
 
 .Icon-Cart {
-  background-color: #f2d6d6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.041);
   padding: 5px;
   border-radius: 100%;
   border: 1px solid white;
@@ -346,42 +376,39 @@ nav {
 }
 
 .product-card {
-  display: grid;
-  grid-template: 155px 3rem 1rem/1fr 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 300px;
   margin-bottom: 25px;
-  background: linear-gradient(356deg, #7e57c2, #e91e63);
-  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  color: white;
+  background: linear-gradient(356deg, #fffeff, #ffffff);
+  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.137);
+  border-radius: 1px;
 }
 .product-card > h4 {
-  grid-area: 2/1/3/4;
-  margin-left: 1rem;
+  color: rgba(0, 0, 0, 0.719);
+  margin-left: 10px;
   font-size: 18px;
-  margin-top: 15px;
-  text-shadow: 1px 2px 5px black;
+  margin-top: 1px;
 }
 .product-card > h6 {
-  grid-area: 3/1/4/3;
-  margin-left: 1rem;
+  color: rgba(0, 0, 0, 0.493);
+  margin-left: 10px;
   font-size: 13px;
-  margin-top: -4px;
-  text-shadow: 1px 2px 5px black;
+  margin-bottom: 2px;
 }
 .product-card img {
-  grid-area: 1/1/2/4;
   width: 300px;
   height: 195px;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 5px 5px 0 0;
+  border-radius: 2px 2px 0 0;
   transition: transform 0.5s;
-  text-shadow: 1px 2px 5px black;
 }
 .product-card:hover {
   transition: transform 0.5s;
-  transform: scale(1.3);
+  transform: scale(1.05);
+  box-shadow: 1px 3px 14px rgba(0, 0, 0, 0.185);
 }
 
 a.link {
@@ -440,12 +467,12 @@ a.link {
 .form-container {
   width: 100%;
   height: 100vh;
-  background-color: #384985;
+  background-color: #060913;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: radial-gradient(circle at 82% 60%, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.06) 69%, transparent 69%, transparent 100%), radial-gradient(circle at 36% 0%, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.06) 59%, transparent 59%, transparent 100%), radial-gradient(circle at 58% 82%, rgba(4, 4, 4, 0.06) 0%, rgba(4, 4, 4, 0.06) 17%, transparent 17%, transparent 100%), radial-gradient(circle at 71% 32%, rgba(19, 19, 19, 0.06) 0%, rgba(19, 19, 19, 0.06) 40%, transparent 40%, transparent 100%), radial-gradient(circle at 77% 5%, rgba(31, 31, 31, 0.06) 0%, rgba(31, 31, 31, 0.06) 52%, transparent 52%, transparent 100%), radial-gradient(circle at 96% 80%, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.06) 73%, transparent 73%, transparent 100%), radial-gradient(circle at 91% 59%, rgba(252, 252, 252, 0.06) 0%, rgba(252, 252, 252, 0.06) 44%, transparent 44%, transparent 100%), radial-gradient(circle at 52% 82%, rgba(25, 20, 20, 0.06) 0%, rgba(25, 20, 20, 0.06) 87%, transparent 87%, transparent 100%), radial-gradient(circle at 84% 89%, rgba(160, 160, 160, 0.06) 0%, rgba(160, 160, 160, 0.06) 57%, transparent 57%, transparent 100%), linear-gradient(450deg, #384985, #1669f2);
+  background-image: repeating-linear-gradient(157.5deg, black 0px, black 20px, transparent 20px, transparent 22px), repeating-linear-gradient(413deg, black 0px, black 20px, transparent 20px, transparent 22px), linear-gradient(413deg, #f72282, #f7c222, #2cf722, #22d7f7, #6c22f7);
 }
 .form-container * {
   margin: 0;
@@ -464,7 +491,7 @@ a.link {
 }
 .form-container .form .auth__alert-error {
   width: 100%;
-  height: 50px;
+  height: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -480,17 +507,17 @@ a.link {
   margin-top: 30px;
 }
 .form-container .form .a__signin a {
-  color: #384985;
+  color: #060913;
 }
 .form-container .form .a__signin a:hover {
-  color: #1669f2;
+  color: #969494;
 }
 .form-container .form h5 {
   margin-bottom: 30px;
   font-size: 25px;
   font-family: "Roboto";
   font-weight: 600;
-  color: #384985;
+  color: #060913;
 }
 .form-container .form p {
   text-align: center;
@@ -509,11 +536,11 @@ a.link {
 }
 .form-container .form .form-control:focus {
   outline: none;
-  border-bottom: 1px solid #384985;
+  border-bottom: 1px solid #060913;
 }
 .form-container .form .btn {
   width: 100%;
-  background-color: #384985;
+  background-color: #060913;
   border: none;
   margin-bottom: 25px;
   padding: 5px 15px;
@@ -525,17 +552,17 @@ a.link {
   outline: none;
 }
 .form-container .form .btn:disabled {
-  background-color: #9ba8d5;
+  background-color: #31499b;
 }
 .form-container .form .btn:hover {
-  background-color: #293561;
+  background-color: black;
 }
 .form-container .form .google-btn {
   cursor: pointer;
   margin-top: 5px;
   width: 100%;
   height: 42px;
-  background-color: #4285f4;
+  background-color: #060913;
   border-radius: 2px;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
   transition: box-shadow 0.3s ease;
@@ -566,10 +593,10 @@ a.link {
   text-align: center;
 }
 .form-container .form .google-btn:hover {
-  box-shadow: 0 0 6px #4285f4;
+  box-shadow: 0 0 6px #060913;
 }
 .form-container .form .google-btn:active {
-  background: #1669f2;
+  background: #969494;
 }
 
 .register {
@@ -577,8 +604,8 @@ a.link {
 }
 
 .a__register a {
-  color: #384985;
+  color: #1a1a1b;
 }
 .a__register a:hover {
-  color: #1669f2;
+  color: #969494;
 }/*# sourceMappingURL=styles.css.map */
