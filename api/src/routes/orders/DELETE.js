@@ -18,7 +18,7 @@ server.delete("/users/:idUser/cart", async (req, res) => {
             }],
         })
 
-        if (!cart) return res.status(411).json({ message: "User doesn't exist" })
+        if (!cart) return res.status(400).json({ message: "User doesn't exist" })
 
         let array = cart.products.map(prod => prod.id)
 
@@ -28,7 +28,7 @@ server.delete("/users/:idUser/cart", async (req, res) => {
 
     } catch (err) {
         console.log(err)
-        res.status(401).send({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error" });
     }
 });
 

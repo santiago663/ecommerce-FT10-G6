@@ -1,19 +1,20 @@
 const server = require("express").Router();
-const { Categories } = require("../../db");
+const { Roles } = require("../../db");
 
 server.post("/", async (req, res) => {
-  const { name } = req.body;
+  const { description } = req.body;
+  console.log(description)
 
-  await Categories.findOrCreate({
+  await Roles.findOrCreate({
     where: {
-      name: name,
+      description,
     },
     defaults: {
       available: true
     } 
   })
-    .then((newCategory) => {
-      res.json(newCategory[0]);
+    .then((newRol) => {
+      res.json(newRol[0]);
     })
     .catch((err) => {
       res.status(401).send(err.message);

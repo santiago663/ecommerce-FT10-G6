@@ -27,6 +27,11 @@ router.use("/delete/user", require("./users/DELETE"));
 router.use("/get/user", require("./users/GET"));
 router.use("/post/user", require("./users/POST"));
 router.use("/put/user", require("./users/PUT"));
+// => Roles.
+router.use("/delete/roles", require("./roles/DELETE"));
+router.use("/get/roles", require("./roles/GET"));
+router.use("/post/roles", require("./roles/POST"));
+router.use("/put/roles", require("./roles/PUT"));
 // => Orders.
 router.use("/delete/order", require("./orders/DELETE"));
 router.use("/get/order", require("./orders/GET"));
