@@ -1,7 +1,6 @@
 /*eslint-disable*/
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
 import { startGoogleLogin, startLoginEmailPassword } from '../../redux/actions/auth';
 import '../../scss/components/_signIn.scss';
 import { removeError } from '../../redux/actions/uiError'
@@ -10,9 +9,10 @@ import Swal from 'sweetalert2'
 const SignIn = () => {
   const dispatch = useDispatch()
   const loading = useSelector((store) => store.reducerLoading.loading);
-  const history = useHistory()
-  const currentUser = JSON.parse(localStorage.getItem('CurrentUser'))
+  const { isLog } = useSelector((store) => store.auth)
   const { msgError } = useSelector((store) => store.uiError)
+  const currentUser = JSON.parse(localStorage.getItem('CurrentUser'))
+
   const [signState, setSignState] = useState({
     email: '',
     password: ''
@@ -27,14 +27,13 @@ const SignIn = () => {
     })
   }
 
-  const handleError = () => {
+  useEffect(() => {
+    isLog ? location.assign("http://localhost:3000") : console.log("error")
+  }, [isLog])
 
-  }
-
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault()
     dispatch(startLoginEmailPassword(email, password));
-    currentUser !== null ? location.assign("http://localhost:3000") : console.log("error")
   }
 
   const handleGoogleLogin = () => {
@@ -57,7 +56,6 @@ const SignIn = () => {
         className="form"
       >
         <h5>Login</h5>
-
         <div className="form-group">
           <input
             type="email"
@@ -103,15 +101,12 @@ const SignIn = () => {
             </p>
           </div>
         </div>
-        <Link to="/register">
-          <div className="a-link a__signin">
-            <a href="#">Create New Account</a>
-          </div>
-        </Link>
+        <div className="a-link a__signin">
+          <a href="#">Create New Account</a>
+        </div>
       </form>
     </div>
   )
 }
 
 export default SignIn;
-
