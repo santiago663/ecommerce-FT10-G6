@@ -32,6 +32,7 @@ export const startLoginEmailPassword = (email, password) => {
     return (dispatch) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(({ user }) => {
+                localStorage.setItem("currentUser", user)
                 dispatch(
                     login(user.uid, user.displayName)
                 )
@@ -45,6 +46,7 @@ export const startGoogleLogin = () => {
 
         firebase.auth().signInWithPopup(googleAuthProvider)
             .then(({ user }) => {
+                localStorage.setItem("currentUser", user.email)
                 dispatch(
                     login(user.uid, user.displayName)
                 )
@@ -52,3 +54,4 @@ export const startGoogleLogin = () => {
     }
 }
 
+// localStorage.clear();
