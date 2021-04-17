@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Users } = require("../../db");
+const { Users, Roles } = require("../../db");
 
 server.post("/", async (req, res) => {    
 
@@ -20,9 +20,17 @@ server.post("/", async (req, res) => {
     //creación de usuario como guest
     if (isGuest) {
 
+
+
         if (!validateEmail(email)) return res.status(422).json({ message: "The email is invalid" })
 
         try {
+
+            var roleGuest = await Roles.findOne({
+                where: {
+                    description: "Guest"
+                }
+            })
 
             var userGuest = await Users.findOrCreate({
                 where: {
@@ -33,7 +41,7 @@ server.post("/", async (req, res) => {
                     email,
                     phone_Number,
                     location_id,
-                    roleId,
+                    roleId: roleGuest.id,
                     available: false
                 }, 
             })
@@ -53,6 +61,12 @@ server.post("/", async (req, res) => {
         if (!validateEmail(email)) return res.status(400).json({ message: "The email is invalid" })
 
         try {
+
+            var role = await Roles.findOne({
+                where: {
+                    description: "Registered"
+                }
+            })
             var users = await Users.findOrCreate({
                 where: {
                     email: email,
@@ -62,7 +76,7 @@ server.post("/", async (req, res) => {
                     email,
                     phone_Number,
                     location_id,
-                    roleId,
+                    roleId: role.id,
                     available: true
                 }
             })
@@ -78,7 +92,7 @@ server.post("/", async (req, res) => {
                         name,
                         phone_Number,
                         location_id,
-                        roleId,
+                        roleId: role.id,
                         available: true
                     },
                     {

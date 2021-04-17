@@ -6,9 +6,9 @@ export default function PrivateRoute({ component: Component, ...rest }) {
    const [user, setUser] = useState({})
    const currentUser = JSON.parse(localStorage.getItem("CurrentUser"))
    
-   useEffect(()=>{
-      setUser(currentUser)
-   },[currentUser])
+   // useEffect(()=>{
+   //    setUser(currentUser)
+   // },[currentUser])
 
     return (
        <Route {...rest}  
