@@ -21,9 +21,7 @@ function Filter() {
 	};
 
 	const handleAuthor = (e) => {
-		
 		e.target.value === 'All' ? dispatch(getAllProducts()) : dispatch(orderByAuthor(e.target.value));
-		
 	};
 
 	return (

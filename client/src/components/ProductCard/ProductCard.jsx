@@ -1,5 +1,5 @@
 /* eslint-disable  */
-import React, { useEffect } from 'react';
+import React, { useEffect, useSate } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../scss/components/_productCard.scss';
@@ -12,11 +12,13 @@ function ProductCard(props) {
   const dispatch = useDispatch();
   
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+  const [showItem, setShowItem] = useSate();
 
-  // useEffect(() => {
-  //   localStorage.setItem('items' , JSON.stringify(shoppingCart))
+  useEffect(() => {
+    shoppingCart.lenght === 0 ? shoppingCart.concat
+    localStorage.setItem('items' , JSON.stringify(shoppingCart))
   //   shoppingCart.push(itemLocal)
-  // }, [shoppingCart])
+  }, [shoppingCart])
 
   const {
     data: {
@@ -39,10 +41,7 @@ function ProductCard(props) {
 				</div>
 			</Link>
 			{!shoppingCart.includes(props.data) ? (
-				<i
-					className="fas fa-cart-plus add"
-					onClick={(() => dispatch(addToCart(props.data)))}
-				></i>
+				<i className="fas fa-cart-plus add" onClick={() => dispatch(addToCart(props.data))}></i>
 			) : (
 				<i className="fas fa-shopping-cart remove" onClick={() => dispatch(removeFromCart(props.data))}>
 					<br />
