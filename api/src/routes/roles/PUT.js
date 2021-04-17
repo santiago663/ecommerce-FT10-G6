@@ -6,18 +6,12 @@ server.put("/:id", async (req, res) => {
   const { description } = req.body;
   try {
     let resp1 = await Roles.update(
-      {
-        description: description,
-      },
-      {
-        where: { id: id },
-      }
+      { description: description, },
+      { where: { id: id }, }
     );
-
     return res.status(200).json(resp1);
-
   } catch (err) {
-    res.status(401).send(err.message);
+    res.status(500).json({message:"Internal error", status:500});
   }
 });
 

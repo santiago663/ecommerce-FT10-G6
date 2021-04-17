@@ -3,22 +3,16 @@ const { Roles } = require("../../db");
 
 server.post("/", async (req, res) => {
   const { description } = req.body;
-  console.log(description)
-
-  await Roles.findOrCreate({
-    where: {
-      description,
-    },
-    defaults: {
-      available: true
-    } 
+  
+try{
+  const newRole = await Roles.findOrCreate({
+    where: { description, },
+    defaults: { available: true } 
   })
-    .then((newRol) => {
-      res.json(newRol[0]);
-    })
-    .catch((err) => {
-      res.status(401).send(err.message);
-    });
-});
+  res.status(200).json(newRole[0])
+} catch(err){
+  res.status(500).json({ message: "Error en el servidor",status:500})
+}
+})
 
 module.exports = server;
