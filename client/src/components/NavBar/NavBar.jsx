@@ -1,5 +1,5 @@
 /* eslint-disable  */
-import React from 'react';
+import React, {} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../scss/components/_navBar.scss';
@@ -7,6 +7,12 @@ import '../../scss/components/_navBar.scss';
 function NavBar() {
 const currentUser = JSON.parse(localStorage.getItem("CurrentUser"))
 const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+
+function handleLogOut () {
+  console.log("hola")
+  localStorage.removeItem("CurrentUser")
+  location.assign("http://localhost:3000")
+}
 
   return (
     <nav className="navbar">
@@ -32,18 +38,17 @@ const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCa
         </ul> : <span></span>
         }
         {
-          currentUser ? <button type="button">
-            Log Out
-</button> : <> <Link className="link-btn-secondary" to="/signin">
-            <button className="btn-secondary" type="button">
-              Sign in
-</button>
+          currentUser ? 
+          <button type="button" onClick={handleLogOut}>Log Out</button> 
+          : 
+          <> 
+          <Link className="link-btn-secondary" to="/signin">
+            <button className="btn-secondary" type="button">Sign in</button>
           </Link>
-            <Link className="link-btn-secondary" to="/register">
-              <button className="btn-primary" type="button">
-                Sign up
-</button>
-            </Link> </>
+          <Link className="link-btn-secondary" to="/register">
+            <button className="btn-primary" type="button">Sign up</button>
+          </Link> 
+          </>
         }
       </div>
     </nav>
