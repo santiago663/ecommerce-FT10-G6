@@ -1,10 +1,14 @@
 /*eslint-disable*/
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
+import Swal from 'sweetalert2';
 import { addAuthor } from  '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
 function CreateAuthor() {
+
+  const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
+ 
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     name: '',
@@ -16,6 +20,23 @@ function CreateAuthor() {
       ...input,
       [e.target.name]: e.target.value,
     });
+  }
+
+  const alertSucces = () =>{
+    Swal.fire({
+       title: "Producto Creado",
+       icon: "success",
+       timer: "1500",
+       showConfirmButton: false,
+    })
+  }
+  const alertError = () =>{
+      Swal.fire({
+        title: "Error Al crear el Producto",
+        icon: "error",
+        timer: "2500",
+        showConfirmButton: false,
+      })
   }
 
   function handleSubmit(e) {
@@ -31,6 +52,17 @@ function CreateAuthor() {
       name: '',
       email: '',
     });
+
+  }
+
+  if(productOrError.status === 200){
+
+      alertSucces();
+      productOrError.status = 0
+  }
+  if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
+      alertError();
+      productOrError.status = 0
   }
 
   return (
@@ -42,6 +74,7 @@ function CreateAuthor() {
           onSubmit={handleSubmit}
         >
           <div>
+            Name: 
             <input
               required
               placeholder="New Author"
@@ -53,6 +86,7 @@ function CreateAuthor() {
             />
           </div>
           <div>
+            Email :
             <input
               required
               placeholder="email"
