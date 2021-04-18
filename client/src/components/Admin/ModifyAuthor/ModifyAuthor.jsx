@@ -30,7 +30,11 @@ const ModifyAuthor = () => {
         <div className='ModifyProduct'>
             <div className='FilterAndProducts'>
                 <div className='authorFilter'>
-                    <select name="authorId" id="selectorArAP" onChange={handleChange}>
+                    <select 
+                        name="authorId" 
+                        id="selectorArAP" 
+                        onChange={handleChange}
+                    >
                         <option value="" disabled selected >Exciting Authors</option>    
                         {allArtist.map(a => <option value={a.id}>{a.name}</option>)}
                     </select>

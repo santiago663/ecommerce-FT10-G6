@@ -225,7 +225,6 @@ export const addProducts = (product) => (
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"POST")
       dispatch({
         type: TYPES.POST_NEW_PRODUCT_ERROR,
         payload: error,
@@ -248,11 +247,9 @@ export const editProductCategory = (productId, value) => (
             type: TYPES.PUT_EDIT_PRODUCT_CATEGORY,
             payload: res
           });
-          console.log(res,"edit1")
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error, "EDIT2");
       dispatch({
         type: TYPES.PUT_EDIT_PRODUCT_CATEGORY_ERROR,
         payload: error,
@@ -268,7 +265,7 @@ export const editProductByBody = (productId, product) => (
     try {
       dispatch(requestData())
       axios.put(`http://localhost:3001/put/product/${productId}`, product)
-        .then((res) => { console.log(res,"edit2---")
+        .then((res) => { 
           dispatch({
             type: TYPES.PUT_EDIT_PRODUCT_BYID,
             payload: res
@@ -277,7 +274,6 @@ export const editProductByBody = (productId, product) => (
           
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"ERedit2");
       dispatch({
         type: TYPES.PUT_EDIT_PRODUCT_BYID_ERROR,
         payload: error,
@@ -302,10 +298,8 @@ export const editAuthor = (authorId, author) => (
             payload: res
           });
           dispatch(requestSuccess())
-          console.log(res,"edit2")
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"ERedit2");
       dispatch({
         type: TYPES.PUT_EDIT_AUTHOR_ERROR,
         payload: error,
@@ -326,10 +320,8 @@ export const editCategory = (categoryId) => (
             payload: res
           });
           dispatch(requestSuccess())
-          console.log(res,"delete7")
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"ERdelete7");
       dispatch({
         type: TYPES.PUT_CATEGORY_ERROR,
         payload: error,
@@ -350,10 +342,8 @@ export const editUser = (userId, user) => (
             payload: res
           });
           dispatch(requestSuccess())
-          console.log(res,"delete7")
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"ERdelete7");
       dispatch({
         type: TYPES.PUT_USER_ERROR,
         payload: error,
@@ -375,10 +365,8 @@ export const deleteProduct = (productId) => (
             payload: res
           });
           dispatch(requestSuccess())
-          console.log(res,"delete1")
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"ERdelete1");
       dispatch({
         type: TYPES.DELETE_ONE_PRODUCT_ERROR,
         payload: error,
@@ -400,10 +388,8 @@ export const deleteProductCategory = (productId, id) => (
             payload: res
           });
           dispatch(requestSuccess())
-          console.log(res,"delete2")
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"ERdelete2");
       dispatch({
         type: TYPES.DELETE_ONE_PRODUCT_ERROR,
         payload: error,
@@ -425,10 +411,8 @@ export const deleteAuthor = (authorId) => (
             payload: res
           });
           dispatch(requestSuccess())
-          console.log(res,"delete2")
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"ERdelete2");
       dispatch({
         type: TYPES.DELETE_AUTHOR_ERROR,
         payload: error,
@@ -450,10 +434,8 @@ export const deleteCategory = (categoryId) => (
             payload: res.data
           });
           dispatch(requestSuccess())
-          console.log(res,"delete6")
         }).catch((error) => console.error(error))
     } catch (error) {
-      console.log(error,"ERdelete6");
       dispatch({
         type: TYPES.DELETE_CATEGORY_ERROR,
         payload: error,
@@ -475,10 +457,8 @@ export const getAllOrders = () => (
             payload: res.data
           });
           dispatch(requestSuccess())
-          // console.log(res,"ORDER")
         }).catch((error) => console.error(error))
     } catch (error) {
-      // console.log(error,"ERR-ORDER");
       dispatch({
         type: TYPES.GET_ALL_ORDERS_ERROR,
         payload: error,
@@ -500,10 +480,8 @@ export const getAllUsers = () => (
             payload: res.data
           });
           dispatch(requestSuccess())
-          // console.log(res,"USER")
         }).catch((error) => console.error(error))
     } catch (error) {
-      // console.log(error,"ERR-USERS");
       dispatch({
         type: TYPES.GET_ALL_USERS_ERROR,
         payload: error,
