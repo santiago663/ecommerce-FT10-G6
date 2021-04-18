@@ -6,7 +6,6 @@ import { useParams, Link } from 'react-router-dom'
 import { editCategory, deleteCategory } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
-
 function EditCategory() {
 
     const {id} = useParams();

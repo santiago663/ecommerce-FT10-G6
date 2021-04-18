@@ -6,6 +6,7 @@ import CategoryForm from './AddCategoryForm/CategoryForm'
 import EditCategory from './EditCategory/EditCategory';
 import '../../../scss/components/_modify.scss';
 
+
 const ModifyCategory = () => {
 
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)

@@ -8,7 +8,6 @@ import ModifyCategory from './ModifyCategory/ModyfyCategory.jsx';
 import ModifyAuthor from './ModifyAuthor/ModifyAuthor.jsx';
 import ModifyOrder from './ModifyOrder/ModifyOrder';
 
-
 const Dashboard = () => {
     return ( 
         <div className='Dashboard'>

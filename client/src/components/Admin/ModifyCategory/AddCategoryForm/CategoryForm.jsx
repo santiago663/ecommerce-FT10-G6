@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import { addCategory } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
-
 function CategoryForm() {
 
   const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
