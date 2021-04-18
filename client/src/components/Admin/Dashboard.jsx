@@ -10,10 +10,10 @@ import ModifyOrder from './ModifyOrder/ModifyOrder';
 import ModifyUser from './ModifyUser/ModifyUser';
 
 const Dashboard = () => {
+  const currentUser = JSON.parse(localStorage.getItem("CurrentUser"))
     return ( 
        <div className='Dashboard'>
             <div className="adminconsole">
-               
                  <div className="imgProfile">
                  </div>
                  <div className='userAdmin'>
@@ -34,8 +34,8 @@ const Dashboard = () => {
                     <Link className="nav-link" to="/admin/Order"><li>Categories</li></Link>
                     </div>
                     <div className="option">
-                    <Link className="nav-link" to="/admin/User"><li>Authors</li></Link>
-                    </div>             
+                    <Link className="nav-link" to="/admin/User"><li>User</li></Link>
+                    </div>
                  </div>
            </div>
            <div className="rigthContainer">
@@ -54,5 +54,6 @@ const Dashboard = () => {
         </div>
     );
 }
- 
+
 export default Dashboard;
+

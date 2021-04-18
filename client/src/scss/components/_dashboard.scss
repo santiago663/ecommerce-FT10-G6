@@ -1,38 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Roboto:wght@100;300;400;500;700&display=swap");
+
 .Dashboard{
 
     display: flex;
     width: 100vmax;
     background-color: rgb(37, 37, 37);
 
+    .adminconsole {
+        background-color: #3e4444;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .imgProfile {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-image: url("https://techcommunity.microsoft.com/t5/image/serverpage/image-id/217078i525F6A9EF292601F/image-size/large?v=v2&px=999");
+            background-size: cover;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .userAdmin {
+            color: white;
+            font-family: "Roboto", sans-serif;
+            font-size: 100;
+        }
     .title{
         margin:20px 0px 5px 30px;
     }
-    .adminconsole{
-        background-color: cadetblue;
-        width: 200px;
-        height: 100vmax;
-        .UserAdmin{
-            background-color: rgb(65, 121, 123);
-        }
-        .compCreateEditDelete{
-            color: black;
-            text-decoration: none;
-            list-style:none;
-            background-color: rgb(61, 117, 165);
+   
+    .options-menu{
+        color: black;
+        text-decoration: none;
+        list-style:none;
+        
+        .option {
+            display: flex;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 40px;
+            width: 198px;
+            justify-content: center;
+            align-items: center;
+            
+           
+            li{
+                color: whitesmoke;
+                text-decoration: none;
+                         
+                
+            }
         }
     }
+}
     
     .rigthContainer{
 
         width: 100vmax;
         
-        .rightCointainerTop{
-            
-            background: rgb(87,66,182);
-            background: linear-gradient(300deg, rgba(87,66,182,1) 32%, rgba(61,164,196,1) 68%);
-            border-radius: 5px;
-            height: 350px;
-            margin: 20px;
+        .rightCointainerTop {
+            margin: 20px;            
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+        
+
+            .stats {
+                background: #3e4444;
+width: 140%;
+height: 160px;
+align-items: center;
+display: flex;
+border-radius: 5px;
+margin-right: 20px;
+            }
+
+            .scroll {
+                background-image: url("https://p4.wallpaperbetter.com/wallpaper/329/704/888/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg");
+                background-size: cover;
+                width: 100%;
+                height: 160px;
+                background-color: whitesmoke;
+                border-radius: 5px;
+            }
         }
         .rightContainerBottom{
             

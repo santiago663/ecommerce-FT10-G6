@@ -4,7 +4,6 @@ const { Orders } = require("../../db");
 server.post("/", async (req, res) => {
 
     const { total, userId, price, productId, id } = req.body;
-
     try {
 
         const order = {
@@ -39,6 +38,9 @@ server.post("/", async (req, res) => {
                     through: { price: price[i] }
                 })
             }
+        }
+        if(!newOrder2 && newOrder){
+            return res.status(200).json({message:"order created successfully",id: newOrder.id})
         }
 
         if (newOrder2[1] === false) {
