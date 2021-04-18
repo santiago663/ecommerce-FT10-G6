@@ -11,26 +11,38 @@ import ModifyUser from './ModifyUser/ModifyUser';
 
 const Dashboard = () => {
     return ( 
-        <div className='Dashboard'>
+       <div className='Dashboard'>
             <div className="adminconsole">
-                <div className='UserAdmin'>
-                    <h4>NameAdmin</h4>
-                    <h4>RolAdmin</h4>
-                    <h4>ImageAdmin</h4>
-                    <h4>currentDay</h4>
-                </div>
-                <div className='compCreateEditDelete'>
+               
+                 <div className="imgProfile">
+                 </div>
+                 <div className='userAdmin'>
+                    <h3>{currentUser.name}</h3>
+                    <h4>{currentUser.email}</h4>
+                 </div>
+                 <div className='options-menu'>
+                    <div className="option">
                     <Link className="nav-link" to="/admin/Product"><li>Products</li></Link>
+                    </div>
+                    <div className="option">
                     <Link className="nav-link" to="/admin/Category"><li>Categories</li></Link>
+                    </div>
+                    <div className="option">
                     <Link className="nav-link" to="/admin/Author"><li>Authors</li></Link>
-                    <Link className="nav-link" to="/admin/Order"><li>Orders</li></Link>
-                    <Link className="nav-link" to="/admin/User"><li>Users</li></Link>
+                    </div>
+                    <div className="option">
+                    <Link className="nav-link" to="/admin/Order"><li>Categories</li></Link>
+                    </div>
+                    <div className="option">
+                    <Link className="nav-link" to="/admin/User"><li>Authors</li></Link>
+                    </div>             
+                 </div>
+           </div>
+           <div className="rigthContainer">
+                <div className="rightCointainerTop">
+                    <div className="stats"></div>
+                    <div className="scroll"></div>
                 </div>
-            </div>
-            <div className="rigthContainer">
-                {/* <div className="rightCointainerTop">
-
-                </div> */}
                 <div className="rightContainerBottom">
                     <Route path="/Admin/Product" component={ModifyProduct} />
                     <Route path="/Admin/Category" component={ModifyCategory} />
