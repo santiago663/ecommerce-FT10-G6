@@ -95,6 +95,27 @@ export const getAllSeries = () => (
   }
 );
 
+export const getAllrRoles = () => (
+
+  async (dispatch) => {
+    try {
+      dispatch(requestData())
+      const response = await axios.get('http://localhost:3001/get/roles');
+      dispatch({
+        type: TYPES.GET_ALL_ROLES,
+        payload: response.data,
+      });
+      dispatch(requestSuccess())
+    } catch (error) {
+      console.error(error.message);
+      dispatch({
+        type: TYPES.GET_ALL_ROLES_ERROR,
+        payload: error,
+      });
+    }
+  }
+);
+
 export const getOneProduct = (id) => (
 
   async (dispatch) => {
@@ -201,7 +222,6 @@ export const addProducts = (product) => (
             type: TYPES.POST_NEW_PRODUCT,
             payload: res
           });
-          console.log(res, "POST------------")
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
@@ -312,6 +332,30 @@ export const editCategory = (categoryId) => (
       console.log(error,"ERdelete7");
       dispatch({
         type: TYPES.PUT_CATEGORY_ERROR,
+        payload: error,
+      });
+    }
+  }
+)
+export const editUser = (userId, user) => (
+
+  (dispatch) => {
+
+    try {
+      dispatch(requestData())
+      axios.put(`http://localhost:3001/put/user/${userId}`, user)
+        .then((res) => {
+          dispatch({
+            type: TYPES.PUT_USER,
+            payload: res
+          });
+          dispatch(requestSuccess())
+          console.log(res,"delete7")
+        }).catch((error) => console.error(error))
+    } catch (error) {
+      console.log(error,"ERdelete7");
+      dispatch({
+        type: TYPES.PUT_USER_ERROR,
         payload: error,
       });
     }

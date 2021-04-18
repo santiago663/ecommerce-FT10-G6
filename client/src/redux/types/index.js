@@ -103,4 +103,10 @@ export const GET_ALL_ORDERS_ERROR = 'GET_ALL_ORDERS_ERROR';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_ALL_USERS_ERROR = 'GET_ALL_USERS_ERROR';
 
+export const PUT_USER = 'PUT_USER';
+export const PUT_USER_ERROR = 'PUT_USER_ERROR';
+ //ROLE
+export const GET_ALL_ROLES = 'GET_ALL_ROLES';
+export const GET_ALL_ROLES_ERROR = 'GET_ALL_ROLES';
+
 
