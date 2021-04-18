@@ -7,10 +7,10 @@ server.get("/", async (req, res) => {
       where:{ available: true}
     });
     category === null
-      ? res.json({message:"hubo un error en la búsqueda categorías"})
+      ? res.status(402).json({message:"hubo un error en la búsqueda categorías",status: 402})
       : res.json(category);
   } catch (err) {
-    res.status(401).json({ message:err.message});
+    res.status(500).json({ message:err.message, status:500});
   }
 });
 
