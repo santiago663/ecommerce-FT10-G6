@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom'
 import { editProductCategory, deleteProductCategory, editProductByBody, deleteProduct } from '../../../../redux/actions/actionBack';
+import Swal from 'sweetalert2';
 import '../../../../scss/components/_editProducts.scss';
 
 function EditProduct() {
@@ -14,8 +15,8 @@ function EditProduct() {
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
-    const allProducts = useSelector((store) => store.reducerProduct.allProductCache)
-    console.log(allProducts,"lllll")
+    const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
+    const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
 
     const [product, setProduct] = useState({
         id: 1,
@@ -33,6 +34,7 @@ function EditProduct() {
     const [boolean, setBoolean] = useState(false)
 
     useEffect(() => {
+
         const findProduct = allProducts.find(f => f.id === Number(id))
        
         if (findProduct?.id) {
@@ -86,14 +88,12 @@ function EditProduct() {
         var cat = product.categories
         if (cat.find(c => c?.id != event.target.value)) {
            
-            // axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
             dispatch( editProductCategory(product.id, event.target.value) );
             
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
         }
         else if (cat[0] == undefined) {
            
-            // axios.put(`http://localhost:3001/put/product/${product.id}/category/${event.target.value}`)
             dispatch( editProductCategory(product.id, event.target.value) );
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
         }
@@ -106,16 +106,32 @@ function EditProduct() {
     function handleInputDeleteCa(event, id) {
       
         var cat = product.categories
-        // axios.delete(`http://localhost:3001/delete/product/${product.id}/category/${id}`)
         dispatch( deleteProductCategory(product.id, id) );
         cat = cat.filter(c => c?.id != Number(id))
         setProduct({ ...product, categories: cat })
     }
 
+    const alertSucces = () =>{
+        Swal.fire({
+           title: "Producto Editado",
+           icon: "success",
+           timer: "1500",
+           showConfirmButton: false,
+        })
+    }
+    const alertError = () =>{
+        Swal.fire({
+           title: "Error al editar el Producto",
+           icon: "error",
+           timer: "2500",
+           showConfirmButton: false,
+        })
+    }
+
     function submitForm(event) {
-        
-        // axios.put(`http://localhost:3001/put/product/${product.id}`, product)
+        event.preventDefault();
         dispatch( editProductByBody(product.id, product) );
+       
     }
     const deleteProducts = () => {
         setBoolean(true)
@@ -124,13 +140,22 @@ function EditProduct() {
 
         if(product.id){
 
-            // axios.delete(`http://localhost:3001/delete/product/${product.id}`);
             dispatch( deleteProduct(product.id) );
+
         }
         setBoolean(false);
     }
     const No = () => {
         setBoolean(false);
+    }
+    if(productOrError.status === 200){
+            
+        alertSucces();
+        productOrError.status = 0
+    }
+    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
+        alertError();
+        productOrError.status = 0
     }
 
     var key = 1;
@@ -140,12 +165,13 @@ function EditProduct() {
             <h2 className="title">Edit Product</h2>
             <Link 
                 className="nav-link" 
-                to="/admin/Product"
+                to="/Admin/Product"
             ><li>Add Products</li></Link>
             <div className="divEP">
                 <form 
                     className="formEP" 
                     onSubmit={submitForm} 
+                    target="request"
                 >
                     <div>
                         Name: 
