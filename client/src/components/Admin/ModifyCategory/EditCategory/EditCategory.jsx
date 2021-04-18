@@ -1,15 +1,21 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { useParams, Link } from 'react-router-dom'
-import {  } from '../../../../redux/actions/actionBack';
+import { editCategory, deleteCategory } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
+
 
 function EditCategory() {
 
     const {id} = useParams();
 
+    const dispatch = useDispatch();
+
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
+    const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
+    console.log(productOrError)
 
     
     const [category, setCategory] = useState({
@@ -41,7 +47,7 @@ function EditCategory() {
 
     function submitForm(event) {
         
-        // dispatch( editAuthor(author.id, author) );
+        dispatch( editCategory(author.id, author) );
     }
     const deleteProducts = () => {
         setBoolean(true)
@@ -50,15 +56,41 @@ function EditCategory() {
 
         if(category.id){
 
-            // dispatch( deleteAuthor(author.id) ); //body
+            dispatch( deleteCategory(author?.id) );
         }
         setBoolean(false);
     }
     const No = () => {
         setBoolean(false);
     }
-    
 
+    const alertSucces = () =>{
+        Swal.fire({
+           title: "CAtegoria Editada",
+           icon: "success",
+           timer: "1500",
+           showConfirmButton: false,
+        })
+      }
+    const alertError = () =>{
+        Swal.fire({
+          title: "Error al Editar la Categoria",
+          icon: "error",
+          timer: "2500",
+          showConfirmButton: false,
+        })
+    }
+
+    if(productOrError.status === 200){
+  
+    alertSucces();
+      productOrError.status = 0
+    }
+    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
+        alertError();
+        productOrError.status = 0
+    }
+    
     return (
         <div className="mainDivEP">
             <h2 className="title">Edit Category</h2>
@@ -74,6 +106,7 @@ function EditCategory() {
                     <div>
                         Name: 
                         <input 
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 

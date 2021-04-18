@@ -6,7 +6,6 @@ import CategoryForm from './AddCategoryForm/CategoryForm'
 import EditCategory from './EditCategory/EditCategory';
 import '../../../scss/components/_modify.scss';
 
-
 const ModifyCategory = () => {
 
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
@@ -20,35 +19,57 @@ const ModifyCategory = () => {
            setInput(id.target.value); 
         }    
     }
-    const category = allCategories.filter(f => f.id === Number(input))
 
-    const products = allProducts.find(f=> f.categories.filter(g => {
-        if(g.id == Number(input)){
-            return g.id
-        }
-    }))
+    let category = [];
+    if(input !== 0){
+      category = allCategories.filter(f => f.id === Number(input))  
+    }
+    
+    let products = [];
+    if(input !== 0){
+        products = allProducts.filter(f=> f.categories.find(g => {
+            if(g.id == Number(input)){
+                return g.id
+            }
+        }))
+    }
+    console.log(products)
 
     return ( 
         <div className='ModifyProduct'>
             <div className='FilterAndProducts'>
                 <div className='authorFilter'>
-                    <select name="authorId" id="selectorArAP" onChange={handleChange}>
-                        <option value="" disabled selected >Categories in Use</option>    
+                    <select 
+                        name="authorId" 
+                        id="selectorArAP" 
+                        onChange={handleChange}
+                    >
+                        <option 
+                            value="" 
+                            disabled selected 
+                        >Categories in Use</option>    
                         {allCategories.map(a => <option value={a.id}>{a.name}</option>)}
                     </select>
                 </div>
                 <div className="productContainer">
-                    <ul>
-                        {category.map(m => {
+                    {category.length !== 0
+                    ?<ul>
+                        {category.length !== 0 && category.map(m => {
                             return(
                                 <li className="product" key={m.id}>
                                     <Link to={`/Admin/Category/Edit/${m.id}`}>
-                                        <p>{m.name}</p>
+                                        <h4>{m.name}</h4>
+                                        <h5>Products:</h5>
+                                        {products.length !== 0 && products.map(m => {
+                                           return(<p>✽{m.name}</p>) 
+                                        })}
                                     </Link>
                                 </li>           
                             )
                         })}
-                    </ul> 
+                    </ul>
+                    : null
+                    } 
                 </div>
             </div>
             <div className='compProd'>

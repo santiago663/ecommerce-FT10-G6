@@ -6,6 +6,7 @@ import { editProductCategory, deleteProductCategory, editProductByBody, deletePr
 import Swal from 'sweetalert2';
 import '../../../../scss/components/_editProducts.scss';
 
+
 function EditProduct() {
 
     const {id} = useParams();
@@ -16,7 +17,7 @@ function EditProduct() {
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
     const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
-    const productOrError = useSelector((store) => store.reducerErrorRoutes.putProduct)
+    const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
 
     const [product, setProduct] = useState({
         id: 1,
@@ -113,7 +114,7 @@ function EditProduct() {
 
     const alertSucces = () =>{
         Swal.fire({
-           title: "Producto Creado",
+           title: "Producto Editado",
            icon: "success",
            timer: "1500",
            showConfirmButton: false,
@@ -121,7 +122,7 @@ function EditProduct() {
     }
     const alertError = () =>{
         Swal.fire({
-           title: "Error Al crear el Producto",
+           title: "Error al editar el Producto",
            icon: "error",
            timer: "2500",
            showConfirmButton: false,
@@ -153,7 +154,7 @@ function EditProduct() {
         alertSucces();
         productOrError.status = 0
     }
-    if(productOrError.status === 201){
+    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
         alertError();
         productOrError.status = 0
     }

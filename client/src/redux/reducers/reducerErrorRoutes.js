@@ -3,56 +3,46 @@ import * as TYPES from '../types/index';
 
 const initialState = {
 
-    postProduct: [],
-    postProductError: [],
-    putProduct: [],
-    putProductError: [],
-    deleteProduct: [],
-    deleteProductError: [],
+    stateAction: [],
+    stateError: [],
+
 };
+
 
 export default function reducerErrorRoutes(state = initialState, action) {
  
     switch (action.type) {
 
+        case TYPES.POST_NEW_CATEGORY:
+        case TYPES.DELETE_CATEGORY:
+        case TYPES.PUT_CATEGORY:
+        case TYPES.DELETE_AUTHOR:
+        case TYPES.PUT_EDIT_AUTHOR:
+        case TYPES.NEW_AUTHOR:
         case TYPES.POST_NEW_PRODUCT:
-            return {
-                ...state,
-                postProduct: action.payload,
-            };
-
-        case TYPES.POST_NEW_PRODUCT_ERROR:
-            return {
-                ...state,
-                postProductError: action.payload,
-            };
-
         case TYPES.PUT_EDIT_PRODUCT_BYID:
         case TYPES.PUT_EDIT_PRODUCT_CATEGORY:
-            return {
-                ...state,
-                putProduct: action.payload,
-            };
-
-        case TYPES.PUT_EDIT_PRODUCT_BYID_ERROR:
-        case TYPES.PUT_EDIT_PRODUCT_CATEGORY_ERROR:
-            return {
-                ...state,
-                putProductError: action.payload,
-            };
-
         case TYPES.DELETE_PRODUCT_CATEGORY:
         case TYPES.DELETE_ONE_PRODUCT:
             return {
                 ...state,
-                deleteProduct: action.payload,
+                stateAction: action.payload,
             };
 
+        case TYPES.POST_NEW_CATEGORY_ERROR:
+        case TYPES.DELETE_CATEGORY_ERROR:
+        case TYPES.PUT_CATEGORY_ERROR:
+        case TYPES.DELETE_AUTHOR_ERROR:
+        case TYPES.PUT_EDIT_AUTHOR_ERROR:
+        case TYPES.NEW_AUTHOR_ERROR:
+        case TYPES.POST_NEW_PRODUCT_ERROR:
+        case TYPES.PUT_EDIT_PRODUCT_BYID_ERROR:
+        case TYPES.PUT_EDIT_PRODUCT_CATEGORY_ERROR:
         case TYPES.DELETE_ONE_PRODUCT_ERROR:
         case TYPES.DELETE_ONE_PRODUCT_ERROR:
             return {
                 ...state,
-                deleteProductError: action.payload,
+                stateError: action.payload,
             };
 
         default:

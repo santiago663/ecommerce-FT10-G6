@@ -6,9 +6,11 @@ import AddProduct from './AddProduct/AddProduct';
 import EditProduct from './EditProduct/EditProduct';
 import '../../../scss/components/_modify.scss';
 
+
 const ModifyProduct = () => {
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
+
     const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
 
     const [input, setInput] = useState(0);
@@ -16,38 +18,52 @@ const ModifyProduct = () => {
     const handleChange = (id) => {
         
         if(id.target.value !== 0){
-           setInput(id.target.value); 
+           setInput(id.target.value);
+        
         }    
     }
-
     
-    const authorProducts = allProducts.filter(f => 
-        {if(f.author.id === Number(input)){
-            return f
-        }  
-    })
+    let authorProducts = [];
+    if(input !== 0){
+        authorProducts = allProducts.filter(f => {
+            if(f.author.id === Number(input) ){
+                console.log(f.author.id)
+                return f
+            } 
+        })
+    }
 
     return ( 
         <div className='ModifyProduct'>
             <div className="FilterAndProducts">
                 <div className='authorFilter'>
-                    <select name="authorId" id="selectorArAP" onChange={handleChange}>
-                        <option value="" disabled selected >Select Author</option>    
+                    <select 
+                        name="authorId" 
+                        id="selectorArAP" 
+                        onChange={handleChange}
+                    >
+                        <option 
+                            value="" 
+                            disabled selected 
+                        >Select Author</option>    
                         {allArtist.map(a => <option value={a.id}>{a.name}</option>)}
                     </select>
                 </div>
                 <div className="productContainer">
-                    <ul>
+                    {authorProducts.length !==0 
+                    ?<ul>
                         {authorProducts.length !== 0 && authorProducts.map(m => {
                             return(
                                 <li className="product" key={m.id}>
                                     <Link to={`/Admin/Product/Edit/${m.id}`}>
-                                        <p>{m.name}</p>
+                                        <h4>{m.name}</h4>
                                     </Link>
                                 </li>           
                             )
                         })}
                     </ul>
+                    : null
+                    }
                 </div> 
             </div>
             <div className='compProd'>

@@ -1,9 +1,8 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllAuthors, getAllCategories, getAllSeries, addProducts } from  '../../../../redux/actions/actionBack';
-import { addProductInProductBackup } from  '../../../../redux/actions/actionFront';
 import Swal from 'sweetalert2';
+import { getAllAuthors, getAllCategories, getAllSeries, addProducts } from  '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_addProduct.scss';
 
 function AddProduct() {
@@ -19,7 +18,8 @@ function AddProduct() {
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
-    const productOrError = useSelector((store) => store.reducerErrorRoutes.postProduct)
+    const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
+    console.log(productOrError)
 
     const [product, setProduct] = useState({
         name: "",
@@ -70,12 +70,13 @@ function AddProduct() {
     }
 
     //Handle input para borrar categoria
-    function handleInputDeleteCa(event, id) {           
+    function handleInputDeleteCa(event, id) {
+
         var cat = product.categories
         cat = cat.filter( cId => cId != Number(id))        
         setProduct({ ...product, categories: cat })
     }
-
+   
     const alertSucces = () =>{
         Swal.fire({
            title: "Producto Creado",
@@ -101,11 +102,12 @@ function AddProduct() {
 
     if(productOrError.status === 200){
 
-        dispatch( addProductInProductBackup(product))
+        // dispatch( addProductInProductBackup(product))
         alertSucces();
         productOrError.status = 0
     }
-    if(productOrError.status === 201){
+    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
+
         alertError();
         productOrError.status = 0
     }
@@ -120,6 +122,7 @@ function AddProduct() {
                     <div>
                         Name: 
                         <input
+                            required
                             className="input"
                             type="text"
                             onChange={handleInputChange}
@@ -128,7 +131,8 @@ function AddProduct() {
                     </div>
                     <div>
                         Description: 
-                        <input 
+                        <input
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -137,7 +141,8 @@ function AddProduct() {
                     </div>
                     <div>
                         Price: 
-                        <input 
+                        <input
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChangePr} 
@@ -147,6 +152,7 @@ function AddProduct() {
                     <div>
                         Available:
                         <select 
+                            required
                             name="available" 
                             id="selectorAvAP" 
                             onChange={handleInputChangeAv}
@@ -158,6 +164,7 @@ function AddProduct() {
                     <div>
                         FileLink: 
                         <input 
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -167,6 +174,7 @@ function AddProduct() {
                     <div>
                         Preview: 
                         <input 
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -176,6 +184,7 @@ function AddProduct() {
                     <div>
                         Artist:
                         <select 
+                            required
                             name="authorId" 
                             id="selectorArAP" 
                             onChange={handleInputChangeAr}
@@ -186,13 +195,18 @@ function AddProduct() {
                     </div>
                     <div>
                         Series:
-                        <select name="seriesId" id="selectorSeAP">
+                        <select 
+                            required
+                            name="seriesId" 
+                            id="selectorSeAP"
+                        >
                             {allSeries.map(s => <option key={`AP${key++}`} value={s.id}>{s.name}</option>)}
                         </select>
                     </div>
                     <div>
                         Categories:                        
                         <select 
+                            required
                             name="categories" 
                             id="selectorCaAP" 
                             onChange={handleInputChangeCa}
@@ -204,7 +218,8 @@ function AddProduct() {
                         <span key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
                         }
                     </div>
-                    <input 
+                    <input
+                        required
                         className="EditOrAdd"
                         type="submit" 
                         value="Add" 
