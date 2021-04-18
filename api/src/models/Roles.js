@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
     }
   },
     {
-      timestamps: true,
+      timestamps: false,
       paranoid: true
       //  charset: 'utf8',
       //  collate: 'utf8_general_ci', 

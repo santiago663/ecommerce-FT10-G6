@@ -4,12 +4,12 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDxdosLyGjWe-Hz-jcsvKYFQbtlgMCup8k",
-    authDomain: "henry-e-commerce-46a91.firebaseapp.com",
-    projectId: "henry-e-commerce-46a91",
-    storageBucket: "henry-e-commerce-46a91.appspot.com",
-    messagingSenderId: "624784169475",
-    appId: "1:624784169475:web:a4be38b3c7e67697f94c36"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

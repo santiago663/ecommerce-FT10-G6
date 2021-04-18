@@ -2,17 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { startGoogleLogin, startLoginEmailPassword } from '../../redux/actions/auth';
-import '../../scss/components/_signIn.scss';
 import { removeError } from '../../redux/actions/uiError'
 import Swal from 'sweetalert2'
+import '../../scss/components/_signIn.scss';
 
 const SignIn = () => {
   const dispatch = useDispatch()
   const loading = useSelector((store) => store.reducerLoading.loading);
   const { isLog } = useSelector((store) => store.auth)
   const { msgError } = useSelector((store) => store.uiError)
-  const currentUser = JSON.parse(localStorage.getItem('CurrentUser'))
-
+  
   const [signState, setSignState] = useState({
     email: '',
     password: ''
