@@ -34,9 +34,9 @@ function ProductCard(props) {
         <h6>{author.name}</h6>
       </div>
       {shoppingCart && !shoppingCart.includes(props.data) ? (
-				<i className="fas fa-cart-plus add" key={id} onClick={() => handleAddToCart(props.data)}></i>
-			) : (
-				<i className="fas fa-shopping-cart remove" key={id} onClick={() => handleRemoveFromCart(props.data)}>
+	<i className="fas fa-cart-plus add" key={id} onClick={() => handleAddToCart(props.data)}></i>
+	) : (
+	<i className="fas fa-shopping-cart remove" key={id} onClick={() => handleRemoveFromCart(props.data)}>
           <br />
         </i>
       )}
