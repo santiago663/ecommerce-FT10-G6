@@ -2,11 +2,18 @@
 import * as TYPES from '../types/index';
 
 const initialState = {
-    isLog: false
+    isLog: false,
+    currentUser: [],
 }
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case TYPES.SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: action.payload
+            }
 
         case TYPES.AUTH_LOGIN:
             return {
@@ -21,21 +28,5 @@ export const authReducer = (state = initialState, action) => {
 
         default:
             return state;
-    }
-}
-
-export const startRegister = (name, email, password) => {
-    return (dispatch) => {
-        dispatch(requestData())
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(async ({ user }) => {
-                await user.updateProfile({ displayName: name })
-                dispatch(
-                    login(user.uid, user.displayName)
-                )
-                dispatch(requestSuccess())
-            }).catch(e => {
-                Swal.fire('Error', e.message, 'error')
-            })
     }
 }

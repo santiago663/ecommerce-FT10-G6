@@ -8,6 +8,10 @@ export const isLogged = (payload) => ({
   type: TYPES.AUTH_LOGIN,
   payload: payload
 })
+export const setCurrentUser = (payload) => ({
+  type: TYPES.SET_CURRENT_USER,
+  payload: payload
+})
 
 export const logout = () => {
   return (dispatch) => {
@@ -36,12 +40,9 @@ export const startRegister = (name, email, password) => {
   }
 }
 
-
-
 export const startLoginEmailPassword = (email, password) => {
 
   return (dispatch) => {
-
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(async ({ user }) => {
         const resp = await axios.get(`http://localhost:3001/get/user?email=${user.email}`)
