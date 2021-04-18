@@ -2,25 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getAllAuthors, getAllCategories, getAllSeries, addProducts } from  '../../../../redux/actions/actionBack';
-import { addProductInProductBackup } from  '../../../../redux/actions/actionFront';
+import { addProducts } from  '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_addProduct.scss';
 
 function AddProduct() {
 
     const dispatch = useDispatch()
-    
-    useEffect(()=>{
-        dispatch(getAllAuthors());
-        dispatch(getAllCategories());
-        dispatch(getAllSeries()); 
-    },[])
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
     const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
-    console.log(productOrError)
 
     const [product, setProduct] = useState({
         name: "",
@@ -30,7 +22,7 @@ function AddProduct() {
         fileLink: "",
         preview: "",
         categories: [],
-        authorId: 1,        
+        authorId: 0,        
         seriesId: null
     })
  
@@ -86,32 +78,34 @@ function AddProduct() {
            showConfirmButton: false,
         })
     }
+ 
     const alertError = () =>{
         Swal.fire({
-           title: "Error Al crear el Producto",
-           icon: "error",
-           timer: "2500",
-           showConfirmButton: false,
+            title: "Error Creating Product",
+            icon: "error",
+            timer: "2500",
+            showConfirmButton: false,
         })
     }
     
     function submitForm(event) {        
         event.preventDefault();
-      
+      if( product.name !== "" || product.description !== "" || product.price !== 0 || product.fileLink !== "" || product.preview !== "", product.categories.length !==0 || product.authorId !== 0){
+
         dispatch( addProducts(product) )  
+      }
+      else{
+        alertError();
+      }
+        
     }
 
-    if(productOrError.status === 200){
+    if(productOrError && productOrError.status === 200){
 
-        // dispatch( addProductInProductBackup(product))
         alertSucces();
         productOrError.status = 0
     }
-    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
 
-        alertError();
-        productOrError.status = 0
-    }
 
     var key = 1;
 
@@ -153,7 +147,6 @@ function AddProduct() {
                     <div>
                         Available:
                         <select 
-                            required
                             name="available" 
                             id="selectorAvAP" 
                             onChange={handleInputChangeAv}
@@ -185,7 +178,6 @@ function AddProduct() {
                     <div>
                         Artist:
                         <select 
-                            required
                             name="authorId" 
                             id="selectorArAP" 
                             onChange={handleInputChangeAr}
@@ -197,7 +189,6 @@ function AddProduct() {
                     <div>
                         Series:
                         <select 
-                            required
                             name="seriesId" 
                             id="selectorSeAP"
                         >
@@ -207,7 +198,6 @@ function AddProduct() {
                     <div>
                         Categories:                        
                         <select 
-                            required
                             name="categories" 
                             id="selectorCaAP" 
                             onChange={handleInputChangeCa}
@@ -220,7 +210,6 @@ function AddProduct() {
                         }
                     </div>
                     <input
-                        required
                         className="EditOrAdd"
                         type="submit" 
                         value="Add" 

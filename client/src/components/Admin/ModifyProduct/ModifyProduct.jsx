@@ -24,9 +24,9 @@ const ModifyProduct = () => {
     
     let authorProducts = [];
     if(input !== 0){
+        
         authorProducts = allProducts.filter(f => {
             if(f.author.id === Number(input) ){
-                console.log(f.author.id)
                 return f
             } 
         })
