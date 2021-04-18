@@ -100,10 +100,10 @@ server.post("/", async (req, res) => {
                         plain: true
                     }
                 )
-                return res.status(200).json(guestUserRegister)
+                return res.status(200).json(guestUserRegister[1])
             }
 
-            res.status(200).json(users)
+            res.status(200).json(users[0])
 
         } catch (error) {
             console.log(error)
