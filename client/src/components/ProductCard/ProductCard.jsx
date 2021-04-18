@@ -46,14 +46,14 @@ function ProductCard(props) {
 }
 
 ProductCard.propTypes = {
-	data: PropTypes.shape({
+		data: PropTypes.shape({
 		id: PropTypes.number,
 		name: PropTypes.string,
 		preview: PropTypes.string,
 		author: PropTypes.shape({
-			id: PropTypes.number,
-			name: PropTypes.string,
-			email: PropTypes.string,
+		id: PropTypes.number,
+		name: PropTypes.string,
+		email: PropTypes.string,
 		}),
 	}).isRequired,
 };
