@@ -14,6 +14,17 @@ function ProductCard(props) {
     data: { name, author, preview, id },
   } = props;
 
+  let lStorage ;
+  if (window.localStorage.length !== 0) {
+    if (
+      JSON.parse(window.localStorage.orderProducts).filter(
+        (prod) => prod.id === id
+      ).length === 1
+    ) {
+      lStorage = true;
+    }
+  }
+
   const handleAddToCart = (productOnClick) => {
     let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
     let found = data.filter((product) => product.id === productOnClick.id);
@@ -42,7 +53,7 @@ function ProductCard(props) {
           <h6>{author.name}</h6>
         </div>
       </Link>
-      {JSON.parse(window.localStorage.orderProducts).filter((prod) => prod.id === id ).length !== 1 ? (
+      {!lStorage  ? (
         <i
           className="fas fa-cart-plus add"
           key={id}
@@ -67,9 +78,9 @@ ProductCard.propTypes = {
     name: PropTypes.string,
     preview: PropTypes.string,
     author: PropTypes.shape({
-     id: PropTypes.number,
-     name: PropTypes.string,
-     email: PropTypes.string,
+      id: PropTypes.number,
+      name: PropTypes.string,
+      email: PropTypes.string,
     }),
   }).isRequired,
 };
