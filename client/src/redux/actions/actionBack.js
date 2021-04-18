@@ -149,7 +149,7 @@ export const addCategory = (form) => (
       axios.post('http://localhost:3001/post/category', form)
         .then((res) => {
           dispatch({
-            type: TYPES.NEW_CATEGORY,
+            type: TYPES.POST_NEW_CATEGORY,
             payload: res
           });
           dispatch(requestSuccess())
@@ -158,7 +158,7 @@ export const addCategory = (form) => (
     } catch (error) {
       console.error(error);
       dispatch({
-        type: TYPES.NEW_CATEGORY_ERROR,
+        type: TYPES.POST_NEW_CATEGORY_ERROR,
         payload: error,
       });
     }
@@ -201,7 +201,7 @@ export const addProducts = (product) => (
             type: TYPES.POST_NEW_PRODUCT,
             payload: res
           });
-          // console.log(res, "POST------------")
+          console.log(res, "POST------------")
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
@@ -248,13 +248,13 @@ export const editProductByBody = (productId, product) => (
     try {
       dispatch(requestData())
       axios.put(`http://localhost:3001/put/product/${productId}`, product)
-        .then((res) => {
+        .then((res) => { console.log(res,"edit2---")
           dispatch({
             type: TYPES.PUT_EDIT_PRODUCT_BYID,
             payload: res
           });
           dispatch(requestSuccess())
-          console.log(res,"edit2")
+          
         }).catch((error) => console.error(error))
     } catch (error) {
       console.log(error,"ERedit2");
@@ -288,6 +288,30 @@ export const editAuthor = (authorId, author) => (
       console.log(error,"ERedit2");
       dispatch({
         type: TYPES.PUT_EDIT_AUTHOR_ERROR,
+        payload: error,
+      });
+    }
+  }
+)
+export const editCategory = (categoryId) => (
+
+  (dispatch) => {
+
+    try {
+      dispatch(requestData())
+      axios.put(`http://localhost:3001/put/category/${categoryId}`)
+        .then((res) => {
+          dispatch({
+            type: TYPES.PUT_CATEGORY,
+            payload: res
+          });
+          dispatch(requestSuccess())
+          console.log(res,"delete7")
+        }).catch((error) => console.error(error))
+    } catch (error) {
+      console.log(error,"ERdelete7");
+      dispatch({
+        type: TYPES.PUT_CATEGORY_ERROR,
         payload: error,
       });
     }
@@ -344,9 +368,6 @@ export const deleteProductCategory = (productId, id) => (
   }
 )
 
-
-
-
 export const deleteAuthor = (authorId) => (
 
   (dispatch) => {
@@ -371,3 +392,82 @@ export const deleteAuthor = (authorId) => (
     }
   }
 )
+
+export const deleteCategory = (categoryId) => (
+
+  (dispatch) => {
+
+    try {
+      dispatch(requestData())
+      axios.delete(`http://localhost:3001/delete/category/${categoryId}`)
+        .then((res) => {
+          dispatch({
+            type: TYPES.DELETE_CATEGORY,
+            payload: res.data
+          });
+          dispatch(requestSuccess())
+          console.log(res,"delete6")
+        }).catch((error) => console.error(error))
+    } catch (error) {
+      console.log(error,"ERdelete6");
+      dispatch({
+        type: TYPES.DELETE_CATEGORY_ERROR,
+        payload: error,
+      });
+    }
+  }
+)
+
+export const getAllOrders = () => (
+
+  (dispatch) => {
+
+    try {
+      dispatch(requestData())
+      axios.get("http://localhost:3001/get/order")
+        .then((res) => {
+          dispatch({
+            type: TYPES.GET_ALL_ORDERS,
+            payload: res.data
+          });
+          dispatch(requestSuccess())
+          // console.log(res,"ORDER")
+        }).catch((error) => console.error(error))
+    } catch (error) {
+      // console.log(error,"ERR-ORDER");
+      dispatch({
+        type: TYPES.GET_ALL_ORDERS_ERROR,
+        payload: error,
+      });
+    }
+  }
+)
+
+export const getAllUsers = () => (
+
+  (dispatch) => {
+
+    try {
+      dispatch(requestData())
+      axios.get("http://localhost:3001/get/user")
+        .then((res) => {
+          dispatch({
+            type: TYPES.GET_ALL_USERS,
+            payload: res.data
+          });
+          dispatch(requestSuccess())
+          // console.log(res,"USER")
+        }).catch((error) => console.error(error))
+    } catch (error) {
+      // console.log(error,"ERR-USERS");
+      dispatch({
+        type: TYPES.GET_ALL_USERS_ERROR,
+        payload: error,
+      });
+    }
+  }
+)
+
+
+
+
