@@ -1,7 +1,9 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { getAllAuthors, getAllCategories, getAllSeries, addProducts } from  '../../../../redux/actions/actionBack';
+import { addProductInProductBackup } from  '../../../../redux/actions/actionFront';
 import '../../../../scss/components/_addProduct.scss';
 
 function AddProduct() {
@@ -15,13 +17,10 @@ function AddProduct() {
     },[])
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
-    // const allArtistError = useSelector((store) => store.reducerArtist.allArtistError)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
-    // const allCategoriesError = useSelector((store) => store.reducerCategories.allCategoriesError)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
-    // const allSeriesError = useSelector((store) => store.reducerSeries.allSeriesError)
-    // const postProduct = useSelector((store) => store.reducerErrorRoutes.postProduct)
-    // const postProductError = useSelector((store) => store.reducerErrorRoutes.postProductError)
+    const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
+    console.log(productOrError)
 
     const [product, setProduct] = useState({
         name: "",
@@ -34,7 +33,7 @@ function AddProduct() {
         authorId: 1,        
         seriesId: null
     })
-
+ 
     function handleInputChange(event) {
         setProduct({ ...product, [event.target.name]: event.target.value })
     }
@@ -42,6 +41,7 @@ function AddProduct() {
     //Handle input para price
     function handleInputChangePr(event) {
         setProduct({ ...product, [event.target.name]: Number(event.target.value) })
+
     }
 
     //Handle input para available
@@ -71,17 +71,46 @@ function AddProduct() {
     }
 
     //Handle input para borrar categoria
-    function handleInputDeleteCa(event, id) {           
+    function handleInputDeleteCa(event, id) {
+
         var cat = product.categories
         cat = cat.filter( cId => cId != Number(id))        
         setProduct({ ...product, categories: cat })
     }
-
+   
+    const alertSucces = () =>{
+        Swal.fire({
+           title: "Producto Creado",
+           icon: "success",
+           timer: "1500",
+           showConfirmButton: false,
+        })
+    }
+    const alertError = () =>{
+        Swal.fire({
+           title: "Error Al crear el Producto",
+           icon: "error",
+           timer: "2500",
+           showConfirmButton: false,
+        })
+    }
+    
     function submitForm(event) {        
         event.preventDefault();
       
-        // axios.post('http://localhost:3001/post/product', product);
-        dispatch( addProducts(product) )
+        dispatch( addProducts(product) )  
+    }
+
+    if(productOrError.status === 200){
+
+        // dispatch( addProductInProductBackup(product))
+        alertSucces();
+        productOrError.status = 0
+    }
+    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
+
+        alertError();
+        productOrError.status = 0
     }
 
     var key = 1;
@@ -94,6 +123,7 @@ function AddProduct() {
                     <div>
                         Name: 
                         <input
+                            required
                             className="input"
                             type="text"
                             onChange={handleInputChange}
@@ -102,7 +132,8 @@ function AddProduct() {
                     </div>
                     <div>
                         Description: 
-                        <input 
+                        <input
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -111,7 +142,8 @@ function AddProduct() {
                     </div>
                     <div>
                         Price: 
-                        <input 
+                        <input
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChangePr} 
@@ -121,6 +153,7 @@ function AddProduct() {
                     <div>
                         Available:
                         <select 
+                            required
                             name="available" 
                             id="selectorAvAP" 
                             onChange={handleInputChangeAv}
@@ -132,6 +165,7 @@ function AddProduct() {
                     <div>
                         FileLink: 
                         <input 
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -141,6 +175,7 @@ function AddProduct() {
                     <div>
                         Preview: 
                         <input 
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -150,6 +185,7 @@ function AddProduct() {
                     <div>
                         Artist:
                         <select 
+                            required
                             name="authorId" 
                             id="selectorArAP" 
                             onChange={handleInputChangeAr}
@@ -160,13 +196,18 @@ function AddProduct() {
                     </div>
                     <div>
                         Series:
-                        <select name="seriesId" id="selectorSeAP">
+                        <select 
+                            required
+                            name="seriesId" 
+                            id="selectorSeAP"
+                        >
                             {allSeries.map(s => <option key={`AP${key++}`} value={s.id}>{s.name}</option>)}
                         </select>
                     </div>
                     <div>
                         Categories:                        
                         <select 
+                            required
                             name="categories" 
                             id="selectorCaAP" 
                             onChange={handleInputChangeCa}
@@ -178,7 +219,8 @@ function AddProduct() {
                         <span key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
                         }
                     </div>
-                    <input 
+                    <input
+                        required
                         className="EditOrAdd"
                         type="submit" 
                         value="Add" 
