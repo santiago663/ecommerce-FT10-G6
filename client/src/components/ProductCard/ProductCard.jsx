@@ -12,6 +12,7 @@ function ProductCard(props) {
 		data: { name, author, preview, id },
 	} = props;
 
+
 	const handleAddToCart = (productOnClick) => {
 		dispatch(addToCart(productOnClick));
 		localStorage.setItem(productOnClick.id, JSON.stringify(productOnClick));
@@ -22,24 +23,26 @@ function ProductCard(props) {
 		localStorage.removeItem(productOnClick.id);
 	};
 
-	return (
-		<>
-			<Link className="link" to={`/product/${id}`}>
-				<div className="product-card">
-					<img src={preview} alt="" />
-					<h4>{name}</h4>
-					<h6>{author.name}</h6>
-				</div>
-			</Link>
-			{shoppingCart && !shoppingCart.includes(props.data) ? (
+	
+  return (
+    <>
+      <div className="product-card">
+        <Link className="link" to={`/product/${id}`}>
+          <img src={preview} alt="" />
+        </Link>
+        <h4>{name}</h4>
+        <h6>{author.name}</h6>
+      </div>
+      {shoppingCart && !shoppingCart.includes(props.data) ? (
 				<i className="fas fa-cart-plus add" key={id} onClick={() => handleAddToCart(props.data)}></i>
 			) : (
 				<i className="fas fa-shopping-cart remove" key={id} onClick={() => handleRemoveFromCart(props.data)}>
-					<br />
-				</i>
-			)}
-		</>
-	);
+          <br />
+        </i>
+      )}
+    </>
+  );
+
 }
 
 ProductCard.propTypes = {

@@ -1,10 +1,14 @@
 /*eslint-disable*/
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { addCategory } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
 function CategoryForm() {
+
+  const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
+  console.log(productOrError)
 
   const dispatch = useDispatch();
   
@@ -32,6 +36,31 @@ function CategoryForm() {
       name: '',
     });
   }
+  const alertSucces = () =>{
+    Swal.fire({
+       title: "Categoria Creada",
+       icon: "success",
+       timer: "1500",
+       showConfirmButton: false,
+    })
+  }
+  const alertError = () =>{
+      Swal.fire({
+        title: "Error al crear la Categoria",
+        icon: "error",
+        timer: "2500",
+        showConfirmButton: false,
+      })
+  }
+  if(productOrError.status === 200){
+
+    alertSucces();
+    productOrError.status = 0
+}
+  if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
+      alertError();
+      productOrError.status = 0
+  }
 
   return (
     <div className="mainDivEP">
@@ -42,6 +71,7 @@ function CategoryForm() {
           onSubmit={handleSubmit}
         >
           <div>
+            Name: 
             <input
                 required
                 placeholder="New Category"

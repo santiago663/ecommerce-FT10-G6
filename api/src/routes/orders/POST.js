@@ -4,7 +4,6 @@ const { Orders } = require("../../db");
 server.post("/", async (req, res) => {
 
     const { total, userId, price, productId, id } = req.body;
-
     try {
 
         const order = {
@@ -40,6 +39,9 @@ server.post("/", async (req, res) => {
                 })
             }
         }
+        if(!newOrder2 && newOrder){
+            return res.status(200).json({message:"order created successfully",id: newOrder.id})
+        }
 
         if (newOrder2[1] === false) {
             res.status(200).json({ message: "product added successfully", id: newOrder2[0].id })
@@ -50,7 +52,7 @@ server.post("/", async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({ message: "Internal server error" })
+        res.status(500).json({ message: "Internal server error",status:500 })
     }
 })
 

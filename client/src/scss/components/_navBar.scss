@@ -1,8 +1,9 @@
-$primary: #384985;
+$primary: #24262c;
 
 nav {
   height: 5rem;
   width: 100%;
+  min-width: 650px;
   padding: 1rem 2rem;
   display: flex;
   flex-flow: row no-wrap;
@@ -33,15 +34,16 @@ nav {
   display: flex;
 }
 
-.fa-shopping-cart{
+.fa-shopping-cart {
   font-size: 25px;
-  color: #384985;
-  
-  
-
+  color: $primary;
 }
-.Icon-Cart{
-  background-color: rgb(242, 214, 214);
+
+.Icon-Cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.041);
   padding: 5px;
   border-radius: 100%;
   border: 1px solid white;
