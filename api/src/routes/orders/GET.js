@@ -3,6 +3,7 @@ const { Orders, Products, Users } = require("../../db");
 
 server.get("/users/:idUser/cart", async (req, res) => {
 const { idUser } = req.params;
+
  try {
   var cart = await Orders.findAll({
   where: { userId: idUser, state: "open", },
@@ -13,7 +14,7 @@ const { idUser } = req.params;
   }, ],
  });
     if (cart[0]) {
-      return res.status(200).json(cart[0].products);
+      return res.status(200).json(cart[0]);
     } else {
       return res.status(404).json({ message: "This user doesn't have a cart open", status:404});
     }
