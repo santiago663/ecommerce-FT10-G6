@@ -85,7 +85,7 @@ server.get("/", async (req, res) => {
 
     products === null
       ? res.status(400).json({message: "hubo un error al encontrar los productos", status: 400})
-      : res.status(400).json(products);
+      : res.status(200).json(products);
   
     } catch (error) {
       console.log(error)
