@@ -103,10 +103,11 @@ export const GET_CURRENT_ORDER = 'GET_CURRENT_ORDER'
 //USER
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_ALL_USERS_ERROR = 'GET_ALL_USERS_ERROR';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 export const PUT_USER = 'PUT_USER';
 export const PUT_USER_ERROR = 'PUT_USER_ERROR';
- //ROLE
+//ROLE
 export const GET_ALL_ROLES = 'GET_ALL_ROLES';
 export const GET_ALL_ROLES_ERROR = 'GET_ALL_ROLES';
 

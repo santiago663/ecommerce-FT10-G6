@@ -5,6 +5,7 @@ import routes from '../routes/routes';
 import { getAllProducts, getAllAuthors, getAllCategories, getAllSeries, getAllUsers, getAllOrders, getAllrRoles } from '../redux/actions/actionBack';
 import { getCurrentOrder } from '../redux/actions/actionOrder'
 import '../scss/containers/_app.scss';
+import { setCurrentUser } from '../redux/actions/auth';
 
 function App() {
   const dispatch = useDispatch();
@@ -15,9 +16,10 @@ function App() {
     dispatch(getAllCategories());
     dispatch(getAllSeries());
 
-    if(currentUser){
+    if (currentUser) {
       dispatch(getCurrentOrder(currentUser.id))
-    }else{
+      dispatch(setCurrentUser(currentUser))
+    } else {
       // dispatch(getLStorageProducts())
     }
 
