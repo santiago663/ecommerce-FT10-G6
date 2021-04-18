@@ -54,13 +54,12 @@ function CreateAuthor() {
     });
 
   }
-
   if(productOrError.status === 200){
 
       alertSucces();
       productOrError.status = 0
   }
-  
+
   if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
       alertError();
       productOrError.status = 0

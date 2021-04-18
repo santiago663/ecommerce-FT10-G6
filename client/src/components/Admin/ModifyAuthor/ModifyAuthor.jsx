@@ -6,6 +6,7 @@ import AuthorForm from './AuthorForm/AuthorForm'
 import EditAuthor from './AuthorForm/EditAuthor'
 import '../../../scss/components/_modify.scss';
 
+
 const ModifyAuthor = () => {
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
