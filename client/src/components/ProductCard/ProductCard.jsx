@@ -6,8 +6,6 @@ import '../../scss/components/_productCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart, localStorageCart } from '../../redux/actions/actionFront';
 
-
-
 function ProductCard(props) {
 	const dispatch = useDispatch();
 	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
@@ -15,26 +13,34 @@ function ProductCard(props) {
 		data: { name, author, preview, id },
 	} = props;
 
-	const local = localStorage.getItem(id);
+	const local = []
+  // for(var i = 0; i < 40 ; i++ ){
+    
+    local.push(localStorage.getItem(i))
+    }
+  
 
 	useEffect(() => {
-		
-		if(local !== null){
-			
-			// if (!shoppingCart.includes(JSON.parse(local))) {
-		
-			// 	dispatch(addToCart(JSON.parse(local)));
-			// }
-		} 
-		localStorage.clear()
+
+   
+    if (local !== null && shoppingCart.length === 0) {
+      
+      if (!shoppingCart.includes(JSON.parse(local))) {
+
+				dispatch(addToCart(JSON.parse(local)));
+			}
+		}
+    // localStorage.clear()
 	}, []);
 
 	const handleAddToCart = (productOnClick) => {
+		
 		dispatch(addToCart(productOnClick));
 		localStorage.setItem(productOnClick.id, JSON.stringify(productOnClick));
 	};
 
 	const handleRemoveFromCart = (productOnClick) => {
+		
 		dispatch(removeFromCart(productOnClick));
 		localStorage.removeItem(productOnClick.id);
 	};
@@ -51,7 +57,7 @@ function ProductCard(props) {
 			{shoppingCart && !shoppingCart.includes(props.data) ? (
 				<i className="fas fa-cart-plus add" key={id} onClick={() => handleAddToCart(props.data)}></i>
 			) : (
-				<i className="fas fa-shopping-cart remove" key={id}  onClick={() => handleRemoveFromCart(props.data)}>
+				<i className="fas fa-shopping-cart remove" key={id} onClick={() => handleRemoveFromCart(props.data)}>
 					<br />
 				</i>
 			)}
