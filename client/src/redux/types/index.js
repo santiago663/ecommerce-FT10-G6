@@ -1,7 +1,6 @@
 /*eslint-disable*/
 
 //PRODUCTS
-
 export const SET_SEARCH_PRODUCTS = 'SET_SEARCH_PRODUCTS';
 export const SET_SEARCH_PRODUCTS_ERROR = 'SET_SEARCH_PRODUCTS_ERROR';
 
