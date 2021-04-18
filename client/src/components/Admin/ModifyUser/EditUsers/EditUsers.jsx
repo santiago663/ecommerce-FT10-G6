@@ -88,28 +88,6 @@ function EditUsers() {
     const No = () => {
         setBoolean(false);
     }
-    // const alertSucces = () =>{
-    //     Swal.fire({
-    //        title: "Producto Creado",
-    //        icon: "success",
-    //        timer: "1500",
-    //        showConfirmButton: false,
-    //     })
-    // }
-    // const alertError = () =>{
-    //     Swal.fire({
-    //        title: "Error Al crear el Producto",
-    //        icon: "error",
-    //        timer: "2500",
-    //        showConfirmButton: false,
-    //     })
-    // }
-
-    // if(productOrError.status === 200){
-
-    //     alertSucces();
-    //     productOrError.status = 0
-    // }
 
     return (
         <div className="mainDivEP">
