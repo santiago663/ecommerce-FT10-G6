@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { editAuthor, deleteAuthor } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
-
 function EditAuthor() {
 
     const {id} = useParams();
