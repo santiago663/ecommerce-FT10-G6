@@ -1,92 +1,99 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom'
 import Swal from 'sweetalert2';
-import { editAuthor, deleteAuthor } from '../../../../redux/actions/actionBack';
+import { useParams, Link } from 'react-router-dom'
+import { editCategory, deleteCategory } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
-function EditAuthor() {
+function EditCategory() {
 
     const {id} = useParams();
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
+    const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
-
-    const [author, setAuthor] = useState({
+    console.log(productOrError)
+    
+    const [category, setCategory] = useState({
         id: 1,
         name: "",
-        email: "",
     })
 
     const [boolean, setBoolean] = useState(false)
 
     useEffect(() => {
-        const findAuthor = allArtist.find(f => f.id === Number(id))
+        const findCategory = allCategories.find(f => f.id === Number(id))
        
-        if (findAuthor?.id) {
+        if (findCategory?.id) {
           
-            setAuthor({
-                id: findAuthor.id,
-                name: findAuthor.name,
-                email: findAuthor.email,
+            setCategory({
+                id: findCategory.id,
+                name: findCategory.name,
+
             })
         }
         
     }, [id])
 
     function handleInputChange(event) {
-        setAuthor({ ...author, [event.target.name]: event.target.value })
-    }
+        let categoryName = event.target.value;
 
-    //Handle input para price
-    function handleInputChangeEmail(event) {
-        setAuthor({ ...author, [event.target.name]: event.target.value })
-    }
+        if(categoryName !== ""){
 
+          setCategory({ ...category, ["name"]: event.target.value })
+        } 
+    }
+ 
     function submitForm(event) {
         event.preventDefault();
-        
-        dispatch( editAuthor(author.id, author) );
+
+        if(category.name !== ""){
+   
+          dispatch( editCategory(id, category) );  
+        }
     }
     const deleteProducts = () => {
         setBoolean(true)
     }
     const Yes = () => {
 
-        if(author.id){
+        if(category.id){
 
-            dispatch( deleteAuthor(author.id) );
+            if(category.id){
+
+              dispatch( deleteCategory(category.id) );  
+            }
         }
         setBoolean(false);
     }
     const No = () => {
         setBoolean(false);
     }
+
     const alertSucces = () =>{
         Swal.fire({
-           title: productOrError.data.message,
+           title: "Categoria Editada",
            icon: "success",
            timer: "1500",
            showConfirmButton: false,
         })
     }
 
-    if(productOrError.status === 200){
-
+    if(productOrError && (productOrError.status === 205 || productOrError.status === 200)){
+            
         alertSucces();
         productOrError.status = 0
     }
-
+    
     return (
         <div className="mainDivEP">
-            <h2 className="title">Edit Author</h2>
+            <h2 className="title">Edit Category</h2>
             <Link 
                 className="nav-link" 
-                to="/Admin/Author"
-            ><li>Add Author</li></Link>
+                to="/Admin/Category"
+            ><li>Add Category</li></Link>
             <div className="divEP">
                 <form 
                     className="formEP" 
@@ -99,19 +106,8 @@ function EditAuthor() {
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
-                            value={author.name} 
+                            value={category.name} 
                             name="name" 
-                        />
-                    </div>
-                    <div>
-                        Email: 
-                        <input 
-                            required 
-                            className="input"
-                            type="text" 
-                            onChange={handleInputChangeEmail} 
-                            value={author.email} 
-                            name="email" 
                         />
                     </div>
                     <input 
@@ -138,4 +134,4 @@ function EditAuthor() {
     );
 }
 
-export default EditAuthor
+export default EditCategory;

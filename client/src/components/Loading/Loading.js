@@ -4,9 +4,9 @@ import "../../scss/components/_loading.scss"
 
 const Loading = () => {
     return (
-        <div class="loader">
-            <div class="loader-wheel"></div>
-            <div class="loader-text"></div>
+        <div className="loader">
+            <div className="loader-wheel"></div>
+            <div className="loader-text"></div>
         </div>
     )
 }

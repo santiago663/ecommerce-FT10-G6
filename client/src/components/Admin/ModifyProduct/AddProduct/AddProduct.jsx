@@ -1,27 +1,18 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllAuthors, getAllCategories, getAllSeries, addProducts } from  '../../../../redux/actions/actionBack';
+import Swal from 'sweetalert2';
+import { addProducts } from  '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_addProduct.scss';
 
 function AddProduct() {
 
     const dispatch = useDispatch()
-    
-    useEffect(()=>{
-        dispatch(getAllAuthors());
-        dispatch(getAllCategories());
-        dispatch(getAllSeries()); 
-    },[])
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
-    // const allArtistError = useSelector((store) => store.reducerArtist.allArtistError)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
-    // const allCategoriesError = useSelector((store) => store.reducerCategories.allCategoriesError)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
-    // const allSeriesError = useSelector((store) => store.reducerSeries.allSeriesError)
-    // const postProduct = useSelector((store) => store.reducerErrorRoutes.postProduct)
-    // const postProductError = useSelector((store) => store.reducerErrorRoutes.postProductError)
+    const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
 
     const [product, setProduct] = useState({
         name: "",
@@ -31,10 +22,10 @@ function AddProduct() {
         fileLink: "",
         preview: "",
         categories: [],
-        authorId: 1,        
+        authorId: 0,        
         seriesId: null
     })
-
+ 
     function handleInputChange(event) {
         setProduct({ ...product, [event.target.name]: event.target.value })
     }
@@ -42,6 +33,7 @@ function AddProduct() {
     //Handle input para price
     function handleInputChangePr(event) {
         setProduct({ ...product, [event.target.name]: Number(event.target.value) })
+
     }
 
     //Handle input para available
@@ -71,18 +63,49 @@ function AddProduct() {
     }
 
     //Handle input para borrar categoria
-    function handleInputDeleteCa(event, id) {           
+    function handleInputDeleteCa(event, id) {
+
         var cat = product.categories
         cat = cat.filter( cId => cId != Number(id))        
         setProduct({ ...product, categories: cat })
     }
-
+   
+    const alertSucces = () =>{
+        Swal.fire({
+           title: "Producto Creado",
+           icon: "success",
+           timer: "1500",
+           showConfirmButton: false,
+        })
+    }
+ 
+    const alertError = () =>{
+        Swal.fire({
+            title: "Error Creating Product",
+            icon: "error",
+            timer: "2500",
+            showConfirmButton: false,
+        })
+    }
+    
     function submitForm(event) {        
         event.preventDefault();
-      
-        // axios.post('http://localhost:3001/post/product', product);
-        dispatch( addProducts(product) )
+      if( product.name !== "" || product.description !== "" || product.price !== 0 || product.fileLink !== "" || product.preview !== "", product.categories.length !==0 || product.authorId !== 0){
+
+        dispatch( addProducts(product) )  
+      }
+      else{
+        alertError();
+      }
+        
     }
+
+    if(productOrError && productOrError.status === 200){
+
+        alertSucces();
+        productOrError.status = 0
+    }
+
 
     var key = 1;
 
@@ -94,6 +117,7 @@ function AddProduct() {
                     <div>
                         Name: 
                         <input
+                            required
                             className="input"
                             type="text"
                             onChange={handleInputChange}
@@ -102,7 +126,8 @@ function AddProduct() {
                     </div>
                     <div>
                         Description: 
-                        <input 
+                        <input
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -111,7 +136,8 @@ function AddProduct() {
                     </div>
                     <div>
                         Price: 
-                        <input 
+                        <input
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChangePr} 
@@ -132,6 +158,7 @@ function AddProduct() {
                     <div>
                         FileLink: 
                         <input 
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -141,6 +168,7 @@ function AddProduct() {
                     <div>
                         Preview: 
                         <input 
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -160,7 +188,10 @@ function AddProduct() {
                     </div>
                     <div>
                         Series:
-                        <select name="seriesId" id="selectorSeAP">
+                        <select 
+                            name="seriesId" 
+                            id="selectorSeAP"
+                        >
                             {allSeries.map(s => <option key={`AP${key++}`} value={s.id}>{s.name}</option>)}
                         </select>
                     </div>
@@ -178,7 +209,7 @@ function AddProduct() {
                         <span key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
                         }
                     </div>
-                    <input 
+                    <input
                         className="EditOrAdd"
                         type="submit" 
                         value="Add" 

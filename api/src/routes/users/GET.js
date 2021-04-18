@@ -16,7 +16,7 @@ server.get("/", async (req, res) => {
             return res.status(200).json(usersLogin)
         } catch (error) {
             console.log(error)
-            return res.status(500).send({ message: "Internal server error" })
+            return res.status(500).send({ message: "Internal server error", status: 500 })
         }
     }
     else {
@@ -31,11 +31,10 @@ server.get("/", async (req, res) => {
             res.status(200).json(users)
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message: "Internal server error" })
+            res.status(500).send({ message: "Internal server error", status:500 })
         }
     }
 });
-
 
 server.get("/:id", async (req, res) => {
 
@@ -52,11 +51,8 @@ server.get("/:id", async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({ message: "Internal server error" })
+        res.status(500).send({ message: "Internal server error", status: 500 })
     }
 });
-
-
-
 
 module.exports = server;

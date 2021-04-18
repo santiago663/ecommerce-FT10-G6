@@ -4,13 +4,13 @@ module.exports = (sequelize) => {
   sequelize.define('roles', {
     description: {
       type: DataTypes.STRING,
-      allowNull: false,      
+      allowNull: false,
     }
-    },
-  {
-   timestamps: true,
-   paranoid: true 
-  //  charset: 'utf8',
-  //  collate: 'utf8_general_ci', 
-  });
+  },
+    {
+      timestamps: false,
+      paranoid: true
+      //  charset: 'utf8',
+      //  collate: 'utf8_general_ci', 
+    });
 };

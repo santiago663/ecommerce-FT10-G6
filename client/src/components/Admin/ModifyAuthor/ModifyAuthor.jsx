@@ -20,30 +20,41 @@ const ModifyAuthor = () => {
         }    
     }
 
-    const author = allArtist.filter(f => f.id === Number(input))
+    let author = [];
+    if(input !== 0){
+        author = allArtist.filter(f => f.id === Number(input))
+    }
+    
 
     return ( 
         <div className='ModifyProduct'>
             <div className='FilterAndProducts'>
                 <div className='authorFilter'>
-                    <select name="authorId" id="selectorArAP" onChange={handleChange}>
+                    <select 
+                        name="authorId" 
+                        id="selectorArAP" 
+                        onChange={handleChange}
+                    >
                         <option value="" disabled selected >Exciting Authors</option>    
                         {allArtist.map(a => <option value={a.id}>{a.name}</option>)}
                     </select>
                 </div>
                 <div className="productContainer">
-                    <ul>
+                    {author.length !== 0
+                    ?<ul>
                         {author.map(m => {
                             return(
                                 <li className="product" key={m.id}>
                                     <Link to={`/Admin/Author/Edit/${m.id}`}>
-                                        <p>{m.name}</p>
+                                        <h4>{m.name}</h4>
                                         <p>{m.email}</p>
                                     </Link>
                                 </li>           
                             )
                         })}
-                    </ul> 
+                    </ul>
+                    :null
+                    } 
                 </div>
             </div>
             <div className='compProd'>

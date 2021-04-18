@@ -9,7 +9,9 @@ import { authReducer } from './authReducer';
 import reducerPagination from './reducerPagination'
 import reducerShoppingCart from './reducerShoppingCart'
 import reducerErrorRoutes from './reducerErrorRoutes'
+import reducerOrderUser from './reducerOrderUser'
 import uiError from './reducerUiError'
+import reducerRoles from './reducerRoles'
 // import reducerTest from './reducerTest';
 
 
@@ -24,5 +26,7 @@ export default combineReducers({
   auth: authReducer,
   uiError: uiError,
   reducerErrorRoutes: reducerErrorRoutes,
+  reducerOrderUser: reducerOrderUser,
+  reducerRoles: reducerRoles,
 });
 

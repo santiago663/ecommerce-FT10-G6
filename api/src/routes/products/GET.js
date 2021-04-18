@@ -6,11 +6,13 @@ server.get("/search", async (req, res) => {
   let keyword = req.query.keyword;
 
   try {
+
     if (!keyword) {
-      return res
-        .status(400)
-        .json({ message: "Search criteria must be provided" });
-    } else {
+      return res.status(400).json({ message: "Search criteria must be provided", status: 400 });
+    } 
+    
+    else {
+
       const result = await Products.findAll({
         where: {
           [Op.or]: [
@@ -36,9 +38,10 @@ server.get("/search", async (req, res) => {
       });
       res.status(200).json(result);
     }
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+  } 
+  catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Internal server error", status: 500 });
   }
 });
 
@@ -58,9 +61,10 @@ server.get("/category/:name", async (req, res) => {
       ],
     });
     res.status(200).json(result);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+  } 
+  catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Internal server error", status: 500 });
   }
 });
 
@@ -80,10 +84,12 @@ server.get("/", async (req, res) => {
     });
 
     products === null
-      ? res.send("hubo un error al encontrar los productos")
-      : res.json(products);
-  } catch (err) {
-    res.status(401).send(err.message);
+      ? res.status(400).json({message: "hubo un error al encontrar los productos", status: 400})
+      : res.status(200).json(products);
+  
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ message: "Internal server error", status: 500 })
   }
 });
 
@@ -98,12 +104,13 @@ server.get("/:id", (req, res) => {
   })
     .then((resp) => {
       if (resp === null) {
-        return res.send("Producto inexistente");
+        return res.status(400).json({message: "That product doesn't exist", status: 400});
       }
-      return res.json(resp);
+      return res.status(200).json(resp);
     })
     .catch((error) => {
       console.error(error.message);
+      res.status(500).json({ message: "Internal server error", status: 500 })
     });
 });
 
