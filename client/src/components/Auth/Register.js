@@ -1,15 +1,22 @@
 /*eslint-disable*/
-import React, { useState } from 'react';
-import '../../scss/components/_register.scss'
-import validator from 'validator'
-import Swal from 'sweetalert2'
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeError } from '../../redux/actions/uiError'
 import { startRegister } from '../../redux/actions/auth';
 import { Link } from 'react-router-dom';
+import validator from 'validator'
+import Swal from 'sweetalert2'
+import '../../scss/components/_register.scss'
+
 
 const Register = () => {
-
+    const { isLog } = useSelector((store) => store.auth)
+    const { msgError } = useSelector((store) => store.uiError)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        isLog ? location.assign("http://localhost:3000") : console.log("error")
+      }, [isLog])
 
     const [regState, setRegState] = useState({
         name: '',
@@ -49,6 +56,15 @@ const Register = () => {
 
         return true
     }
+
+    msgError !== null && Swal.fire({
+        title: 'Error!',
+        text: msgError,
+        icon: 'error',
+        confirmButtonText: 'Cool'
+      }).then(() => {
+        dispatch(removeError())
+      })
 
     return (
         <div className="form-container">
