@@ -106,7 +106,7 @@ server.get("/:id", (req, res) => {
       if (resp === null) {
         return res.status(400).json({message: "That product doesn't exist", status: 400});
       }
-      return res.status(400).json(resp);
+      return res.status(200).json(resp);
     })
     .catch((error) => {
       console.error(error.message);
