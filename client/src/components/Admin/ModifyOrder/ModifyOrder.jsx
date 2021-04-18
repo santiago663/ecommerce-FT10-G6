@@ -3,31 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import EditOrder from './EditOrder/EditOrder';
-import { getAllUsers } from '../../../redux/actions/actionBack';
 import '../../../scss/components/_modifyOrder.scss';
 
 const ModifyOrder = () => {
 
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-      
-
-        dispatch(getAllUsers());
-    }, [])
-
     const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
-    const [input, setInput] = useState(0);
-
-    let users = [];
-    if(input !== 0){
-        users = allUsers.filter(f => {
-            if(f.author.id === Number(input) ){
-                console.log(f.author.id)
-                return f
-            } 
-        })
-    }
 
     return ( 
         <div className='ModifyProduct'>
