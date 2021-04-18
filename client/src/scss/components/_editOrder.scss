@@ -1,0 +1,89 @@
+.order{
+    display: flex;
+    margin:20px;
+    .getOrder{
+        margin:20px;
+    }
+    .box{
+        width: 150vh;
+        margin: 10px;
+        border: 1px solid rgb(112, 104, 85);
+        background-color: beige;
+        border-radius: 10px;
+        .everyOrders{
+            margin: 10px;
+            padding: 10px;
+            .dateUser{
+                margin: 10px;
+                .user{
+                    display: inline-block;
+                    text-align: center;
+                    margin-right: 20px;
+                    // width: 50%;
+                }
+            }
+            .listOrders{
+                margin: 10px;
+                .dateOrders{
+                    padding: 5px;
+                    border: 4px solid rgb(138, 138, 138);
+                    background-color: rgb(232, 229, 229);
+                    border-radius: 10px;
+                    .products{
+                        border: 1px solid rgb(187, 187, 187);
+                        border-radius: 7px;
+                        background-color: rgb(147, 188, 232);
+                        .order{
+                            display: inline;
+                            .orderID{
+                                display: inline-flex;
+                                margin: 5px;
+                                padding: 0px 30px 0px 0px;
+                                font-size: 18px;
+                                .open{
+                                    color: rgb(16, 135, 16);
+                                }
+                                .cancelled{
+                                    color: rgb(165, 12, 12);
+                                }
+                                .loading{
+                                    color: rgb(213, 80, 18);
+                                }
+                                .completed{
+                                    color: rgb(12, 17, 165);
+                                }
+                            }
+                        }
+                        .TOTAL{
+                            background-color: rgb(255, 255, 255);
+                            .totalPrice{
+                                text-align: right;
+                                padding: 10px;
+                                margin-right: 150px;
+                                font-size: 17px;
+                            }
+                        }
+                        .oneProduct{
+                            border: 0.2px solid rgb(165, 197, 225);
+                            background-color: rgb(177, 206, 232);
+                            .dateProducts{
+                                .Product{
+                                    display: inline;
+                                    width: 20px;
+                                    background-color: rgb(177, 206, 232);
+                                    .date{
+                                        display: inline-block;
+                                        margin: 5px;
+                                        padding: 5px;
+                                        text-align: justify;
+                                        font-size: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
