@@ -15,7 +15,6 @@ function EditCategory() {
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
     console.log(productOrError)
-
     
     const [category, setCategory] = useState({
         id: 1,
@@ -39,14 +38,21 @@ function EditCategory() {
     }, [id])
 
     function handleInputChange(event) {
-        setAuthor({ ...author, [event.target.name]: event.target.value })
+        let categoryName = event.target.value;
+
+        if(categoryName !== ""){
+
+          setCategory({ ...category, ["name"]: event.target.value })
+        } 
     }
-
-    //Handle input para price
-
+ 
     function submitForm(event) {
-        
-        dispatch( editCategory(author.id, author) );
+        event.preventDefault();
+
+        if(category.name !== ""){
+   
+          dispatch( editCategory(id, category) );  
+        }
     }
     const deleteProducts = () => {
         setBoolean(true)
@@ -55,7 +61,10 @@ function EditCategory() {
 
         if(category.id){
 
-            dispatch( deleteCategory(author?.id) );
+            if(category.id){
+
+              dispatch( deleteCategory(category.id) );  
+            }
         }
         setBoolean(false);
     }
@@ -65,28 +74,16 @@ function EditCategory() {
 
     const alertSucces = () =>{
         Swal.fire({
-           title: "CAtegoria Editada",
+           title: "Categoria Editada",
            icon: "success",
            timer: "1500",
            showConfirmButton: false,
         })
-      }
-    const alertError = () =>{
-        Swal.fire({
-          title: "Error al Editar la Categoria",
-          icon: "error",
-          timer: "2500",
-          showConfirmButton: false,
-        })
     }
 
-    if(productOrError.status === 200){
-  
-    alertSucces();
-      productOrError.status = 0
-    }
-    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
-        alertError();
+    if(productOrError && (productOrError.status === 205 || productOrError.status === 200)){
+            
+        alertSucces();
         productOrError.status = 0
     }
     

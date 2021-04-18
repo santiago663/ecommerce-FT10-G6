@@ -8,7 +8,6 @@ import '../../../../scss/components/_editProducts.scss';
 function CategoryForm() {
 
   const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
-  console.log(productOrError)
 
   const dispatch = useDispatch();
   
@@ -36,30 +35,20 @@ function CategoryForm() {
       name: '',
     });
   }
+
   const alertSucces = () =>{
     Swal.fire({
-       title: "Categoria Creada",
+       title: "Added Category",
        icon: "success",
        timer: "1500",
        showConfirmButton: false,
     })
   }
-  const alertError = () =>{
-      Swal.fire({
-        title: "Error al crear la Categoria",
-        icon: "error",
-        timer: "2500",
-        showConfirmButton: false,
-      })
-  }
-  if(productOrError.status === 200){
 
+  if(productOrError && productOrError.status === 205){
+            
     alertSucces();
     productOrError.status = 0
-}
-  if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
-      alertError();
-      productOrError.status = 0
   }
 
   return (

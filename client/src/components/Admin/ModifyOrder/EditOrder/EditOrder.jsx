@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom'
-import { getAllOrders, getAllUsers } from '../../../../redux/actions/actionBack';
 import Swal from 'sweetalert2';
 import '../../../../scss/components/_editProducts.scss';
 import '../../../../scss/components/_editOrder.scss';
@@ -10,52 +9,24 @@ import '../../../../scss/components/_editOrder.scss';
 function EditProduct() {
 
     const {id} = useParams();
-    // console.log(id, "DIDIDIDIDI")
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-      
-        dispatch(getAllOrders());
-        dispatch(getAllUsers());
-    }, [])
 
     const [order, setOrder] = useState([])
 
     const allOrders = useSelector((store) => store.reducerOrderUser.allOrders)
     const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
-    // console.log(allOrders,"ordersss")
-    // console.log(allUsers,"usersss")
- 
 
     useEffect(() => {
 
         if(id){
             const findOrder = allOrders.filter(f => f.userId === Number(id))
-            console.log(findOrder)
-            setOrder(findOrder)
+
+            if(findOrder.Order.length !== 0){
+              setOrder(findOrder)  
+            }
         }
         return
         
     }, [id])
-   
-
-    const alertSucces = () =>{
-        Swal.fire({
-           title: "Producto Editado",
-           icon: "success",
-           timer: "1500",
-           showConfirmButton: false,
-        })
-    }
-    const alertError = () =>{
-        Swal.fire({
-           title: "Error al editar el Producto",
-           icon: "error",
-           timer: "2500",
-           showConfirmButton: false,
-        })
-    }
 
     return (
         <div className="order">
@@ -72,7 +43,6 @@ function EditProduct() {
                     </div>
                     }
                     <div className="listOrders">
-                        {/* <h3>Ordenes Completadas:</h3> */}
                         <div className="dateOrders">
                             {order.length !== 0 && order.map(m => (
                             
