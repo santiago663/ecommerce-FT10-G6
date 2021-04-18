@@ -13,7 +13,6 @@ server.post("/", async (req, res) => {
         email,
         phone_Number,
         location_id,
-        roleId,
         isGuest,
     } = req.body;
 
@@ -22,7 +21,7 @@ server.post("/", async (req, res) => {
 
 
 
-        if (!validateEmail(email)) return res.status(422).json({ message: "The email is invalid" })
+        if (!validateEmail(email)) return res.status(400).json({ message: "The email is invalid", status: 400})
 
         try {
 
@@ -50,15 +49,15 @@ server.post("/", async (req, res) => {
 
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message: "Internal server error" })
+            res.status(500).send({ message: "Internal server error", status: 500 })
         }
     }
 
     //creación de usuario al registrarse
     else if (!isGuest) {
 
-        if (!name || !email) return res.status(400).json({ message: "Data is missing " }) 
-        if (!validateEmail(email)) return res.status(400).json({ message: "The email is invalid" })
+        if (!name || !email) return res.status(400).json({ message: "Data is missing ", status:400 }) 
+        if (!validateEmail(email)) return res.status(400).json({ message: "The email is invalid", status: 400 })
 
         try {
 
@@ -83,7 +82,7 @@ server.post("/", async (req, res) => {
 
             if (users[1] === false && users[0].available === true) {
 
-                return res.status(200).json({ message: "User already exists" })
+                return res.status(400).json({ message: "User already exists", status: 400 })
 
             }
             else if (users[1] === false && users[0].available === false) {
@@ -101,14 +100,14 @@ server.post("/", async (req, res) => {
                         plain: true
                     }
                 )
-                return res.status(200).json(guestUserRegister)
+                return res.status(200).json(guestUserRegister[1])
             }
 
-            res.status(200).json(users)
+            res.status(200).json(users[0])
 
         } catch (error) {
             console.log(error)
-            res.status(500).send({ message: "Internal server error" })
+            res.status(500).send({ message: "Internal server error", status: 500 })
         }
     }
 }
