@@ -111,22 +111,22 @@ function EditProduct() {
         setProduct({ ...product, categories: cat })
     }
 
-    const alertSucces = () =>{
-        Swal.fire({
-           title: "Producto Editado",
-           icon: "success",
-           timer: "1500",
-           showConfirmButton: false,
-        })
-    }
-    const alertError = () =>{
-        Swal.fire({
-           title: "Error al editar el Producto",
-           icon: "error",
-           timer: "2500",
-           showConfirmButton: false,
-        })
-    }
+    // const alertSucces = () =>{
+    //     Swal.fire({
+    //        title: "Producto Editado",
+    //        icon: "success",
+    //        timer: "1500",
+    //        showConfirmButton: false,
+    //     })
+    // }
+    // const alertError = () =>{
+    //     Swal.fire({
+    //        title: "Error al editar el Producto",
+    //        icon: "error",
+    //        timer: "2500",
+    //        showConfirmButton: false,
+    //     })
+    // }
 
     function submitForm(event) {
         event.preventDefault();
@@ -148,16 +148,17 @@ function EditProduct() {
     const No = () => {
         setBoolean(false);
     }
-    if(productOrError.status === 200){
-            
-        alertSucces();
-        productOrError.status = 0
-    }
-    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
-        alertError();
-        productOrError.status = 0
-    }
 
+    // if(productOrError && productOrError.status === 200){
+            
+    //     alertSucces();
+    //     productOrError.status = 0
+    // }
+    // if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
+    //     alertError();
+    //     productOrError.status = 0
+    // }
+    
     var key = 1;
 
     return (
@@ -176,6 +177,7 @@ function EditProduct() {
                     <div>
                         Name: 
                         <input 
+                            required
                             className="input" type="text" 
                             onChange={handleInputChange} 
                             value={product.name} 
@@ -185,6 +187,7 @@ function EditProduct() {
                     <div>
                         Description: 
                         <input
+                            required
                             className="input" 
                             type="text" 
                             onChange={handleInputChange} 
@@ -195,6 +198,7 @@ function EditProduct() {
                     <div>
                         Price: 
                         <input 
+                            required
                             className="input"
                             type="text" 
                             onChange={handleInputChangePri} 
@@ -217,6 +221,7 @@ function EditProduct() {
                     <div>
                         FileLink: 
                         <input 
+                            required
                             className="input"
                             type="text" 
                             onChange={handleInputChange} 
@@ -227,6 +232,7 @@ function EditProduct() {
                     <div>
                         Preview: 
                         <input 
+                            required
                             className="input"
                             type="text" 
                             onChange={handleInputChange} 
@@ -250,7 +256,10 @@ function EditProduct() {
                     </div>
                     <div>
                         Series:
-                        <select name="series" id="selectorSeAP" >
+                        <select 
+                            name="series" 
+                            id="selectorSeAP" 
+                        >
                             {allSeries.map(s => <option key={`EP${key++}`} value={s.id}>
                                 {s.name}
                             </option>)}
@@ -264,7 +273,7 @@ function EditProduct() {
                             value={""} 
                             onChange={handleInputChangeCa}
                         >
-                            <option key={`EP${key++}`}> </option>
+                            <option key={`EP${key++}`}>{""}</option>
                                 {allCategories.map(c => <option key={`EP${key++}`} value={c.id}>
                                     {c.name}
                                 </option>)}
