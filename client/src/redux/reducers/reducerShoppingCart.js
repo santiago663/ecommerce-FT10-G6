@@ -3,6 +3,7 @@
 import * as TYPES from '../types/index';
 
 const initialState = {
+	currenUser: false,
 	shoppingCart: [],
 };
 
