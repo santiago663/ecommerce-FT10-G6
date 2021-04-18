@@ -31,7 +31,7 @@ const Dashboard = () => {
                     <Link className="nav-link" to="/admin/Author"><li>Authors</li></Link>
                     </div>
                     <div className="option">
-                    <Link className="nav-link" to="/admin/Order"><li>Categories</li></Link>
+                    <Link className="nav-link" to="/admin/Order"><li>Order</li></Link>
                     </div>
                     <div className="option">
                     <Link className="nav-link" to="/admin/User"><li>User</li></Link>

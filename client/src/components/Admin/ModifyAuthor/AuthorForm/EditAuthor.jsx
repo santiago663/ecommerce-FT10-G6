@@ -47,6 +47,7 @@ function EditAuthor() {
     }
 
     function submitForm(event) {
+        event.preventDefault();
         
         dispatch( editAuthor(author.id, author) );
     }
@@ -66,17 +67,9 @@ function EditAuthor() {
     }
     const alertSucces = () =>{
         Swal.fire({
-           title: "Producto Creado",
+           title: productOrError.data.message,
            icon: "success",
            timer: "1500",
-           showConfirmButton: false,
-        })
-    }
-    const alertError = () =>{
-        Swal.fire({
-           title: "Error Al crear el Producto",
-           icon: "error",
-           timer: "2500",
            showConfirmButton: false,
         })
     }
@@ -84,10 +77,6 @@ function EditAuthor() {
     if(productOrError.status === 200){
 
         alertSucces();
-        productOrError.status = 0
-    }
-    if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
-        alertError();
         productOrError.status = 0
     }
 
