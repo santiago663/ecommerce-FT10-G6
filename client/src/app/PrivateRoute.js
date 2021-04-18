@@ -1,12 +1,15 @@
 /*eslint-disable*/
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
 
 export default function PrivateRoute({ component: Component, ...rest }) {
-   const currentUser = useSelector((store) => store.auth);
+   const [user, setUser] = useState({})
+   const currentUser = JSON.parse(localStorage.getItem("CurrentUser"))
    
+   useEffect(()=>{
+      setUser(currentUser)
+   },[currentUser])
+
     return (
        <Route {...rest}  
        render={props => {

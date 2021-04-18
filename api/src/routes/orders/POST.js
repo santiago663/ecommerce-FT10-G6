@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Orders, productOrder } = require("../../db");
+const { Orders } = require("../../db");
 
 server.post("/", async (req, res) => {
 
@@ -14,34 +14,38 @@ server.post("/", async (req, res) => {
             userId: userId,
         }
 
-        if (!id) {
-           
-            const newOrder = await Orders.create(order);
+        var idOrder = id
+        var newOrder;
+        var newOrder2;
 
-            await newOrder.addProducts(productId, {
-                through: { price: price }
-            })
-            return res.status(200).json({ message: "order created successfully", id: newOrder.id })
-        }
-        else {
-            const newOrder = await Orders.findOrCreate({
+        for (var i = 0; i < productId.length; i++) {
 
-                where: {
-                    id: id
-                },
-                defaults: order
-            });
+            if (i === 0 && !id) {
+                newOrder = await Orders.create(order);
 
-            await newOrder[0].addProducts(productId, {
-                through: { price: price }
-            })
-
-            if (newOrder[1] === false) {
-                res.status(200).json({ message: "product added successfully", id: newOrder[0].id })
+                await newOrder.addProducts(productId[i], {
+                    through: { price: price[i] }
+                })
+                idOrder = newOrder.id
             }
             else {
-                res.status(200).json({ message: "order created successfully", id: newOrder[0].id })
+                newOrder2 = await Orders.findOrCreate({
+                    where: {
+                        id: idOrder
+                    },
+                    defaults: order
+                });
+                await newOrder2[0].addProducts(productId[i], {
+                    through: { price: price[i] }
+                })
             }
+        }
+
+        if (newOrder2[1] === false) {
+            res.status(200).json({ message: "product added successfully", id: newOrder2[0].id })
+        }
+        else {
+            res.status(200).json({ message: "order created successfully", id: newOrder2[0].id })
         }
 
     } catch (error) {
@@ -49,6 +53,5 @@ server.post("/", async (req, res) => {
         res.status(500).send({ message: "Internal server error" })
     }
 })
-
 
 module.exports = server;
