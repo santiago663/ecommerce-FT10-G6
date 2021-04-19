@@ -15,7 +15,7 @@ function ProductCard(props) {
     (state) => state.reducerShoppingCart.shoppingCart
   );
   const {
-    data: { name, author, preview, id },
+    data: { name, author, preview, id, price },
   } = props;
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
@@ -65,28 +65,38 @@ function ProductCard(props) {
 
   return (
     <>
-      <Link className="link" to={`/product/${id}`}>
-        <div className="product-card">
-          <img src={preview} alt="" />
-          <h4>{name}</h4>
-          <h6>{author.name}</h6>
+      <div className="product-card">
+        <div className="shopping">
+              <div className="price">
+                <b>$ {price} </b>
+              </div>
+          {!lStorage ? (
+            <i
+              className="fas fa-cart-plus add"
+              key={id}
+              onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
+            ></i>
+          ) : (
+            <i
+              className="fas fa-cart-arrow-down remove"
+              key={id}
+              onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
+            >
+              <br/>
+            </i>
+          )}
+
         </div>
-      </Link>
-      {!lStorage ? (
-        <i
-          className="fas fa-cart-plus add"
-          key={id}
-          onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
-        ></i>
-      ) : (
-        <i
-          className="fas fa-shopping-cart remove"
-          key={id}
-          onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
-        >
-          <br />
-        </i>
-      )}
+          <Link className="link" to={`/product/${id}`}>
+              <img src={preview} alt={name} />
+          </Link>
+          <div className="conten">
+            <div className="nameAutor">
+              <h4>{name}</h4>
+              <h6>{author.name}</h6>
+            </div>
+          </div>
+      </div>
     </>
   );
 }
