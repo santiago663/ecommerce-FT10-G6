@@ -6,7 +6,7 @@ const initialState = {
 
 	currenUser: false,
 	shoppingCart: [],
-  shoppingCart: [],
+  
 
 };
 

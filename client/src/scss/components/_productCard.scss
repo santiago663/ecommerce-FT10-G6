@@ -35,8 +35,36 @@
   }
   &:hover {
     transition: transform 0.5s;
-    transform: scale(1.05);
+    transform: scale(1.1);
     box-shadow: 1px 3px 14px rgba(0, 0, 0, 0.185);
+    .shopping{
+      display: flex;
+        position: absolute;
+        text-shadow: 1px 1px 4px white;
+        margin-left: 170px;
+        margin-top: 189px;
+        z-index: 1;
+        background-color: #eeeeee;
+        width: 120px;
+        box-shadow: 1px 3px 4px black;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2px;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+        animation-duration: 1.5s;
+        animation-name: dario;
+        @keyframes dario{
+          from{
+           width: 100px;
+           opacity: 0;
+          }
+          to{
+           width: 120px;
+           opacity: 100%;
+          }
+        }
+    }
   }
 }
 a.link {
@@ -50,4 +78,30 @@ a.link {
 .remove {
   font-size: 30px;
   color: #291e3d;
+}
+.conten{
+  display: flex;
+  align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+.autorname{
+  display: flex;
+}
+.shopping{
+   display: none;
+
+ }
+.fa-cart-plus{
+  font-size: 20px;
+  color: green;
+}
+.fa-cart-arrow-down{
+  font-size: 20px;
+  color: red;
+}
+.price{
+  display: flex;
+  margin-right: 5px;
+  font-size: 15px;
 }
