@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useParams, Link } from 'react-router-dom'
 import { editCategory, deleteCategory } from '../../../../redux/actions/actionBack';
+import { upgradeEditCategories } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_editProducts.scss';
 
 function EditCategory() {
@@ -14,10 +15,9 @@ function EditCategory() {
 
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
-    console.log(productOrError)
     
     const [category, setCategory] = useState({
-        id: 1,
+        id: 0,
         name: "",
     })
 
@@ -46,32 +46,6 @@ function EditCategory() {
         } 
     }
  
-    function submitForm(event) {
-        event.preventDefault();
-
-        if(category.name !== ""){
-   
-          dispatch( editCategory(id, category) );  
-        }
-    }
-    const deleteProducts = () => {
-        setBoolean(true)
-    }
-    const Yes = () => {
-
-        if(category.id){
-
-            if(category.id){
-
-              dispatch( deleteCategory(category.id) );  
-            }
-        }
-        setBoolean(false);
-    }
-    const No = () => {
-        setBoolean(false);
-    }
-
     const alertSucces = () =>{
         Swal.fire({
            title: "Categoria Editada",
@@ -81,7 +55,52 @@ function EditCategory() {
         })
     }
 
+    function submitForm(event) {
+        event.preventDefault();
+
+        if(category.name !== ""){
+   
+          dispatch( editCategory(id, category) );
+        }
+    }
+    const deleteCategories = () => {
+        setBoolean(true)
+    }
+    const Yes = () => {
+
+        if(category.id){
+
+            if(category.id){
+
+              dispatch( deleteCategory(category.id) );
+
+            }
+        }
+        setBoolean(false);
+    }
+    const No = () => {
+        setBoolean(false);
+    }
+
     if(productOrError && (productOrError.status === 205 || productOrError.status === 200)){
+
+        if(id){
+            let allCategoriesCop = allCategories
+            if(category.id !==0 ){
+
+                let indice = allCategoriesCop.findIndex((elemento) => {
+                    
+                    if(elemento.id === Number(id)) return true;
+                });
+                
+                if(indice !== -1 ){
+                    
+                    allCategoriesCop[indice] = category
+                }
+                allCategoriesCop=[] 
+            }
+            if(allCategoriesCop.length !== 0)upgradeEditCategories(allCategoriesCop);      
+        } 
             
         alertSucces();
         productOrError.status = 0
@@ -119,7 +138,7 @@ function EditCategory() {
                         className="EditAndDelete"
                         type="button" 
                         value="Delete" 
-                        onClick={deleteProducts} 
+                        onClick={deleteCategories} 
                     />
                 </form>
             </div>

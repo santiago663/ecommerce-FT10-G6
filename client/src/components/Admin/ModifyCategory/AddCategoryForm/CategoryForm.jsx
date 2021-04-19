@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { addCategory } from '../../../../redux/actions/actionBack';
+import { addCategory, getAllCategories } from '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
 function CategoryForm() {
@@ -22,20 +22,6 @@ function CategoryForm() {
     });
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const category = {
-      name: input.name,
-    };
-
-    dispatch(addCategory(category));
-
-    setInput({
-      ...input,
-      name: '',
-    });
-  }
-
   const alertSucces = () =>{
     Swal.fire({
        title: "Added Category",
@@ -43,6 +29,21 @@ function CategoryForm() {
        timer: "1500",
        showConfirmButton: false,
     })
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const category = {
+      name: input.name,
+    };
+
+    dispatch( addCategory(category) );
+    dispatch( getAllCategories() );
+    setInput({
+      ...input,
+      name: '',
+    });
+    location.reload();
   }
 
   if(productOrError && productOrError.status === 205){

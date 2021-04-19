@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import { editAuthor, deleteAuthor } from '../../../../redux/actions/actionBack';
+import { upgradeEditAuthors } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_editProducts.scss';
 
 function EditAuthor() {
@@ -16,7 +17,7 @@ function EditAuthor() {
     const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
 
     const [author, setAuthor] = useState({
-        id: 1,
+        id: 0,
         name: "",
         email: "",
     })
@@ -46,25 +47,6 @@ function EditAuthor() {
         setAuthor({ ...author, [event.target.name]: event.target.value })
     }
 
-    function submitForm(event) {
-        event.preventDefault();
-        
-        dispatch( editAuthor(author.id, author) );
-    }
-    const deleteProducts = () => {
-        setBoolean(true)
-    }
-    const Yes = () => {
-
-        if(author.id){
-
-            dispatch( deleteAuthor(author.id) );
-        }
-        setBoolean(false);
-    }
-    const No = () => {
-        setBoolean(false);
-    }
     const alertSucces = () =>{
         Swal.fire({
            title: productOrError.data.message,
@@ -74,9 +56,48 @@ function EditAuthor() {
         })
     }
 
+    function submitForm(event) {
+        event.preventDefault();
+
+        dispatch( editAuthor(author.id, author) );
+
+    }
+    const deleteAuthors = () => {
+        setBoolean(true)
+    }
+    const Yes = () => {
+
+        if(author.id){
+
+            dispatch( deleteAuthor(author.id) );
+
+        }
+        setBoolean(false);
+    }
+    const No = () => {
+        setBoolean(false);
+    }
+
     if(productOrError.status === 200){
 
         alertSucces();
+        if(id){
+            let allArtistCop = allArtist
+            if(author.id !==0 ){
+
+                let indice = allArtistCop.findIndex((elemento) => {
+                    
+                    if(elemento.id === Number(id)) return true;
+                });
+                
+                if(indice !== -1 ){
+                    
+                    allArtistCop[indice] = author
+                }
+                allArtistCop=[] 
+            }
+            if(allArtistCop.length !== 0)upgradeEditAuthors(allArtistCop);      
+        } 
         productOrError.status = 0
     }
 
@@ -123,7 +144,7 @@ function EditAuthor() {
                         className="EditAndDelete"
                         type="button" 
                         value="Delete" 
-                        onClick={deleteProducts} 
+                        onClick={deleteAuthors} 
                     />
                 </form>
             </div>
