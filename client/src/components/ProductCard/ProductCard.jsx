@@ -18,20 +18,8 @@ function ProductCard(props) {
     data: { name, author, preview, id },
   } = props;
 
-
-  let lStorage ;
-  if (window.localStorage.length !== 0) {
-    if (
-      shoppingCart.filter(
-        (prod) => prod.id === id
-      ).length === 1
-    ) {
-      lStorage = true;
-    }
-  }
-
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
-    if(currentUser){
+    if(currentUser[0]){
       let total=0;
       shoppingCart.forEach(product => {
         total += product.price ? Number(product.price) : 0
@@ -51,7 +39,7 @@ function ProductCard(props) {
   };
 
   const handleRemoveFromCart = (productOnClick, currentUser, currentOrder) => {
-    if(currentUser){
+    if(currentUser[0]){
       let total=0;
       shoppingCart.forEach(product => {
         total += product.price ? Number(product.price) : 0

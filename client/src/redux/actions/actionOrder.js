@@ -44,7 +44,7 @@ export const addToCartUser = (payload, currentUser, currentOrder, total) => {
 export const removeToCartUser = (payload, currentUser, currentOrder, total) => {
     return (dispatch) =>{
         const orden = {
-        orderId: currentOrder ? currentOrder[0].id : '',
+        orderId: currentOrder[0] ? currentOrder[0].id : '',
         total: total,
         productId: payload.id
         }
