@@ -6,7 +6,7 @@ import Products from '../Products/Products'
 
 function Browser() {
   return (
-    <div>
+    <div className="bigest-container">
       <SearchBar />
       <Route path="/Browser/Products" component={Products} />
     </div>

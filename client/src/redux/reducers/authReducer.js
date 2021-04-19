@@ -1,17 +1,30 @@
 /*eslint-disable*/
 import * as TYPES from '../types/index';
 
-export const authReducer = (state = {}, action) => {
+const initialState = {
+    isLog: false,
+    currentUser: [],
+}
+
+export const authReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case TYPES.SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: action.payload
+            }
 
         case TYPES.AUTH_LOGIN:
             return {
-                uid: action.payload.uid,
-                name: action.payload.displayName
+                ...state,
+                isLog: action.payload
             }
 
         case TYPES.AUTH_LOGOUT:
-            return {}
+            return {
+                isLog: false
+            }
 
         default:
             return state;

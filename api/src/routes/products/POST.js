@@ -1,7 +1,8 @@
 const server = require("express").Router();
 const { Products } = require("../../db");
 
-server.post("/", (req, res) => {
+server.post("/", async (req, res) => {
+
   const {
     name,
     description,
@@ -14,28 +15,34 @@ server.post("/", (req, res) => {
     seriesId,
   } = req.body;
 
-  Products.findOrCreate({
-    where: {
-      name: name,
-      description: description,
-      price: price,
-      available: available,
-      fileLink: fileLink,
-      preview: preview,
-      authorId: authorId,
-      seriesId: seriesId,
-    },
-  })
-    .then((newProduct) => {
-      if (categories === null || categories === undefined) {
-        return res.json(newProduct[0]);
-      }
-      categories.forEach((id) => newProduct[0].addCategories(id));
-      return res.json(newProduct[0]);
+  try {
+    var products = await Products.findOrCreate({
+
+      where: {
+        name: name,
+        description: description,
+        price: price,
+        available: available,
+        fileLink: fileLink,
+        preview: preview,
+        authorId: authorId,
+        seriesId: seriesId,
+      },
     })
-    .catch((err) => {
-      res.status(401).send(err.message);
-    });
-});
+
+    if (!categories) {
+      return res.status(200).json(products[0]);
+    }    
+    else {
+      categories.forEach((id) => products[0].addCategories(id));
+      return res.status(200).json(products[0]);
+    }
+  } 
+  catch (error) {
+    console.log(error)
+    res.status(500).json({ message: "Internal server error", status: 500 })
+  }
+})
+
 
 module.exports = server;

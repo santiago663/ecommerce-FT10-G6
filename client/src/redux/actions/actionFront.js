@@ -1,16 +1,21 @@
 /*eslint-disable*/
-import * as TYPES from '../types/index';
+import * as TYPES from "../types/index";
 
 //                                      //
 //          ACTIONS SHOPPINGCART        //
 //                                      //
 
 export const addToCart = (payload) => {
-	return { type: TYPES.ADD_TO_CART, payload };
+  return { type: TYPES.ADD_TO_CART, payload };
+};
+
+export const getLocalStorageGuest = () => {
+  let orderProducts = JSON.parse(localStorage.getItem("orderProducts")) || []
+  return { type: TYPES.LOAD_STORAGE_GUEST, payload: orderProducts };
 };
 
 export const removeFromCart = (payload) => {
-	return { type: TYPES.REMOVE_FROM_CART, payload };
+  return { type: TYPES.REMOVE_FROM_CART, payload };
 };
 
 
@@ -26,30 +31,34 @@ export const removeFromCart = (payload) => {
 //                                                  //
 
 export const orderAsc = (type) => (dispatch, getState) => {
-	const products = getState().reducerProduct.allProductCache.slice();
+  const products = getState().reducerProduct.allProductCache.slice();
 
-	if (type === 'asc_name') {
-		let productsOrder = products.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1));
+  if (type === "asc_name") {
+    let productsOrder = products.sort((a, b) =>
+      a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
+    );
 
-		dispatch({
-			type: TYPES.ORDER_ASC_NAME,
-			payload: {
-				productsOrder,
-				name: type,
-			},
-		});
-	}
-	if (type === 'desc_name') {
-		let productsOrder = products.sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase() ? -1 : 1));
+    dispatch({
+      type: TYPES.ORDER_ASC_NAME,
+      payload: {
+        productsOrder,
+        name: type,
+      },
+    });
+  }
+  if (type === "desc_name") {
+    let productsOrder = products.sort((a, b) =>
+      a.name.toUpperCase() > b.name.toUpperCase() ? -1 : 1
+    );
 
-		dispatch({
-			type: TYPES.ORDER_DESC_NAME,
-			payload: {
-				productsOrder,
-				name: type,
-			},
-		});
-	}
+    dispatch({
+      type: TYPES.ORDER_DESC_NAME,
+      payload: {
+        productsOrder,
+        name: type,
+      },
+    });
+  }
 };
 
 //                                                  //
@@ -57,33 +66,41 @@ export const orderAsc = (type) => (dispatch, getState) => {
 //                                                  //
 
 export const orderByCategories = (categories) => (dispatch, getState) => {
-	var backup = getState().reducerProduct.backUpProducts.slice();
-	let filteredProducts = [];
+  var backup = getState().reducerProduct.backUpProducts.slice();
+  let filteredProducts = [];
 
-	backup
-		.slice()
-		.filter((f) => f.categories.forEach((x) => (x.name === categories ? filteredProducts.push(f) : null)));
+  backup
+    .slice()
+    .filter((f) =>
+      f.categories.forEach((x) =>
+        x.name === categories ? filteredProducts.push(f) : null
+      )
+    );
 
-	dispatch({
-		type: TYPES.ORDER_BY_CATEGORIES,
-		payload: {
-			categories,
-			productCategory: filteredProducts,
-		},
-	});
+  dispatch({
+    type: TYPES.ORDER_BY_CATEGORIES,
+    payload: {
+      categories,
+      productCategory: filteredProducts,
+    },
+  });
 };
 
 export const orderByAuthor = (author) => (dispatch, getState) => {
-	var backup = getState().reducerProduct.backUpProducts.slice();
+  var backup = getState().reducerProduct.backUpProducts.slice();
 
-	let filteredProducts = [];
+  let filteredProducts = [];
 
-	backup.slice().filter((f) => (f.author.name === author ? filteredProducts.push(f) : null));
+  backup
+    .slice()
+    .filter((f) =>
+      f.author.name === author ? filteredProducts.push(f) : null
+    );
 
-	dispatch({
-		type: TYPES.ORDER_BY_CATEGORIES,
-		payload: {
-			productCategory: filteredProducts,
-		},
-	});
+  dispatch({
+    type: TYPES.ORDER_BY_CATEGORIES,
+    payload: {
+      productCategory: filteredProducts,
+    },
+  });
 };

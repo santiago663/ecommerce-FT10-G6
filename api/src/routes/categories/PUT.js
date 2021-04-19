@@ -6,22 +6,14 @@ server.put("/:id", async (req, res) => {
   const { name } = req.body;
 
   let resp1 = await Categories.update(
-    {
-      name: name,
-    },
-    {
-      where: { id: id },
-    }
+    { name: name,},
+    { where: { id: id },}
   );
-
   let resp2 = await Categories.findOne({
-    where: {
-      id: id,
-    },
+    where: { id: id,},
   });
-
   if (resp1[0] === 0) {
-    return res.send("No existe la Categoría");
+    return res.status(400).json({message: "No existe la Categoría", status:400});
   }
   return res.json(resp2);
 });

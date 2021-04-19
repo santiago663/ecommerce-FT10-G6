@@ -25,12 +25,12 @@ server.delete("/:id", async (req, res) => {
       return res.status(200).json({ message: "Product deleted" });
     }  
     else {
-      return res.status(400).json({ message: "This product doesn't exist" });
+      return res.status(400).json({ message: "This product doesn't exist", status: 400});
     }
     
   } catch (error) {
     console.log(error)
-    res.status(500).json({message: "Internal server error"})
+    res.status(500).json({message: "Internal server error", status: 500})
   }
 
   
@@ -45,20 +45,20 @@ server.delete("/:idProduct/category/:idCategory", async (req, res) => {
     })
   
     if (!product) {
-      return res.status(400).json({ message: "Product does not exists" });
+      return res.status(400).json({ message: "Product does not exists", status: 400 });
     }
 
     var resp = await product.removeCategories([idCategory])
       if (resp === 0) {
-        return res.status(400).json({message:"Product does not belong to this category"});
+        return res.status(400).json({message:"Product does not belong to this category", status: 400});
       } 
       else {
-        return res.status(400).json({message:"Category deleted"});
+        return res.status(400).json({message:"Category deleted", status: 400});
       }    
   } 
   catch (error) {
     console.log(error)
-    res.status(500).json({message: "Internal server error"})
+    res.status(500).json({message: "Internal server error", status: 500})
   }
 
 });

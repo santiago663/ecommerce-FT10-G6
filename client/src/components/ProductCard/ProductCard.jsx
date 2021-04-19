@@ -1,40 +1,70 @@
 /* eslint-disable  */
-import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import '../../scss/components/_productCard.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from '../../redux/actions/actionFront';
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import "../../scss/components/_productCard.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
 
 function ProductCard(props) {
   const dispatch = useDispatch();
-  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+  const shoppingCart = useSelector(
+    (state) => state.reducerShoppingCart.shoppingCart
+  );
   const {
-    data: {
-      name,
-      author,
-      preview,
-      id,
-    },
+    data: { name, author, preview, id },
   } = props;
 
+  const handleAddToCart = (productOnClick) => {
+    let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
+    let found = data.filter((product) => product.id === productOnClick.id);
+
+    if (found.length === 0) {
+      data.push(productOnClick);
+      localStorage.setItem("orderProducts", JSON.stringify(data));
+      dispatch(addToCart(productOnClick));
+    }
+  };
+
+  const handleRemoveFromCart = (productOnClick) => {
+    let data = JSON.parse(localStorage.getItem("orderProducts"));
+    let found = data.filter((product) => product.id !== productOnClick.id);
+
+    localStorage.setItem("orderProducts", JSON.stringify(found));
+    dispatch(removeFromCart(productOnClick));
+  };
+
+  let lStorage;
+  if ( shoppingCart.length !== 0) {
+    if (shoppingCart.filter((prod) => prod.id === id).length === 1) {
+      lStorage = true;
+    }
+  }
+
   return (
-		<>
-			<Link className="link" to={`/product/${id}`}>
-				<div className="product-card">
-					<img src={preview} alt="" />
-					<h4>{name}</h4>
-					<h6>{author.name}</h6>
-				</div>
-			</Link>
-			{!shoppingCart.includes(props.data) ? (
-				<i className="fas fa-cart-plus add" onClick={() => dispatch(addToCart(props.data))}></i>
-			) : (
-				<i className="fas fa-shopping-cart remove" onClick={() => dispatch(removeFromCart(props.data))}>
-					<br />
-				</i>
-			)}
-		</>
+    <>
+      <Link className="link" to={`/product/${id}`}>
+        <div className="product-card">
+          <img src={preview} alt="" />
+          <h4>{name}</h4>
+          <h6>{author.name}</h6>
+        </div>
+      </Link>
+      {!lStorage ? (
+        <i
+          className="fas fa-cart-plus add"
+          key={id}
+          onClick={() => handleAddToCart(props.data)}
+        ></i>
+      ) : (
+        <i
+          className="fas fa-shopping-cart remove"
+          key={id}
+          onClick={() => handleRemoveFromCart(props.data)}
+        >
+          <br />
+        </i>
+      )}
+    </>
   );
 }
 

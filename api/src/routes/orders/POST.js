@@ -1,10 +1,9 @@
 const server = require("express").Router();
-const { Orders } = require("../../db");
+const { Orders, Users,Roles } = require("../../db");
 
 server.post("/", async (req, res) => {
 
-    const { total, userId, price, productId, id } = req.body;
-
+    const { total, userId, price, productId, id,name, email } = req.body;
     try {
 
         const order = {
@@ -13,12 +12,29 @@ server.post("/", async (req, res) => {
             state: "open",
             userId: userId,
         }
+        let idOrder = id
+        let newOrder;
+        let newOrder2;
+        let resultOrder;
 
-        var idOrder = id
-        var newOrder;
-        var newOrder2;
-
-        for (var i = 0; i < productId.length; i++) {
+        if(!userId){
+            let roleGuest = await Roles.findOne({
+                where: {
+                    description: "Guess"
+                }
+            })
+            const guest = await Users.findOrCreate({
+                where: { email:email },
+                defaults: {
+                    name,
+                    email, 
+                    available: false,
+                    roleId: roleGuest.id,
+                }
+            })
+            order.userId = guest[0].id
+        }
+        for (let i = 0; i < productId.length; i++) {
 
             if (i === 0 && !id) {
                 newOrder = await Orders.create(order);
@@ -29,28 +45,35 @@ server.post("/", async (req, res) => {
                 idOrder = newOrder.id
             }
             else {
-                newOrder2 = await Orders.findOrCreate({
-                    where: {
-                        id: idOrder
-                    },
-                    defaults: order
-                });
-                await newOrder2[0].addProducts(productId[i], {
+                newOrder2 = await Orders.update(
+                    order,{
+                        where: { id: idOrder },
+                        returning : true,
+                     }
+                );
+                resultOrder = await Orders.findOne({
+                    where:{ id:idOrder},
+                })
+                
+                await resultOrder.addProducts(productId[i], {
                     through: { price: price[i] }
                 })
             }
         }
+        if(!resultOrder && newOrder){
+            return res.status(200).json({message:"order created successfully",id: newOrder.id})
+        }
 
-        if (newOrder2[1] === false) {
-            res.status(200).json({ message: "product added successfully", id: newOrder2[0].id })
+        if (resultOrder) {
+            res.status(200).json({ message: "product added successfully", id: resultOrder.id })
         }
         else {
-            res.status(200).json({ message: "order created successfully", id: newOrder2[0].id })
+            res.status(200).json({ message: "order created successfully", id: resultOrder.id })
         }
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({ message: "Internal server error" })
+        res.status(500).json({ message: "Internal server error",status:500 })
     }
 })
 
