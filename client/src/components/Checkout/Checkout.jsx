@@ -2,18 +2,39 @@
 import React from 'react';
 import './Checkout.css';
 import { Link } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../../redux/actions/actionFront';
+import { removeToCartUser } from "../../redux/actions/actionOrder"
 
 const Checkout = () => {
-	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 	const dispatch = useDispatch()
+	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+	const currentUser = useSelector((store) => store.auth.currentUser)
+	const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder)
 
-	const handleSumTotal = ()=>{
+	const handleSumTotal = () => {
 		const reducer = (accumulator, currentValue) => Number(currentValue.price) + accumulator;
 		const sum = shoppingCart.reduce(reducer, 0);
 		return sum;
 	}
+
+	const handleRemoveFromCart = (productOnClick, currentUser, currentOrder) => {
+		if(currentUser.id){
+		  let total=0;
+		  shoppingCart.forEach(product => {
+			total += product.price ? Number(product.price) : 0
+		  })
+		  total = total - Number(productOnClick.price)
+		  dispatch(removeToCartUser(productOnClick, currentUser, currentOrder, total))
+		  
+		} else {
+		  let data = JSON.parse(localStorage.getItem("orderProducts"));
+		  let found = data.filter((product) => product.id !== productOnClick.id);
+	  
+		  localStorage.setItem("orderProducts", JSON.stringify(found));
+		  dispatch(removeFromCart(productOnClick));
+		}
+	  };
 
 	return (
 		<div className="Checkout">
@@ -29,7 +50,7 @@ const Checkout = () => {
 									<span>${item.price}</span>
 									<button
 										type="button"
-										onClick={() => dispatch(removeFromCart(item))}
+										onClick={()=> handleRemoveFromCart(item, currentUser, currentOrder)}
 										className="Trash-item"
 									>
 										<i className="fas fa-trash"></i>
