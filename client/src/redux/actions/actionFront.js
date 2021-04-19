@@ -18,6 +18,14 @@ export const removeFromCart = (payload) => {
   return { type: TYPES.REMOVE_FROM_CART, payload };
 };
 
+
+
+
+
+
+
+
+
 //                                                  //
 //          ACTION FILTERS alphabetical:            //
 //                                                  //

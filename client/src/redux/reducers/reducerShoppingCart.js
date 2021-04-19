@@ -3,7 +3,11 @@
 import * as TYPES from "../types/index";
 
 const initialState = {
-  shoppingCart: [],
+
+	currenUser: false,
+	shoppingCart: [],
+  
+
 };
 
 export default function reducerShoppingCart(state = initialState, action) {
