@@ -19,7 +19,7 @@ function ProductCard(props) {
   } = props;
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
-    if(currentUser[0]){
+    if(currentUser.id){
       let total=0;
       shoppingCart.forEach(product => {
         total += product.price ? Number(product.price) : 0
@@ -39,7 +39,7 @@ function ProductCard(props) {
   };
 
   const handleRemoveFromCart = (productOnClick, currentUser, currentOrder) => {
-    if(currentUser[0]){
+    if(currentUser.id){
       let total=0;
       shoppingCart.forEach(product => {
         total += product.price ? Number(product.price) : 0
