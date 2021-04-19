@@ -18,6 +18,7 @@ function ProductCard(props) {
     data: { name, author, preview, id },
   } = props;
 
+
   let lStorage ;
   if (window.localStorage.length !== 0) {
     if (
@@ -46,11 +47,10 @@ function ProductCard(props) {
         localStorage.setItem("orderProducts", JSON.stringify(data));
         dispatch(addToCart(productOnClick));
       }
-
     }
   };
 
-  const handleRemoveFromCart = (productOnClick) => {
+  const handleRemoveFromCart = (productOnClick, currentUser, currentOrder) => {
     if(currentUser){
       let total=0;
       shoppingCart.forEach(product => {
@@ -68,6 +68,13 @@ function ProductCard(props) {
     }
   };
 
+  let lStorage;
+  if ( shoppingCart.length !== 0) {
+    if (shoppingCart.filter((prod) => prod.id === id).length === 1) {
+      lStorage = true;
+    }
+  }
+
   return (
     <>
       <Link className="link" to={`/product/${id}`}>
@@ -77,7 +84,7 @@ function ProductCard(props) {
           <h6>{author.name}</h6>
         </div>
       </Link>
-      {!lStorage  ? (
+      {!lStorage ? (
         <i
           className="fas fa-cart-plus add"
           key={id}
