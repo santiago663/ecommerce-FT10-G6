@@ -88,34 +88,26 @@ export const startLoginEmailPassword = (email, password) => {
 };
 
 export const startGoogleLogin = () => {
+
   return (dispatch) => {
     firebase.auth().signInWithPopup(googleAuthProvider)
-      .then(({ user }) => {
-        dispatch(
-          login(user.uid, user.displayName)
-        )
+      .then(async ({ user }) => {
+        const findUser = await axios.get(`http://localhost:3001/get/user?email=${user.email}`)
+
+        if (findUser.data === null) {
+          const resp = await axios({
+            method: 'post',
+            url: 'http://localhost:3001/post/user',
+            data: { name: user.displayName, email: user.email, isGuest: false }
+          })
+          localStorage.setItem('CurrentUser', JSON.stringify(resp.data))
+        } else {
+          localStorage.setItem('CurrentUser', JSON.stringify(findUser.data))
+        }
+
+        dispatch({ type: TYPES.AUTH_LOGIN, payload: true })
+      }).catch(error => {
+        dispatch(setError(error.message))
       })
   }
 }
-
-//  -- PARA ENTRAR CON GOOGLE CUANDO SE RESUELVA LA RUTA DEL BACK --
-
-// export const startGoogleLogin = () => {
-//   return (dispatch) => {
-//     firebase.auth().signInWithPopup(googleAuthProvider)
-//       .then(async ({ user }) => {
-//         console.log(user.displayName);
-//         const resp = await axios({
-//           method: 'post',
-//           url: 'http://localhost:3001/post/user',
-//           data: { name: user.displayName, email: user.email, isGuest: false }
-//         })
-//         console.log(resp.data)
-//         localStorage.setItem('CurrentUser', JSON.stringify(resp.data))
-//         dispatch({ type: TYPES.AUTH_LOGIN, payload: true })
-//       }).catch(error => {
-//         console.log(error)
-//         dispatch(setError(error.message))
-//       })
-//   }
-// }
