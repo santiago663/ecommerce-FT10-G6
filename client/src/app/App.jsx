@@ -7,14 +7,11 @@ import {
   getAllAuthors,
   getAllCategories,
   getAllSeries,
-  getAllUsers,
-  getAllOrders,
-  getAllrRoles,
 } from "../redux/actions/actionBack";
 import { getLocalStorageGuest } from "../redux/actions/actionFront";
 import { getCurrentOrder } from "../redux/actions/actionOrder";
-import "../scss/containers/_app.scss";
 import { setCurrentUser } from "../redux/actions/auth";
+import "../scss/containers/_app.scss";
 
 function App() {
   const dispatch = useDispatch();
