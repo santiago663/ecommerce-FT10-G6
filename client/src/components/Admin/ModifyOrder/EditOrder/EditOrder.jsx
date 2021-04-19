@@ -20,7 +20,7 @@ function EditProduct() {
         if(id){
             const findOrder = allOrders.filter(f => f.userId === Number(id))
 
-            if(findOrder.Order.length !== 0){
+            if(findOrder.length !== 0){
               setOrder(findOrder)  
             }
         }
