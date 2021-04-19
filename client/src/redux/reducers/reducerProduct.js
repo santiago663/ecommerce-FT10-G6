@@ -1,6 +1,7 @@
 /*eslint-disable*/
 
 import * as TYPES from '../types/index';
+import * as TYPESUP from '../types/typesUpgrade';
 
 const initialState = {
 	backUpProducts: [],
@@ -12,7 +13,7 @@ const initialState = {
 export default function reducerProduct(state = initialState, action) {
 	switch (action.type) {
 
-		case TYPES.SET_SEARCH_PRODUCTS:
+		case TYPESUP.UPGRADE_EDIT_PRODUCT:
 			return {
 				...state,
 				allProductCache: action.payload,
@@ -20,6 +21,7 @@ export default function reducerProduct(state = initialState, action) {
 			};
 
 		case TYPES.GET_ALL_PRODUCTS:
+		case TYPES.SET_SEARCH_PRODUCTS:
 			return {
 				...state,
 				allProductCache: action.payload,
