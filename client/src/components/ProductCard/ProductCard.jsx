@@ -4,9 +4,13 @@ import PropTypes from "prop-types";
 import "../../scss/components/_productCard.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
+import { addToCartUser, removeToCartUser } from "../../redux/actions/actionOrder"
 
 function ProductCard(props) {
   const dispatch = useDispatch();
+  const currentUser = useSelector((store) => store.auth.currentUser)
+  const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder)
+  
   const shoppingCart = useSelector(
     (state) => state.reducerShoppingCart.shoppingCart
   );
@@ -14,23 +18,42 @@ function ProductCard(props) {
     data: { name, author, preview, id },
   } = props;
 
-  const handleAddToCart = (productOnClick) => {
-    let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
-    let found = data.filter((product) => product.id === productOnClick.id);
-
-    if (found.length === 0) {
-      data.push(productOnClick);
-      localStorage.setItem("orderProducts", JSON.stringify(data));
-      dispatch(addToCart(productOnClick));
+  const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
+    if(currentUser.id){
+      let total=0;
+      shoppingCart.forEach(product => {
+        total += product.price ? Number(product.price) : 0
+      })
+      total = total + Number(productOnClick.price)
+      dispatch(addToCartUser(productOnClick, currentUser, currentOrder, total))
+    } else {
+      let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
+      let found = data.filter((product) => product.id === productOnClick.id);
+  
+      if (found.length === 0) {
+        data.push(productOnClick);
+        localStorage.setItem("orderProducts", JSON.stringify(data));
+        dispatch(addToCart(productOnClick));
+      }
     }
   };
 
-  const handleRemoveFromCart = (productOnClick) => {
-    let data = JSON.parse(localStorage.getItem("orderProducts"));
-    let found = data.filter((product) => product.id !== productOnClick.id);
-
-    localStorage.setItem("orderProducts", JSON.stringify(found));
-    dispatch(removeFromCart(productOnClick));
+  const handleRemoveFromCart = (productOnClick, currentUser, currentOrder) => {
+    if(currentUser.id){
+      let total=0;
+      shoppingCart.forEach(product => {
+        total += product.price ? Number(product.price) : 0
+      })
+      total = total - Number(productOnClick.price)
+      dispatch(removeToCartUser(productOnClick, currentUser, currentOrder, total))
+      
+    } else {
+      let data = JSON.parse(localStorage.getItem("orderProducts"));
+      let found = data.filter((product) => product.id !== productOnClick.id);
+  
+      localStorage.setItem("orderProducts", JSON.stringify(found));
+      dispatch(removeFromCart(productOnClick));
+    }
   };
 
   let lStorage;
@@ -53,13 +76,13 @@ function ProductCard(props) {
         <i
           className="fas fa-cart-plus add"
           key={id}
-          onClick={() => handleAddToCart(props.data)}
+          onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
         ></i>
       ) : (
         <i
           className="fas fa-shopping-cart remove"
           key={id}
-          onClick={() => handleRemoveFromCart(props.data)}
+          onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
         >
           <br />
         </i>

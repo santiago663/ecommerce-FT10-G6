@@ -1,5 +1,6 @@
 const server = require("express").Router();
-const { Users } = require("../../db");
+const { Users, Orders, Products } = require("../../db");
+const { Op } = require('sequelize');
 
 server.put("/:id", async (req, res) => {
   const { id } = req.params;
@@ -67,18 +68,34 @@ server.put("/:id", async (req, res) => {
 server.put("/:idUser/cart", async (req, res) => {
   try {
     let userId = req.params.idUser;
-    let { orderId, productId } = req.body;
+    let { orderId, productId, total } = req.body;
+
     if (userId && orderId && productId) {
+
       const orderResult = await Orders.findOne({
         where: {
           [Op.and]: [{ userId: userId }, { id: orderId }],
         },
         include: [{ model: Products, through: { attributes: [] } }],
       });
+
       let removeProduct = await orderResult.removeProducts(productId);
-      res.status(200).json({ remove: true, id: removeProduct });
+
+      await Orders.update(
+        {
+          total
+        },
+        {
+          where: {
+            id: orderId,
+          }
+        }
+      )
+
+      res.status(200).json({ remove: true, message: removeProduct ? "Product deleted" : "Already deleted" });
+
     } else {
-      res.status(401).json({message: "Incomplete data"})
+      res.status(401).json({ message: "Incomplete data" })
     }
   } catch (error) {
     console.log(error);
