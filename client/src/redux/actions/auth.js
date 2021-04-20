@@ -57,8 +57,6 @@ export const startLoginEmailPassword = (email, password) => {
 
         var orderProducts = JSON.parse(localStorage.getItem('orderProducts'))
 
-        console.log(orderProducts)
-
         if (orderProducts?.length > 0) {
 
           dispatch(emptyToCartUser(resp.data))
@@ -88,8 +86,6 @@ export const startGoogleLogin = () => {
       .then(async ({ user }) => {
         
         const findUser = await axios.get(`http://localhost:3001/get/user?email=${user.email}`)
-
-        console.log(findUser)
 
         //new user
         if (findUser.data === null) {
