@@ -25,7 +25,7 @@
   margin: 0;
   padding: 1%;
   height: 6%;
-  width: 18%;
+  width: 30%;
   border: none;
   outline: none;
 }
@@ -46,6 +46,7 @@
   width: 70px;
   border: none;
   border-radius: 20px;
+  height: 30px;
 }
 .fa-sort-alpha-up {
   font-size: 20px;
@@ -55,6 +56,7 @@
   width: 70px;
   border: none;
   border-radius: 20px;
+  height: 30px;
 }
 
 .fa-sort-alpha-up:hover {
@@ -66,4 +68,34 @@
   border: solid 1px #b0bec5;
   background-color: #b0bec5;
   color: #ffffff;
+}
+
+
+.Button-Try-Again{
+  font-size: 18px;
+  padding: 0px;
+  margin: 0px;
+  height: 30px;
+  padding: 4px;
+  width: 110px;
+  border: none;
+  border-radius: 20px;
+}
+.Button-Try-Again:hover {
+  border: solid 1px #b0bec5;
+  background-color: #b0bec5;
+  color: #ffffff;
+}
+
+.Boton-Reset{
+font-size: 0.6rem;
+  border: none;
+  background: black;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 20px;
+  height: 30px;
+}
+.Container-Filter{
+  display: flex;
 }

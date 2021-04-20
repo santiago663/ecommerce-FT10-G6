@@ -1,8 +1,7 @@
 /*eslint-disable*/
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { orderAsc, orderByCategories, orderByAuthor } from '../../redux/actions/actionFront';
-import { getAllProducts } from '../../redux/actions/actionBack';
+import { orderAsc, orderByCategories, orderByAuthor, getBackup } from '../../redux/actions/actionFront';
 import './Filter.css';
 
 function Filter() {
@@ -10,9 +9,13 @@ function Filter() {
 	const dispatch = useDispatch();
 	const allCategories = useSelector((state) => state.reducerCategories.allCategoriesCache);
 	const allArtist = useSelector((state) => state.reducerArtist.allArtistCache);
+	const selectAuthor = useSelector((state) => state.reducerProduct.author);
+	const selectCategorie = useSelector((state) => state.reducerProduct.categorie);
+	const disponibleAuthor = useSelector((state) => state.reducerProduct.authorDisponible);
+	const disponibleCategories = useSelector((state) => state.reducerProduct.contegorieDisponible);
 
 	const handleFilter = (e) => {
-		e.target.value === 'All' ? dispatch(getAllProducts()) : dispatch(orderByCategories(e.target.value));
+		dispatch(orderByCategories(e.target.value));
 	};
 
 	const handleOrder = (e) => {
@@ -21,40 +24,62 @@ function Filter() {
 	};
 
 	const handleAuthor = (e) => {
-		
-		e.target.value === 'All' ? dispatch(getAllProducts()) : dispatch(orderByAuthor(e.target.value));
-		
+		dispatch(orderByAuthor(e.target.value));
+	};
+	const handleBackUp = (e) => {
+		e.preventDefault();
+		dispatch(getBackup());
 	};
 
 	return (
-		<div className="filter">
-			<p>Filter By Category</p>
+		<>
+			<div className="Container-Filter">
+				<button className="Boton-Reset" onClick={(e) => handleBackUp(e)}>
+					Reset
+				</button>
+				<div className="filter">
+					{selectAuthor && selectCategorie ? (
+						<button onClick={(e) => handleBackUp(e)} className="Button-Try-Again">
+							Try Again
+						</button>
+					) : (
+						<>
+							<select onChange={(e) => handleFilter(e)}>
+								<option default>Filter By Category</option>
+								{selectAuthor
+									? disponibleCategories &&
+									  disponibleCategories.map((C) => {
+											return <option value={C}>{C}</option>;
+									  })
+									: allCategories &&
+									  allCategories.map((C) => {
+											return <option value={C.name}>{C.name}</option>;
+									  })}
+							</select>
 
-			<select onChange={(e) => handleFilter(e)}>
-				<option default>All</option>
-				{allCategories &&
-					allCategories.map((C) => {
-						return <option value={C.name}>{C.name}</option>;
-					})}
-			</select>
+							<select onChange={(e) => handleAuthor(e)}>
+								<option default>Filter By Author</option>
+								{!selectCategorie
+									? allArtist &&
+									  allArtist.map((a) => {
+											return <option value={a.name}>{a.name}</option>;
+									  })
+									: disponibleAuthor &&
+									  disponibleAuthor.map((a) => {
+											return <option value={a}>{a}</option>;
+									  })}
+							</select>
+						</>
+					)}
 
-			<p>Filter By Author</p>
-
-			<select onChange={(e) => handleAuthor(e)}>
-				<option default>All</option>
-				{allArtist &&
-					allArtist.map((a) => {
-						return <option value={a.name}>{a.name}</option>;
-					})}
-			</select>
-
-			<p>Order</p>
-			{!toggle ? (
-				<button className="fas fa-sort-alpha-down" value="asc_name" onClick={(e) => handleOrder(e)} />
-			) : (
-				<button className="fas fa-sort-alpha-up" value="desc_name" onClick={(e) => handleOrder(e)} />
-			)}
-		</div>
+					{!toggle ? (
+						<button className="fas fa-sort-alpha-down" value="asc_name" onClick={(e) => handleOrder(e)} />
+					) : (
+						<button className="fas fa-sort-alpha-up" value="desc_name" onClick={(e) => handleOrder(e)} />
+					)}
+				</div>
+			</div>
+		</>
 	);
 }
 export default Filter;

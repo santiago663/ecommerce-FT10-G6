@@ -76,10 +76,10 @@ export const orderByCategories = (categories) => (dispatch) => {
 
 export const orderByAuthor = (author) => (dispatch) => {
   dispatch({
-		type: 'ORDER_BY_AUTHOR',
+		type: TYPES.ORDER_BY_AUTHOR,
     payload:author,})
 };
 
 export const getBackup = () => (dispatch) =>{
-  dispatch({type: 'GET_ALL_FROM_BACKUP'})
+  dispatch({type: TYPES.GET_ALL_FROM_BACKUP})
 }
