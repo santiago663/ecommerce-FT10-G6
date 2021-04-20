@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import { editUser } from '../../../../redux/actions/actionBack';
+import { upgradeEditUsers } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_editProducts.scss'
 
 function EditUsers() {
@@ -15,6 +16,7 @@ function EditUsers() {
     const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
     const allRoles = useSelector((store) => store.reducerRoles.allRoles)
     const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
+    console.log(productOrError)
 
     const [user, setUser] = useState({
         available: true,
@@ -66,28 +68,61 @@ function EditUsers() {
         } 
 
     }
+
+    const alertSucces = () =>{
+        Swal.fire({
+           title: "Producto Editado",
+           icon: "success",
+           timer: "1500",
+           showConfirmButton: false,
+        })
+    }
+
     function submitForm(event) {        
         event.preventDefault();
       
-        dispatch( editUser(id, user) )  
+        dispatch( editUser(id, user) );
     }
 
     //Handle input para price
 
-    const deleteProducts = () => {
+    const deleteUser = () => {
         setBoolean(true)
     }
     const Yes = () => {
 
-        if(author.id){
+        if(user.id){
 
-            // dispatch( deleteAuthor(author.id) );
+            // dispatch( deleteUser(user.id) );
         }
         setBoolean(false);
     }
     const No = () => {
         setBoolean(false);
     }
+
+    if(productOrError && productOrError.status === 200){
+
+        if(id){
+            let allUsersCop = allUsers
+            if(user.id !==0 ){
+                
+                let indice = allUsersCop.findIndex((elemento) => {
+                    if(elemento.name === user.name) return true;
+                    
+                });
+                    if(indice !== -1 ){
+                        allUsersCop[indice] = user
+                }
+                allUsersCop=[] 
+            }
+            if(allUsersCop.length !== 0)upgradeEditUsers(allUsersCop);
+             
+        }
+        alertSucces();
+        productOrError.status = 0;
+    }
+    
 
     return (
         <div className="mainDivEP">
@@ -157,7 +192,7 @@ function EditUsers() {
                         className="EditAndDelete"
                         type="button" 
                         value="Delete" 
-                        onClick={deleteProducts} 
+                        onClick={deleteUser} 
                     />
                 </form>
             </div>

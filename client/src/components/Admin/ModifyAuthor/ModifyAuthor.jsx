@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React, { useState } from 'react';
 import { Link, Route } from 'react-router-dom';
-import { useDispatch, useSelector} from 'react-redux';
+import { useSelector} from 'react-redux';
 import AuthorForm from './AuthorForm/AuthorForm'
 import EditAuthor from './AuthorForm/EditAuthor'
 import '../../../scss/components/_modify.scss';
@@ -10,7 +10,6 @@ const ModifyAuthor = () => {
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
  
-
     const [input, setInput] = useState(0);
 
     const handleChange = (id) => {

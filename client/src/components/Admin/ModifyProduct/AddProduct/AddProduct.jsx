@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { addProducts } from  '../../../../redux/actions/actionBack';
+import { addProducts, getAllProducts } from  '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_addProduct.scss';
 
 function AddProduct() {
@@ -49,6 +49,7 @@ function AddProduct() {
     function handleInputChangeAr(event) {
  
         setProduct({ ...product, [event.target.name]: Number(event.target.value)})
+
     }
 
     //Handle input para categories
@@ -92,7 +93,10 @@ function AddProduct() {
         event.preventDefault();
       if( product.name !== "" || product.description !== "" || product.price !== 0 || product.fileLink !== "" || product.preview !== "", product.categories.length !==0 || product.authorId !== 0){
 
-        dispatch( addProducts(product) )  
+        dispatch( addProducts(product) );
+        dispatch( getAllProducts() );
+        location.reload();
+
       }
       else{
         alertError();

@@ -112,7 +112,7 @@ function ProductDetails() {
         <div className="det">
           <h3>Categories:</h3>
           <div className="desc">
-            {categories?.map((cate) => cate.name)}
+            {categories?.map((cate) =><span>{cate.name} / </span>)}
           </div>
         </div>
         <div className="dispre">

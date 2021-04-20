@@ -16,3 +16,21 @@
     }
   }
 }
+.page-item-select {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 20px;
+  background: rgb(207, 207, 207); 
+}
+
+.pageButton{
+  border-radius: 20px;
+  font-size: 0.8rem;
+  border: none;
+  background: rgb(228, 228, 228);
+  color: rgb(68, 68, 68);
+  font-weight: 700;
+  &:focus {
+    outline: none;
+  }
+ }

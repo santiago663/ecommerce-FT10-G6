@@ -23,6 +23,7 @@ export default function reducerErrorRoutes(state = initialState, action) {
         case TYPES.PUT_EDIT_PRODUCT_CATEGORY:
         case TYPES.DELETE_PRODUCT_CATEGORY:
         case TYPES.DELETE_ONE_PRODUCT:
+        case TYPES.PUT_USER:
             return {
                 ...state,
                 stateAction: action.payload,
@@ -39,6 +40,7 @@ export default function reducerErrorRoutes(state = initialState, action) {
         case TYPES.PUT_EDIT_PRODUCT_CATEGORY_ERROR:
         case TYPES.DELETE_ONE_PRODUCT_ERROR:
         case TYPES.DELETE_ONE_PRODUCT_ERROR:
+        case TYPES.PUT_USER_ERROR:
             return {
                 ...state,
                 stateError: action.payload,
