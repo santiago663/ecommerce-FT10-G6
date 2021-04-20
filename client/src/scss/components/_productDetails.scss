@@ -3,7 +3,6 @@
     justify-content: center;
     margin-left: 35px;
     margin-right: 35px;
-    
 }
 .preview{
     display: flex;
@@ -90,18 +89,9 @@
     }
 }
 .btn{
-    width: 60px;
+    width: 125px;
     height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-// .fa-cart-arrow-down{
-//     font-size: 25px;
-// }
-// .fa-cart-plus{
-//     font-size: 25px;
-//     color: green;
-// }
-// :hover .fa-cart-plus{
-//     background-color: green;
-//     color: honeydew;
-// }

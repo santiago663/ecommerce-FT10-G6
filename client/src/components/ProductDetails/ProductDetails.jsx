@@ -84,7 +84,6 @@ function ProductDetails() {
 
   let lStorage;
   if (shoppingCart.length !== 0) {
-    console.log('si entre por aca')
     if (shoppingCart.filter((prod) => prod.id === productCache.id).length === 1) {
       lStorage = true;
     }

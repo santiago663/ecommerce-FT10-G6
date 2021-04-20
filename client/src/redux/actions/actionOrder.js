@@ -20,7 +20,6 @@ export const getCurrentOrder = (userId) => {
 
 
 export const addToCartUser = (payload, currentUser, currentOrder, total) => {
-    console.log(currentOrder)
     return (dispatch) => {
         const orden = {
             userId: currentUser.id,
@@ -31,7 +30,6 @@ export const addToCartUser = (payload, currentUser, currentOrder, total) => {
         }
         axios.post("http://localhost:3001/post/order", orden)
             .then(resp => {
-                console.log(resp.data)
                 dispatch({ type: TYPES.GET_CURRENT_ORDER, payload: resp.data })
                 dispatch(addToCart(payload))
             }).catch(error => {
@@ -41,7 +39,6 @@ export const addToCartUser = (payload, currentUser, currentOrder, total) => {
 }
 
 export const pushStorageToCartUser = (payload, currentUser, orderId) => {
-
     return (dispatch) => {
         const orden = {
             userId: currentUser.id,
@@ -68,7 +65,6 @@ export const removeToCartUser = (payload, currentUser, currentOrder, total) => {
         axios.put(`http://localhost:3001/put/user/${currentUser.id}/cart`, orden)
             .then(resp => {
                 dispatch(removeFromCart(payload))
-                console.log(resp)
             }).catch(error => {
                 console.log(error)
             })
@@ -81,7 +77,6 @@ export const emptyToCartUser = (currentUser) => {
         axios.delete(`http://localhost:3001/delete/order/users/${currentUser.id}/cart`)
             .then(resp => {
                 dispatch(addToCart())
-                console.log(resp)
             }).catch(error => {
                 console.log(error)
             })
