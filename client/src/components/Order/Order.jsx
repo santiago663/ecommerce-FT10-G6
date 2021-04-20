@@ -11,12 +11,8 @@ function Order() {
 	const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder);
 	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 
-	const handleSumTotal = () => {
-		const reducer = (accumulator, currentValue) => Number(currentValue.price) + accumulator;
-		const sum = shoppingCart.reduce(reducer, 0);
-		return sum;
-	};
-
+	const reducer = (accumulator, currentValue) => Number(currentValue.price) + accumulator;
+	const sum = shoppingCart.reduce(reducer, 0);
 	let data = JSON.parse(localStorage.getItem('orderProducts')) || [];
 
 	const [input, setInput] = useState({
@@ -24,7 +20,7 @@ function Order() {
 		email: '',
 		productId: [...data].map((pi) => pi.id),
 		price: [...data].map((p) => Number(p.price)),
-		total: 0,
+		total: sum,
 	});
 
 	const handleInputChange = function (e) {
@@ -50,7 +46,6 @@ function Order() {
 		} else {
 			try {
 				dispatch(formGuestOrder(input));
-				
 				alert('success !!');
 				location.assign('http://localhost:3000/Browser/products');
 				localStorage.clear();
@@ -117,12 +112,6 @@ function Order() {
 								/>
 							</>
 						)}
-						<input
-							name="total"
-							type="hidden"
-							value={(input.total = handleSumTotal())}
-							onChange={handleInputChange}
-						/>
 					</div>
 					<br></br>
 					<br></br>
@@ -150,14 +139,13 @@ function Order() {
 								<div className="Information-item">
 									<div className="Information-element">
 										<h4>{item.name}</h4>
-
 										<span>${item.price}</span>
 									</div>
 								</div>
 							);
 						})}
 					<br />
-					<h2>{`Total Price : $ ${handleSumTotal()}`}</h2>
+					<h2>Total Price : {sum}</h2>
 				</div>
 			</form>
 		</div>
