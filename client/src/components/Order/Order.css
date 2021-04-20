@@ -67,7 +67,7 @@ input {
 	margin: 0 0 8px 76px;
 	outline: 0;
 	padding: 4px 12px;
-	width: 60%;
+	width: 100%;
 	box-sizing: border-box;
 }
 .Information-buttons {
@@ -111,4 +111,10 @@ input {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+}
+
+.User-Name{
+	font-size:20px;
+	font-family: cursive;
+	color:#3866a3;
 }

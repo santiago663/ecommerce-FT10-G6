@@ -87,3 +87,15 @@ export const emptyToCartUser = (currentUser) => {
             })
     }
 }
+
+export const formGuestOrder = (form) => {
+	return (dispatch) => {
+		axios.post('http://localhost:3001/post/order/', form).catch((e) => console.log(e));
+	};
+}; 
+
+export const formUserOrder = (form) => {
+	return (dispatch) => {
+		axios.put('http://localhost:3001/put/order/', form).catch((e) => console.log(e));
+	};
+};
