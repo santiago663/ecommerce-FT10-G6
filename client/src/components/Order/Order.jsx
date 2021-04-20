@@ -50,8 +50,7 @@ function Order() {
 		} else {
 			try {
 				dispatch(formGuestOrder(input));
-				alert(input.price);
-				alert(input.productId);
+				
 				alert('success !!');
 				location.assign('http://localhost:3000/Browser/products');
 				localStorage.clear();
