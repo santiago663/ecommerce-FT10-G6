@@ -77,7 +77,7 @@ export default function reducerProduct(state = initialState, action) {
 					authorDisponible: [...new Set((actualAuthor = [].concat.apply([], actualAuthor)))],
 				};
 			}
-		case 'ORDER_BY_AUTHOR':
+		case TYPES.ORDER_BY_AUTHOR:
 			if (state.categorie) {
 				let filteredProducts = [];
 				state.allProductCache.filter((f) =>
@@ -112,7 +112,7 @@ export default function reducerProduct(state = initialState, action) {
 				author: false,
 				categories: false,
 			};
-		case 'GET_ALL_FROM_BACKUP':
+		case TYPES.GET_ALL_FROM_BACKUP:
 			return {
 				...state,
 				allProductCache: state.backUpProducts,
