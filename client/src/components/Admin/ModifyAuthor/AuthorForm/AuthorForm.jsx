@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import Swal from 'sweetalert2';
-import { addAuthor } from  '../../../../redux/actions/actionBack';
+import { addAuthor, getAllAuthors } from  '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_editProducts.scss';
 
 function CreateAuthor() {
@@ -40,6 +40,8 @@ function CreateAuthor() {
     };
 
     dispatch(addAuthor(author));
+    dispatch( getAllAuthors());
+    location.reload();
 
     setInput({
       ...input,

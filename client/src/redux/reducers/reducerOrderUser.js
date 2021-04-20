@@ -1,6 +1,7 @@
 /*eslint-disable*/
 
 import * as TYPES from '../types/index';
+import * as TYPESUP from '../types/typesUpgrade';
 
 const initialState = {
   currentOrder: [],
@@ -31,6 +32,12 @@ export default function reducerOrderUser (state = initialState, action){
         ...state,
         allUsers: action.payload,
     };
+    
+    case TYPESUP.UPGRADE_EDIT_USER:
+      return {
+          ...state,
+          allUsers: action.payload,
+      };
   
     default:
       return state;

@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom'
-import { editProductCategory, deleteProductCategory, editProductByBody, deleteProduct } from '../../../../redux/actions/actionBack';
+import { editProductCategory, deleteProductCategory, editProductByBody } from '../../../../redux/actions/actionBack';
+import { upgradeEditProducts } from '../../../../redux/actions/actionUpgrade';
 import Swal from 'sweetalert2';
 import '../../../../scss/components/_editProducts.scss';
 
@@ -19,7 +20,8 @@ function EditProduct() {
     const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
 
     const [product, setProduct] = useState({
-        id: 1,
+
+        id: 0,
         name: "",
         description: "",
         price: 0,
@@ -48,7 +50,7 @@ function EditProduct() {
                 fileLink: findProduct.fileLink,
                 preview: findProduct.preview,
                 categories: findProduct.categories,
-                authorId: findProduct.author.id,
+                author: findProduct.author,
                 seriesId: findProduct.seriesId,
             })
             const findArtist = allArtist.find(g => g.id == findProduct.author.id)
@@ -96,6 +98,7 @@ function EditProduct() {
            
             dispatch( editProductCategory(product.id, event.target.value) );
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
+
         }
         //borra los repetidos
         cat = cat.filter((thing, index, self) => index === self.findIndex((t) => (t?.id === thing?.id)))
@@ -109,55 +112,58 @@ function EditProduct() {
         dispatch( deleteProductCategory(product.id, id) );
         cat = cat.filter(c => c?.id != Number(id))
         setProduct({ ...product, categories: cat })
+
     }
 
-    // const alertSucces = () =>{
-    //     Swal.fire({
-    //        title: "Producto Editado",
-    //        icon: "success",
-    //        timer: "1500",
-    //        showConfirmButton: false,
-    //     })
-    // }
-    // const alertError = () =>{
-    //     Swal.fire({
-    //        title: "Error al editar el Producto",
-    //        icon: "error",
-    //        timer: "2500",
-    //        showConfirmButton: false,
-    //     })
-    // }
+    const alertSucces = () =>{
+        Swal.fire({
+           title: "Producto Editado",
+           icon: "success",
+           timer: "1500",
+           showConfirmButton: false,
+        })
+    }
 
     function submitForm(event) {
         event.preventDefault();
+
         dispatch( editProductByBody(product.id, product) );
-       
     }
+
     const deleteProducts = () => {
         setBoolean(true)
     }
     const Yes = () => {
 
-        if(product.id){
-
-            dispatch( deleteProduct(product.id) );
-
-        }
         setBoolean(false);
     }
     const No = () => {
         setBoolean(false);
     }
 
-    // if(productOrError && productOrError.status === 200){
-            
-    //     alertSucces();
-    //     productOrError.status = 0
-    // }
-    // if(typeof productOrError.status === 'number' && productOrError.status !== 200 && productOrError.status !== 0){
-    //     alertError();
-    //     productOrError.status = 0
-    // }
+    if(productOrError && productOrError.status === 200){
+
+        if(id){
+            let allProductsCop = allProducts
+            if(product.id !==0 ){
+
+                let indice = allProductsCop.findIndex((elemento) => {
+                    
+                    if(elemento.id === Number(id)) return true;
+                });
+                
+                if(indice !== -1 ){
+                    
+                    allProductsCop[indice] = product
+                }
+                allProductsCop=[] 
+            }
+            if(allProductsCop.length !== 0)upgradeEditProducts(allProductsCop);      
+        } 
+        alertSucces();
+        productOrError.status = 0
+    }
+
     
     var key = 1;
 
