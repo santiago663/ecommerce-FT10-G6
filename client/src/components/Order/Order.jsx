@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import './Order.css';
 import { Link } from 'react-router-dom';
-import {useSelector} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import {postOrderGuest} from '../../redux/actions/actionBack'
 
 const Order = () => {
+  const dispatch =useDispatch()
 	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 	
 	const [input, setInput] = useState({
@@ -33,8 +35,8 @@ const Order = () => {
 	const onSubmit = (e) => {
 		e.prevent.default();
 		try {
+			dispatch(postOrderGuest(input))
 			
-			alert('Succes!')
 		} catch (err) {
 			console.error(err.mesagge);
 		}

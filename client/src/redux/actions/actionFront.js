@@ -65,42 +65,21 @@ export const orderAsc = (type) => (dispatch, getState) => {
 //          ACTION FILTERS orderBy Categories:      //
 //                                                  //
 
-export const orderByCategories = (categories) => (dispatch, getState) => {
-  var backup = getState().reducerProduct.backUpProducts.slice();
-  let filteredProducts = [];
-
-  backup
-    .slice()
-    .filter((f) =>
-      f.categories.forEach((x) =>
-        x.name === categories ? filteredProducts.push(f) : null
-      )
-    );
+export const orderByCategories = (categories) => (dispatch) => {
+  
 
   dispatch({
     type: TYPES.ORDER_BY_CATEGORIES,
-    payload: {
-      categories,
-      productCategory: filteredProducts,
-    },
+    payload :categories
   });
 };
 
-export const orderByAuthor = (author) => (dispatch, getState) => {
-  var backup = getState().reducerProduct.backUpProducts.slice();
-
-  let filteredProducts = [];
-
-  backup
-    .slice()
-    .filter((f) =>
-      f.author.name === author ? filteredProducts.push(f) : null
-    );
-
+export const orderByAuthor = (author) => (dispatch) => {
   dispatch({
-    type: TYPES.ORDER_BY_CATEGORIES,
-    payload: {
-      productCategory: filteredProducts,
-    },
-  });
+		type: 'ORDER_BY_AUTHOR',
+    payload:author,})
 };
+
+export const getBackup = () => (dispatch) =>{
+  dispatch({type: 'GET_ALL_FROM_BACKUP'})
+}
