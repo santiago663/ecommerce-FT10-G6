@@ -100,7 +100,7 @@ server.get("/:id", (req, res) => {
     where: {
       id: id,
     },
-    include: Categories,
+    include: [{ model: Authors }, { model: Categories }],
   })
     .then((resp) => {
       if (resp === null) {
