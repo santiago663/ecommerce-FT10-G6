@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as TYPES from '../types/index';
 import { firebase, googleAuthProvider } from '../../firebase/firebase-config'
 import { setError } from './uiError';
-import { pushStorageToCartUser, emptyToCartUser} from "./actionOrder"
+import { pushStorageToCartUser, emptyToCartUser } from "./actionOrder"
 
 export const isLogged = (payload) => ({
   type: TYPES.AUTH_LOGIN,
@@ -36,7 +36,7 @@ export const startRegister = (name, email, password) => {
         if (additionalUserInfo.isNewUser) {
           const currentProducts = JSON.parse(localStorage.getItem("orderProducts"))
           if (currentProducts) {
-              dispatch(pushStorageToCartUser( currentProducts, resp.data ))
+            dispatch(pushStorageToCartUser(currentProducts, resp.data))
           }
         }
         localStorage.clear();
@@ -54,33 +54,27 @@ export const startLoginEmailPassword = (email, password) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(async ({ user }) => {
         const resp = await axios.get(`http://localhost:3001/get/user?email=${user.email}`)
-        
+
         var orderProducts = JSON.parse(localStorage.getItem('orderProducts'))
-        
+
         console.log(orderProducts)
 
-        if(orderProducts?.length > 0 ){
+        if (orderProducts?.length > 0) {
 
           dispatch(emptyToCartUser(resp.data))
 
-          console.log(resp.data.id)
+          const userOrder = await axios.get(`http://localhost:3001/get/order/users/${resp.data.id}/cart`);
 
-          const userOrder = await axios.get(`http://localhost:3001/get/order/users/${resp.data.id}/cart`);          
-
-          dispatch(pushStorageToCartUser( orderProducts, resp.data, userOrder.data.id ))
+          dispatch(pushStorageToCartUser(orderProducts, resp.data, userOrder.data.id))
           localStorage.clear()
           localStorage.setItem('CurrentUser', JSON.stringify(resp.data))
           dispatch({ type: TYPES.AUTH_LOGIN, payload: true })
-
         }
         else {
-          
           localStorage.setItem('CurrentUser', JSON.stringify(resp.data))
           dispatch({ type: TYPES.AUTH_LOGIN, payload: true })
-        }       
-        
-        
-        
+        }
+
       }).catch((error) => {
         dispatch(setError(error.message))
       })
@@ -92,20 +86,57 @@ export const startGoogleLogin = () => {
   return (dispatch) => {
     firebase.auth().signInWithPopup(googleAuthProvider)
       .then(async ({ user }) => {
+        
         const findUser = await axios.get(`http://localhost:3001/get/user?email=${user.email}`)
 
+        console.log(findUser)
+
+        //new user
         if (findUser.data === null) {
+
           const resp = await axios({
             method: 'post',
             url: 'http://localhost:3001/post/user',
             data: { name: user.displayName, email: user.email, isGuest: false }
           })
-          localStorage.setItem('CurrentUser', JSON.stringify(resp.data))
-        } else {
-          localStorage.setItem('CurrentUser', JSON.stringify(findUser.data))
+
+          const currentProducts = JSON.parse(localStorage.getItem("orderProducts"))
+          
+          //si hay data en el carrito, se crea una orden nueva con los productos
+          if (currentProducts) {
+            dispatch(pushStorageToCartUser(currentProducts, resp.data))
+          }
+          localStorage.clear();
+          localStorage.setItem('CurrentUser', JSON.stringify(resp.data))     
+          dispatch({ type: TYPES.AUTH_LOGIN, payload: true })   
+        } 
+
+        //login
+        else {
+
+          const respUser = await axios.get(`http://localhost:3001/get/user?email=${user.email}`)
+
+          //se busca el carrito del localStorage
+          var orderProducts = JSON.parse(localStorage.getItem('orderProducts'))
+
+          //si hay data en el carrito
+          if (orderProducts?.length > 0) {
+
+            dispatch(emptyToCartUser(respUser.data))
+  
+            const userOrder = await axios.get(`http://localhost:3001/get/order/users/${respUser.data.id}/cart`);
+  
+            dispatch(pushStorageToCartUser(orderProducts, respUser.data, userOrder.data?.id))
+            localStorage.clear()
+            localStorage.setItem('CurrentUser', JSON.stringify(respUser.data))
+            dispatch({ type: TYPES.AUTH_LOGIN, payload: true })
+          }
+          else {
+            localStorage.setItem('CurrentUser', JSON.stringify(respUser.data))
+            dispatch({ type: TYPES.AUTH_LOGIN, payload: true })
+          }         
         }
 
-        dispatch({ type: TYPES.AUTH_LOGIN, payload: true })
       }).catch(error => {
         dispatch(setError(error.message))
       })
