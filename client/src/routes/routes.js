@@ -14,6 +14,7 @@ import Payment from '../components/Payment/Payment';
 import Register from '../components/Auth/Register';
 import PrivateRoute from '../app/PrivateRoute'
 import PrivateRouteGuest from '../app/PrivateRouteGuest'
+import User from '../components/User/User';
 
 const routes = () => (
   <Router>
@@ -27,6 +28,7 @@ const routes = () => (
     <Route path="/product/:id" component={ProductDetails} />
     <PrivateRouteGuest path="/signin" component={SignIn} />
     <PrivateRouteGuest path="/register" component={Register} />
+    <Route path="/User" component={User} />
   </Router>
 );
 
