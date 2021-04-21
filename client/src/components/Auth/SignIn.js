@@ -21,6 +21,10 @@ const SignIn = () => {
   });
   const { email, password } = signState;
 
+  useEffect(() => {
+    if (isLog) location.assign("http://localhost:3000");
+  }, [isLog]);
+
   const handleInputChange = ({ target }) => {
     setSignState({
       ...signState,
@@ -36,7 +40,7 @@ const SignIn = () => {
   const handleGoogleLogin = () => {
     dispatch(startGoogleLogin());
   };
-  
+
   const handleResetPassword = () => {
     dispatch(resetPassword(signState.email));
   };
