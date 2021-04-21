@@ -1,9 +1,11 @@
 /*eslint-disable*/
-import axios from "axios";
-import * as TYPES from "../types/index";
-import { firebase, googleAuthProvider } from "../../firebase/firebase-config";
-import { setError, removeError } from "./uiError";
-import { pushStorageToCartUser, emptyToCartUser } from "./actionOrder";
+import axios from 'axios';
+import * as TYPES from '../types/index';
+import { firebase, googleAuthProvider } from '../../firebase/firebase-config'
+import { setError } from './uiError';
+import { pushStorageToCartUser, emptyToCartUser } from "./actionOrder"
+import Swal from "sweetalert2";
+
 
 export const isLogged = (payload) => ({
   type: TYPES.AUTH_LOGIN,
@@ -56,16 +58,27 @@ export const startRegister = (name, email, password) => {
 };
 
 export const startLoginEmailPassword = (email, password) => {
+  
+    function alertError () {
+      Swal.fire({
+        title: "Has sido baneado. No te puedes logear",
+        icon: "error",
+        timer: "2500",
+        showConfirmButton: false
+      })
+    }
+
   return (dispatch) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    
       .then(async ({ user }) => {
         const resp = await axios.get(
           `http://localhost:3001/get/user?email=${user.email}`
         );
 
-        var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
+        if(resp.data.roleId === 103) return alertError()
+
+        var orderProducts = JSON.parse(localStorage.getItem('orderProducts'))
 
         if (orderProducts?.length > 0) {
           dispatch(emptyToCartUser(resp.data));
@@ -92,6 +105,16 @@ export const startLoginEmailPassword = (email, password) => {
 };
 
 export const startGoogleLogin = () => {
+
+  function alertError () {
+    Swal.fire({
+      title: "Has sido baneado. No te puedes logear",
+      icon: "error",
+      timer: "2500",
+      showConfirmButton: false
+    })
+  }
+
   return (dispatch) => {
     firebase
       .auth()
@@ -127,6 +150,8 @@ export const startGoogleLogin = () => {
           const respUser = await axios.get(
             `http://localhost:3001/get/user?email=${user.email}`
           );
+
+          if(respUser.data.roleId === 103) return alertError()
 
           //se busca el carrito del localStorage
           var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
