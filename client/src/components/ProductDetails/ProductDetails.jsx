@@ -1,9 +1,9 @@
 /*eslint-disable*/
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneProduct } from "../../redux/actions/actionBack";
-import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
+import { addToCart, removeFromCart, closeOnProductDetail } from "../../redux/actions/actionFront";
 import { addToCartUser,removeToCartUser } from "../../redux/actions/actionOrder";
 import "../../scss/components/_productDetails.scss";
 
@@ -25,24 +25,25 @@ function ProductDetails() {
   const productCache = useSelector(
     (store) => store.reducerProduct.productCache
   );
-
-  let {
-    name,
-    description,
-    price,
-    available,
-    fileLink,
-    preview,
-    seriesId,
-    author,
-    categories,
-  } = productCache;
-  if (available) {
-    available = "Available";
-  } else {
-    available = "Not Available";
+  
+  if(productCache.length !== 0){
+    var {
+      name,
+      description,
+      price,
+      available,
+      fileLink,
+      preview,
+      seriesId,
+      author,
+      categories,
+    } = productCache;
+    if (available) {
+      available = "Available";
+    } else {
+      available = "Not Available";
+    }
   }
-
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {
       let total = 0;
@@ -95,6 +96,9 @@ function ProductDetails() {
         <img className="preview" src={preview} alt={name} />
       </div>
       <div className="detailProd">
+        <div className="linkClose">
+          <Link className="link" to="/Browser/products">✘</Link>
+        </div>
         <div className="titulo">{name}</div>
         <div className="det">
           <h3>Description:</h3>
@@ -103,7 +107,7 @@ function ProductDetails() {
           </div>
         </div>
         <div className="det">
-          <h3>Artista:</h3>
+          <h3>Author:</h3>
           <div className="desc">
             <h4>{author?.name}</h4>
           </div>
@@ -116,7 +120,7 @@ function ProductDetails() {
         </div>
         <div className="dispre">
           <div className="det">
-            <h3>Estado:</h3>
+            <h3>Sale status:</h3>
             <div className="desc">
               {available}
             </div>
