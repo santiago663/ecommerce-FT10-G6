@@ -10,7 +10,8 @@ console.log(req.query)
     try{
         if(productId){
             const reviewUser = await Reviews.findAll({
-                where:{ productId }
+                where:{ productId },
+                include: [{ model: Users }]
             })
          return res.status(200).json(reviewUser)
         }else {
