@@ -44,7 +44,7 @@ router.use("/post/review", require("./reviews/POST"));
 //router.use("/put/review", require("./reviews/PUT"));
 
  //=> auth
-router.use("/emails", require("./auth/auth"));
+router.use("/emails", require("./auth/POST"));
 
 router.use("/put/review", require("./reviews/PUT"));
 router.use("/delete/review", require("./reviews/DELETE"));
