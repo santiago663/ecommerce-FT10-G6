@@ -15,9 +15,11 @@ import Register from '../components/Auth/Register';
 import PrivateRoute from '../app/PrivateRoute'
 import PrivateRouteGuest from '../app/PrivateRouteGuest'
 import User from '../components/User/User';
+import Menu from '../components/Menu/Menu'
 
 const routes = () => (
   <Router>
+    <Menu/>
     <Route path="/" component={NavBar} />
     <Route exact path="/" component={Home} />
     <Route path="/browser" component={Browser} />
