@@ -4,7 +4,8 @@ import * as TYPES from '../types/index';
 
 const initialState = {
   loading: false,
-  activeButton: "1"
+  activeButton: "1",
+  menu: false
 };
 
 export default function reducerLoading (state = initialState, action){
@@ -22,12 +23,18 @@ export default function reducerLoading (state = initialState, action){
         ...state,
         loading: false
       }
+
     case TYPES.ACTIVE:
       return {
         ...state,
         activeButton: action.payload
       }
-
+    
+      case TYPES.MENU:
+        return {
+          ...state,
+          menu: action.payload
+        }
     default:
       return state;
   }

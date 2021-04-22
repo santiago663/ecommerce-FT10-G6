@@ -16,3 +16,8 @@ export const setActive = (payload) => ({
   type: TYPES.ACTIVE,
   payload:payload
 })
+
+export const setMenu = (payload) => ({
+  type: TYPES.MENU,
+  payload: payload
+})

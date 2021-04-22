@@ -1,15 +1,13 @@
 /*eslint-disable*/
 import React, { Fragment } from 'react'
-import Menu from './Components/Menu'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Profile from './Components/Profile'
 import '../../scss/containers/_dashboardUser.scss'
-export default function DashboardUser() {
 
+export default function DashboardUser() {
     return (
         <Fragment>
             <Router>
-            <Menu/>
             <div className="container-dashboard">
             <Route exact path="/user" component={Profile} />
             {/* <Route exact path="/user/library" component={UserLibrary} />
