@@ -21,6 +21,7 @@ function Menu() {
         <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={ showSidebar } className='iconmenu'/>
         </Link>
+        <div className="profile-img"></div>
     </div>
     <nav className={ sidebar ? 'navmenu active' : 'navmenu'}>
         <ul className='navmenu-items'>
