@@ -11,6 +11,7 @@ const initialState = {
 	contegorieDisponible: [],
 	author: false,
 	categorie: false,
+	productReview: []
 };
 
 export default function reducerProduct(state = initialState, action) {
@@ -119,6 +120,11 @@ export default function reducerProduct(state = initialState, action) {
 				author: false,
 				categorie: false,
 			};
+
+		case TYPES.GET_PRODUCT_REVIEW:
+
+			return {...state, productReview: action.payload};
+
 		default:
 			return state;
 	}
