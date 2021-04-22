@@ -76,7 +76,7 @@ export const startLoginEmailPassword = (email, password) => {
           `http://localhost:3001/get/user?email=${user.email}`
         );
 
-        if (resp.data.roleId === 103) return alertError();
+        if(resp.data?.roleId === 103) return alertError()
 
         var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
 
