@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 
+
 // ################ Routes.
 // => Authors.
 router.use("/delete/author", require("./authors/DELETE"));
@@ -40,6 +41,14 @@ router.use("/put/order", require("./orders/PUT"));
 // => Reviews
 router.use("/get/review", require("./reviews/GET"));
 router.use("/post/review", require("./reviews/POST"));
+//router.use("/put/review", require("./reviews/PUT"));
+
+ //=> auth
+router.use("/emails", require("./auth/POST"));
+
 router.use("/put/review", require("./reviews/PUT"));
 router.use("/delete/review", require("./reviews/DELETE"));
+// => Mercado pago
+router.use("/get/mercadopago", require("./mercadoPago/GET"));
+
 module.exports = router;

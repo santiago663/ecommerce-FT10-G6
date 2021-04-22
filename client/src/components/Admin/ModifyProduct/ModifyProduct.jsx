@@ -9,24 +9,19 @@ import '../../../scss/components/_modify.scss';
 const ModifyProduct = () => {
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
-
     const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
-
     const [input, setInput] = useState(0);
 
     const handleChange = (id) => {
-        
         if(id.target.value !== 0){
            setInput(id.target.value);
-        
         }    
     }
     
     let authorProducts = [];
     if(input !== 0 ){
-        
         authorProducts = allProducts.filter(f => {
-            console.log(f.author.id,"AUTHOR")
+            //console.log(f.author.id,"AUTHOR")
             if(f.author.id === undefined)return;
             if(f.author.id === Number(input) ){
                 return f

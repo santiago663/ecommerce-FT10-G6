@@ -5,7 +5,7 @@ nav {
   width: 100%;
   padding: 1rem 2rem;
   display: flex;
-  flex-flow: row no-wrap;
+  flex-direction: row;
   justify-content: space-between;
   background: #fafafa;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -48,3 +48,23 @@ nav {
   border: 1px solid white;
   width: 50px;
 }
+
+.iconmenu{
+  color: #19f9a4;
+}
+
+.sandwich {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+  background: none;
+  height: 24px;
+  width: 24px;
+ }
+
+ .navleft {
+  display: flex;
+  align-items: center;
+}
+
+
