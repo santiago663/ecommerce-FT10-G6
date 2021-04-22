@@ -1,10 +1,11 @@
 /*eslint-disable*/
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getOneProduct, getProductReview, postUserReview } from "../../redux/actions/actionBack";
-import { addToCart, removeFromCart, closeOnProductDetail } from "../../redux/actions/actionFront";
-import { addToCartUser, removeToCartUser, getAllUserOrders } from "../../redux/actions/actionOrder";
+import { getOneProduct, getProductReview } from "../../redux/actions/actionBack";
+import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
+import { addToCartUser, removeToCartUser } from "../../redux/actions/actionOrder";
+import Reviews from "../Reviews/Reviews.jsx"
 import "../../scss/components/_productDetails.scss";
 
 function ProductDetails() {
@@ -29,43 +30,11 @@ function ProductDetails() {
   const productReview = useSelector(
     (store) => store.reducerProduct.productReview
   );
-  const userOrders = useSelector(
-    (store) => store.reducerOrderUser.userOrders
-  );
-
-  useEffect(() => {
-    if (currentUser.id) dispatch(getAllUserOrders(currentUser.id))
-  }, [currentUser.id]);
-
-  //filtro por las ordenes completadas
-  let completedUserOrder = userOrders.filter(order => order.state === "completed")
-
-  //Verifico si puedo dejar un review
-  let canReview = completedUserOrder.filter(order => order.products.find(product => product.id == id))
-  if (productReview.find(review => review.userId == currentUser.id)) canReview = false
-
 
   //saco el promedio del score
   let score;
   if (productReview.map(review => review.score)[0]) {
     score = (productReview.map(review => review.score).reduce((a, b) => a + b) / productReview.length).toFixed(1)
-  }
-
-  //Add review
-  const [review, setReview] = useState({ comment: "", score: 1 })
-
-  function submitReview(event) {
-    dispatch(postUserReview(id, currentUser.id, review))
-  }
-
-  function handleInputChangeSc(event) {
-    event.preventDefault()
-    setReview({ ...review, score: Number(event.target.value) })
-  }
-
-  function handleInputChangeCo(event) {
-    event.preventDefault()
-    setReview({ ...review, comment: event.target.value })
   }
 
   if (productCache.length !== 0) {
@@ -131,8 +100,6 @@ function ProductDetails() {
       lStorage = true;
     }
   }
-
-  let key = 1
 
   return (
     <div className="big-container">
@@ -204,46 +171,8 @@ function ProductDetails() {
           </div>
         </div>
       </div>
-      <div className="review-cont">
-        <div>
-          <p className="reviewTitle">Reviews</p>
-          {productReview[0] ? productReview.map(review =>
-            <div className="reviewComment">
-              <div>{review.score} <i className="far fa-star"></i></div>
-              <div className="nameAndComment">{review.user.name}<p>{review.comment}</p></div>
-            </div>
-          )
-        :
-        <span className="noReviewsYet">No reviews yet  :(</span> 
-        }
-        </div>
-        {canReview[0] ?
-          <div className="add-review">
-            <span>Add review</span>
-            <div>
-              <form>
-                <div className="reviewForm">
-                  <span className="spanAddReview">Score</span>  
-                  <select name="score" id="reviewScoreSelector" onChange={handleInputChangeSc}>
-                    {[1, 2, 3, 4, 5].map((x) => <option key={`PD${key++}`} value={x}>{x}</option>)}
-                  </select>
-                </div>
-                <div className="divAddReview">
-                  <span className="spanAddReview">Comment</span>
-                  <textarea className="inputReviewComment" type="text" name="comment" onChange={handleInputChangeCo} />
-                </div>
-                <div className="divReviewButton">
-                  <input className="inputSubmit" type="submit" value="Add" onClick={submitReview} />
-                </div>
-              </form>
-            </div>
-          </div>
-          :
-          <span></span>
-        }
-      </div>
+      <Reviews currentUser={currentUser} productId={id} />      
     </div>
-
   );
 }
 
