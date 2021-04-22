@@ -34,7 +34,13 @@ function NavBar() {
         </ul>
         {currentUser?.roleId === 100 ? <ul className="nav-buttons_navigation">
           <Link className="nav-link" to="/Admin">
-            <li>Dashboard Admin</li>
+            <li>Dashboard</li>
+          </Link>
+        </ul> : <span></span>
+        }
+         {currentUser?.roleId === 101 ? <ul className="nav-buttons_navigation">
+          <Link className="nav-link" to="/User">
+            <li>Dashboard</li>
           </Link>
         </ul> : <span></span>
         }

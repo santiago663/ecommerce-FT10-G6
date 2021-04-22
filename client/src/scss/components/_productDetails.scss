@@ -1,3 +1,9 @@
+.big-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .product-wrapper{
     display: flex;
     justify-content: center;
@@ -23,6 +29,29 @@
     background-color: #b3e5fc;
     align-content: center;
     box-shadow: 0px 1px 15px #78909c;
+
+    .linkClose{
+        margin:10px;
+        justify-content: center;
+        display: flex;
+
+        .link{
+           
+            font-size: 12px;
+            font-weight: bold;
+            padding: 5px;
+            list-style:none;
+            text-decoration: none;
+            border-radius: 10px;
+            border: 1px solid rgb(99, 167, 226);
+            background-color:rgb(85, 150, 208);
+            color: black;
+            display: flex;
+            justify-content: center;
+            width: 30px;
+        }
+    }
+
 }
 .det{
     margin-top: 15px;
@@ -95,3 +124,81 @@
     align-items: center;
     justify-content: center;
 }
+
+.score {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.review-cont {
+    display: flex; 
+    margin-left: 20%;   
+    margin-top: 50px;
+    white-space: pre;
+    width: 400px;
+}
+
+.reviewTitle {
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.reviewComment {
+    display: flex;
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.add-review {
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 100px;
+    margin: 0;
+}
+
+.nameAndComment {
+    padding-left: 10px;
+}
+
+.reviewForm {
+    margin: 0;
+}
+
+.noReviewsYet {
+    font-size: 18px;
+    white-space: pre;
+    margin: 0;
+}
+
+.inputReviewComment {
+    width: 300px;
+    height: 100px;
+    margin:0;
+}
+
+.divReviewButton {
+    align-content: end;
+    margin-left: 16px;
+    width: 100px;
+}
+
+.spanAddReview {
+    font-size: 18px;
+    font-weight: normal;
+    padding-right: 10px;
+    align-content: flex-start;
+}
+
+.divAddReview {
+    display: flex;
+    align-content: flex-start;
+}
+
+.inputSubmit {
+    align-items:flex-start;
+    margin:10px 0;
+}
+
+
+

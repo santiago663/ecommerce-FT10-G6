@@ -37,5 +37,9 @@ router.use("/delete/order", require("./orders/DELETE"));
 router.use("/get/order", require("./orders/GET"));
 router.use("/post/order", require("./orders/POST"));
 router.use("/put/order", require("./orders/PUT"));
-
+// => Reviews
+router.use("/get/review", require("./reviews/GET"));
+router.use("/post/review", require("./reviews/POST"));
+router.use("/put/review", require("./reviews/PUT"));
+router.use("/delete/review", require("./reviews/DELETE"));
 module.exports = router;
