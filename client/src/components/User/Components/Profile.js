@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import '../../../scss/components/_profileuser.scss'
-import { UserData } from './SidebarData'
 export default function Profile() {
     const currentUser = useSelector((store) => store.auth.currentUser)
     const [inputs, setInputs] = useState({
