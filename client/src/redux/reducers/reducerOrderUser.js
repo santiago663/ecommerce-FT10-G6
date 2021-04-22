@@ -7,13 +7,14 @@ const initialState = {
   currentOrder: [],
   allOrders: [],
   allUsers: [],
+  userOrders: [],
 };
 
-export default function reducerOrderUser (state = initialState, action){
+export default function reducerOrderUser(state = initialState, action) {
 
   switch (action.type) {
 
-    case TYPES.GET_CURRENT_ORDER:{
+    case TYPES.GET_CURRENT_ORDER: {
       return {
         ...state,
         currentOrder: [action.payload]
@@ -28,17 +29,23 @@ export default function reducerOrderUser (state = initialState, action){
       };
 
     case TYPES.GET_ALL_USERS:
-    return {
+      return {
         ...state,
         allUsers: action.payload,
-    };
-    
-    case TYPESUP.UPGRADE_EDIT_USER:
-      return {
-          ...state,
-          allUsers: action.payload,
       };
-  
+
+    case TYPESUP.UPGRADE_EDIT_USER:      
+      return {
+        ...state,
+        allUsers: action.payload,
+      };
+
+    case TYPES.GET_ALL_USER_ORDERS:      
+      return {
+        ...state,
+        userOrders: action.payload,
+      };
+
     default:
       return state;
   }

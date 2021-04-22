@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { addProducts, getAllProducts } from  '../../../../redux/actions/actionBack';
 import '../../../../scss/components/_addProduct.scss';
+import {firebase} from '../../../../firebase/firebase-config';
 
 function AddProduct() {
 
     const dispatch = useDispatch()
-
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
@@ -33,7 +33,6 @@ function AddProduct() {
     //Handle input para price
     function handleInputChangePr(event) {
         setProduct({ ...product, [event.target.name]: Number(event.target.value) })
-
     }
 
     //Handle input para available
@@ -47,9 +46,7 @@ function AddProduct() {
 
     //Handle input para artist
     function handleInputChangeAr(event) {
- 
         setProduct({ ...product, [event.target.name]: Number(event.target.value)})
-
     }
 
     //Handle input para categories
@@ -65,7 +62,6 @@ function AddProduct() {
 
     //Handle input para borrar categoria
     function handleInputDeleteCa(event, id) {
-
         var cat = product.categories
         cat = cat.filter( cId => cId != Number(id))        
         setProduct({ ...product, categories: cat })
@@ -92,37 +88,80 @@ function AddProduct() {
     function submitForm(event) {        
         event.preventDefault();
       if( product.name !== "" || product.description !== "" || product.price !== 0 || product.fileLink !== "" || product.preview !== "", product.categories.length !==0 || product.authorId !== 0){
-
         dispatch( addProducts(product) );
         dispatch( getAllProducts() );
         location.reload();
-
       }
       else{
         alertError();
       }
-        
     }
 
     if(productOrError && productOrError.status === 200){
-
         alertSucces();
         productOrError.status = 0
     }
 
-
     var key = 1;
+
+    const initialState = {
+        uploadValue:0,
+        picture: ""
+    }
+    const [uploadValue, setUploadValue] = useState(initialState)
+    const handleOnChange = (e) => {
+                const file = e.target.files[0]
+                console.log(e.target.file);
+                console.log(file);
+                const storageRef = firebase.storage().ref(`pictures/${file.name}`)
+                const task = storageRef.put(file)
+            
+                task.on('state_changed', (snapshot) => {
+                  let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                  setUploadValue({
+                    uploadValue: percentage
+                  })
+                  
+                }, (error) => {
+                  console.error(error.message)
+                }, async () => {
+                  // Upload complete
+                  setUploadValue({
+                    message:'subido',
+                    picture: await task.snapshot.ref.getDownloadURL()
+                  })
+                  setProduct({
+                    ...product,
+                    fileLink: await task.snapshot.ref.getDownloadURL(),
+                    preview: await task.snapshot.ref.getDownloadURL()
+                    })
+                })
+        }
+
+    const deletefile = () =>{
+        const storageRef = firebase.storage().ref()
+        var desertRef = storageRef.child(uploadValue.picture);
+        console.log(desertRef);
+        // Delete the file
+        desertRef.delete().then(function() {
+        // File deleted successfully
+        console.log('eliminado con exito');
+        }).catch(function(error) {
+        // Uh-oh, an error occurred!
+        console.log(error);
+        });
+    }
 
     return (
         <div className="mainDivAP">
-            <h2 className="title">Add Product</h2>
             <div className="divAP">
+            <h2 className="title">Add Product</h2>
                 <form className="formAP" onSubmit={submitForm}>
                     <div>
                         Name: 
                         <input
                             required
-                            className="input"
+                            className="inputprod"
                             type="text"
                             onChange={handleInputChange}
                             name="name" 
@@ -132,7 +171,7 @@ function AddProduct() {
                         Description: 
                         <input
                             required
-                            className="input" 
+                            className="inputprod" 
                             type="text" 
                             onChange={handleInputChange} 
                             name="description" 
@@ -142,7 +181,7 @@ function AddProduct() {
                         Price: 
                         <input
                             required
-                            className="input" 
+                            className="inputprod" 
                             type="text" 
                             onChange={handleInputChangePr} 
                             name="price" 
@@ -151,66 +190,83 @@ function AddProduct() {
                     <div>
                         Available:
                         <select 
+                            className="selector"
                             name="available" 
                             id="selectorAvAP" 
                             onChange={handleInputChangeAv}
                         >
-                            <option key={`AP${key++}`} value="Yes">Yes</option>
-                            <option key={`AP${key++}`} value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
                         </select>
+                    </div>
+                    <div>
+                        Select to File: 
+                        <input 
+                            required
+                            className="SelectorFile" 
+                            type="file" 
+                            onChange={handleOnChange} 
+                            name="file" 
+                        />
                     </div>                    
                     <div>
                         FileLink: 
                         <input 
                             required
-                            className="input" 
+                            className="inputprod" 
                             type="text" 
                             onChange={handleInputChange} 
-                            name="fileLink" 
+                            name="fileLink"
+                            value={uploadValue.picture}
+                            onChangeCapture=""
                         />
                     </div>
                     <div>
                         Preview: 
                         <input 
                             required
-                            className="input" 
+                            className="inputprod" 
                             type="text" 
                             onChange={handleInputChange} 
-                            name="preview" 
+                            name="preview"
+                            value={uploadValue.picture}
                         />
                     </div>
                     <div>
                         Artist:
                         <select 
+                            className="selector"
                             name="authorId" 
                             id="selectorArAP" 
                             onChange={handleInputChangeAr}
                         >
                             <option key={`AP${key++}`}> </option>
-                            {allArtist.map(a => <option key={`AP${key++}`} value={a.id}>{a.name}</option>)}
+                            {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
                         </select>
                     </div>
                     <div>
                         Series:
                         <select 
+                            className="selector"
                             name="seriesId" 
                             id="selectorSeAP"
                         >
-                            {allSeries.map(s => <option key={`AP${key++}`} value={s.id}>{s.name}</option>)}
+                            {allSeries.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                         </select>
                     </div>
                     <div>
                         Categories:                        
                         <select 
+                            className="selector"
                             name="categories" 
                             id="selectorCaAP" 
                             onChange={handleInputChangeCa}
                         >
                             <option key={`AP${key++}`}> </option>
-                            {allCategories.map(c => <option key={`AP${key++}`} value={c.id}>{c.name}</option>)}
+                            {allCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                         </select>
                         {product.categories.map(id => 
-                        <span key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
+                        <span className="catego" key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
                         }
                     </div>
                     <input
@@ -219,6 +275,15 @@ function AddProduct() {
                         value="Add" 
                     />
                 </form>
+            </div>
+            <div className="imgfile">
+                <progress className="progress" value={uploadValue.uploadValue} max='100'>
+                    {uploadValue.uploadValue} %
+                </progress>
+                <div className="image">
+                    <img className="image" src={uploadValue.picture} />
+                </div>
+                <input type="submit" value="quitar" onClick={deletefile} />
             </div>
         </div>
     );

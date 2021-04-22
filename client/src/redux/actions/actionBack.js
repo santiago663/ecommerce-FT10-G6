@@ -233,7 +233,6 @@ export const addProducts = (product) => (
   }
 )
 
-
 //Editar o Eliminar Productos desde Admin
 export const editProductCategory = (productId, value) => (
 
@@ -281,9 +280,6 @@ export const editProductByBody = (productId, product) => (
     }
   }
 )
-
-
-
 
 export const editAuthor = (authorId, author) => (
 
@@ -492,6 +488,46 @@ export const getAllUsers = () => (
   }
 )
 
+export const getProductReview = (productId) => (
 
+  (dispatch) => {
 
+    try {
+      dispatch(requestData())
+      axios.get(`http://localhost:3001/get/review?productId=${productId}`)
+        .then((res) => {
+          dispatch({
+            type: TYPES.GET_PRODUCT_REVIEW,
+            payload: res.data
+          });
+          dispatch(requestSuccess())
+        }).catch((error) => console.error(error))
+    } catch (error) {
+      dispatch({
+        type: TYPES.GET_ALL_USERS_ERROR,
+        payload: error,
+      });
+    }
+  }
+)
 
+export const postUserReview = (productId, userId, review) => {
+  return (dispatch) => {
+      try {
+          dispatch(requestData())
+          axios.post(`http://localhost:3001/post/review?productId=${productId}&userId=${userId}`, review)
+            .then((res) => {
+              dispatch({
+                type: TYPES.POST_NEW_USER_REVIEW,
+                payload: res
+              });
+              dispatch(requestSuccess())
+            }).catch((error) => console.error(error))
+        } catch (error) {
+          dispatch({
+            type: TYPES.POST_NEW_USER_REVIEW_ERROR,
+            payload: error,
+          });
+        }
+  }
+};

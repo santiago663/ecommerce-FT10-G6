@@ -45,4 +45,10 @@ router.use("/post/review", require("./reviews/POST"));
 
  //=> auth
 router.use("/emails", require("./auth/auth"));
+
+router.use("/put/review", require("./reviews/PUT"));
+router.use("/delete/review", require("./reviews/DELETE"));
+// => Mercado pago
+router.use("/get/mercadopago", require("./mercadoPago/GET"));
+
 module.exports = router;
