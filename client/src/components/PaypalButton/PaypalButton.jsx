@@ -14,7 +14,7 @@ function PaypalButton({ handleSubmit }) {
 	
 
 	const paypalOptions = {
-		client: { sandbox: 'AeWB7olLbWTatL-Bh3LLbfPakiLl-DFQ1rFJeGzQ5BznqK2OyWjHSI7C4NKkGoXg-YK9NZi9nCD9DOYN' },
+		client:  'AeWB7olLbWTatL-Bh3LLbfPakiLl-DFQ1rFJeGzQ5BznqK2OyWjHSI7C4NKkGoXg-YK9NZi9nCD9DOYN',
 		intent: 'CAPTURE',
 		currency: 'USD',
 	};
@@ -44,13 +44,9 @@ function PaypalButton({ handleSubmit }) {
 				onSuccess={(data) => {
 					//status,
 					console.log('success', data);
-					handleSubmit(currentOrder);
+					// handleSubmit(currentOrder);
 				}}
 				onError={(error) => handlePayError(error)}
-				// onApprove={(data) => {
-				// 	alert('aprovado');
-				// 	// handleSubmit(currentOrder);
-				// }}
 				onCancel={(data) => handleCancelPay(data)}
 			/>
 		</>
