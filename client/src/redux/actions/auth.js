@@ -1,11 +1,10 @@
 /*eslint-disable*/
-import axios from 'axios';
-import * as TYPES from '../types/index';
-import { firebase, googleAuthProvider } from '../../firebase/firebase-config'
-import { setError } from './uiError';
-import { pushStorageToCartUser, emptyToCartUser } from "./actionOrder"
+import axios from "axios";
+import * as TYPES from "../types/index";
+import { firebase, googleAuthProvider } from "../../firebase/firebase-config";
+import { setError } from "./uiError";
+import { pushStorageToCartUser, emptyToCartUser } from "./actionOrder";
 import Swal from "sweetalert2";
-
 
 export const isLogged = (payload) => ({
   type: TYPES.AUTH_LOGIN,
@@ -58,27 +57,28 @@ export const startRegister = (name, email, password) => {
 };
 
 export const startLoginEmailPassword = (email, password) => {
-  
-    function alertError () {
-      Swal.fire({
-        title: "Has sido baneado. No te puedes logear",
-        icon: "error",
-        timer: "2500",
-        showConfirmButton: false
-      })
-    }
+  function alertError() {
+    Swal.fire({
+      title: "Has sido baneado. No te puedes logear",
+      icon: "error",
+      timer: "2500",
+      showConfirmButton: false,
+    });
+  }
 
   return (dispatch) => {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+
       .then(async ({ user }) => {
         const resp = await axios.get(
           `http://localhost:3001/get/user?email=${user.email}`
         );
 
-        if(resp.data.roleId === 103) return alertError()
+        if (resp.data.roleId === 103) return alertError();
 
-        var orderProducts = JSON.parse(localStorage.getItem('orderProducts'))
+        var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
 
         if (orderProducts?.length > 0) {
           dispatch(emptyToCartUser(resp.data));
@@ -105,14 +105,13 @@ export const startLoginEmailPassword = (email, password) => {
 };
 
 export const startGoogleLogin = () => {
-
-  function alertError () {
+  function alertError() {
     Swal.fire({
       title: "Has sido baneado. No te puedes logear",
       icon: "error",
       timer: "2500",
-      showConfirmButton: false
-    })
+      showConfirmButton: false,
+    });
   }
 
   return (dispatch) => {
@@ -151,7 +150,7 @@ export const startGoogleLogin = () => {
             `http://localhost:3001/get/user?email=${user.email}`
           );
 
-          if(respUser.data.roleId === 103) return alertError()
+          if (respUser.data.roleId === 103) return alertError();
 
           //se busca el carrito del localStorage
           var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
@@ -188,7 +187,6 @@ export const startGoogleLogin = () => {
 
 export const resetPassword = (email) => {
   return (dispatch) => {
-    console.log(email)
     if (email === "") {
       dispatch(setError("Por favor, Ingrese un correo electrónico."));
     } else if (/\S+@\S+\.\S+/.test(email)) {
@@ -204,8 +202,12 @@ export const resetPassword = (email) => {
             })
           );
         })
-        .catch(() => {
-          dispatch(setError("Ups... Parece que algo salio mal."));
+        .catch((error) => {
+          if(error.a === null){
+            dispatch(setError(`No hay usuario registrado con el correo electrónico:  ${email}`));
+          } else {
+            dispatch(setError(`Ups... algo salio mal... Comuníquese con soporte, Gracias.`));
+          }
         });
     } else {
       dispatch(setError("El correo electrónico no es valido."));
