@@ -94,8 +94,9 @@ button {
 
 .catalogue-wrapper {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
   width: 80%;
   margin: 0 auto;
 }
@@ -328,7 +329,6 @@ p {
 nav {
   height: 5rem;
   width: 100%;
-  min-width: 650px;
   padding: 1rem 2rem;
   display: flex;
   flex-flow: row no-wrap;
@@ -380,7 +380,7 @@ nav {
   flex-direction: column;
   justify-content: center;
   width: 300px;
-  margin-bottom: 25px;
+  margin: 25px;
   background: linear-gradient(356deg, #fffeff, #ffffff);
   box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.137);
   border-radius: 1px;
@@ -407,8 +407,48 @@ nav {
 }
 .product-card:hover {
   transition: transform 0.5s;
-  transform: scale(1.05);
+  transform: scale(1.1);
   box-shadow: 1px 3px 14px rgba(0, 0, 0, 0.185);
+}
+.product-card:hover .shopping {
+  display: flex;
+  position: absolute;
+  text-shadow: 1px 1px 4px white;
+  margin-left: 170px;
+  margin-top: 189px;
+  z-index: 1;
+  background-color: #eeeeee;
+  width: 120px;
+  box-shadow: 1px 3px 4px black;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  -webkit-animation-duration: 1.5s;
+          animation-duration: 1.5s;
+  -webkit-animation-name: dario;
+          animation-name: dario;
+}
+@-webkit-keyframes dario {
+  from {
+    width: 100px;
+    opacity: 0;
+  }
+  to {
+    width: 120px;
+    opacity: 100%;
+  }
+}
+@keyframes dario {
+  from {
+    width: 100px;
+    opacity: 0;
+  }
+  to {
+    width: 120px;
+    opacity: 100%;
+  }
 }
 
 a.link {
@@ -423,6 +463,37 @@ a.link {
 .remove {
   font-size: 30px;
   color: #291e3d;
+}
+
+.conten {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.autorname {
+  display: flex;
+}
+
+.shopping {
+  display: none;
+}
+
+.fa-cart-plus {
+  font-size: 20px;
+  color: green;
+}
+
+.fa-cart-arrow-down {
+  font-size: 20px;
+  color: red;
+}
+
+.price {
+  display: flex;
+  margin-right: 5px;
+  font-size: 15px;
 }
 
 .product-wrapper {
@@ -444,24 +515,109 @@ a.link {
 .detailProd {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 350px;
   margin-left: 30px;
   margin-top: 20px;
   border-right: 20px;
-  /* border: 1px solid blueviolet; */
-  padding-left: 15px;
   border-radius: 10px;
-  background-color: rgba(236, 235, 232, 0.836);
+  background-color: #b3e5fc;
+  align-content: center;
+  box-shadow: 0px 1px 15px #78909c;
+}
+.detailProd .linkClose {
+  margin: 10px;
+  justify-content: center;
+  display: flex;
+}
+.detailProd .linkClose .link {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px;
+  list-style: none;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid #63a7e2;
+  background-color: #5596d0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  width: 30px;
 }
 
 .det {
   margin-top: 15px;
+  margin-left: 15px;
+  background-color: #455a64;
+  color: #f5f5f5;
+  border-radius: 7px;
+  margin-right: 15px;
+  justify-content: center;
+  height: auto;
+  padding-top: 5px;
+  /* margin-bottom: 9px; */
+  box-shadow: 1px 1px 3px #4a3c4c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desc {
+  margin-top: 0px;
+  background-color: #e0f7fa;
+  color: #37474f;
+  border-radius: 0 0 7px 7px;
+  height: auto;
+  padding-top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  padding-bottom: 5px;
+  width: 100%;
 }
 
 .description {
   font-size: 15px;
-  margin-left: 20px;
-  margin-right: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.titulo {
+  display: flex;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 600;
+  font-family: sans-serif;
+  border-radius: 8px 8px 0 0;
+  height: 40px;
+  align-items: center;
+}
+
+.contecarrito {
+  display: flex;
+  margin-top: 30px;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.btncarrito {
+  display: flex;
+}
+
+.dispre {
+  display: flex;
+  width: 100%;
+}
+.dispre .det {
+  width: 50%;
+}
+
+.btn {
+  width: 125px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-container {
