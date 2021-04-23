@@ -1,5 +1,5 @@
 /* eslint-disable  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/auth';
@@ -9,12 +9,21 @@ import '../../scss/components/_navBar.scss';
 
 function NavBar() {
   const dispatch = useDispatch()
+  const {currentUser} = useSelector((store) => store.auth)
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const { menu } = useSelector((store) => store.reducerLoading)
+
+  function handleLogOut() {
+    dispatch(logout())
+    location.assign("http://localhost:3000")
+  }
 
   const showSidebar = () => {
     dispatch(setMenu(!menu))
   }
+
+  useEffect(()=> {
+  }, [currentUser])
 
   return (
     <nav className="navbar">
@@ -39,6 +48,18 @@ function NavBar() {
             <i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i>
           </Link>
         </ul>
+       { currentUser?.name ?
+            <button type="button" className="signin--btn" onClick={handleLogOut}>Log Out</button>
+            :
+            <>
+              <Link to="/signin">
+                <button className="signin--btn btn-primary" type="button">Sign in</button>
+              </Link>
+              <Link to="/register">
+                <button className="signin--btn btn-secondary" type="button">Sign up</button>
+              </Link>
+            </>
+        }
         {/* <div className="profile-img"></div> */}
       </div>
     </nav>
