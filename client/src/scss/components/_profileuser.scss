@@ -39,7 +39,8 @@ height: 100vh;
     justify-content: space-between;
     
     .imagecover{
-        background-color: antiquewhite;
+        background-image: url("https://joomly.net/frontend/web/images/googlemap/map.png");
+        background-size: cover;
         width: 300px;
         height: 200px;
         margin-top: 20px;
@@ -63,13 +64,25 @@ height: 100vh;
                 margin-right: 10px;
                 justify-content: center;
         
-                .ipro{
-                    width: -moz-available;
-                    margin-right: 20px;
-                }
+                
+            }
+            .ipro {
+                width: 300px;
             }
         }
     }
     
     
+}
+
+.btn-inactive {
+    background-color: gray;
+    border: none;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-active {
+    background-color: #19f9a4;
+    border: none;
 }
