@@ -33,10 +33,8 @@ h1 {
 button {
   height: auto;
   width: auto;
-  margin: 0 0.5rem;
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
-  transition: 0.3s;
 }
 
 .btn-rounded {
@@ -61,18 +59,75 @@ button {
 }
 
 .mainDivAP {
-  margin-top: 1%;
-  margin-left: 1%;
-  margin-bottom: 2%;
+  display: flex;
+  margin-top: 15px;
+  margin-left: 15px;
   color: #252525;
 }
-.mainDivAP .divAP .formAP {
-  margin: 1%;
+.mainDivAP .formAP {
+  margin: 5px;
+  width: 85%;
 }
-.mainDivAP .divAP .formAP .EditOrAdd {
-  margin-top: 15px;
+
+.divAP {
+  width: 50%;
+}
+
+.EditOrAdd {
+  margin-top: 10px;
   width: 60px;
-  padding: 0px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.inputprod {
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  height: 32px;
+  width: 100%;
+  display: flex;
+}
+
+.selector {
+  display: flex;
+  border-radius: 5px;
+  height: 30px;
+}
+
+.compProd {
+  width: 100%;
+}
+
+.imgfile {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.image {
+  width: 240px;
+  margin-top: 5px;
+}
+
+.progress {
+  margin-top: 14px;
+  width: 80%;
+}
+
+.catego {
+  background-color: #b3e5fc;
+  height: 20px;
+  border-radius: 2px;
+  margin-right: 10px;
+  width: 110px;
+  padding: 0px 0px 0px 5px;
+  margin-top: 5px;
+  display: inline-block;
+  border: 0.5px solid #5350b8;
 }
 
 .shopping-cart {
@@ -331,7 +386,7 @@ nav {
   width: 100%;
   padding: 1rem 2rem;
   display: flex;
-  flex-flow: row no-wrap;
+  flex-direction: row;
   justify-content: space-between;
   background: #fafafa;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -373,6 +428,24 @@ nav {
   border-radius: 100%;
   border: 1px solid white;
   width: 50px;
+}
+
+.iconmenu {
+  color: #19f9a4;
+}
+
+.sandwich {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+  background: none;
+  height: 24px;
+  width: 24px;
+}
+
+.navleft {
+  display: flex;
+  align-items: center;
 }
 
 .product-card {
@@ -494,6 +567,12 @@ a.link {
   display: flex;
   margin-right: 5px;
   font-size: 15px;
+}
+
+.big-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .product-wrapper {
@@ -618,6 +697,11 @@ a.link {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.score {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .form-container {
@@ -764,4 +848,145 @@ a.link {
 }
 .a__register a:hover {
   color: #969494;
+}
+
+.order-form {
+  width: 80%;
+  max-width: 700px;
+  padding: 10px 30px 20px 30px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  margin-top: 10vh;
+  box-shadow: 0px 5px 10px 5px #00000052;
+  border-radius: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.822);
+}
+
+.Information {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  font-family: Arial;
+  font-size: 0.9rem;
+  text-align: center;
+  text-decoration: none;
+  background-color: rgba(245, 245, 245, 0.932);
+}
+.Information .Information-buttons {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+  padding-bottom: 20px;
+}
+.Information .Information-buttons .Information-next {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Information .Information-buttons .Information-next .mercadolibreee {
+  background-color: #fffc48;
+  color: #a8a8a8;
+  border: none;
+  border-radius: 5px;
+}
+.Information .Information-sidebar {
+  margin: 20px 0 0 0;
+  color: #6b7685;
+}
+.Information .Information-sidebar h2 {
+  color: #6b7685;
+}
+.Information .Information-sidebar h3 {
+  color: #8e949c;
+}
+.Information .Information-sidebar h3 span {
+  color: rgba(80, 179, 245, 0.733);
+}
+.Information .Information-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.Information .Information-item .fas {
+  margin: 0 0 0 10px;
+  color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+.Information .Information-element {
+  display: flex;
+  margin: 10px 0;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+}
+.Information .Information-element h4 {
+  margin: 0;
+}
+.Information .Information-buttons {
+  margin: 10px 0 0;
+  display: ruby;
+}
+.Information .Info-Back__container {
+  margin-bottom: 30px;
+}
+.Information .Info-Back__container Link {
+  width: 50px;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: content-box;
+}
+.Information .Info-Back__container .Information-Back {
+  padding: 0 3px;
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #0e0c0c;
+  border-bottom: 3px solid #ddd;
+}
+.Information .Info-Back__container .Information-Back:hover {
+  border-bottom: 3px solid #3adbc0;
+}
+.Information .Information-form {
+  width: 95%;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.Information .Information-form .name-email__container {
+  width: 30%;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+.Information .Information-form .name-email__container span {
+  min-width: 50px;
+}
+.Information .Information-form .name-email__container input {
+  min-width: 200px;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+.Information .Information-form .name-email__container .name__container {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  min-width: 150px;
+}
+.Information .Information-form .name-email__container .email__container {
+  min-width: 150px;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+}
+.Information .User-Name {
+  font-size: 20px;
+  font-family: "Helvetica";
+  color: #b7bcbd;
 }/*# sourceMappingURL=styles.css.map */

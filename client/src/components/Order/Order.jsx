@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { formGuestOrder, formUserOrder } from "../../redux/actions/actionOrder";
 import PaypalButton from "../PaypalButton/PaypalButton";
-import "./Order.css";
+import "./_order.scss";
 
 function Order() {
   const dispatch = useDispatch();
@@ -63,12 +63,17 @@ function Order() {
 
   return (
     <div className="Information">
-      <form>
+      <form className="order-form">
         <div className="Information-content">
+          <div className="Info-Back__container">
+            <Link to="/Browser/products" className="Information-Back">
+              keep looking art
+              </Link>
+          </div>
           <div className="Information-head">
             {currentUser.id ? (
               <h2>
-                Please <span className="User-Name">{currentUser.name}</span>{" "}
+                Please <span className="User-Name">{currentUser.name}</span>{", "}
                 press pay to finalize the purchase{" "}
               </h2>
             ) : (
@@ -79,64 +84,66 @@ function Order() {
           <br />
           <div className="Information-form">
             {currentUser.id ? (
-              <>
-                <span>Name:</span>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  name="name"
-                  value={(input.name = currentUser.name)}
-                  onChange={handleInputChange}
-                />
-                <span>E-mail:</span>
-                <input
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  value={(input.email = currentUser.email)}
-                  onChange={handleInputChange}
-                  required
-                />
-              </>
+              <div className="name-email__container">
+                <div className="name__container">
+                  <span>Name:</span>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    value={(input.name = currentUser.name)}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="email__container">
+                  <span>E-mail:</span>
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    value={(input.email = currentUser.email)}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
             ) : (
-              <>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  name="name"
-                  value={input.name}
-                  onChange={handleInputChange}
-                />
-
-                <input
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  value={input.email}
-                  onChange={handleInputChange}
-                  required
-                />
-              </>
+              <div className="name-email__container">
+                <div className="name__container">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    value={input.name}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="email__container">
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    value={input.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
             )}
           </div>
           <br></br>
           <br></br>
           <div className="Information-buttons">
-            <div className="Information-back">
-              <Link to="/Browser/products" className="Information-Back">
-                keep looking
-              </Link>
-            </div>
             <div className="Information-next">
               <PaypalButton handleSubmit={handleSubmit} />
-              <button onClick={(e) => handleSubmit(e, "MP")}>
+              <button className="mercadolibreee" onClick={(e) => handleSubmit(e, "MP")}>
                 Mercado pago
               </button>
             </div>
           </div>
         </div>
         <div className="Information-sidebar">
-          <h3>Pedido:</h3>
+          <h2>Pedido:</h2>
           {shoppingCart &&
             shoppingCart.map((item) => {
               return (
@@ -149,10 +156,10 @@ function Order() {
               );
             })}
           <br />
-          <h2>Total Price : {sum}</h2>
+          <h3>Total Price : <span>{sum}</span></h3>
         </div>
       </form>
-    </div>
+    </div >
   );
 }
 
