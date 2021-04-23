@@ -315,7 +315,6 @@ export const editCategory = (categoryId, category) => (
             type: TYPES.PUT_CATEGORY,
             payload: res
           });
-          console.log(res, "LARES")
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
@@ -338,7 +337,6 @@ export const editUser = (userId, user) => (
             type: TYPES.PUT_USER,
             payload: res
           });
-          console.log(res, "LARES")
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
