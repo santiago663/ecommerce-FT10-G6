@@ -4,7 +4,7 @@ const { Orders } = require("../../db");
 server.put("/", async (req, res) => {
 
 const orderState = { open: 1, pending: 2, cancelled: 3, completed: 3 }
-const { id, state } = req.body;   
+const { id, state,payment } = req.body;   
 
 try {
     let actualOrder = await Orders.findOne({
@@ -12,9 +12,10 @@ try {
     })
     if (orderState[actualOrder.state] < orderState[state]) {
         await Orders.update(
-            { state, },
-            { where: { id }
-            });
+			{ state, payment },
+
+			{ where: { id } }
+		);
         return res.status(200).json({message: `Order status changed to ${state}`});
     }
     else {

@@ -13,7 +13,7 @@ function PaypalButton({ handleSubmit }) {
 	let sum = shoppingCart.reduce(reducer, 0) / 92;
 
 	const paypalOptions = {
-		client: 'AeWB7olLbWTatL-Bh3LLbfPakiLl-DFQ1rFJeGzQ5BznqK2OyWjHSI7C4NKkGoXg-YK9NZi9nCD9DOYN',
+		client: 'AdbNICxqoNl8uNCVRJmT0g40u_AxW6gmU7k8ldvUJamnekCgcewwCxoqG8csJylNS0D2FaCgzfAJzN5T',
 		intent: 'capture',
 		currency: 'USD',
 	};
@@ -42,8 +42,8 @@ function PaypalButton({ handleSubmit }) {
 				amount={sum.toFixed(2)}
 				onSuccess={(data) => {
 					//status,
-					console.log('success', data);
-					handleSubmit(currentOrder);
+					
+					handleSubmit(null,null,currentOrder,'paypal');
 				}}
 				onError={(error) => handlePayError(error)}
 				onCancel={(data) => handleCancelPay(data)}

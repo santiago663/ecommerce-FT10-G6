@@ -27,6 +27,7 @@ function Order() {
     productId: [...data].map((pi) => pi.id),
     price: [...data].map((p) => Number(p.price)),
     total: sum,
+    payment:''
   });
 
   const handleInputChange = function (e) {
@@ -36,13 +37,15 @@ function Order() {
     });
   };
 
-  const handleSubmit = async (e, type) => {
-    e.preventDefault();
-    if (currentUser.id) {
-      try {
-        let user = { id: currentOrder[0].id, state: "completed" };
+  const handleSubmit = async (e, type,currentOrder,payment) => {
+    
+	if (currentUser.id) {
+		try {
+      let user = { id: currentOrder[0].id, state: "completed", payment: payment };
         dispatch(formUserOrder(user));
         if (type === "MP") {
+			  e.preventDefault();
+
           let storage = JSON.parse(window.localStorage.getItem("mercadoPago"));
           window.location.href = storage.paymentUrl;
         }
@@ -51,6 +54,7 @@ function Order() {
       }
     } else {
       try {
+        setInput({...input,payment: payment})
         dispatch(formGuestOrder(input));
         alert("success !!");
         location.assign("http://localhost:3000/Browser/products");
