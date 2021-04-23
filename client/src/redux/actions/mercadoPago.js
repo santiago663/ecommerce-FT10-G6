@@ -12,6 +12,13 @@ export const createPreference = (orderId) => async (dispatch) => {
         type: TYPES.CREATE_PREFERENCE,
         payload: response.data,
       });
+      window.localStorage.setItem(
+        "mercadoPago",
+        JSON.stringify({
+          preferenceId: response.data.id,
+          paymentUrl: response.data.url,
+        })
+      );
     }
   } catch (error) {
     console.error(error);
