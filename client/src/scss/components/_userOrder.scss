@@ -1,4 +1,4 @@
-.order1{
+.orders-body{
     // display: flex;
     margin:20px;
     .box1{
@@ -82,4 +82,36 @@
             }
         }
     }
+}
+
+.tableheader {
+    display: flex;
+    justify-content: space-around;
+    background-color: #19f9a4;
+    color: #1b1b1b;
+    height: 40px;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.orderPreview{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #808080;
+    padding: 10px 20px;
+}
+
+.productinfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.description {
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
 }

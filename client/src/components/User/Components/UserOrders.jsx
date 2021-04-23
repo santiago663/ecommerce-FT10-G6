@@ -1,86 +1,82 @@
 /*eslint-disable*/
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllUserOrders } from '../../../redux/actions/actionOrder'
-import '../../../scss/components/_userOrder.scss'
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import "../../../scss/components/_userOrder.scss";
 
 export default function UserOrders() {
+  const userOrders = useSelector((store) => store.reducerOrderUser.userOrders);
+  const [active, setActive] = useState(null);
 
-    const dispatch = useDispatch();
-
-    const currentUser = useSelector((store) => store.auth.currentUser)
-    const userOrders = useSelector((store) => store.reducerOrderUser.userOrders)
-    console.log(userOrders,"ordenes")
-
-    const {id} = currentUser
-
-    const [active, setActive ] = useState(null)
-
-    useEffect(() => {
-     
-        dispatch(getAllUserOrders(id) )
-    }, [])
-
-    const handleActive = () =>{
-        if(active === null) return setActive(1);
-        else{
-            setActive(null)
-        }
+  const handleActive = (e, index) => {
+    e.preventDefault();
+    if (active === index) {
+      setActive(null);
+    } else {
+      setActive(index);
     }
+  };
 
-    return (
-        <div className="order1">
-            <div className="box1">
-                <div className="everyOrders1">
-                    <div className="listOrders1" onClick={handleActive}>
-                        <div className="dateOrders1">
-                            {userOrders.length !== 0 && userOrders.map(m => (
-                            
-                                <div className="products1">
-                                    <div>
-                                        <div className="order1" >
-                                            <h4 className="orderID1" >OrderID: {m.id}</h4>
-                                        </div>
-                                        <div className="order1">
-                                            <h4 className="orderID1">Estado: -<h4 className={m.state}> {m.state} </h4></h4>
-                                        </div>
-                                        <div className="order1">
-                                            <h4 className="orderID1"> date: {m.date}</h4>
-                                        </div>  
-                                    </div>     
-                                    {active ===1 && m.products.length !== 0 && m.products.map(n => (
-                                        <div className="oneProduct1">
-                                            <div className="dateProducts1">
-                                                <div className="Product1">
-                                                    <h4 className="date1">Product: {n.name}</h4>
-                                                </div>
-                                                <div className="Product1">
-                                                    <h4 className="date1">AuthorID: {n.authorId}</h4>  
-                                                </div>
-                                                <div className="Product1">
-                                                    <h4 className="date1">Price: ${n.price}</h4>
-                                                </div>
-                                            </div>
-                                            <div className="imageProduct1">
-                                                    <img 
-                                                        src={n.preview} 
-                                                        alt={n.name}
-                                                        width="200"
-                                                    />
-                                                </div>
-                                        </div>
-                                    ))}
-                                    <div className="TOTAL1">
-                                        <h4 className="totalPrice1">TOTAL PRICE: {m.total}</h4> 
-                                    </div>
-                                </div>
-                            ))} 
-                        </div>
-                    </div>
-                
-                </div>
+  let createdAt;
+  let createdDate;
+  let createdTime;
+  const setDate = (order) => {
+    createdAt = new Date(order.date);
+    createdDate = createdAt.toLocaleDateString("en-US");
+    createdTime = createdAt.toLocaleTimeString("en-US");
+    return ( <h4>{createdDate} at {createdTime}</h4>)
+  };
+  return (
+    <div className="profile-body">
+      <div className="title">
+        <h1>Orders</h1>
+        <h2>Check your previous purchases </h2>
+      </div>
+      <hr className="divisor" />
+      <div className="tableheader">
+        <h4>Date</h4>
+        <h4>State</h4>
+        <h4>Price</h4>
+      </div>
+<div className="results">
+
+
+      {userOrders.length !== 0 &&
+        userOrders.map((order, index) => (
+          <>
+            <div
+              className="orderPreview"
+              onClick={(e) => handleActive(e, index)}
+            >
+              <div className="option">
+                  {setDate(order)}
+              </div>
+              <div className="option">
+                <h4 className="orderID1"> {order.state}</h4>
+              </div>
+              <div className="option">
+                <h4 className="orderID1">${order.total}</h4>
+              </div>
             </div>
+            <div className="orderDescription">
+              {active === index &&
+                order.products.length !== 0 &&
+                order.products.map((n) => (
+                  <div className="description">
+                    <div className="productinfo">
+                      <h4 className="pr1">Description: {n.name}</h4>
+                      <Link className="link" to={`/product/${n.id}`}>
+                      <img src={n.preview} alt={n.name} width="50" />
+                      </Link>
+                      <h4 className="pr1">${n.price}</h4>
+                    </div>
+                  </div>
+                ))}
+              <hr />
+            </div>
+          </>
+        ))}
         </div>
-    )
-
+    </div>
+  );
 }

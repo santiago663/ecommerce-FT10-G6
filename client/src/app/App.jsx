@@ -9,7 +9,7 @@ import {
   getAllSeries,
 } from "../redux/actions/actionBack";
 import { getLocalStorageGuest } from "../redux/actions/actionFront";
-import { getCurrentOrder } from "../redux/actions/actionOrder";
+import { getCurrentOrder, getAllUserOrders } from "../redux/actions/actionOrder";
 import { setCurrentUser } from "../redux/actions/auth";
 import "../scss/containers/_app.scss";
 
@@ -25,6 +25,7 @@ function App() {
     if (currentUser) {
       dispatch(getCurrentOrder(currentUser.id));
       dispatch(setCurrentUser(currentUser));
+      dispatch(getAllUserOrders(currentUser.id) )
     } else {
       dispatch(getLocalStorageGuest());
     }

@@ -90,7 +90,7 @@ export default function Profile() {
       })
 
     return (
-        <div className='profile-container'>
+       
             <div className='profile-body'>
                 <div className="title">
                     <h1>Profile</h1>
@@ -130,7 +130,7 @@ export default function Profile() {
                     <div className="imagecover"></div>
 
                 </div>
-            </div>
+           
             <div className="profile-footer">
 
             </div>
