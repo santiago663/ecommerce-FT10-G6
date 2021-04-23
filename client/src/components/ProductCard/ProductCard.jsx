@@ -5,22 +5,31 @@ import "../../scss/components/_productCard.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
 import { addToCartUser, removeToCartUser } from "../../redux/actions/actionOrder"
+import { useState, useEffect } from "react";
 
 function ProductCard(props) {
   const dispatch = useDispatch();
+
   const currentUser = useSelector((store) => store.auth.currentUser)
   const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder)
-  
+  const allScores = useSelector((store) => store.reducerProduct.allProductsScores)
+
   const shoppingCart = useSelector(
     (state) => state.reducerShoppingCart.shoppingCart
   );
-  const {
-    data: { name, author, preview, id, price },
-  } = props;
+  const { data: { name, author, preview, id, price } } = props;
+
+  const [score, setScore] = useState({})
+
+  useEffect(() => {
+    if (allScores) setScore(allScores?.find(scores => scores.id == id))
+  }, [])
+
+  let backScores = allScores?.find(scores => scores.id == id)
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
-    if(currentUser.id){
-      let total=0;
+    if (currentUser.id) {
+      let total = 0;
       shoppingCart.forEach(product => {
         total += product.price ? Number(product.price) : 0
       })
@@ -29,7 +38,7 @@ function ProductCard(props) {
     } else {
       let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
       let found = data.filter((product) => product.id === productOnClick.id);
-  
+
       if (found.length === 0) {
         data.push(productOnClick);
         localStorage.setItem("orderProducts", JSON.stringify(data));
@@ -39,25 +48,25 @@ function ProductCard(props) {
   };
 
   const handleRemoveFromCart = (productOnClick, currentUser, currentOrder) => {
-    if(currentUser.id){
-      let total=0;
+    if (currentUser.id) {
+      let total = 0;
       shoppingCart.forEach(product => {
         total += product.price ? Number(product.price) : 0
       })
       total = total - Number(productOnClick.price)
       dispatch(removeToCartUser(productOnClick, currentUser, currentOrder, total))
-      
+
     } else {
       let data = JSON.parse(localStorage.getItem("orderProducts"));
       let found = data.filter((product) => product.id !== productOnClick.id);
-  
+
       localStorage.setItem("orderProducts", JSON.stringify(found));
       dispatch(removeFromCart(productOnClick));
     }
   };
 
   let lStorage;
-  if ( shoppingCart.length !== 0) {
+  if (shoppingCart.length !== 0) {
     if (shoppingCart.filter((prod) => prod.id === id).length === 1) {
       lStorage = true;
     }
@@ -67,9 +76,9 @@ function ProductCard(props) {
     <>
       <div className="product-card">
         <div className="shopping">
-              <div className="price">
-                <b>$ {price} </b>
-              </div>
+          <div className="price">
+            <b>$ {price} </b>
+          </div>
           {!lStorage ? (
             <i
               className="fas fa-cart-plus add"
@@ -82,20 +91,20 @@ function ProductCard(props) {
               key={id}
               onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
             >
-              <br/>
+              <br />
             </i>
           )}
-
         </div>
-          <Link className="link" to={`/product/${id}`}>
-              <img src={preview} alt={name} />
-          </Link>
-          <div className="conten">
-            <div className="nameAutor">
-              <h4>{name}</h4>
-              <h6>{author.name}</h6>
-            </div>
+        <Link className="link" to={`/product/${id}`}>
+          <img src={preview} alt={name} />
+        </Link>
+        <div className="conten">
+          <div className="nameAutor">
+            <span className="scoreCard">{score?.score || backScores?.score ? score?.score || backScores?.score : "-"} <i className="far fa-star"></i></span>
+            <h4>{name}</h4>
+            <h6>{author.name}</h6>
           </div>
+        </div>
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import axios from 'axios';
 import * as TYPES from '../types/index';
-import {requestData, requestSuccess} from './request.js'
+import { requestData, requestSuccess } from './request.js'
 
 
 /* ----------------------*/
@@ -15,9 +15,9 @@ export const getAllProducts = () => (
     try {
       const response = await axios.get('http://localhost:3001/get/product');
       if (response.status === 200) {
-        dispatch({ 
-          type: TYPES.GET_ALL_PRODUCTS, 
-          payload: response.data 
+        dispatch({
+          type: TYPES.GET_ALL_PRODUCTS,
+          payload: response.data
         });
       }
     } catch (error) {
@@ -148,7 +148,7 @@ export const searchByTitle = (keyword) => (
 
       response.data.length !== 0 && dispatch({
         type: TYPES.SET_SEARCH_PRODUCTS,
-        payload: response.data ,
+        payload: response.data,
       });
       dispatch(requestSuccess())
     } catch (error) {
@@ -264,13 +264,13 @@ export const editProductByBody = (productId, product) => (
     try {
       dispatch(requestData())
       axios.put(`http://localhost:3001/put/product/${productId}`, product)
-        .then((res) => { 
+        .then((res) => {
           dispatch({
             type: TYPES.PUT_EDIT_PRODUCT_BYID,
             payload: res
           });
           dispatch(requestSuccess())
-          
+
         }).catch((error) => console.error(error))
     } catch (error) {
       dispatch({
@@ -315,7 +315,6 @@ export const editCategory = (categoryId, category) => (
             type: TYPES.PUT_CATEGORY,
             payload: res
           });
-          console.log(res,"LARES")
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
@@ -338,7 +337,6 @@ export const editUser = (userId, user) => (
             type: TYPES.PUT_USER,
             payload: res
           });
-          console.log(res,"LARES")
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
     } catch (error) {
@@ -513,21 +511,32 @@ export const getProductReview = (productId) => (
 
 export const postUserReview = (productId, userId, review) => {
   return (dispatch) => {
-      try {
-          dispatch(requestData())
-          axios.post(`http://localhost:3001/post/review?productId=${productId}&userId=${userId}`, review)
-            .then((res) => {
-              dispatch({
-                type: TYPES.POST_NEW_USER_REVIEW,
-                payload: res
-              });
-              dispatch(requestSuccess())
-            }).catch((error) => console.error(error))
-        } catch (error) {
+    try {
+            
+      axios.post(`http://localhost:3001/post/review?productId=${productId}&userId=${userId}`, review)
+        .then((res) => {
           dispatch({
-            type: TYPES.POST_NEW_USER_REVIEW_ERROR,
-            payload: error,
+            type: TYPES.POST_NEW_USER_REVIEW,
+            payload: res
           });
-        }
+          
+        }).catch((error) => console.error(error))
+    } catch (error) {
+      dispatch({
+        type: TYPES.POST_NEW_USER_REVIEW_ERROR,
+        payload: error,
+      });
+    }
+  }
+};
+
+export const updateReviewProduct = (id, newScore) => {
+  return async () => {
+    try {
+      await axios.put(`http://localhost:3001/put/product/review/${id}`, {score: newScore})
+    }
+    catch (error) {
+      console.log(error)
+    }
   }
 };

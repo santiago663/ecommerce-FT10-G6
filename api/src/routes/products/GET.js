@@ -79,6 +79,7 @@ server.get("/", async (req, res) => {
         "available",
         "fileLink",
         "preview",
+        "score",
       ],
       include: [{ model: Authors }, { model: Categories }],
     });

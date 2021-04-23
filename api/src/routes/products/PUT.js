@@ -68,4 +68,25 @@ server.put("/:id", (req, res) => {
   });
 });
 
+server.put("/review/:idProduct/", async (req, res) => {
+
+  const { idProduct } = req.params;
+  const { score } = req.body
+
+  try {
+
+    const product = await Products.update(
+      { score },
+      { where: { id: idProduct}}
+    )
+
+    res.json(product)
+    
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: "Internal server error", status: 500 })
+  }
+ 
+});
+
 module.exports = server;
