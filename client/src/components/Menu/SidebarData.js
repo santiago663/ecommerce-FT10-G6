@@ -8,14 +8,14 @@ import * as FiIcons from 'react-icons/fi'
 export const SidebarData = [
     {
         title: 'Profile',
-        path: '/user',
+        path: '/user/profile',
         icon: <AiIcons.AiFillHome />,
         cName: 'navm-text',
         belong: [100,101]
     },
     {
         title: 'Library',
-        path: '/user/library',
+        path: '/user/library/library',
         icon: <FaIcons.FaImages />,
         cName: 'navm-text',
         belong: [101]
