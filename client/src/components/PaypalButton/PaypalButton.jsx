@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { PayPalButton } from 'react-paypal-button-v2';
+import  {PayPalButton}  from 'react-paypal-button-v2';
 
 
 function PaypalButton({ handleSubmit }) {
@@ -11,11 +11,10 @@ function PaypalButton({ handleSubmit }) {
 	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 	const reducer = (accumulator, currentValue) => Number(currentValue.price) + accumulator;
 	let sum = shoppingCart.reduce(reducer, 0) / 92;
-	
 
 	const paypalOptions = {
-		client:  'AeWB7olLbWTatL-Bh3LLbfPakiLl-DFQ1rFJeGzQ5BznqK2OyWjHSI7C4NKkGoXg-YK9NZi9nCD9DOYN',
-		intent: 'CAPTURE',
+		client: 'AeWB7olLbWTatL-Bh3LLbfPakiLl-DFQ1rFJeGzQ5BznqK2OyWjHSI7C4NKkGoXg-YK9NZi9nCD9DOYN',
+		intent: 'capture',
 		currency: 'USD',
 	};
 
@@ -24,16 +23,16 @@ function PaypalButton({ handleSubmit }) {
 		shape: 'rect',
 	};
 
-   const handlePayError = (error) =>{
-      alert('We could not make the payment, Please try again')
-      console.error(error)
-      //dispatch
-   }
+	const handlePayError = (error) => {
+		alert('We could not make the payment, Please try again');
+		console.error(error);
+		//dispatch
+	};
 
-   const handleCancelPay = (data) =>{
-      console.log('cancel', data)
-      //dispatch
-   }
+	const handleCancelPay = (data) => {
+		console.log('cancel', data);
+		//dispatch
+	};
 
 	return (
 		<>
@@ -44,7 +43,7 @@ function PaypalButton({ handleSubmit }) {
 				onSuccess={(data) => {
 					//status,
 					console.log('success', data);
-					// handleSubmit(currentOrder);
+					handleSubmit(currentOrder);
 				}}
 				onError={(error) => handlePayError(error)}
 				onCancel={(data) => handleCancelPay(data)}
@@ -53,4 +52,4 @@ function PaypalButton({ handleSubmit }) {
 	);
 }
 
-export default PaypalButton
+export default PaypalButton;

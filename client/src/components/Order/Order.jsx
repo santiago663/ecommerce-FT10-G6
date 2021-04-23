@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
-// import  PaypalButton  from '../PaypalButton/PaypalButton';
+import  PaypalButton  from '../PaypalButton/PaypalButton';
 import './Order.css';
 
 function Order() {
