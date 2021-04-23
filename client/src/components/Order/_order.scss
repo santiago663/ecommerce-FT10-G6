@@ -1,0 +1,150 @@
+.order-form {
+	width: 80%;
+	max-width: 700px;
+	padding: 10px 30px 20px 30px;
+	margin: 0 auto;
+	background-color: #ffffff;
+	margin-top: 10vh;
+	box-shadow: 0px 5px 10px 5px #00000052;
+	border-radius: 1px;
+	border: 1px solid rgba(255, 255, 255, 0.822);
+}
+
+.Information {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	font-family: Arial;
+	font-size: 0.9rem;
+	text-align: center;
+	text-decoration: none;
+	background-color: rgba(245, 245, 245, 0.932);
+	.Information-buttons {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+		padding-bottom: 20px;
+		.Information-next {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			.mercadolibreee {
+				background-color: rgb(255, 252, 72);
+				color: rgb(168, 168, 168);
+				border: none;
+				border-radius: 5px;
+			}
+		}
+	}
+	.Information-sidebar {
+		margin: 20px 0 0 0;
+		color: #6b7685;
+		h2 {
+			color: #6b7685;
+		}
+		h3 {
+			color: #8e949c;
+			span {
+				color: rgba(80, 179, 245, 0.733);
+			}
+		}
+	}
+
+	.Information-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: transparent;
+		border: none;
+		outline: none;
+	}
+	.Information-item .fas {
+		margin: 0 0 0 10px;
+		color: rgba(0, 0, 0, 0.4);
+		cursor: pointer;
+	}
+
+	.Information-element {
+		display: flex;
+		margin: 10px 0;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		border-bottom: 1px solid #eee;
+	}
+	.Information-element h4 {
+		margin: 0;
+	}
+
+	.Information-buttons {
+		margin: 10px 0 0;
+		display: ruby;
+	}
+	.Info-Back__container {
+		margin-bottom: 30px;
+		Link {
+			width: 50px;
+			margin: 0px;
+			padding: 0px;
+			box-sizing: content-box;
+		}
+		.Information-Back {
+			padding: 0 3px;
+			margin: 0;
+			font-weight: 500;
+			text-transform: uppercase;
+			color: #0e0c0c;
+			border-bottom: 3px solid #ddd;
+			&:hover {
+				border-bottom: 3px solid #3adbc0;
+			}
+		}
+	}
+
+	.Information-form {
+		width: 95%;
+		display: flex;
+		text-align: center;
+		flex-direction: column;
+		// border: 1px solid rgb(123, 255, 0);
+		justify-content: center;
+		.name-email__container {
+			width: 30%;
+			display: flex;
+			text-align: center;
+			flex-direction: column;
+
+			// border: 1px solid rgb(255, 0, 0);
+			span {
+				min-width: 50px;
+			}
+			input {
+				min-width: 200px;
+				border: none;
+				background: transparent;
+				outline: none;
+			}
+			.name__container {
+				display: flex;
+				flex-direction: row;
+				width: 50%;
+				// border: 1px solid black;
+				min-width: 150px;
+			}
+			.email__container {
+				min-width: 150px;
+				display: flex;
+				flex-direction: row;
+				width: 50%;
+				// border: 1px solid black;
+			}
+		}
+	}
+
+	.User-Name {
+		font-size: 20px;
+		font-family: "Helvetica";
+		color: #b7bcbd;
+	}
+}
