@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postUserReview, updateReviewProduct } from "../../redux/actions/actionBack";
-import {allProductsScores} from "../../redux/actions/actionFront"
+import { allProductsScores } from "../../redux/actions/actionFront"
 import { getAllUserOrders } from "../../redux/actions/actionOrder";
 import "../../scss/components/_reviews.scss";
 
@@ -32,33 +32,36 @@ function Reviews({ currentUser, productId }) {
     }
 
     //Add review states
-    const [review, setReview] = useState({ comment: "", score: 1 })
+    const [review, setReview] = useState({ comment: "", score: 0 })
     const [allProductReviews, setProductReviews] = useState([])
-    const [change, setChange] = useState({a:true, b:true})  
+    const [change, setChange] = useState({ a: true, b: true, c: true })
 
     //Guardo los reviews del producto en un state
-    useEffect(() => {        
-        if (productReview[0]) setProductReviews(productReview.filter(product=>product.productId == productId))
+    useEffect(() => {
+        if (productReview[0]) setProductReviews(productReview.filter(product => product.productId == productId))
     }, [productReview[0]])
-
+    
     //Modifico el score del producto en el back
     useEffect(() => {
-        if (review.comment) {
+        if (review.score) {
             var newScore = (allProductReviews.map(review => review.score).reduce((a, b) => a + b) / allProductReviews.length).toFixed(1)
-            allScores.find( product => product.id == productId).score = newScore.toString()
+            if (allScores.find(product => product.id == productId)) {
+                allScores.find(product => product.id == productId).score = newScore.toString()
+            }
             dispatch(updateReviewProduct(productId, newScore.toString()))
-            setChange({...change, b:false})               
+            setChange({ ...change, b: false })
         }
     }, [change.a])
 
     //Modifico los scores de los productos en el front
-    useEffect(() => {    
+    useEffect(() => {
         if (allScores) dispatch(allProductsScores(allScores))
     }, [change.b])
 
     //handle score
     function handleInputChangeSc(event) {
         event.preventDefault()
+        setChange({ ...change, c: true })
         setReview({ ...review, score: Number(event.target.value) })
     }
     //handle comment
@@ -69,9 +72,12 @@ function Reviews({ currentUser, productId }) {
     //submit
     function submitReview(event) {
         event.preventDefault()
-        setChange({...change, a:false})        
-        setProductReviews([...allProductReviews, { ...review, user: { name: currentUser?.name }, productId }])
-        dispatch(postUserReview(productId, currentUser.id, review))
+        if (review.score) {
+            dispatch(postUserReview(productId, currentUser.id, review))
+            setChange({ ...change, a: false })
+            setProductReviews([...allProductReviews, { ...review, user: { name: currentUser?.name }, productId }])
+        }
+        else setChange({ ...change, c: false })
     }
 
     var key = 1
@@ -98,8 +104,9 @@ function Reviews({ currentUser, productId }) {
                             <div className="reviewForm">
                                 <span className="spanAddReview">Score</span>
                                 <select name="score" id="reviewScoreSelector" onChange={handleInputChangeSc}>
-                                    {[1, 2, 3, 4, 5].map((x) => <option key={`PD${key++}`} value={x}>{x}</option>)}
+                                    {["Select", 1, 2, 3, 4, 5].map((x) => <option key={`PD${key++}`} value={x}>{x}</option>)}
                                 </select>
+                                <span className={!change.c ? "selectScore" : "selectScoreHide"}> Select a score</span>
                             </div>
                             <div className="divAddReview">
                                 <span className="spanAddReview">Comment</span>
