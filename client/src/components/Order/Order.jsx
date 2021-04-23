@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
+import  PaypalButton  from '../PaypalButton/PaypalButton';
 import './Order.css';
 
 function Order() {
@@ -30,8 +31,9 @@ function Order() {
 		});
 	};
 
-	const handleSubmit = async (e, currentOrder) => {
-		e.preventDefault();
+	
+	const handleSubmit = async (currentOrder) => {
+		
 
 		if (currentUser.id) {
 			try {
@@ -122,12 +124,7 @@ function Order() {
 							</Link>
 						</div>
 						<div className="Information-next">
-							{/* <Link to="/checkout/payment"> */}
-
-							<button value="To Pay" className="Information-Back" type="submit">
-								To Pay
-							</button>
-							{/* </Link> */}
+							<PaypalButton handleSubmit={handleSubmit} />
 						</div>
 					</div>
 				</div>
