@@ -18,14 +18,6 @@ export const removeFromCart = (payload) => {
   return { type: TYPES.REMOVE_FROM_CART, payload };
 };
 
-
-
-
-
-
-
-
-
 //                                                  //
 //          ACTION FILTERS alphabetical:            //
 //                                                  //
@@ -82,4 +74,13 @@ export const orderByAuthor = (author) => (dispatch) => {
 
 export const getBackup = () => (dispatch) =>{
   dispatch({type: TYPES.GET_ALL_FROM_BACKUP})
+}
+
+//all scores
+
+export const allProductsScores = (allScores) => (dispatch) =>{ 
+  dispatch({
+    type: TYPES.ALL_PRODUCTS_SCORES,
+    payload: allScores
+  })
 }

@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneProduct, getProductReview } from "../../redux/actions/actionBack";
@@ -18,24 +18,12 @@ function ProductDetails() {
   }, []);
 
   const currentUser = useSelector((store) => store.auth.currentUser);
-  const currentOrder = useSelector(
-    (store) => store.reducerOrderUser.currentOrder
-  );
-  const shoppingCart = useSelector(
-    (state) => state.reducerShoppingCart.shoppingCart
-  );
-  const productCache = useSelector(
-    (store) => store.reducerProduct.productCache
-  );
-  const productReview = useSelector(
-    (store) => store.reducerProduct.productReview
-  );
+  const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder);
+  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+  const productCache = useSelector((store) => store.reducerProduct.productCache);
+  const allScores = useSelector((store) => store.reducerProduct.allProductsScores);
 
-  //saco el promedio del score
-  let score;
-  if (productReview.map(review => review.score)[0]) {
-    score = (productReview.map(review => review.score).reduce((a, b) => a + b) / productReview.length).toFixed(1)
-  }
+  let score = allScores.find(product => product.id == id)?.score  
 
   if (productCache.length !== 0) {
     var {
@@ -112,7 +100,7 @@ function ProductDetails() {
             <Link className="link" to="/Browser/products">✘</Link>
           </div>
           <div className="score">
-            <span>{score} <i className="far fa-star"></i></span>
+            <span>{score ? score : "-"} <i className="far fa-star"></i></span>
           </div>
           <div className="titulo">{name}</div>
           <div className="det">
