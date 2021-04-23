@@ -8,6 +8,11 @@ module.exports = {
       { id: 102, description: "Guest" },
       { id: 103, description: "Banned" },
     ]);
+    await queryInterface.bulkInsert("methods", [
+      { id: 1, description: "Ninguno" },
+      { id: 2, description: "Mercado Pago" },
+      { id: 3, description: "Paypal" },
+    ]);
 
     await queryInterface.bulkInsert("users", [
       {
