@@ -35,7 +35,7 @@ function SearchBar() {
       setArraySuggestions("")
     }
   }
-  console.log(arraySuggestions);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -87,7 +87,7 @@ function SearchBar() {
                 </div>
               )
             }) :
-              console.log('nada')
+              null
             }
           </ul>
         </div>
