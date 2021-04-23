@@ -1,5 +1,4 @@
 /* eslint-disable  */
-import React from "react";
 import "./Checkout.css";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -51,7 +50,7 @@ const Checkout = () => {
     <div className="Checkout">
       <div className="Checkout-conten">
         {shoppingCart.length > 0 ? (
-          <h3>Order List</h3>
+          <h3>Order # {currentOrder[0].id}</h3>
         ) : (
           <h3>Empty Shopping Cart</h3>
         )}
@@ -80,13 +79,13 @@ const Checkout = () => {
       {shoppingCart && shoppingCart.length > 0 ? (
         <div className="Checkout-sidebar">
           <h3>{`Total Price : $ ${handleSumTotal()}`}</h3>
-          <Link to="/checkout/information">
+          <Link to="/checkout/information" >
             <button
               type="button"
               className="btn-primary"
               onClick={() => handleCreatePreference(currentOrder[0].id)}
             >
-              Continue
+              Pagar
             </button>
           </Link>
         </div>

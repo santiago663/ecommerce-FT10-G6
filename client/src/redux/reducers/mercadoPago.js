@@ -3,6 +3,7 @@ import * as TYPES from "../types/index";
 
 const initialState = {
   preferenceId: "",
+  paymentUrl: "",
   error: false,
 };
 
@@ -11,7 +12,8 @@ export const mercadoPago = (state = initialState, action) => {
     case TYPES.CREATE_PREFERENCE:
       return {
         ...state,
-        preferenceId: action.payload,
+        preferenceId: action.payload.id,
+        paymentUrl: action.payload.url
       };
 
     case TYPES.SET_ERROR:
