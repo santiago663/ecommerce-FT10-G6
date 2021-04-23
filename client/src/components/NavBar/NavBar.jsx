@@ -1,62 +1,66 @@
 /* eslint-disable  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../../redux/actions/auth'
+import { logout } from '../../redux/actions/auth';
+import { setMenu } from '../../redux/actions/request'
+import * as FaIcons from 'react-icons/fa';
 import '../../scss/components/_navBar.scss';
 
 function NavBar() {
   const dispatch = useDispatch()
-  const currentUser = JSON.parse(localStorage.getItem("CurrentUser"))
+  const {currentUser} = useSelector((store) => store.auth)
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+  const { menu } = useSelector((store) => store.reducerLoading)
 
   function handleLogOut() {
     dispatch(logout())
     location.assign("http://localhost:3000")
   }
 
+  const showSidebar = () => {
+    dispatch(setMenu(!menu))
+  }
+
+  useEffect(()=> {
+  }, [currentUser])
+
   return (
     <nav className="navbar">
-      <ul className="nav-buttons_navigation">
-        <Link className="nav-link" to="/">
-          <li>Home</li>
+      <div className="navleft">
+        <Link to="#" className="sandwich">
+          <FaIcons.FaBars onClick={showSidebar} className='iconmenu' />
         </Link>
-        <Link className="nav-link" to="/Browser/products">
-          <li>Find Art</li>
-        </Link>
-        <li>About Us</li>
-      </ul>
+
+        <ul className="nav-buttons_navigation">
+          <Link className="nav-link" to="/">
+            <li>Home</li>
+          </Link>
+          <Link className="nav-link" to="/Browser/products">
+            <li>Find Art</li>
+          </Link>
+          <li>About Us</li>
+        </ul>
+      </div>
       <div className="nav-buttons_authentication">
         <ul className="Icon-Cart">
           <Link to="/checkout">
             <i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i>
           </Link>
         </ul>
-        {currentUser?.roleId === 100 ? <ul className="nav-buttons_navigation">
-          <Link className="nav-link" to="/Admin">
-            <li>Dashboard</li>
-          </Link>
-        </ul> : <span></span>
-        }
-         {currentUser?.roleId === 101 ? <ul className="nav-buttons_navigation">
-          <Link className="nav-link" to="/User">
-            <li>Dashboard</li>
-          </Link>
-        </ul> : <span></span>
-        }
-        {
-          currentUser ?
-            <button type="button" onClick={handleLogOut}>Log Out</button>
+       { currentUser?.name ?
+            <button type="button" className="signin--btn" onClick={handleLogOut}>Log Out</button>
             :
             <>
-              <Link className="link-btn-secondary" to="/signin">
-                <button className="btn-secondary" type="button">Sign in</button>
+              <Link to="/signin">
+                <button className="signin--btn btn-primary" type="button">Sign in</button>
               </Link>
-              <Link className="link-btn-secondary" to="/register">
-                <button className="btn-primary" type="button">Sign up</button>
+              <Link to="/register">
+                <button className="signin--btn btn-secondary" type="button">Sign up</button>
               </Link>
             </>
         }
+        {/* <div className="profile-img"></div> */}
       </div>
     </nav>
   );

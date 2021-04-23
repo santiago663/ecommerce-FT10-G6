@@ -52,6 +52,7 @@ export const GET_ALL_SERIES_ERROR = "GET_ALL_SERIES_ERROR";
 //LOADING
 export const REQUEST_DATA = "REQUEST_DATA";
 export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
+export const MENU = "MENU";
 
 //USER AUTH
 export const AUTH_LOGIN = "AUTH_LOGIN";

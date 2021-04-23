@@ -1,0 +1,85 @@
+.order1{
+    // display: flex;
+    margin:20px;
+    .box1{
+        width: 70%;
+        margin: 10px;
+        background-color: #1b1b1b;
+        .everyOrders1{
+            margin: 10px;
+            padding: 10px;
+            .listOrders1{
+                margin: 10px;
+                .dateOrders1{
+                    padding: 5px;
+                    border-radius: 10px;
+                    .products1{
+                        box-shadow: 0px 4px 4px rgb(99, 99, 99);
+                        border: 3px solid #19f9a4;
+                        border-radius: 10px;
+                        background-color: #19f9a4;
+                        .order1{
+                            // display: inline;
+                            .orderID1{
+                                display: inline-flex;
+                                padding: 0px 30px 0px 0px;
+                                font-size: 16px;
+                                .open{
+                                    color: rgb(11, 135, 36);
+                                }
+                                .cancelled{
+                                    color: rgb(201, 30, 30);
+                                }
+                                .loading{
+                                    color: rgb(230, 150, 13);
+                                }
+                                .completed{
+                                    color: rgb(30, 36, 210);
+                                }
+                            }
+                        }
+                        .TOTAL1{
+                            border-radius: 0 0 10px 10px;
+                            background-color: #19f9a4;
+                            .totalPrice1{
+                                text-align: right;
+                                padding: 10px;
+                                margin-right: 150px;
+                                font-size: 17px;
+                            }
+                        }
+                        .oneProduct1{
+                           
+                            display:flex;
+                            border: 0.2px solid rgb(230, 230, 230);
+                            background-color: rgb(255, 255, 255);
+                            
+                            .dateProducts1{ 
+                           
+                                margin: 10px 200px 10px 20px;
+
+                                .Product1{
+                                    display: inline;
+                                    width: 20px;
+                                    
+                                    .date1{
+                                        // display: inline-block;
+                                        margin: 5px;
+                                        padding: 5px;
+                                        text-align: justify;
+                                        font-size: 15px;
+                                    }
+                                }
+                            }
+                            .imageProduct1{
+                                margin: 5px;
+                                display:flex;
+                          
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
