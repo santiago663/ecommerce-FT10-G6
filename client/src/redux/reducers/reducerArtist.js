@@ -1,6 +1,7 @@
 /*eslint-disable*/
 
 import * as TYPES from '../types/index';
+import * as TYPESUP from '../types/typesUpgrade';
 
 const initialState = {
 
@@ -12,6 +13,7 @@ export default function reducerArtist(state = initialState, action){
     switch (action.type) {
 
         case TYPES.GET_ALL_AUTHORS:
+        case TYPESUP.UPGRADE_EDIT_AUTHOR:
             return {
               ...state,
               allArtistCache: action.payload,

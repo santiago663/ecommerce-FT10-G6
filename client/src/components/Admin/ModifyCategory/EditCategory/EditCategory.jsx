@@ -19,6 +19,7 @@ function EditCategory() {
     const [category, setCategory] = useState({
         id: 0,
         name: "",
+        available: true
     })
 
     const [boolean, setBoolean] = useState(false)
@@ -31,6 +32,7 @@ function EditCategory() {
             setCategory({
                 id: findCategory.id,
                 name: findCategory.name,
+                available: findCategory.available
 
             })
         }
@@ -44,6 +46,15 @@ function EditCategory() {
 
           setCategory({ ...category, ["name"]: event.target.value })
         } 
+    }
+
+       //Handle input para available
+       function handleInputChangeAv(event) {
+        event.preventDefault();
+        var option;
+        if (event.target.value === "Yes") option = true;
+        if (event.target.value === "No") option = false;
+        setCategory({ ...category, [event.target.name]: option })
     }
  
     const alertSucces = () =>{
@@ -82,7 +93,7 @@ function EditCategory() {
         setBoolean(false);
     }
 
-    if(productOrError && (productOrError.status === 205 || productOrError.status === 200)){
+    if(productOrError && ( productOrError.status === 200)){
 
         if(id){
             let allCategoriesCop = allCategories
@@ -105,6 +116,12 @@ function EditCategory() {
         alertSucces();
         productOrError.status = 0
     }
+    if(productOrError && ( productOrError.status === 205)){
+        alertSucces();
+        productOrError.status = 0
+    }
+
+    var key = 1;
     
     return (
         <div className="mainDivEP">
@@ -128,6 +145,18 @@ function EditCategory() {
                             value={category.name} 
                             name="name" 
                         />
+                    </div>
+                    <div>
+                        Available:
+                        <select 
+                            name="available" 
+                            id="selectorAvEP" 
+                            value={category.available ? "Yes" : "No"} 
+                            onChange={handleInputChangeAv}
+                        >
+                            <option key={`EP${key++}`} value="Yes">Yes</option>
+                            <option key={`EP${key++}`} value="No">No</option>
+                        </select>
                     </div>
                     <input 
                         className="EditAndDelete" 

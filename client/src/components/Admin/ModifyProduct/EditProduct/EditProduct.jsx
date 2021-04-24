@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom'
-import { editProductCategory, deleteProductCategory, editProductByBody } from '../../../../redux/actions/actionBack';
+import { deleteProductCategory, editProductByBody, deleteProduct} from '../../../../redux/actions/actionBack';
 import { upgradeEditProducts } from '../../../../redux/actions/actionUpgrade';
 import Swal from 'sweetalert2';
 import '../../../../scss/components/_editProducts.scss';
@@ -60,12 +60,30 @@ function EditProduct() {
     }, [id])
 
     function handleInputChange(event) {
-        setProduct({ ...product, [event.target.name]: event.target.value })
+
+        let name = event.target.name
+        if(name !== "" && name !== " "){
+            setProduct({ ...product, [name]: event.target.value })
+        }
     }
 
     //Handle input para price
     function handleInputChangePri(event) {
-        setProduct({ ...product, [event.target.name]: Number(event.target.value) })
+
+        let price = event.target.name
+        if(price !== "" && price !== " "){
+            setProduct({ ...product, [price]: Number(event.target.value) })  
+        }
+    }
+
+    //Handle input para artist
+    function handleInputChangeAr(event) {
+        event.preventDefault();
+
+        let artist = event.target.name
+        if(artist !== "" && artist !== " "){
+            setProduct({ ...product, [artist]: allArtist.find(a => event.target.value === a.idAuthors) })
+        }
     }
 
     //Handle input para available
@@ -77,26 +95,16 @@ function EditProduct() {
         setProduct({ ...product, [event.target.name]: option })
     }
 
-    //Handle input para artist
-    function handleInputChangeAr(event) {
-        event.preventDefault();
-      
-        setProduct({ ...product, [event.target.name]: allArtist.find(a => event.target.value === a.idAuthors) })
-    }
-
     //Handle input para categories
     function handleInputChangeCa(event) {
        
         var cat = product.categories
         if (cat.find(c => c?.id != event.target.value)) {
-           
-            dispatch( editProductCategory(product.id, event.target.value) );
             
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
         }
         else if (cat[0] == undefined) {
            
-            dispatch( editProductCategory(product.id, event.target.value) );
             cat.push(allCategories.find(c => c.id == Number(event.target.value)))
 
         }
@@ -135,6 +143,9 @@ function EditProduct() {
     }
     const Yes = () => {
 
+        if(product.id !==0){
+           dispatch( deleteProduct(product.id)) 
+        }
         setBoolean(false);
     }
     const No = () => {
@@ -163,7 +174,11 @@ function EditProduct() {
         alertSucces();
         productOrError.status = 0
     }
+    if(productOrError && productOrError.status === 205){
 
+        alertSucces();
+        productOrError.status = 0
+    }
     
     var key = 1;
 

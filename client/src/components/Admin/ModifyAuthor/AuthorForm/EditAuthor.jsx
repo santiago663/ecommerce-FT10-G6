@@ -20,6 +20,7 @@ function EditAuthor() {
         id: 0,
         name: "",
         email: "",
+        available: true,
     })
 
     const [boolean, setBoolean] = useState(false)
@@ -33,18 +34,36 @@ function EditAuthor() {
                 id: findAuthor.id,
                 name: findAuthor.name,
                 email: findAuthor.email,
+                available: findAuthor.available
             })
         }
         
     }, [id])
 
     function handleInputChange(event) {
-        setAuthor({ ...author, [event.target.name]: event.target.value })
+
+        let name = event.target.name;
+        if(name !== "" && name !== " "){
+            setAuthor({ ...author, [name]: event.target.value })
+        }
     }
 
     //Handle input para price
     function handleInputChangeEmail(event) {
-        setAuthor({ ...author, [event.target.name]: event.target.value })
+
+        let email = event.target.name;
+        if(email !== "" && email !== " "){
+            setAuthor({ ...author, [email]: event.target.value })
+        }
+    }
+
+    //Handle input para available
+    function handleInputChangeAv(event) {
+        event.preventDefault();
+        var option;
+        if (event.target.value === "Yes") option = true;
+        if (event.target.value === "No") option = false;
+        setAuthor({ ...author, [event.target.name]: option })
     }
 
     const alertSucces = () =>{
@@ -67,7 +86,7 @@ function EditAuthor() {
     }
     const Yes = () => {
 
-        if(author.id){
+        if(author.id !== 0){
 
             dispatch( deleteAuthor(author.id) );
 
@@ -100,6 +119,13 @@ function EditAuthor() {
         } 
         productOrError.status = 0
     }
+    if(productOrError.status === 205){
+
+        alertSucces();
+        productOrError.status = 0
+    }
+
+    var key = 1;
 
     return (
         <div className="mainDivEP">
@@ -134,6 +160,18 @@ function EditAuthor() {
                             value={author.email} 
                             name="email" 
                         />
+                    </div>
+                    <div>
+                        Available:
+                        <select 
+                            name="available" 
+                            id="selectorAvEP" 
+                            value={author.available ? "Yes" : "No"} 
+                            onChange={handleInputChangeAv}
+                        >
+                            <option key={`EP${key++}`} value="Yes">Yes</option>
+                            <option key={`EP${key++}`} value="No">No</option>
+                        </select>
                     </div>
                     <input 
                         className="EditAndDelete" 

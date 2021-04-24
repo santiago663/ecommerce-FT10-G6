@@ -98,6 +98,7 @@ function AddProduct() {
     }
 
     if(productOrError && productOrError.status === 200){
+     
         alertSucces();
         productOrError.status = 0
     }
