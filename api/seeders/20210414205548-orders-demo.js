@@ -74,7 +74,7 @@ module.exports = {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 			userId: 102,
-			methoId: 3,
+			methodId: 3,
 			payment: 'SDJDS7DHSDFK7',
 		},
 		{
