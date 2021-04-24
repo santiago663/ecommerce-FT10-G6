@@ -12,7 +12,9 @@ const initialState = {
 	author: false,
 	categorie: false,
 	productReview: [],
+	newProductReviews: [],
 	allProductsScores: [],
+	editProductReviews: [],
 };
 
 export default function reducerProduct(state = initialState, action) {
@@ -129,6 +131,14 @@ export default function reducerProduct(state = initialState, action) {
 		case TYPES.ALL_PRODUCTS_SCORES:
 
 			return {...state, allProductsScores: action.payload};
+
+		case TYPES.POST_NEW_USER_REVIEW:
+			//guarda todos los reviews de un producto
+			return {...state, newProductReviews: action.payload};
+
+		case TYPES.PUT_NEW_USER_REVIEW:
+			//guarda el review editado
+			return {...state, editProductReviews: action.payload};
 
 		default:
 			return state;
