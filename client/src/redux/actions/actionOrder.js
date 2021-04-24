@@ -25,10 +25,6 @@ export const getAllUserOrders = (userId) => {
         axios.get(`http://localhost:3001/get/order/users/${userId}`)
             .then((resp) => {
                 dispatch({ type: TYPES.GET_ALL_USER_ORDERS, payload: resp.data })
-                resp.data.products.forEach(product => {
-                    dispatch(addToCart(product))
-                });
-
             }).catch(error => {
                 console.log(error)
             })

@@ -1,7 +1,6 @@
 /*eslint-disable*/
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { setMenu } from '../../redux/actions/request'
 import { logout } from '../../redux/actions/auth';
