@@ -6,7 +6,6 @@ $primary-light: #6874b5;
   height: 400px;
   padding: 2rem 0 0 4rem;
   background-color: #ddd;
-  // agregar imagen a back-end
   background-image: url("https://cdn.discordapp.com/attachments/829710868413546511/829924062276485121/face.jpg");
   background-size: cover;
   background-position: center center;
@@ -26,9 +25,13 @@ $primary-light: #6874b5;
 }
 
 .landing-action {
+  width: 150px;
   border: none;
   background: $primary-light;
   color: #fff;
+  padding: 1rem 1rem;
+  border-radius: 9999px;
+  text-transform: capitalize;
   &:hover {
     opacity: 0.8;
   }
