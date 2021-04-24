@@ -540,3 +540,32 @@ export const updateReviewProduct = (id, newScore) => {
     }
   }
 };
+
+export const deleteUserReview = (id) => {
+  return async () => {
+    try {
+      await axios.delete(`http://localhost:3001/delete/review/${id}`)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+};
+
+export const editUserReview = (id, review) => {
+  console.log(id, review)
+  return async (dispatch) => {
+    try {
+      await axios.put(`http://localhost:3001/put/review/${id}`, review)
+      .then((res) => {
+        dispatch({
+          type: TYPES.PUT_NEW_USER_REVIEW,
+          payload: res.data
+        })
+      })
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+};
