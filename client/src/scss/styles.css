@@ -569,6 +569,17 @@ a.link {
   font-size: 15px;
 }
 
+.scoreCard {
+  display: flex;
+  position: absolute;
+  margin-left: -2px;
+  margin-top: -45px;
+  color: #f7f7f7;
+  font-size: 20px;
+  text-shadow: 1px 0 0 #424242, -1px 0 0 #424242, 0 1px 0 #424242, 0 -1px 0 #424242, 1px 1px #424242, -1px -1px 0 #424242, 1px -1px 0 #424242, -1px 1px 0 #424242;
+  white-space: pre;
+}
+
 .big-container {
   display: flex;
   flex-direction: column;
