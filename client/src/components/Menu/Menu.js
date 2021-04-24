@@ -14,16 +14,16 @@ function Menu() {
     const dispatch = useDispatch()
     const { menu } = useSelector((store) => store.reducerLoading)
     const { currentUser } = useSelector((store) => store.auth)
-    
+
     useEffect(() => {
-        if(currentUser?.roleId){
+        if (currentUser?.roleId) {
             setRol(currentUser.roleId)
         }
     }, [currentUser])
 
     useEffect(() => {
     }, [menu])
-  
+
     const showSidebar = () => {
         dispatch(setMenu(!menu))
     }
@@ -31,20 +31,15 @@ function Menu() {
     function handleLogOut() {
         dispatch(logout())
         location.assign("http://localhost:3000")
-      }
-      
+    }
+
     return (
         <>
             <IconContext.Provider value={{ color: ' #19f9a4 ' }}>
                 <nav className={menu ? 'navmenu active' : 'navmenu'}>
                     <ul className='navmenu-items'>
-                        <li className='navbarm-toggle'>
-                            <Link to='#' className='menu-bars'>
-                                <AiIcons.AiOutlineClose onClick={showSidebar} />
-                            </Link>
-                        </li>
                         {SidebarData.map((item, index) => {
-                            if(item.belong.includes(rol)){
+                            if (item.belong.includes(rol)) {
                                 return (
                                     <li key={index} className={item.cName}>
                                         <Link to={item.path} onClick={showSidebar}>
@@ -56,18 +51,18 @@ function Menu() {
                             }
                         })}
                         {
-          currentUser?.name ?
-            <button type="button" className="signin--btn" onClick={handleLogOut}>Log Out</button>
-            :
-            <>
-              <Link to="/signin">
-                <button className="signin--btn btn-primary" type="button">Sign in</button>
-              </Link>
-              <Link to="/register">
-                <button className="signin--btn btn-secondary" type="button">Sign up</button>
-              </Link>
-            </>
-        }
+                            currentUser?.name ?
+                                <button type="button" className="signin--btn" onClick={handleLogOut}>Log out</button>
+                                :
+                                <>
+                                    <Link to="/signin">
+                                        <button className="signin--btn btn-primary" type="button">Sign in</button>
+                                    </Link>
+                                    <Link to="/register">
+                                        <button className="signin--btn btn-secondary" type="button">Sign up</button>
+                                    </Link>
+                                </>
+                        }
                     </ul>
                 </nav>
             </IconContext.Provider>

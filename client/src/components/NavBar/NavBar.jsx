@@ -1,15 +1,18 @@
 /* eslint-disable  */
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/auth';
 import { setMenu } from '../../redux/actions/request'
+import { useSelector, useDispatch } from 'react-redux';
 import * as FaIcons from 'react-icons/fa';
+import * as IoIcons from 'react-icons/io';
+import * as HiIcons from 'react-icons/hi';
+
 import '../../scss/components/_navBar.scss';
 
 function NavBar() {
   const dispatch = useDispatch()
-  const {currentUser} = useSelector((store) => store.auth)
+  const { currentUser } = useSelector((store) => store.auth)
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const { menu } = useSelector((store) => store.reducerLoading)
 
@@ -22,14 +25,17 @@ function NavBar() {
     dispatch(setMenu(!menu))
   }
 
-  useEffect(()=> {
+  useEffect(() => {
   }, [currentUser])
 
   return (
     <nav className="navbar">
       <div className="navleft">
         <Link to="#" className="sandwich">
-          <FaIcons.FaBars onClick={showSidebar} className='iconmenu' />
+          {menu ?
+            <HiIcons.HiChevronDoubleLeft onClick={showSidebar} className='iconmenu' /> :
+            <FaIcons.FaBars onClick={showSidebar} className='iconmenu' />
+          }
         </Link>
 
         <ul className="nav-buttons_navigation">
@@ -48,17 +54,17 @@ function NavBar() {
             <i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i>
           </Link>
         </ul>
-       { currentUser?.name ?
-            <button type="button" className="signin--btn" onClick={handleLogOut}>Log Out</button>
-            :
-            <>
-              <Link to="/signin">
-                <button className="signin--btn btn-primary" type="button">Sign in</button>
-              </Link>
-              <Link to="/register">
-                <button className="signin--btn btn-secondary" type="button">Sign up</button>
-              </Link>
-            </>
+        {currentUser?.name ?
+          <button type="button" className="signin--btn logout" onClick={handleLogOut}>Log out</button>
+          :
+          <>
+            <Link to="/signin">
+              <button className="signin--btn btn-primary" type="button">Sign in</button>
+            </Link>
+            <Link to="/register">
+              <button className="signin--btn btn-secondary" type="button">Sign up</button>
+            </Link>
+          </>
         }
         {/* <div className="profile-img"></div> */}
       </div>
