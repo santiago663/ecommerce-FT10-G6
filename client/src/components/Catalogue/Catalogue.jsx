@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, allProductsScores } from "../../redux/actions/actionFront";
+import { allProductsScores } from "../../redux/actions/actionFront";
 import ProductCard from "../ProductCard/ProductCard";
 import Pagination from "../Pagination/Pagination";
 import Loading from "../Loading/Loading";
@@ -10,7 +10,6 @@ import "../../scss/containers/_catalogue.scss";
 function Catalogue() {
   const dispatch = useDispatch();
 
-  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
   const productsPerPage = useSelector((store) => store.reducerPagination.productsPerPage);
   const currentPage = useSelector((store) => store.reducerPagination.currentPage);

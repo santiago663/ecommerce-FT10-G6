@@ -13,10 +13,7 @@ function ProductCard(props) {
   const currentUser = useSelector((store) => store.auth.currentUser)
   const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder)
   const allScores = useSelector((store) => store.reducerProduct.allProductsScores)
-
-  const shoppingCart = useSelector(
-    (state) => state.reducerShoppingCart.shoppingCart
-  );
+  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const { data: { name, author, preview, id, price } } = props;
 
   const [score, setScore] = useState({})
