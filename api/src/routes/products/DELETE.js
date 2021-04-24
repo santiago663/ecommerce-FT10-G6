@@ -22,7 +22,7 @@ server.delete("/:id", async (req, res) => {
           where: { id: id },
         })
   
-      return res.status(200).json({ message: "Product deleted" });
+      return res.status(205).json({ message: "Product deleted" });
     }  
     else {
       return res.status(400).json({ message: "This product doesn't exist", status: 400});
