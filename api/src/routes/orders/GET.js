@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Orders, Products, Users } = require("../../db");
+const { Orders, Products, Users, Methods } = require("../../db");
 
 server.get("/users/:idUser/cart", async (req, res) => {
 const { idUser } = req.params;
@@ -40,7 +40,13 @@ const state = req.query.status;
             {
               model: Products,
               through: { attributes: [] },
-            }, ],
+            },
+            {
+              model: Methods,
+              through: { attributes: [] },
+            },
+          
+          ],
           }); 
           res.status(200).json(cart);
   }else{

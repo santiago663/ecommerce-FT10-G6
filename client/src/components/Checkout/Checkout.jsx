@@ -50,7 +50,7 @@ const Checkout = () => {
     <div className="Checkout">
       <div className="Checkout-conten">
         {shoppingCart.length > 0 ? (
-          <h3>Order # {currentOrder[0].id}</h3>
+          <h3>Order # {currentOrder[0]?.id}</h3>
         ) : (
           <h3>Empty Shopping Cart</h3>
         )}
@@ -83,7 +83,7 @@ const Checkout = () => {
             <button
               type="button"
               className="btn-primary"
-              onClick={() => handleCreatePreference(currentOrder[0].id)}
+              onClick={() => handleCreatePreference(currentOrder[0]?.id)}
             >
               Pagar
             </button>

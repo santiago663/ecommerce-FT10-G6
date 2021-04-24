@@ -15,7 +15,10 @@ module.exports = (sequelize) =>{
     state: {
         type: DataTypes.ENUM(["open", "pending", "cancelled", "completed", "loading"]),
         allowNull: true,
-    }
-     
+    },
+    payment: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },     
     })
 }
