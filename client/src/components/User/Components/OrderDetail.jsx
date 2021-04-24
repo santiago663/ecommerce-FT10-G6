@@ -31,8 +31,8 @@ function OrderDetail() {
   let createdTime;
   const setDate = (order) => {
     createdAt = new Date(order?.date);
-    createdDate = createdAt.toLocaleDateString("en-US");
-    createdTime = createdAt.toLocaleTimeString("en-US");
+    createdDate = createdAt.toLocaleDateString("es-AR");
+    createdTime = createdAt.toLocaleTimeString("es-AR");
     return (
       <h4>
         {createdDate} at {createdTime}
@@ -79,10 +79,10 @@ function OrderDetail() {
             {order.products.map((n) => (
               <div className="description">
                 <div className="productinfo">
-                  <h4 className="pr1">{n.name}</h4>
                   <Link className="link" to={`/product/${n.id}`}>
                     <img src={n.preview} alt={n.name} width="50" height="50" background-size="cover" />
                   </Link>
+                  <h4 className="pr1">{n.name}</h4>
                   <h4 className="pr1">${n.price}</h4>
                 </div>
               </div>
