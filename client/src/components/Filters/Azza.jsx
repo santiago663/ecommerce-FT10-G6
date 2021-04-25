@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderAsc, orderByCategories, orderByAuthor,orderStar, getBackup } from '../../redux/actions/actionFront';
 import Score from './Score'
-import './_Filter.scss';
+import './_Filters.scss';
 
 function Filter() {
 	const [toggle, setToggle] = useState(false);
