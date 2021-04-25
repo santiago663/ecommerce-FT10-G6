@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderAsc, orderByCategories, orderByAuthor, getBackup } from '../../redux/actions/actionFront';
-import './Filter.css';
+import './_filter.scss';
 
 function Filter() {
 	const [toggle, setToggle] = useState(false);
@@ -35,7 +35,7 @@ function Filter() {
 		<>
 			<div className="Container-Filter">
 				<button className="Boton-Reset" onClick={(e) => handleBackUp(e)}>
-					Reset
+					{`Reset  Filters`}
 				</button>
 				<div className="filter">
 					{selectAuthor && selectCategorie ? (
@@ -48,26 +48,26 @@ function Filter() {
 								<option default>Filter By Category</option>
 								{selectAuthor
 									? disponibleCategories &&
-									  disponibleCategories.map((C) => {
-											return <option value={C}>{C}</option>;
-									  })
+									disponibleCategories.map((C) => {
+										return <option value={C}>{C}</option>;
+									})
 									: allCategories &&
-									  allCategories.map((C) => {
-											return <option value={C.name}>{C.name}</option>;
-									  })}
+									allCategories.map((C) => {
+										return <option value={C.name}>{C.name}</option>;
+									})}
 							</select>
 
 							<select onChange={(e) => handleAuthor(e)}>
 								<option default>Filter By Author</option>
 								{!selectCategorie
 									? allArtist &&
-									  allArtist.map((a) => {
-											return <option value={a.name}>{a.name}</option>;
-									  })
+									allArtist.map((a) => {
+										return <option value={a.name}>{a.name}</option>;
+									})
 									: disponibleAuthor &&
-									  disponibleAuthor.map((a) => {
-											return <option value={a}>{a}</option>;
-									  })}
+									disponibleAuthor.map((a) => {
+										return <option value={a}>{a}</option>;
+									})}
 							</select>
 						</>
 					)}
