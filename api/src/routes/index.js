@@ -1,4 +1,4 @@
-const { Router } = require("express");
+const { Router, static } = require("express");
 const router = Router();
 
 
