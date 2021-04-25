@@ -127,7 +127,12 @@ export default function reducerProduct(state = initialState, action) {
 			};
 
 		case TYPES.GET_PRODUCT_REVIEW:
-			return { ...state, productReview: action.payload };
+
+			return {...state, productReview: action.payload};
+			
+		case TYPES.FILTER_PRODUCT_REVIEW:
+			//actualizo el state cuando se hace un delete
+			return {...state, productReview: action.payload};
 
 		case TYPES.ALL_PRODUCTS_SCORES:
 			return { ...state, allProductsScores: action.payload };
@@ -269,12 +274,12 @@ export default function reducerProduct(state = initialState, action) {
 				
 
 		case TYPES.POST_NEW_USER_REVIEW:
-			//guarda todos los reviews de un producto
+			//guarda los reviews antiguos y nuevos de los productos a los cuales se les hace review
 			return {...state, newProductReviews: action.payload};
 
 		case TYPES.PUT_NEW_USER_REVIEW:
-			//guarda el review editado
-			return {...state, editProductReviews: action.payload};
+			//guarda el review editado y sobreescribe lo que habia antes en newProductReviews
+			return {...state, newProductReviews: action.payload};
 
 
 		default:
