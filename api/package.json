@@ -32,6 +32,7 @@
     "pg": "^8.3.0",
     "sequelize": "^6.3.4",
     "sequelize-cli": "^6.2.0",
+    "stripe": "^8.145.0",
     "yarn": "^1.22.10"
   },
   "devDependencies": {
