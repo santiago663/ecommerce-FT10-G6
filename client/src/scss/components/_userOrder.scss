@@ -103,15 +103,13 @@
     padding: 10px 20px;
 }
 
-.productinfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
 .description {
     font-size: 15px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.seemore a {
+    font-size: 20px;
+    color: #19f9a4;
 }
