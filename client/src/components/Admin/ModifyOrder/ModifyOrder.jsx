@@ -1,41 +1,161 @@
 /*eslint-disable*/
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
+import { Dropdown } from 'primereact/dropdown';
+import { ProgressBar } from 'primereact/progressbar';
+import { Calendar } from 'primereact/calendar';
+import { MultiSelect } from 'primereact/multiselect';
+import { Toast } from 'primereact/toast';
 import { Link, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import EditOrder from './EditOrder/EditOrder';
-import '../../../scss/components/_modifyOrder.scss';
+import { getAllOrdersState } from '../../../redux/actions/actionUpgrade'
+//import '../../../scss/components/_modifyOrder.scss';
+import './OrdersEdit.scss';
 
 const ModifyOrder = () => {
-
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const allOrders = useSelector((store) => store.reducerOrderUser.allOrders)
+    const [orders, setOrders] = useState([])
+    const toast = useRef(null);
     const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
+    
+    useEffect(()=>{
+        setOrders(allOrders)
+    },[])
 
+    const onCellSelect = (event) => {
+        toast.current.show({ severity: 'info', summary: `Item Selected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
+        console.log(event.value)
+        console.log(selectedProduct)
+    }
+
+    const onCellUnselect = (event) => {
+        toast.current.show({ severity: 'warn', summary: `Item Unselected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
+        console.log(event.value)
+    }
+    
+    const toCapitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+    const orderState = useSelector(store => store.reducerOrderState.allOrderState)
+    
+    const dispatch = useDispatch()
+    const onChangeStatus = (e) => {
+        dispatch(getAllOrdersState(e.target.value))
+        
+    }
+    const handleFilterClient = (e)=>{
+    const filter = allOrders.filter(user => user.user.name.toLowerCase().includes(e.target.value.toLowerCase()))    
+    setOrders(filter)
+    }
+    const [products1, setProducts1] = useState(null);
+    const [products2, setProducts2] = useState(null);
+    const [products3, setProducts3] = useState(null);
+    const [products4, setProducts4] = useState(null);
+    const [editingRows, setEditingRows] = useState({});
+    const [editingCellRows, setEditingCellRows] = useState([]);
+    
+    const columns = [
+        { field: 'code', header: 'Code' },
+        { field: 'name', header: 'Name' },
+        { field: 'quantity', header: 'Quantity' },
+        { field: 'price', header: 'Price' }
+    ];
+
+    let originalRows = {};
+    let originalRows2 = {};
+
+    const dataTableFuncMap = {
+        'products1': setProducts1,
+        'products2': setProducts2,
+        'products3': setProducts3,
+        'products4': setProducts4
+    };
+    const statuses = [
+        { label: 'Open', value: 'open'},
+        { label: 'Loading', value: 'loading'},
+        { label: 'Pending', value: 'pending'},
+        { label: 'Cancelled', value: 'cancelled'},
+        { label: 'Completed', value: 'completed'}
+    ];
+    const onEditorValueChange = (productKey, props, value) => {
+        let updatedProducts = [...props.value];
+        updatedProducts[props.rowIndex][props.field] = value;
+        dataTableFuncMap[`${productKey}`](updatedProducts);
+    }
+    const statusEditor = (productKey, props) => {
+        return (
+            <Dropdown value={props.rowData['state']} options={statuses} optionLabel="label" optionValue="value"
+                onChange={(e) => onEditorValueChange(productKey, props, e.value)} style={{ width: '100%' }} placeholder="Select a Status"
+                itemTemplate={(option) => {
+                    return <span className={`product-badge status-${option.value.toLowerCase()}`}>{option.label}</span>
+                }} />
+        );
+    }
+    const getStatusLabel = (status) => {
+        switch (status) {
+            case 'open':
+                return 'Open';
+
+            case 'loading':
+                return 'Loading';
+
+            case 'pending':
+                return 'Pending';
+            
+            case 'cancelled':
+                return 'Cancelled';
+
+            case 'completed':
+                return 'Completed';
+
+            default:
+                return 'NA';
+        }
+    }
+    const statusBodyTemplate = (rowData) => {
+        // console.log("soy ROWDATA", rowData)
+        return getStatusLabel(rowData.state);
+    }
     return ( 
-        <div className='ModifyProduct'>
-             <div className="FilterAndProducts">
-                <div className='authorFilter'>
+        <div className='Orders'>
+            <Toast ref={toast} />
+            <div className="filterorders">
+                <div className="typesfilters">
+                    <button className="allOrders" onClick={()=>setOrders(allOrders)}>All Orders</button>
                 </div>
-                <div className="productContainer">
-                    {allUsers.length !==0 && allUsers.length !==0 
-                    ?<ul>
-                        {allUsers.length !== 0 && allUsers.map(m => {
-                            return(
-                                <li className="product" key={m.id}>
-                                    <Link to={`/Admin/Order/Edit/${m.id}`}>
-                                        <h3>•{m.email}</h3>
-                                        <h4>{m.name}</h4>
-                                    </Link>
-                                </li>           
-                            )
-                        })}
-                    </ul>
-                    : null
-                    }
-                </div> 
+                <div className="typesfilters">
+                    <b>Filter Client</b>
+                    <input className="inputfilter" type="text" placeholder="search client" onChange={handleFilterClient}/>
+                </div>
+                <div className="typesfilters">
+                        <b>Filter State</b>
+                    <div className="filterState">
+                        <div>
+                        <select className="selector" onChange={onChangeStatus}>
+                            <option value="open">Open</option>
+                            <option value="loading">Loading</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        </div>
+                        <div>
+                            <button className="btn-filter" onClick={()=>setOrders(orderState)}>Filtrar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className='compProd'>
-                {/* <Route exact path="/Admin/Order" component={EditOrder} /> */}
-                <Route exact path="/Admin/Order/Edit/:id" component={EditOrder} />
-            </div>
+            <DataTable value={orders} selectionMode="multiple" cellSelection onSelectionChange={e => setSelectedProduct(e.value)} dataKey="id"
+                    onCellSelect={onCellSelect} selection={selectedProduct} onCellUnselect={onCellUnselect} paginator rows={10}>
+                    <Column field="id" header="Order N°"></Column>
+                    <Column field="date" header="Date"></Column>
+                    <Column field="user.name" header="Client"></Column>
+                    <Column field="state" header="State" body={statusBodyTemplate} editor={(props) => statusEditor('products3', props)}></Column>
+                    <Column field="total" header="Total $"></Column>
+             </DataTable>
         </div>
     );
 }
