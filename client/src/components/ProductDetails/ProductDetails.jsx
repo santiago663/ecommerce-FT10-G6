@@ -136,26 +136,30 @@ function ProductDetails() {
             </div>
           </div>
           <div className="contecarrito">
-            <div className="btncarrito">
-              {!lStorage ? (
-                <button
-                  className="fas fa-cart-plus add btn"
-                  key={productCache.id}
-                  onClick={() =>
-                    handleAddToCart(productCache, currentUser, currentOrder)
-                  }
-                >ADD</button>
-              ) : (
-                <button
-                  className="fas fa-cart-arrow-down remove btn"
-                  key={productCache.id}
-                  onClick={() =>
-                    handleRemoveFromCart(productCache, currentUser, currentOrder)
-                  }
-                >
-                  REMOVE</button>
-              )}
-            </div>
+            {available === "Available"
+            ?
+              <div className="btncarrito">
+                {!lStorage ?  (
+                  <button
+                    className="fas fa-cart-plus add btn"
+                    key={productCache.id}
+                    onClick={() =>
+                      handleAddToCart(productCache, currentUser, currentOrder)
+                    }
+                  >ADD</button>
+                ) : (
+                  <button
+                    className="fas fa-cart-arrow-down remove btn"
+                    key={productCache.id}
+                    onClick={() =>
+                      handleRemoveFromCart(productCache, currentUser, currentOrder)
+                    }
+                  >
+                    REMOVE</button>
+                )}
+              </div>
+            :null
+            }
           </div>
         </div>
       </div>

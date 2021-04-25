@@ -16,7 +16,8 @@ const review = await Reviews.findOrCreate({
 if(review[1]){ 
     
 const response = await Reviews.findAll({
-    where: { productId }
+    where: { productId },
+    include: [{ model: Users }]
 })
     res.status(200).json(response)
 } else {

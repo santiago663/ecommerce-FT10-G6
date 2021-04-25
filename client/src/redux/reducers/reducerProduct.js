@@ -13,7 +13,9 @@ const initialState = {
 	categorie: false,
 	score:false,
 	productReview: [],
+	newProductReviews: [],
 	allProductsScores: [],
+	editProductReviews: [],
 };
 
 export default function reducerProduct(state = initialState, action) {
@@ -179,6 +181,7 @@ export default function reducerProduct(state = initialState, action) {
 							return -1;
 						}
 
+
 						return 0;
 					});
 
@@ -264,6 +267,16 @@ export default function reducerProduct(state = initialState, action) {
 					};
 				}
 				
+
+		case TYPES.POST_NEW_USER_REVIEW:
+			//guarda todos los reviews de un producto
+			return {...state, newProductReviews: action.payload};
+
+		case TYPES.PUT_NEW_USER_REVIEW:
+			//guarda el review editado
+			return {...state, editProductReviews: action.payload};
+
+
 		default:
 			return state;
 	}
