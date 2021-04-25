@@ -9,6 +9,7 @@ export const editCurrentUser = (userId, user) => (
         try {
             axios.put(`http://localhost:3001/put/user/${userId}`, user)
                 .then((res) => {
+                    localStorage.setItem("CurrentUser", JSON.stringify(res.data.user))
                     dispatch(setCurrentUser(res.data.user));
                 }).catch((error) => console.error(error))
         } catch (error) {
@@ -19,3 +20,4 @@ export const editCurrentUser = (userId, user) => (
         }
     }
 )
+
