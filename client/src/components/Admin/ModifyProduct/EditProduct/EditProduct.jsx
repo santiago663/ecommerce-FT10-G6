@@ -142,18 +142,15 @@ function EditProduct() {
     }
 
     if(productOrError && productOrError.status === 200){
-
         if(id){
             let allProductsCop = allProducts
             if(product.id !==0 ){
 
                 let indice = allProductsCop.findIndex((elemento) => {
-                    
                     if(elemento.id === Number(id)) return true;
                 });
                 
                 if(indice !== -1 ){
-                    
                     allProductsCop[indice] = product
                 }
                 allProductsCop=[] 
@@ -169,11 +166,10 @@ function EditProduct() {
 
     return (
         <div className="mainDivEP">
+            <Link className="nav-link" to="/Admin/Product">
+                <li>Add Products</li>
+            </Link>
             <h2 className="title">Edit Product</h2>
-            <Link 
-                className="nav-link" 
-                to="/Admin/Product"
-            ><li>Add Products</li></Link>
             <div className="divEP">
                 <form 
                     className="formEP" 
@@ -184,7 +180,7 @@ function EditProduct() {
                         Name: 
                         <input 
                             required
-                            className="input" type="text" 
+                            className="inputprod" type="text" 
                             onChange={handleInputChange} 
                             value={product.name} 
                             name="name" 
@@ -194,7 +190,7 @@ function EditProduct() {
                         Description: 
                         <input
                             required
-                            className="input" 
+                            className="inputprod" 
                             type="text" 
                             onChange={handleInputChange} 
                             value={product.description} 
@@ -205,7 +201,7 @@ function EditProduct() {
                         Price: 
                         <input 
                             required
-                            className="input"
+                            className="inputprod"
                             type="text" 
                             onChange={handleInputChangePri} 
                             value={product.price} 
@@ -214,7 +210,8 @@ function EditProduct() {
                     </div>
                     <div>
                         Available:
-                        <select 
+                        <select
+                            className="selector"
                             name="available" 
                             id="selectorAvEP" 
                             value={product.available ? "Yes" : "No"} 
@@ -228,7 +225,7 @@ function EditProduct() {
                         FileLink: 
                         <input 
                             required
-                            className="input"
+                            className="inputprod"
                             type="text" 
                             onChange={handleInputChange} 
                             value={product.fileLink} 
@@ -239,7 +236,7 @@ function EditProduct() {
                         Preview: 
                         <input 
                             required
-                            className="input"
+                            className="inputprod"
                             type="text" 
                             onChange={handleInputChange} 
                             value={product.preview} 
@@ -249,6 +246,7 @@ function EditProduct() {
                     <div>
                         Artist:
                         <select 
+                            className="selector"
                             name="author" 
                             id="selectorArEP" 
                             onChange={handleInputChangeAr}
@@ -262,7 +260,8 @@ function EditProduct() {
                     </div>
                     <div>
                         Series:
-                        <select 
+                        <select
+                            className="selector"
                             name="series" 
                             id="selectorSeAP" 
                         >
@@ -273,7 +272,8 @@ function EditProduct() {
                     </div>
                     <div>
                         Categories:
-                        <select 
+                        <select
+                            className="selector" 
                             name="categories" 
                             id="selectorCaAP" 
                             value={""} 
@@ -298,6 +298,11 @@ function EditProduct() {
                         onClick={deleteProducts} 
                     />
                 </form>
+            </div>
+            <div className="imgfile">
+                <div className="image">
+                    <img className="image" src={product.preview} />
+                </div>
             </div>
                 {boolean === true ? 
                     <div className="divDelete">Do you want to delete this product?
