@@ -2,49 +2,100 @@
     background-color: rgba(1, 1, 1, 0.8);
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 710px;
     top: 0;
     left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     animation-name: grow;
-  animation-duration: 0.3s;
+    animation-duration: 200ms;
 
     .modal {
-        width: 800px;
-        background-color: white;
+        width: 500px;
         padding: 15px;
         position: relative;
         border: 1px solid rgba(0, 0, 0, 0.075);
-        box-shadow: 0px 5px 10px 5px #00000010;        
+        box-shadow: 0px 5px 10px 5px #00000010;
+        background-color: #24262c;
+        
+        hr{
+            border: 0.5px solid #1f2025;
+            
+        }
     }
 }
 
+.title{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #13ae73;
+    .subtitle h2{
+        color: rgb(146, 146, 146);
+        margin-left: 5px;
+        font-weight: 300;
+    }
+  
+}
+
+.productinfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    h4{
+        color: rgb(146, 146, 146);
+    }
+}
+
+.productinfo-right {
+    display: flex;
+    width: 150px;
+    color: #929292;
+    align-items: center;
+
+    img{
+        margin-right: 10px;
+    }
+
+    
+}
+
 .generalinfo {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
+    
+    .timedata{
+        color: rgb(146, 146, 146);
+        font-weight: 400;
+        font-size: 13px;
+    }
 
     .timeIcon {
         color: #19f9a4;
-        font-size: 30px;
-        margin: 0px 10px;
+        font-size: 18px;
+        margin-right: 10px;
     }
 }
 
 .modalFooter {
     margin: 15px;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
 
 .totalprice {
     text-align: right;
     margin-left: 20px;
+    color: rgb(146, 146, 146);
+        h2{
+            color: #19f9a4;
+        }
+
 }
 }
 
@@ -55,19 +106,69 @@ justify-content: flex-end;
     font-size: 30px;
     color: #1b1b1b;
     transition: 350ms;
-    
+    &:hover{
+        color: #13ae73;
+    }
+
 }
 
-.closeWindow a:hover{
+
+
+.buyit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 1px 2px #19f9a4;
+    background-color: #24262c;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 15px;
+    width: 80px;
+    transition: 250ms;
+    cursor: pointer;
+    border: none;
+    animation-name: coloring;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.seemore a {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    color: #19f9a4;
+}
+
+.buyit:hover {
     color: #19f9a4;
 }
 
 @keyframes grow {
     0% {
       opacity: 0;
+      top: -1000px;
     }
   
     100% {
       opacity: 1;
+      top:0px;
+    }
+  }
+
+@keyframes coloring {
+    0% {
+      color:#24262c;
+    }
+    25% {
+        color: #19f9a4;
+    }
+    50%{
+        color:#24262c;    
+    }
+    75%{
+        color: #19f9a4;
+    }
+    100% {
+        color:#24262c;
     }
   }
