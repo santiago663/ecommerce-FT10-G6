@@ -84,3 +84,17 @@ export const allProductsScores = (allScores) => (dispatch) =>{
     payload: allScores
   })
 }
+
+export const filterNewProductReviews = (reviews) => (dispatch) =>{ 
+  dispatch({
+    type: TYPES.PUT_NEW_USER_REVIEW,
+    payload: reviews
+  })
+}
+
+export const filterAllProductReviews = (reviews) => (dispatch) =>{ 
+  dispatch({
+    type: TYPES.FILTER_PRODUCT_REVIEW,
+    payload: reviews
+  })
+}

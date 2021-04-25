@@ -3,24 +3,22 @@ const { Users, Orders, Reviews } = require("../../db");
 
 server.put("/:id", async (req, res) => {
 
-    const { comment, score } = req.body;
+    const { comment, score, productId } = req.body;
     const { id } = req.params;
 
     try {
 
-        const reviewDelete = await Reviews.update(
-            {
-                comment,
-                score
-            },
-            {
-                where: { id },
-                returning: true,
-                plain: true
-            }, 
+        await Reviews.update(
+            { comment, score },
+            { where: { id } },
         )
-        res.status(200).json(reviewDelete[1])
-        
+
+        const response = await Reviews.findAll({
+            where: { productId },
+            include: [{ model: Users }]
+        })
+        res.status(200).json(response)
+
     }
     catch (error) {
         console.log(error)

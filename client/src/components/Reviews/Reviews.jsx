@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postUserReview, updateReviewProduct, deleteUserReview, editUserReview } from "../../redux/actions/actionBack";
-import { allProductsScores } from "../../redux/actions/actionFront"
+import { allProductsScores, filterNewProductReviews, filterAllProductReviews } from "../../redux/actions/actionFront"
 import { getAllUserOrders } from "../../redux/actions/actionOrder";
 import "../../scss/components/_reviews.scss";
 
@@ -17,47 +17,61 @@ function Reviews({ currentUser, productId }) {
     const productReview = useSelector((store) => store.reducerProduct.productReview);
     const userOrders = useSelector((store) => store.reducerOrderUser.userOrders);
     const allScores = useSelector((store) => store.reducerProduct.allProductsScores);
-    const newReview = useSelector((store) => store.reducerProduct.newProductReviews);
+    const newReviews = useSelector((store) => store.reducerProduct.newProductReviews);
+    const newProductReview = newReviews.filter(review => review.productId == productId)
 
     //filtro por las ordenes completadas
     let completedUserOrder = userOrders.filter(order => order.state === "completed")
 
     //Verifico si puedo dejar un review
     let canReview = completedUserOrder.filter(order => order.products.find(product => product.id == productId))
-    if (productReview.find(review => review.userId == currentUser.id)) canReview = false
-
-    //saco el promedio del score
-    let score;
-    if (productReview.map(review => review.score)[0]) {
-        score = (productReview.map(review => review.score).reduce((a, b) => a + b) / productReview.length).toFixed(1)
-    }
+    if (productReview.find(review => review.userId == currentUser.id)) canReview = false 
 
     //Add review states
     const [review, setReview] = useState({ comment: "", score: 0 })
     const [eReview, setNewReview] = useState({ comment: "", score: 0 })
     const [allProductReviews, setProductReviews] = useState([])
-    const [change, setChange] = useState({ a: true, b: true, c: true, d: true })
+    const [change, setChange] = useState({ a: true, b: true, c: true, d: true, e: true, f: true, g: true })
+    const [canReview2, setCanReview2] = useState({a: false})
 
     //Guardo los reviews del producto en un state
     useEffect(() => {
-        if (productReview[0]) setProductReviews(productReview.filter(product => product.productId == productId))
+        if (productReview[0]) setProductReviews(productReview.filter(product => product.productId == productId))        
     }, [productReview[0]])
 
+    //guardo los nuevos reviews cuando se agregan
+    useEffect(() => {        
+        if (newProductReview?.slice(-1)[0]?.id !== "delete") {
+            setProductReviews([...newProductReview])
+            setChange({ ...change, a: false, e: false })
+        }
+        else if (newProductReview?.slice(-1)[0]?.id == "delete") {
+            setProductReviews([])
+            setChange({ ...change, a: false, e: false })
+        }
+    },[newProductReview?.slice(-1)[0]?.updatedAt])
+
     //Modifico el score del producto en el back
-    useEffect(() => {
-        if (review.score) {
-            var newScore = (allProductReviews.map(review => review.score).reduce((a, b) => a + b) / allProductReviews.length).toFixed(1)
+    useEffect(() => {        
+        if (!change.e) {             
+            var newScore;
+            if (!allProductReviews[0]) newScore = "-"
+            else newScore = (allProductReviews.map(review => review.score).reduce((a, b) => a + b) / allProductReviews.length).toFixed(1)
+            //aprovecho de modificar allScores con el nuevo score para despacharlo en el siguiente useEffect
             if (allScores.find(product => product.id == productId)) {
                 allScores.find(product => product.id == productId).score = newScore.toString()
             }
             dispatch(updateReviewProduct(productId, newScore.toString()))
-            setChange({ ...change, b: false })
+            setChange({ ...change, b: false, e: true })
         }
     }, [change.a])
 
-    //Modifico los scores de los productos en el front
+    //Ultimo useEffect para modificar los scores de los productos en el front
     useEffect(() => {
-        if (allScores) dispatch(allProductsScores(allScores))
+        if (allScores && !change.b) {
+            dispatch(allProductsScores(allScores))
+            setChange({ ...change, a: true, b: true })
+        }
     }, [change.b])
 
     //handle score
@@ -69,7 +83,7 @@ function Reviews({ currentUser, productId }) {
     //handle score edit
     function handleInputChangeScEdit(event) {
         event.preventDefault()
-        // setChange({ ...change, c: true })
+        setChange({ ...change, c: true })
         setNewReview({ ...eReview, score: Number(event.target.value) })
     }
 
@@ -89,7 +103,7 @@ function Reviews({ currentUser, productId }) {
         event.preventDefault()
         if (review.score) {
             dispatch(postUserReview(productId, currentUser.id, review))
-
+            setChange({ ...change, f: false })
         }
         else setChange({ ...change, c: false })
     }
@@ -98,27 +112,29 @@ function Reviews({ currentUser, productId }) {
     function submitReviewEdit(event) {        
         event.preventDefault()
         if (eReview.score) {
-            dispatch(editUserReview(allProductReviews.find(review => review.userId == currentUser?.id).id, eReview))
-            // setProductReviews(allProductReviews.slice(0, allProductReviews.length - 1))
+            dispatch(editUserReview(allProductReviews.find(review => review.userId == currentUser?.id).id, {...eReview, productId}))
             setChange({ ...change, d: true })
         }
-        // else setChange({ ...change, c: false })
-    }
+        else setChange({ ...change, c: false })
+    } 
 
-    useEffect(() => {
-        if (newReview.slice(-1)[0]?.id) {
-            setChange({ ...change, a: false })
-            setProductReviews([...allProductReviews, ...newReview.slice(-1)])
-        }
-    }, [newReview?.slice(-1)[0]?.id])
-
+    //funcion para abrir input de edit review
     function editReview() {
         setChange({ ...change, d: false })
-    }
+    }    
 
+    //borrar un review
     function deleteReview() {
         dispatch(deleteUserReview(allProductReviews.find(review => review.userId == currentUser?.id).id))
-        setProductReviews(allProductReviews.slice(0, allProductReviews.length - 1))
+        setProductReviews(allProductReviews.filter(review => review.userId != currentUser.id))
+        dispatch(filterAllProductReviews(allProductReviews.filter(review => review.userId != currentUser.id)))
+        dispatch(filterNewProductReviews(
+            allProductReviews.filter(review => review.userId != currentUser.id)[0] ?
+            allProductReviews.filter(review => review.userId != currentUser.id) :
+            [{id: "delete"}]
+        ))
+        setCanReview2({a:true})
+        setChange({ ...change, a: true, e: false, f: true })
     }
 
     var key = 1
@@ -143,7 +159,7 @@ function Reviews({ currentUser, productId }) {
                     <span className="noReviewsYet">No reviews yet  :(</span>
                 }
             </div>
-            {canReview[0] && change.a ?
+            {(canReview[0] || canReview2.a) && change.f ?
                 <div className="add-review">
                     <span>Add review</span>
                     <div>
