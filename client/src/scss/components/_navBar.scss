@@ -3,12 +3,29 @@ $primary: #24262c;
 nav {
   height: 5rem;
   width: 100%;
+  min-width: 320px;
   padding: 1rem 2rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.877);
+  @media only screen and(max-width: 560px) {
+    font-size: 13px;
+    padding: 0rem 0.5rem;
+    .nav-buttons_navigation {
+      position: absolute;
+      left: 55px;
+      top: 1px;
+      background-color: #363636;
+      box-shadow: 0px 1px 2px 2px #00000071;
+      border-bottom-left-radius: 27px;
+      border-bottom-right-radius: 27px;
+      &:hover {
+        box-shadow: 0px 2px 5px 0px #19f9a4;
+      }
+    }
+  }
   background-image: linear-gradient(
       216deg,
       rgba(77, 77, 77, 0.05) 0%,
@@ -61,7 +78,7 @@ nav {
   height: 3rem;
   margin: 0 0.2rem;
   padding: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
   color: #ddd;
   border-bottom: 3px solid #ddd;
@@ -71,6 +88,23 @@ nav {
   &:hover {
     background-color: #24262c;
     border-bottom: 3px solid #19f9a4;
+  }
+  @media only screen and(max-width: 560px) {
+    font-size: 13px;
+    height: 0.1rem;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 3px;
+    &:hover {
+      color: #19f9a4;
+      border-bottom: none;
+      background-color: transparent;
+    }
   }
 }
 

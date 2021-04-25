@@ -33,6 +33,9 @@
     left: -100%;
     transition: 450ms;
     z-index: 1;
+    @media only screen and(max-width: 560px) {
+        max-width: 100px;
+    }
 }
 
 .navmenu.active {
