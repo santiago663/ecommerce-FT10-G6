@@ -33,22 +33,24 @@ function CreateAuthor() {
  
   function handleSubmit(e) {
     e.preventDefault();
-    
+
     const author = {
       name: input.name,
       email: input.email,
     };
+    if(author.name !== " " && author.email !== " "){
 
-    dispatch(addAuthor(author));
-    dispatch( getAllAuthors());
-    location.reload();
 
-    setInput({
-      ...input,
-      name: '',
-      email: '',
-    });
-
+      dispatch(addAuthor(author));
+      dispatch( getAllAuthors());
+      location.reload();
+      
+      setInput({
+        ...input,
+        name: '',
+        email: '',
+      });
+    }
   }
 
   if(productOrError.status === 200){
@@ -56,7 +58,6 @@ function CreateAuthor() {
       alertSucces();
       productOrError.status = 0
   }
-
 
   return (
     <div className="mainDivEP">

@@ -5,14 +5,13 @@
         margin:20px;
     }
     .box{
-        width: 150vh;
         margin: 10px;
         border: 1px solid rgb(112, 104, 85);
         background-color: beige;
         border-radius: 10px;
         .everyOrders{
-            margin: 10px;
-            padding: 10px;
+            // margin: 10px;
+            // padding: 10px;
             .dateUser{
                 margin: 10px;
                 .user{
@@ -54,15 +53,15 @@
                                 }
                             }
                         }
-                        .TOTAL{
-                            background-color: rgb(255, 255, 255);
-                            .totalPrice{
-                                text-align: right;
-                                padding: 10px;
-                                margin-right: 150px;
-                                font-size: 17px;
-                            }
-                        }
+                        // .TOTAL{
+                        //     background-color: rgb(255, 255, 255);
+                        //     .totalPrice{
+                        //         text-align: right;
+                        //         padding: 10px;
+                        //         margin-right: 150px;
+                        //         font-size: 17px;
+                        //     }
+                        // }
                         .oneProduct{
                             border: 0.2px solid rgb(165, 197, 225);
                             background-color: rgb(177, 206, 232);
@@ -72,16 +71,132 @@
                                     width: 20px;
                                     background-color: rgb(177, 206, 232);
                                     .date{
-                                        display: inline-block;
-                                        margin: 5px;
-                                        padding: 5px;
-                                        text-align: justify;
-                                        font-size: 15px;
+                                        display: flex;
+                                        // margin: 5px;
+                                        // padding: 5px;
+                                        // text-align: justify;
+                                        // font-size: 15px;
                                     }
                                 }
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+.p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+}
+
+.datatable .p-paginator .p-paginator-current {
+    margin-left: auto;
+}
+
+.datatable .p-progressbar {
+    height: .5rem;
+    background-color: #D8DADC;
+}
+
+.datatable .p-progressbar .p-progressbar-value {
+    background-color: #607D8B;
+}
+
+.datatable .table-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.datatable .p-datepicker {
+    min-width: 25rem;
+}
+
+.datatable .p-datepicker td {
+    font-weight: 400;
+}
+
+.datatable .p-datatable.p-datatable-customers .p-datatable-header {
+    padding: 1rem;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+.datatable .p-datatable.p-datatable-customers .p-paginator {
+    padding: 1rem;
+}
+
+.datatable .p-datatable.p-datatable-customers .p-datatable-thead > tr > th {
+    text-align: left;
+}
+
+.datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
+    cursor: auto;
+}
+
+.datatable .p-datatable.p-datatable-customers .p-dropdown-label:not(.p-placeholder) {
+    text-transform: uppercase;
+}
+
+.datatable .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+}
+
+@media screen and (max-width: 960px) {
+    .datatable .p-datatable.p-datatable-customers .p-datatable-thead > tr > th,
+    .datatable .p-datatable.p-datatable-customers .p-datatable-tfoot > tr > td {
+        display: none !important;
+    }
+
+    .datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr {
+        border-bottom: 1px solid var(--layer-2);
+    }
+
+    .datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
+        text-align: left;
+        display: block;
+        border: 0 none !important;
+        width: 100% !important;
+        float: left;
+        clear: left;
+        border: 0 none;
+    }
+
+    .datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
+        padding: .4rem;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4rem 1rem -.4rem -.4rem;
+        font-weight: bold;
+    }
+
+    .datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-progressbar {
+        margin-top: .5rem;
+    }
+}
+
+@media screen and (max-width: 40em) {
+    .p-datatable {
+        &.p-datatable-responsive-demo {
+            .p-datatable-thead > tr > th,
+            .p-datatable-tfoot > tr > td {
+                display: none !important;
+            }
+
+            .p-datatable-tbody > tr > td {
+                text-align: left;
+                display: block;
+                border: 0 none !important;
+                width: 100% !important;
+                float: left;
+                clear: left;
+
+                .p-column-title {
+                    padding: .4rem;
+                    min-width: 30%;
+                    display: inline-block;
+                    margin: -.4em 1em -.4em -.4rem;
+                    font-weight: bold;
                 }
             }
         }

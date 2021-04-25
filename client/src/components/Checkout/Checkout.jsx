@@ -1,5 +1,5 @@
 /* eslint-disable  */
-import "./Checkout.css";
+import "./_checkout.scss";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/actionFront";
@@ -47,53 +47,57 @@ const Checkout = () => {
   };
 
   return (
-    <div className="Checkout">
-      <div className="Checkout-conten">
-        {shoppingCart.length > 0 ? (
-          <h3>Order # {currentOrder[0]?.id}</h3>
-        ) : (
-          <h3>Empty Shopping Cart</h3>
-        )}
-        <div className="Checkout-item">
-          {shoppingCart &&
-            shoppingCart.map((item, i) => {
-              return (
-                <div className="Checkout-element" key={i}>
-                  <h4>{item.name}</h4>
-                  <img src={item.preview} width="100" />
-                  <span>${item.price}</span>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleRemoveFromCart(item, currentUser, currentOrder)
-                    }
-                    className="Trash-item"
-                  >
-                    <i className="fas fa-trash"></i>
-                  </button>
-                </div>
-              );
-            })}
+    <div className="checkout-container">
+      <div className="Checkout">
+        <div className="Checkout-content">
+          {shoppingCart.length > 0 ? (
+            <h3>Order # {currentOrder[0]?.id}</h3>
+          ) : (
+            <h3>Empty Shopping Cart</h3>
+          )}
+          <div className="Checkout-item">
+            {shoppingCart &&
+              shoppingCart.map((item, i) => {
+                return (
+                  <div className="Checkout-element" key={i}>
+                    <img src={item.preview} width="100" />
+                    <div className="price-item">
+                      <h4>{item.name}</h4>
+                      <div className="price-item__checkout">${item.price}</div>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleRemoveFromCart(item, currentUser, currentOrder)
+                        }
+                        className="Trash-item"
+                      >
+                        <i className="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         </div>
-      </div>
-      {shoppingCart && shoppingCart.length > 0 ? (
-        <div className="Checkout-sidebar">
-          <h3>{`Total Price : $ ${handleSumTotal()}`}</h3>
-          <Link to="/checkout/information" >
-            <button
-              type="button"
-              className="btn-primary"
-              onClick={() => handleCreatePreference(currentOrder[0]?.id)}
-            >
-              Pagar
+        {shoppingCart && shoppingCart.length > 0 ? (
+          <div className="Checkout-sidebar">
+            <h3>Total Price : <span>${handleSumTotal()}</span></h3>
+            <Link to="/checkout/information" >
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={() => handleCreatePreference(currentOrder[0]?.id)}
+              >
+                Pagar
             </button>
-          </Link>
-        </div>
-      ) : (
-        <div>
-          <h3>You dont have a items pending</h3>
-        </div>
-      )}
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <h3>You dont have a items pending</h3>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

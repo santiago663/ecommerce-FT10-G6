@@ -14,6 +14,8 @@ import Payment from '../components/Payment/Payment';
 import Register from '../components/Auth/Register';
 import PrivateRoute from '../app/PrivateRoute'
 import PrivateRouteGuest from '../app/PrivateRouteGuest'
+import PrivateRouteUser from '../app/PrivateRouteUser'
+
 import User from '../components/User/User';
 import Menu from '../components/Menu/Menu'
 
@@ -30,7 +32,7 @@ const routes = () => (
     <Route path="/product/:id" component={ProductDetails} />
     <PrivateRouteGuest path="/signin" component={SignIn} />
     <PrivateRouteGuest path="/register" component={Register} />
-    <Route path="/user" component={User} />
+    <PrivateRouteUser path="/user" component={User} />
   </Router>
 );
 

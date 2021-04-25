@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import * as AiIcons from 'react-icons/ai';
 import "../../../scss/components/_userOrder.scss";
 
 export default function UserOrders() {
@@ -22,8 +23,8 @@ export default function UserOrders() {
   let createdTime;
   const setDate = (order) => {
     createdAt = new Date(order.date);
-    createdDate = createdAt.toLocaleDateString("en-US");
-    createdTime = createdAt.toLocaleTimeString("en-US");
+    createdDate = createdAt.toLocaleDateString("es-AR");
+    createdTime = createdAt.toLocaleTimeString("es-AR");
     return ( <h4>{createdDate} at {createdTime}</h4>)
   };
   return (
@@ -44,10 +45,7 @@ export default function UserOrders() {
       {userOrders.length !== 0 &&
         userOrders.map((order, index) => (
           <>
-            <div
-              className="orderPreview"
-              onClick={(e) => handleActive(e, index)}
-            >
+            <div className="orderPreview" >
               <div className="option">
                   {setDate(order)}
               </div>
@@ -56,6 +54,11 @@ export default function UserOrders() {
               </div>
               <div className="option">
                 <h4 className="orderID1">${order.total}</h4>
+              </div>
+              <div className="seemore">
+                <Link to={`/user/orders/${order.id}`}>
+              <AiIcons.AiFillEye/>
+              </Link>
               </div>
             </div>
             <div className="orderDescription">

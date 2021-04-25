@@ -29,7 +29,7 @@ server.delete("/:id", async (req, res) => {
       return res.status(400).json({ message: "The author doesn't exist", status: 400 });
     }
     else {
-      return res.status(200).json({ message: "Author deleted", status: 200 });
+      return res.status(205).json({ message: "Author deleted", status: 200 });
     } 
 
   } catch (err) {

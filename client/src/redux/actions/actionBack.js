@@ -427,7 +427,7 @@ export const deleteCategory = (categoryId) => (
         .then((res) => {
           dispatch({
             type: TYPES.DELETE_CATEGORY,
-            payload: res.data
+            payload: res
           });
           dispatch(requestSuccess())
         }).catch((error) => console.error(error))
