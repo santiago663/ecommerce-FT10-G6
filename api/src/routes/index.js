@@ -43,11 +43,11 @@ router.use("/get/review", require("./reviews/GET"));
 router.use("/post/review", require("./reviews/POST"));
 router.use("/put/review", require("./reviews/PUT"));
 router.use("/delete/review", require("./reviews/DELETE"));
-
  //=> auth
 router.use("/emails", require("./auth/POST"));
-
-// => Mercado pago
-router.use("/get/mercadopago", require("./mercadoPago/GET"));
+// => Payments
+router.use("/get/payments", require("./payments/GET"));
+// => Middleware
+router.use(static("."));
 
 module.exports = router;
