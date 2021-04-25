@@ -1,9 +1,10 @@
 $primary: #24262c;
 
-nav {
+.navbar {
+  position: fixed;
+  z-index: 9999;
   height: 5rem;
   width: 100%;
-  min-width: 320px;
   padding: 1rem 2rem;
   display: flex;
   flex-direction: row;
@@ -13,12 +14,13 @@ nav {
   @media only screen and(max-width: 560px) {
     font-size: 13px;
     padding: 0rem 0.5rem;
+    min-width: 320px;
     .nav-buttons_navigation {
       position: absolute;
       left: 55px;
-      top: 1px;
-      background-color: #363636;
-      box-shadow: 0px 1px 2px 2px #00000071;
+      top: -2px;
+      background-color: #24262c;
+      box-shadow: 0px 1px 2px 2px #000000c9;
       border-bottom-left-radius: 27px;
       border-bottom-right-radius: 27px;
       &:hover {
