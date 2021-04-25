@@ -56,7 +56,7 @@ export default function Profile() {
             confirmButtonText: `Save`,
             denyButtonText: `Don't save`,
           }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
+
             if (result.isConfirmed) {
               setActive(false);
               dispatch( editCurrentUser(currentUser.id, user) );
