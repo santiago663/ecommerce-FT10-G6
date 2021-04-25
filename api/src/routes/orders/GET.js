@@ -42,8 +42,7 @@ const state = req.query.status;
               through: { attributes: [] },
             },
             {
-              model: Methods,
-              through: { attributes: [] },
+               model: Methods,
             },
           
           ],
