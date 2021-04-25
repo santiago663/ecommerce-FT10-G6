@@ -2,21 +2,19 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderStar, getBackup, choiseStar } from '../../redux/actions/actionFront';
-import './_Filter.scss';
+import './_Filters.scss';
 
 function Score() {
 	const [toggle, setToggle] = useState(false);
 	const dispatch = useDispatch();
    const selectAuthor = useSelector((state) => state.reducerProduct.allProductCache);
    
-   useState(()=>{
-
-   },[selectAuthor])
+  
 
 const handleStar = (e) => {
 	toggle ? setToggle(false) : setToggle(true);
 	dispatch(orderStar(e.target.name));
-   dispatch(getBackup());
+   
 };
 
 const handleChoiseStar = (e)=>{
