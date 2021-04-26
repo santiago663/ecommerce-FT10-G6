@@ -73,7 +73,7 @@ server.post('/', async (req, res) => {
 				await newOrder.addProducts(productId[i], {
 					through: { price: price[i] },
 				});
-				console.log("**** holaaa****2",newOrder)
+	
 				idOrder = newOrder.id;
 
 			} else {
