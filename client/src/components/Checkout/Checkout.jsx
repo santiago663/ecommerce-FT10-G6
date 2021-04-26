@@ -36,9 +36,9 @@ const Checkout = () => {
       );
       history.push("/checkout");
       Swal.fire({
-        title: "Gracias por tu compra!",
+        title: "Thanks for your purchase!",
         text:
-          "Se enviara los links de descarga y datos adicionales a correo registrado",
+          "Download links and additional data will be sent to the registered email",
         icon: "success",
         confirmButtonText: "OK",
       })
@@ -46,9 +46,9 @@ const Checkout = () => {
         .then(() => history.push("/Browser/products"));
     } else if (query.get("canceled")) {
       Swal.fire({
-        title: "Declinado",
+        title: "Declined",
         text:
-          "Declinaste el pago? si necesitas información adicional o ayuda, escríbenos. Sera un gusto atenderte",
+          "Did you decline the payment? If you need additional information or help, write to us. It will be a pleasure to assist you",
         icon: "warning",
         confirmButtonText: "OK",
       }).then(() => history.push("/checkout"));
@@ -85,6 +85,24 @@ const Checkout = () => {
     if (currentOrder.length > 0) {
       dispatch(mercadoPago(currentOrder[0].id));
       dispatch(stripe(currentOrder[0].id));
+      history.push("/checkout/information");
+    } else {
+      Swal.fire({
+        icon: "info",
+        title: "Great!!",
+        text:
+          "To continue the process you must be registered, so we can offer you more personalized functions.",
+        showCloseButton: true,
+        showCancelButton: true,
+        cancelButtonText: `I want to register`,
+        confirmButtonText: `I have an account`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/signin");
+        } else if (result.isDismissed) {
+          history.push("/register");
+        }
+      });
     }
   };
 
@@ -93,7 +111,7 @@ const Checkout = () => {
       <div className="Checkout">
         <div className="Checkout-content">
           {shoppingCart.length > 0 ? (
-            <h3>Order # {currentOrder[0].id}</h3>
+            <h3>Order # {currentOrder[0]?.id}</h3>
           ) : (
             <h3>Empty Shopping Cart</h3>
           )}
@@ -126,15 +144,15 @@ const Checkout = () => {
             <h3>
               Total Price : <span>${handleSumTotal()}</span>
             </h3>
-            <Link to="/checkout/information">
-              <button
-                type="button"
-                className="btn-primary"
-                onClick={handleClickPay}
-              >
-                Pay
+            {/* <Link to="/checkout/information"> */}
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={handleClickPay}
+            >
+              Pay
             </button>
-            </Link>
+            {/* </Link> */}
           </div>
         ) : (
           <div>

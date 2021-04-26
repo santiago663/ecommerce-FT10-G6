@@ -150,7 +150,7 @@ function Order() {
             <br></br>
             <div className="Information-buttons">
               <div className="Information-next">
-                {/* <PaypalButton input={input} /> */}
+                <PaypalButton input={input} />
                 <button
                   className="stripe"
                   onClick={() => handlePayments("stripe")}
