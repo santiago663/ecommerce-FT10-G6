@@ -30,6 +30,7 @@ server.post('/', async (req, res) => {
 			
 		};
 		let idOrder = id;
+		let newOrderG;
 		let newOrder;
 		let newOrder2;
 		let resultOrder;
@@ -55,17 +56,27 @@ server.post('/', async (req, res) => {
 		}
 
 		for (let i = 0; i < productId.length; i++) {
-			if (i === 0 && !id) {
 
-				newOrder = await Orders.create(orderG);		
-				await newOrder.setProducts(productId[i], {
+			if (i === 0 && !id && payment) {
+				newOrderG = await Orders.create(orderG);		
+				await newOrderG.addProducts(productId[i], {
 					through: { price: price[i] },
 
 				});
+				idOrder = newOrderG.id;
+				return res.status(200).json({ message: 'order created successfully', id: newOrderG.id });
+			}
+
+			if(i === 0 && !id ){
+				
+				newOrder = await Orders.create(order);		
+				await newOrder.addProducts(productId[i], {
+					through: { price: price[i] },
+				});
+				console.log("**** holaaa****2",newOrder)
 				idOrder = newOrder.id;
 
 			} else {
-
 				newOrder2 = await Orders.update(order, {
 					where: { id: idOrder },
 					returning: true,
@@ -85,7 +96,6 @@ server.post('/', async (req, res) => {
 		}
 		
 		if (!resultOrder && newOrder) {
-		
 			return res.status(200).json({ message: 'order created successfully', id: newOrder.id });
 		}
 
