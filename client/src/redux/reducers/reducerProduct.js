@@ -27,11 +27,16 @@ export default function reducerProduct(state = initialState, action) {
 			};
 
 		case TYPES.GET_ALL_PRODUCTS:
-		case TYPES.SET_SEARCH_PRODUCTS:
 			return {
 				...state,
 				allProductCache: action.payload,
 				backUpProducts: action.payload,
+			};
+		case TYPES.SET_SEARCH_PRODUCTS:
+			return {
+				...state,
+				allProductCache: action.payload,
+				
 			};
 
 		case TYPES.GET_ONE_PRODUCT:

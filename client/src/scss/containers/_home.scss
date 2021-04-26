@@ -3,7 +3,7 @@ $primary-light: #6874b5;
 
 .landing-section {
   width: 100%;
-  height: 400px;
+  height: 800px;
   padding: 2rem 0 0 4rem;
   background-color: #ddd;
   background-image: url("https://cdn.discordapp.com/attachments/829710868413546511/829924062276485121/face.jpg");
@@ -15,13 +15,11 @@ $primary-light: #6874b5;
 
 .landing-title {
   color: #fff;
-  max-width: 50rem;
-  margin: 2rem 0;
-  line-height: 4rem;
-  & .title-bg {
-    padding: 0.35rem;
-    background: rgba(56, 73, 133, 0.4);
-  }
+max-width: 25rem;
+margin-top: 100px;
+line-height: 2.3rem;
+font-size: 30px;
+margin-bottom: 10px;
 }
 
 .landing-action {
@@ -45,4 +43,10 @@ $primary-light: #6874b5;
   100% {
     opacity: 1;
   }
+}
+
+.botonesqueseio{
+  position: absolute;
+  top: 100px;
+  left: 40px
 }

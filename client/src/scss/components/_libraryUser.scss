@@ -1,0 +1,50 @@
+.library-container {
+    display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 100vh;
+flex-direction: column;
+color: white;
+
+h2{
+    margin-bottom: 50px;
+}
+
+}
+
+.underconstruction{
+    border: 1px solid #19f9a4;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 30px;
+    animation-name: rotate, coloring;
+    animation-duration: 2s;
+    -moz-animation-iteration-count: infinite;
+}
+
+@keyframes rotate {
+    100%{
+        rotate: 1080deg;
+    }
+}
+
+@keyframes coloring {
+    0% {
+      color:#24262c;
+    }
+    25% {
+        color: #19f9a4;
+    }
+    50%{
+        color:#24262c;    
+    }
+    75%{
+        color: #19f9a4;
+    }
+    100% {
+        color:#24262c;
+    }
+  }
