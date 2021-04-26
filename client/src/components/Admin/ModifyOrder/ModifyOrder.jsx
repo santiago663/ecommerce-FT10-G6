@@ -11,6 +11,7 @@ import { Toast } from 'primereact/toast';
 import { Link, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrdersState } from '../../../redux/actions/actionUpgrade'
+import EditOrder from './EditOrder/EditOrder'
 //import '../../../scss/components/_modifyOrder.scss';
 import './OrdersEdit.scss';
 
@@ -20,15 +21,15 @@ const ModifyOrder = () => {
     const [orders, setOrders] = useState([])
     const toast = useRef(null);
     const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
-    
+    const [nrorders, setNrorders] = useState(0)
     useEffect(()=>{
         setOrders(allOrders)
     },[])
 
     const onCellSelect = (event) => {
-        toast.current.show({ severity: 'info', summary: `Item Selected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
-        console.log(event.value)
-        console.log(selectedProduct)
+        toast.current.show({ severity: 'info', summary: `Orders Selected`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
+        //console.log(event.value)
+        setNrorders(event.value)
     }
 
     const onCellUnselect = (event) => {
@@ -37,14 +38,15 @@ const ModifyOrder = () => {
     }
     
     const toCapitalize = (str) => {
+        console.log('Esto es',str.slice(1))
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
     const orderState = useSelector(store => store.reducerOrderState.allOrderState)
     
     const dispatch = useDispatch()
     const onChangeStatus = (e) => {
         dispatch(getAllOrdersState(e.target.value))
-        
     }
     const handleFilterClient = (e)=>{
     const filter = allOrders.filter(user => user.user.name.toLowerCase().includes(e.target.value.toLowerCase()))    
@@ -154,8 +156,15 @@ const ModifyOrder = () => {
                     <Column field="date" header="Date"></Column>
                     <Column field="user.name" header="Client"></Column>
                     <Column field="state" header="State" body={statusBodyTemplate} editor={(props) => statusEditor('products3', props)}></Column>
+                    <Column field="method.description" header="Payment"></Column>
                     <Column field="total" header="Total $"></Column>
              </DataTable>
+            <Link to={`/admin/order/${nrorders}`}>
+                Detalle Order N° {nrorders}
+            </Link>
+             <div>
+                 <Route path="/admin/order/:id" component={EditOrder} />
+             </div>
         </div>
     );
 }

@@ -3,6 +3,7 @@ import * as TYPES from '../types/index';
 
 const initialState = {
   allOrderState: [],
+  detailOrder:[]
 };
 
 export default function reducerOrderState (state = initialState, action){
@@ -12,6 +13,11 @@ export default function reducerOrderState (state = initialState, action){
       return {
         ...state,
         allOrderState: action.payload,
+      };
+      case TYPES.GET_DETAIL_ORDER:
+      return {
+        ...state,
+        detailOrder: action.payload,
       };
 
     default:

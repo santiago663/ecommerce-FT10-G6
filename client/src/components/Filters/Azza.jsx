@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './_filter.scss';
-import { orderAsc, orderByCategories, orderByAuthor,orderStar, getBackup } from '../../redux/actions/actionFront';
+import { orderAsc, orderByCategories, orderByAuthor, orderStar, getBackup } from '../../redux/actions/actionFront';
 import Score from './Score'
 
 function Filter() {
@@ -24,7 +24,7 @@ function Filter() {
 		dispatch(orderAsc(e.target.value));
 		toggle ? setToggle(false) : setToggle(true);
 	};
-	
+
 
 	const handleAuthor = (e) => {
 		dispatch(orderByAuthor(e.target.value));
@@ -38,12 +38,12 @@ function Filter() {
 		<>
 			<div className="Container-Filter">
 				<button className="Boton-Reset" onClick={(e) => handleBackUp(e)}>
-					{`Reset  Filters`}
+					{`Reset`}
 				</button>
 				<div className="filter">
 					{(selectAuthor && selectScore) ||
-					(selectScore && selectCategorie) ||
-					(selectCategorie && selectAuthor) ? (
+						(selectScore && selectCategorie) ||
+						(selectCategorie && selectAuthor) ? (
 						<button onClick={(e) => handleBackUp(e)} className="Button-Try-Again">
 							Try Again
 						</button>
@@ -81,28 +81,28 @@ function Filter() {
 								<option default>Category</option>
 								{selectAuthor
 									? disponibleCategories &&
-									  disponibleCategories.map((C) => {
-											return <option value={C}>{C}</option>;
-									  })
+									disponibleCategories.map((C) => {
+										return <option value={C}>{C}</option>;
+									})
 									: allCategories &&
-									  allCategories.map((C) => {
-											return <option value={C.name}>{C.name}</option>;
-									  })}
+									allCategories.map((C) => {
+										return <option value={C.name}>{C.name}</option>;
+									})}
 							</select>
 
 							<select onChange={(e) => handleAuthor(e)}>
 								<option default>Author</option>
 								{!selectCategorie
 									? allArtist &&
-									  allArtist.map((a) => {
-											return <option value={a.name}>{a.name}</option>;
-									  })
+									allArtist.map((a) => {
+										return <option value={a.name}>{a.name}</option>;
+									})
 									: disponibleAuthor &&
-									  disponibleAuthor.map((a) => {
-											return <option value={a}>{a}</option>;
-									  })}
+									disponibleAuthor.map((a) => {
+										return <option value={a}>{a}</option>;
+									})}
 							</select>
-							<Score  />
+							<Score />
 						</>
 					)}
 

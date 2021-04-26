@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 90px;
+    animation-name: grow;
+    animation-duration: 0.5s;
 
     .product-wrapper{
         display: flex;
@@ -197,3 +200,12 @@
         transform: scale(1.15);
     }
 }
+@keyframes grow {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }

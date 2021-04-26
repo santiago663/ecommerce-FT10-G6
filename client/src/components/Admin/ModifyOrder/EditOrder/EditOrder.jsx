@@ -5,80 +5,80 @@ import { useParams, Link } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import '../../../../scss/components/_editProducts.scss';
 import '../../../../scss/components/_editOrder.scss';
-
+import { getDetailOrders } from "../../../../redux/actions/actionOrder"
 function EditProduct() {
+    const dispatch = useDispatch()
 
     const {id} = useParams();
-
     const [order, setOrder] = useState([])
 
     const allOrders = useSelector((store) => store.reducerOrderUser.allOrders)
     const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
+    const userOrders = useSelector((store) => store.reducerOrderUser.userOrders);
+    const detailOrder = useSelector(store => store.reducerOrderState.detailOrder)
 
     useEffect(() => {
 
         if(id){
-            const findOrder = allOrders.filter(f => f.userId === Number(id))
-
-            if(findOrder.length !== 0){
-              setOrder(findOrder)  
-            }
+            // const findOrder = allOrders.filter(f => f.userId === Number(id))
+            // if(findOrder.length !== 0){
+            //   setOrder(findOrder)  
+            // }
+            dispatch(getDetailOrders(id))
         }
-        return
+        // return
         
     }, [id])
-
+    
     return (
         <div className="order">
             <div className="box">
                 <div className="everyOrders">
-                    {order.length !== 0 
-                    ? <div className="dateUser">
-                        <h3 className="user">Usuer ID: {order[0].user.id}</h3>
-                        <h3 className="user">User Name: {order[0].user.name}</h3>
-                    </div>
-                    : <div className="dateUser">
-                        <h3 className="user">Usuer ID: </h3>
-                        <h3 className="user">User Name: </h3>
-                    </div>
-                    }
+                                
                     <div className="listOrders">
                         <div className="dateOrders">
-                            {order.length !== 0 && order.map(m => (
-                            
+                                                        
                             <div className="products">
-                                <div className="order">
-                                    <h4 className="orderID" >OrderID: {m.id}</h4>
-                                    <h4 className="orderID">Estado: -<h4 className={m.state}> {m.state}</h4></h4>
+                                <div className="conteinOrders">
+                                    <div>
+                                        <h4 className="orderId" >OrderID: {detailOrder[0]?.id}</h4>
+                                    </div>
+                                    <div className="orderState">
+                                        Estado: <h3 className={detailOrder[0]?.state}> {detailOrder[0]?.state}</h3>
+                                        {detailOrder[0]?.state === "open" || detailOrder[0]?.state === "loading" || detailOrder[0]?.state === "pending" ?
+                                        <select>
+                                            <option value="cancelled">Cancelled</option>
+                                            <option value="completed">Completed</option>
+                                        </select>:null}
+                                    </div>
                                 </div>    
-                                {m.products.length !== 0 && m.products.map(n => (
+                                {detailOrder[0]?.products?.map(n => (
                                 <div className="oneProduct">
 
-                                    <div className="dateProducts">
+                                    <div className="contentDetail">
                                         <div className="Product">
-                                            <h4 className="date">Product: {n.name}</h4>
+                                            <img src={n.fileLink} alt={n.name} width="50" height="50" className="date"/>
+                                        </div>
+                                        <div className="ContentNameProd">
+                                            <h4 className="nameProd">Product: {n.name}</h4>
+                                        </div>
+                                        <div className="contentAuthor">
+                                            <h4 className="nameAuthor">AuthorID: {n.authorId}</h4>  
                                         </div>
                                         <div className="Product">
-                                            <h4 className="date">AuthorID: {n.authorId}</h4>  
-                                        </div>
-                                        <div className="Product">
-                                            <h4 className="date">Price: ${n.price}</h4>
-                                        </div>
-                                        <br/>
-                                        <div className="Product">
-                                            <h4 className="date">Image: {n.fileLink}</h4>
+                                            <h4 className="priceProd">${n.price}</h4>
                                         </div>
                                     </div>
                                 </div>
                                 ))}
 
                                 <div className="TOTAL">
-                                    <h4 className="totalPrice">TOTAL PRICE: {m.total}</h4> 
+                                    <h4 className="totalPrice">TOTAL ${detailOrder[0]?.total}</h4> 
                                 </div>
               
                             </div>
                            
-                            ))}
+                            
                             
                         </div>
                     </div>

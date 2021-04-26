@@ -66,7 +66,6 @@ function NavBar() {
             </Link>
           </>
         }
-        {/* <div className="profile-img"></div> */}
       </div>
     </nav>
   );

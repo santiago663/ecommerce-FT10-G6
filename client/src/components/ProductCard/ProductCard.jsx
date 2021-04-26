@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
 import { addToCartUser, removeToCartUser } from "../../redux/actions/actionOrder"
 import { useState, useEffect } from "react";
+import FunctionStar from "../FunctionStar/FunctionStar"
 
 function ProductCard(props) {
   const dispatch = useDispatch();
@@ -17,9 +18,11 @@ function ProductCard(props) {
   const shoppingCart = useSelector(
     (state) => state.reducerShoppingCart.shoppingCart
   );
-  const { data: { name, author, preview, id, price, available } } = props;
+  const {
+		data: { name, author, preview, id, price, available, score },
+  } = props;
 
-  const [score, setScore] = useState({})
+  const [scoreX, setScore] = useState({})
 
   useEffect(() => {
     if (allScores) setScore(allScores?.find(scores => scores.id == id))
@@ -73,46 +76,47 @@ function ProductCard(props) {
   }
 
   return (
-    <>
-      <div className="product-card">
-        {available === true
-        ?
-          <div className="shopping">
-            <div className="price">
-              <b>$ {price} </b>
-            </div>
-            <div>
-              {!lStorage ? (
-                <i
-                  className="fas fa-cart-plus add"
-                  key={id}
-                  onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
-                ></i>
-              ) : (
-                <i
-                  className="fas fa-cart-arrow-down remove"
-                  key={id}
-                  onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
-                >
-                  <br />
-                </i>
-              )}
-            </div>
-          </div>
-        :null
-        }
-        <Link className="link" to={`/product/${id}`}>
-          <img src={preview} alt={name} />
-        </Link>
-        <div className="conten">
-          <div className="nameAutor">
-            <span className="scoreCard">{score?.score || backScores?.score ? score?.score || backScores?.score : "-"} <i className="far fa-star"></i></span>
-            <h4>{name}</h4>
-            <h6>{author.name}</h6>
-          </div>
-        </div>
-      </div>
-    </>
+		<>
+			<div className="product-card">
+				{available === true ? (
+					<div className="shopping">
+						<div className="price">
+							<b>$ {price} </b>
+						</div>
+						<div>
+							{!lStorage ? (
+								<i
+									className="fas fa-cart-plus add"
+									key={id}
+									onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
+								></i>
+							) : (
+								<i
+									className="fas fa-cart-arrow-down remove"
+									key={id}
+									onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
+								>
+									<br />
+								</i>
+							)}
+						</div>
+					</div>
+				) : null}
+				<Link className="link" to={`/product/${id}`}>
+					<img src={preview} alt={name} />
+				</Link>
+				<div className="conten">
+					<div className="nameAutor">
+						<span className="scoreCard">
+							{score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
+							{score === null ? FunctionStar(0) : FunctionStar(Number(score))}
+						</span>
+						<h4>{name}</h4>
+						<h6>{author.name}</h6>
+					</div>
+				</div>
+			</div>
+		</>
   );
 }
 

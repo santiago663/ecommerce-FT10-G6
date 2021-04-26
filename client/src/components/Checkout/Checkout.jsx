@@ -132,13 +132,13 @@ const Checkout = () => {
                 className="btn-primary"
                 onClick={handleClickPay}
               >
-                Pagar
-              </button>
+                Pay
+            </button>
             </Link>
           </div>
         ) : (
           <div>
-            <h3>You dont have a items pending</h3>
+            <h3>You dont have items pending</h3>
           </div>
         )}
       </div>

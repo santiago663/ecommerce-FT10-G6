@@ -19,13 +19,14 @@ $button-active: #969494;
         text-decoration: none;
     }
     .form {
+        margin-top: 100px;
         position: relative;
         width: 320px;
         padding: 15px;
         background-color: $bg-form-color;
         top: -100px;
         border-radius: 1px;
-        box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.37);
+        box-shadow: 0px 2px 0px 0px #19f9a4;
         .auth__alert-error {
             width: 100%;
             height: 0px;
@@ -46,6 +47,7 @@ $button-active: #969494;
                 color: $bg-color;
                 &:hover {
                     color: $button-active;
+                    color: #19f9a4;
                 }
             }
         }
@@ -84,6 +86,7 @@ $button-active: #969494;
             border-radius: 2px;
             color: $white;
             cursor: pointer;
+            letter-spacing: 1.5px;
             &:focus {
                 outline: none;
             }
@@ -91,7 +94,7 @@ $button-active: #969494;
                 background-color: lighten($color: $bg-color, $amount: 35);
             }
             &:hover {
-                background-color: darken($color: $bg-color, $amount: 10);
+                color: #19f9a4;
             }
         }
         .google-btn {
@@ -136,20 +139,16 @@ $button-active: #969494;
             }
         }
     }
-    background-image: repeating-linear-gradient(
-            157.5deg,
-            rgb(0, 0, 0) 0px,
-            rgb(0, 0, 0) 20px,
-            transparent 20px,
-            transparent 22px
-        ),
-        repeating-linear-gradient(413deg, rgb(0, 0, 0) 0px, rgb(0, 0, 0) 20px, transparent 20px, transparent 22px),
-        linear-gradient(
-            413deg,
-            hsl(333, 93%, 55%),
-            hsl(45, 93%, 55%),
-            hsl(117, 93%, 55%),
-            hsl(189, 93%, 55%),
-            hsl(261, 93%, 55%)
-        );
+    .reset {
+        position: relative;
+        top: -15px;
+        color: rgb(87, 87, 87);
+        &:hover {
+            color: #19f9a4;
+        }
+    }
+    background-image: radial-gradient(circle at center center, rgba(33, 33, 33, 0), rgb(33, 33, 33)),
+        repeating-linear-gradient(135deg, rgb(33, 33, 33) 0px, rgb(33, 33, 33) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(45deg, rgb(56, 56, 56) 0px, rgb(56, 56, 56) 5px, transparent 5px, transparent 6px),
+        linear-gradient(90deg, rgb(33, 33, 33), rgb(33, 33, 33));
 }
