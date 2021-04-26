@@ -25,15 +25,15 @@ function Pagination({ cardsPerPage, totalCards }) {
   return (
     <div>
       <ul className="pagination">
-      <button className="pageButton" onClick={() => previusPage(page)}>Previus</button>
+        <button className="pageButton" onClick={() => previusPage(page)}>{`<`}</button>
         {
           pageNumbers.map((number) => (
-            <li key={number} className={ page == number ? "page-item-select" : "page-item'"}>
+            <li key={number} className={page == number ? "page-item-select" : "page-item'"}>
               <a onClick={() => dispatch(paginate(number))} href="#!" className="page-link">{number}</a>
             </li>
           ))
         }
-        <button className="pageButton" onClick={() => nextPage(page, Math.ceil(totalCards / cardsPerPage))}>Next</button>
+        <button className="pageButton" onClick={() => nextPage(page, Math.ceil(totalCards / cardsPerPage))}>{`>`}</button>
       </ul>
     </div>
   );

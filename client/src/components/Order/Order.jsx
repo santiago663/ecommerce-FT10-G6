@@ -19,6 +19,7 @@ function Order() {
   const reducer = (accumulator, currentValue) =>
     Number(currentValue.price) + accumulator;
   const sum = shoppingCart.reduce(reducer, 0);
+
   let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
 
   const [input, setInput] = useState({
@@ -27,7 +28,8 @@ function Order() {
     productId: [...data].map((pi) => pi.id),
     price: [...data].map((p) => Number(p.price)),
     total: sum,
-    payment:''
+    payment:'',
+    methodId:0
   });
 
   const handleInputChange = function (e) {
@@ -37,33 +39,38 @@ function Order() {
     });
   };
 
-  const handleSubmit = async (e, type,currentOrder,payment) => {
-    
-	if (currentUser.id) {
-		try {
-      let user = { id: currentOrder[0].id, state: "completed", payment: payment };
-        dispatch(formUserOrder(user));
-        if (type === "MP") {
-			  e.preventDefault();
+  // const handleSubmit = async (currentOrder,payment) => {
 
-          let storage = JSON.parse(window.localStorage.getItem("mercadoPago"));
-          window.location.href = storage.paymentUrl;
-        }
-      } catch (err) {
-        console.error(err.message);
-      }
-    } else {
-      try {
-        setInput({...input,payment: payment})
-        dispatch(formGuestOrder(input));
-        alert("success !!");
-        location.assign("http://localhost:3000/Browser/products");
-        localStorage.clear();
-      } catch (err) {
-        console.error(err.message);
-      }
-    }
-  };
+	// if (currentUser.id) {
+	// 	try {
+  //     let user = { id: currentOrder[0].id, state: 'completed', payment: payment, methodId:3 };
+  //     console.log("useeeee",user)
+  //       dispatch(formUserOrder(user));
+  //       // if (type === "MP") {
+	// 		  // e.preventDefault();
+
+  //       //   let storage = JSON.parse(window.localStorage.getItem("mercadoPago"));
+  //       //   window.location.href = storage.paymentUrl;
+  //       // }
+  //       alert('success')
+  //       location.assign('http://localhost:3000/Browser/products');
+  //     } catch (err) {
+  //       console.error(err.message);
+  //     }
+  //   } else {
+  //     try {
+  //       input.payment= payment;
+  //       input.methodId=3;
+  //       console.log("esto es input---<",input)
+  //       dispatch(formGuestOrder(input));
+  //       alert("success !!");
+  //       location.assign("http://localhost:3000/Browser/products");
+  //       localStorage.clear();
+  //     } catch (err) {
+  //       console.error(err.message);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="Information">
@@ -139,10 +146,10 @@ function Order() {
           <br></br>
           <div className="Information-buttons">
             <div className="Information-next">
-              <PaypalButton handleSubmit={handleSubmit} />
-              <button className="mercadolibreee" onClick={(e) => handleSubmit(e, "MP")}>
+              <PaypalButton input={input} />
+              {/* <button className="mercadolibreee" onClick={(e) => handleSubmit(e, "MP")}>
                 Mercado pago
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

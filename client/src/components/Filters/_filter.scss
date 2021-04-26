@@ -1,0 +1,113 @@
+.Container-Filter {
+  position: sticky;
+  top: 155px;
+  display: flex;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1;
+}
+.filter {
+  width: 95%;
+  margin: 0 auto;
+  box-shadow: 0px 3px 2px 0px #0000003f;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 5px 5px;
+}
+
+.filter select {
+  font-size: 15px;
+  font-weight: 400;
+  margin: 0;
+  padding: 1%;
+  height: 6%;
+  width: 30%;
+  min-width: 67px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  &:hover {
+    color: #19f9a4;
+    cursor: pointer;
+  }
+  @media only screen and(max-width: 560px) {
+    font-size: 10px;
+    font-weight: 900;
+  }
+}
+
+.Option-button {
+  border: none;
+}
+
+.fa-sort-alpha-down,
+.fa-sort-alpha-up {
+  background-color: transparent;
+  font-size: 20px;
+  padding: 0px;
+  margin: 0px;
+  padding: 5px;
+  width: 70px;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+
+  &:hover {
+    color: #19f9a4;
+    cursor: pointer;
+  }
+}
+
+.Button-Try-Again {
+  font-size: 18px;
+  padding: 0px;
+  margin: 0px;
+  height: 30px;
+  padding: 4px;
+  width: 110px;
+  border: none;
+  border-radius: 20px;
+}
+.Button-Try-Again:hover {
+  border: solid 1px #b0bec5;
+  background-color: #b0bec5;
+  color: #ffffff;
+}
+
+.Boton-Reset {
+  width: 130px;
+  min-width: 90px;
+  margin-right: 20px;
+  height: 35px;
+  font-size: 0.9rem;
+  border: none;
+  background: #474747;
+  color: #fff;
+  font-weight: 800;
+  border-radius: 27px;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+  cursor: pointer;
+
+  transition: 150ms;
+  &:hover {
+    background-color: #1b1b1b;
+    color: #19f9a4;
+  }
+}
+.fa-star {
+  border: none;
+  background: transparent;
+  padding: 0px 1px;
+  font-size: 17px;
+  &:hover {
+    color: rgb(247, 250, 66);
+    text-shadow: 0 0 5px #1b1b1b;
+  }
+}
