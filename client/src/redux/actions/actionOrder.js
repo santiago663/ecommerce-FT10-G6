@@ -31,6 +31,17 @@ export const getAllUserOrders = (userId) => {
     }
 };
 
+export const getDetailOrders = (nroOrder) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:3001/get/order/${nroOrder}`)
+            .then((resp) => {
+                dispatch({ type: TYPES.GET_DETAIL_ORDER, payload: resp.data })
+            }).catch(error => {
+                console.log(error)
+            })
+    }
+};
+
 export const addToCartUser = (payload, currentUser, currentOrder, total) => {
     return (dispatch) => {
         const orden = {
