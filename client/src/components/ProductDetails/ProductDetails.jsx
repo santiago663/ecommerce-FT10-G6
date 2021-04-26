@@ -21,10 +21,9 @@ function ProductDetails() {
   const productCache = useSelector((store) => store.reducerProduct.productCache);
   const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
   const loading = useSelector((store) => store.reducerLoading.loading)
-  const allScores = useSelector((store) => store.reducerProduct.allProductsScores);
 
   const [productScore, setproductScore] = useState([0])
-  let score = allScores.find(product => product.id == id)?.score  
+
 
   useEffect(() => {
     dispatch(getOneProduct(id));
@@ -97,7 +96,7 @@ function ProductDetails() {
   }
 
 
-   if (loading && (false && !allProduct.find(product => product.id == id)?.score)) {
+  if (loading && (false && !allProduct.find(product => product.id == id)?.score)) {
     return (
       <Loading />
     )
@@ -113,7 +112,9 @@ function ProductDetails() {
           <div className="detailProd">
             <div className="headerDet">
               <div className="score">
-                <span>{score ? score : "-"} {FunctionStar(Number(productScore[0]))}</span>
+                {
+                  loading ? <span> </span> : <span className="spanScore">{productScore[0]} {FunctionStar(Number(productScore[0]))} </span>
+                }
               </div>
               <div className="linkClose">
                 <Link className="link" to="/Browser/products"><IoArrowUndoSharp/></Link>
