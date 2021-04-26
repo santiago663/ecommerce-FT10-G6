@@ -112,6 +112,9 @@ server.post("/stripe/create-session/:orderId", async (req, res) => {
         cancel_url: `${domainFront}/checkout/?canceled=true`,
       });
 
+      order.state = "pending"; // change order state
+      await order.save(); // save change.
+
       res.status(201).json({
         method: "stripe",
         id: session.id,
