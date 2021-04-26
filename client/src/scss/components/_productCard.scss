@@ -43,9 +43,9 @@
         height: 30px;
         align-items: center;
         justify-content: center;
-        border-radius: 2px;
+        border-radius: 5px;
         transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-        animation-duration: 1.5s;
+        animation-duration: 1s;
         animation-name: dario;
         @keyframes dario{
           from{
