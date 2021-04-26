@@ -1,10 +1,12 @@
 /*eslint-disable*/
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { formGuestOrder, formUserOrder } from "../../redux/actions/actionOrder";
+import { formGuestOrder } from "../../redux/actions/actionOrder";
 import PaypalButton from "../PaypalButton/PaypalButton";
+import { loadStripe } from "@stripe/stripe-js";
 import "./_order.scss";
+const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx"); //stripe connection
 
 function Order() {
   const dispatch = useDispatch();
@@ -15,7 +17,7 @@ function Order() {
   const shoppingCart = useSelector(
     (state) => state.reducerShoppingCart.shoppingCart
   );
-
+  const payments = useSelector((state) => state.payments);
   const reducer = (accumulator, currentValue) =>
     Number(currentValue.price) + accumulator;
   const sum = shoppingCart.reduce(reducer, 0);
@@ -28,8 +30,8 @@ function Order() {
     productId: [...data].map((pi) => pi.id),
     price: [...data].map((p) => Number(p.price)),
     total: sum,
-    payment:'',
-    methodId:0
+    payment: "",
+    methodId: 0,
   });
 
   const handleInputChange = function (e) {
@@ -39,139 +41,158 @@ function Order() {
     });
   };
 
-  // const handleSubmit = async (currentOrder,payment) => {
+  const handlePayments = async (type, order, payment) => {
+    let MercadoPago = JSON.parse(window.localStorage.getItem("MercadoPago"));
+    let stripe = JSON.parse(window.localStorage.getItem("stripe"));
+    try {
+      //logged user and open order
+      if (currentUser.id && currentOrder.length > 0) {
+        if (type === "mercado-pago") {
+          window.location.href = MercadoPago.url;
+        } else if (type === "stripe") {
+          // Stripe
+          const stripeResponse = await stripePromise;
+          const result = await stripeResponse.redirectToCheckout({
+            sessionId: stripe.id,
+          });
+        }
+        //guest user
+      } else {
+        setOrderData({ ...orderData, payment: payment });
+        dispatch(formGuestOrder(orderData));
+        // alert("success !!");
+        // location.assign("http://localhost:3000/Browser/products");
+        // localStorage.clear();
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
-	// if (currentUser.id) {
-	// 	try {
-  //     let user = { id: currentOrder[0].id, state: 'completed', payment: payment, methodId:3 };
-  //     console.log("useeeee",user)
-  //       dispatch(formUserOrder(user));
-  //       // if (type === "MP") {
-	// 		  // e.preventDefault();
-
-  //       //   let storage = JSON.parse(window.localStorage.getItem("mercadoPago"));
-  //       //   window.location.href = storage.paymentUrl;
-  //       // }
-  //       alert('success')
-  //       location.assign('http://localhost:3000/Browser/products');
-  //     } catch (err) {
-  //       console.error(err.message);
-  //     }
-  //   } else {
-  //     try {
-  //       input.payment= payment;
-  //       input.methodId=3;
-  //       console.log("esto es input---<",input)
-  //       dispatch(formGuestOrder(input));
-  //       alert("success !!");
-  //       location.assign("http://localhost:3000/Browser/products");
-  //       localStorage.clear();
-  //     } catch (err) {
-  //       console.error(err.message);
-  //     }
-  //   }
-  // };
-
-  return (
-    <div className="Information">
-      <form className="order-form">
-        <div className="Information-content">
-          <div className="Info-Back__container">
-            <Link to="/Browser/products" className="Information-Back">
-              keep looking art
+  if (
+    (payments.mercadoPago.url && payments.stripe.id) ||
+    (JSON.parse(window.localStorage.getItem("mercadoPago")) &&
+      JSON.parse(window.localStorage.getItem("stripe")))
+  ) {
+    return (
+      <div className="Information">
+        <div className="order-form">
+          <div className="Information-content">
+            <div className="Info-Back__container">
+              <Link to="/Browser/products" className="Information-Back">
+                keep looking art
               </Link>
-          </div>
-          <div className="Information-head">
-            {currentUser.id ? (
-              <h2>
-                Please <span className="User-Name">{currentUser.name}</span>{", "}
-                press pay to finalize the purchase{" "}
-              </h2>
-            ) : (
-              <h2>Contact Information</h2>
-            )}
-          </div>
-          <br />
-          <br />
-          <div className="Information-form">
-            {currentUser.id ? (
-              <div className="name-email__container">
-                <div className="name__container">
-                  <span>Name:</span>
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    name="name"
-                    value={(input.name = currentUser.name)}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="email__container">
-                  <span>E-mail:</span>
-                  <input
-                    type="text"
-                    placeholder="Email"
-                    name="email"
-                    value={(input.email = currentUser.email)}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="name-email__container">
-                <div className="name__container">
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    name="name"
-                    value={input.name}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="email__container">
-                  <input
-                    type="text"
-                    placeholder="Email"
-                    name="email"
-                    value={input.email}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-          <br></br>
-          <br></br>
-          <div className="Information-buttons">
-            <div className="Information-next">
-              <PaypalButton input={input} />
-              {/* <button className="mercadolibreee" onClick={(e) => handleSubmit(e, "MP")}>
-                Mercado pago
-              </button> */}
             </div>
-          </div>
-        </div>
-        <div className="Information-sidebar">
-          <h2>Pedido:</h2>
-          {shoppingCart &&
-            shoppingCart.map((item) => {
-              return (
-                <div className="Information-item">
-                  <div className="Information-element">
-                    <h4>{item.name}</h4>
-                    <span>${item.price}</span>
+            <div className="Information-head">
+              {currentUser.id ? (
+                <h2>
+                  Please <span className="User-Name">{currentUser.name}</span>
+                  {", "}
+                  press pay to finalize the purchase{" "}
+                </h2>
+              ) : (
+                <h2>Contact Information</h2>
+              )}
+            </div>
+            <br />
+            <br />
+            <div className="Information-form">
+              {currentUser.id ? (
+                <div className="name-email__container">
+                  <div className="name__container">
+                    <span>Name:</span>
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      name="name"
+                      value={(input.name = currentUser.name)}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="email__container">
+                    <span>E-mail:</span>
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      name="email"
+                      value={(input.email = currentUser.email)}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                 </div>
-              );
-            })}
-          <br />
-          <h3>Total Price : <span>{sum}</span></h3>
+              ) : (
+                <div className="name-email__container">
+                  <div className="name__container">
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      name="name"
+                      value={input.name}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="email__container">
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      name="email"
+                      value={input.email}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+            <br></br>
+            <br></br>
+            <div className="Information-buttons">
+              <div className="Information-next">
+                <PaypalButton input={input} />
+                <button
+                  className="stripe"
+                  onClick={() => handlePayments("stripe")}
+                >
+                  Stripe
+                </button>
+                {/* <button
+                  className="mercadolibreee"
+                  onClick={(e) => handlePayments("mercado-pago")}
+                >
+                  Mercado pago
+                </button> */}
+              </div>
+            </div>
+          </div>
+          <div className="Information-sidebar">
+            <h2>Pedido:</h2>
+            {shoppingCart &&
+              shoppingCart.map((item) => {
+                return (
+                  <div className="Information-item">
+                    <div className="Information-element">
+                      <h4>{item.name}</h4>
+                      <span>${item.price}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            <br />
+            <h3>
+              Total Price : <span>{sum}</span>
+            </h3>
+          </div>
         </div>
-      </form>
-    </div >
-  );
+      </div>
+    );
+  } else {
+    return (
+      <div className="Information">
+        <div className="order-form">LOADING...</div>
+      </div>
+    );
+  }
 }
 
 export default Order;

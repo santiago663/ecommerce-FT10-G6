@@ -1,10 +1,13 @@
 /* eslint-disable  */
-import "./_checkout.scss";
+import { useEffect } from "react"
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/actionFront";
 import { removeToCartUser } from "../../redux/actions/actionOrder";
-import { createPreference } from "../../redux/actions/mercadoPago";
+import { formUserOrder } from "../../redux/actions/actionOrder";
+import { mercadoPago, stripe } from "../../redux/actions/payments";
+import Swal from "sweetalert2";
+import "./_checkout.scss";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -15,6 +18,37 @@ const Checkout = () => {
   const currentOrder = useSelector(
     (store) => store.reducerOrderUser.currentOrder
   );
+
+  // Verificando el estado del pago
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const stripe = JSON.parse(window.localStorage.getItem("stripe"));
+    // logged user
+    if (query.get("success")) {
+      dispatch(
+        formUserOrder({
+          id: currentOrder[0].id,
+          state: "completed",
+          payment: stripe.id,
+        })
+      );
+      Swal.fire({
+        title: "Gracias por tu compra!",
+        text:
+          "Se enviara los links de descarga y datos adicionales a correo registrado",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } else if (query.get("canceled")) {
+      Swal.fire({
+        title: "Declinado",
+        text:
+          "Declinaste el pago? si necesitas información adicional o ayuda, escríbenos. Sera un gusto atenderte",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    }
+  }, []);
 
   const handleSumTotal = () => {
     const reducer = (accumulator, currentValue) =>
@@ -42,8 +76,11 @@ const Checkout = () => {
     }
   };
 
-  const handleCreatePreference = (orderId) => {
-    dispatch(createPreference(orderId));
+  const handleClickPay = () => {
+    if (currentOrder.length > 0) {
+      dispatch(mercadoPago(currentOrder[0].id));
+      dispatch(stripe(currentOrder[0].id));
+    }
   };
 
   return (
@@ -51,7 +88,7 @@ const Checkout = () => {
       <div className="Checkout">
         <div className="Checkout-content">
           {shoppingCart.length > 0 ? (
-            <h3>Order # {currentOrder[0]?.id}</h3>
+            <h3>Order # {currentOrder[0].id}</h3>
           ) : (
             <h3>Empty Shopping Cart</h3>
           )}
@@ -81,15 +118,17 @@ const Checkout = () => {
         </div>
         {shoppingCart && shoppingCart.length > 0 ? (
           <div className="Checkout-sidebar">
-            <h3>Total Price : <span>${handleSumTotal()}</span></h3>
-            <Link to="/checkout/information" >
+            <h3>
+              Total Price : <span>${handleSumTotal()}</span>
+            </h3>
+            <Link to="/checkout/information">
               <button
                 type="button"
                 className="btn-primary"
-                onClick={() => handleCreatePreference(currentOrder[0]?.id)}
+                onClick={handleClickPay}
               >
                 Pagar
-            </button>
+              </button>
             </Link>
           </div>
         ) : (
