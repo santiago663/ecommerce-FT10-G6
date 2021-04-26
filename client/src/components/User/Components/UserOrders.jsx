@@ -23,8 +23,8 @@ export default function UserOrders() {
   let createdTime;
   const setDate = (order) => {
     createdAt = new Date(order.date);
-    createdDate = createdAt.toLocaleDateString("en-US");
-    createdTime = createdAt.toLocaleTimeString("en-US");
+    createdDate = createdAt.toLocaleDateString("es-AR");
+    createdTime = createdAt.toLocaleTimeString("es-AR");
     return ( <h4>{createdDate} at {createdTime}</h4>)
   };
   return (

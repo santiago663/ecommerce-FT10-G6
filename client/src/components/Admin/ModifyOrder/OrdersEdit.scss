@@ -1,0 +1,58 @@
+.p-selectable-cell{
+    width: 25%;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+}
+.p-selectable-row{
+    background-color: cadetblue;
+    
+}
+.p-row-odd{
+    background-color: rgba(255, 248, 220, 0.383);
+}
+tbody.p-datatable-tbody {
+    background-color: #08ff9f;
+   
+}
+.p-paginator {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+thead.p-datatable-thead {
+    color: white;
+    background-color: #00000099;
+}
+.inputfilter {
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+    height: 32px;
+    width: 150px;
+    display: flex;
+    padding-left: 5px;
+}
+.filterorders{
+    display: flex;
+    justify-content: center;
+}
+.typesfilters{
+    margin-left: 30px;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+.btn-filter{
+    background-color: #19f9a4;
+    border-radius: 5px;
+    width: 80px;
+    height: 32px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.filterState {
+    display: flex;
+}

@@ -76,11 +76,49 @@ export const getBackup = () => (dispatch) =>{
   dispatch({type: TYPES.GET_ALL_FROM_BACKUP})
 }
 
+
+//                                                  //
+//          ACTION FILTERS orderBy Score Up:      //
+//                                                  //
+export const orderStar = (payload)=> (dispatch) => {
+	
+  
+
+		dispatch({
+			type: 'ORDER_STARS',
+			payload: payload,
+		});
+  }
+
+//                                                  //
+//          ACTION FILTERS orderBy unitStars:      //
+//                                                  //
+
+  export const choiseStar = (payload) => (dispatch) =>{
+    	dispatch({
+			type: 'CANTS_STARS',
+			payload: payload,
+		});
+  }
 //all scores
 
 export const allProductsScores = (allScores) => (dispatch) =>{ 
   dispatch({
     type: TYPES.ALL_PRODUCTS_SCORES,
     payload: allScores
+  })
+}
+
+export const filterNewProductReviews = (reviews) => (dispatch) =>{ 
+  dispatch({
+    type: TYPES.PUT_NEW_USER_REVIEW,
+    payload: reviews
+  })
+}
+
+export const filterAllProductReviews = (reviews) => (dispatch) =>{ 
+  dispatch({
+    type: TYPES.FILTER_PRODUCT_REVIEW,
+    payload: reviews
   })
 }

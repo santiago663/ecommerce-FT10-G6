@@ -13,11 +13,11 @@ function ProductCard(props) {
   const currentUser = useSelector((store) => store.auth.currentUser)
   const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder)
   const allScores = useSelector((store) => store.reducerProduct.allProductsScores)
-
+  
   const shoppingCart = useSelector(
     (state) => state.reducerShoppingCart.shoppingCart
   );
-  const { data: { name, author, preview, id, price } } = props;
+  const { data: { name, author, preview, id, price, available } } = props;
 
   const [score, setScore] = useState({})
 
@@ -75,26 +75,32 @@ function ProductCard(props) {
   return (
     <>
       <div className="product-card">
-        <div className="shopping">
-          <div className="price">
-            <b>$ {price} </b>
+        {available === true
+        ?
+          <div className="shopping">
+            <div className="price">
+              <b>$ {price} </b>
+            </div>
+            <div>
+              {!lStorage ? (
+                <i
+                  className="fas fa-cart-plus add"
+                  key={id}
+                  onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
+                ></i>
+              ) : (
+                <i
+                  className="fas fa-cart-arrow-down remove"
+                  key={id}
+                  onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
+                >
+                  <br />
+                </i>
+              )}
+            </div>
           </div>
-          {!lStorage ? (
-            <i
-              className="fas fa-cart-plus add"
-              key={id}
-              onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
-            ></i>
-          ) : (
-            <i
-              className="fas fa-cart-arrow-down remove"
-              key={id}
-              onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
-            >
-              <br />
-            </i>
-          )}
-        </div>
+        :null
+        }
         <Link className="link" to={`/product/${id}`}>
           <img src={preview} alt={name} />
         </Link>

@@ -1,8 +1,9 @@
 /*eslint-disable*/
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { orderAsc, orderByCategories, orderByAuthor, getBackup } from '../../redux/actions/actionFront';
 import './_filter.scss';
+import { orderAsc, orderByCategories, orderByAuthor,orderStar, getBackup } from '../../redux/actions/actionFront';
+import Score from './Score'
 
 function Filter() {
 	const [toggle, setToggle] = useState(false);
@@ -11,6 +12,7 @@ function Filter() {
 	const allArtist = useSelector((state) => state.reducerArtist.allArtistCache);
 	const selectAuthor = useSelector((state) => state.reducerProduct.author);
 	const selectCategorie = useSelector((state) => state.reducerProduct.categorie);
+	const selectScore = useSelector((state) => state.reducerProduct.score);
 	const disponibleAuthor = useSelector((state) => state.reducerProduct.authorDisponible);
 	const disponibleCategories = useSelector((state) => state.reducerProduct.contegorieDisponible);
 
@@ -22,6 +24,7 @@ function Filter() {
 		dispatch(orderAsc(e.target.value));
 		toggle ? setToggle(false) : setToggle(true);
 	};
+	
 
 	const handleAuthor = (e) => {
 		dispatch(orderByAuthor(e.target.value));
@@ -38,11 +41,13 @@ function Filter() {
 					{`Reset  Filters`}
 				</button>
 				<div className="filter">
-					{selectAuthor && selectCategorie ? (
+					{(selectAuthor && selectScore) ||
+					(selectScore && selectCategorie) ||
+					(selectCategorie && selectAuthor) ? (
 						<button onClick={(e) => handleBackUp(e)} className="Button-Try-Again">
 							Try Again
 						</button>
-					) : (
+					) : selectAuthor || selectCategorie ? (
 						<>
 							<select onChange={(e) => handleFilter(e)}>
 								<option default>Filter By Category</option>
@@ -69,6 +74,35 @@ function Filter() {
 										return <option value={a}>{a}</option>;
 									})}
 							</select>
+						</>
+					) : (
+						<>
+							<select onChange={(e) => handleFilter(e)}>
+								<option default>Category</option>
+								{selectAuthor
+									? disponibleCategories &&
+									  disponibleCategories.map((C) => {
+											return <option value={C}>{C}</option>;
+									  })
+									: allCategories &&
+									  allCategories.map((C) => {
+											return <option value={C.name}>{C.name}</option>;
+									  })}
+							</select>
+
+							<select onChange={(e) => handleAuthor(e)}>
+								<option default>Author</option>
+								{!selectCategorie
+									? allArtist &&
+									  allArtist.map((a) => {
+											return <option value={a.name}>{a.name}</option>;
+									  })
+									: disponibleAuthor &&
+									  disponibleAuthor.map((a) => {
+											return <option value={a}>{a}</option>;
+									  })}
+							</select>
+							<Score  />
 						</>
 					)}
 

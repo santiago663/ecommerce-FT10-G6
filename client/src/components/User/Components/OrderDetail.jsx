@@ -31,8 +31,8 @@ function OrderDetail() {
   let createdTime;
   const setDate = (order) => {
     createdAt = new Date(order?.date);
-    createdDate = createdAt.toLocaleDateString("en-US");
-    createdTime = createdAt.toLocaleTimeString("en-US");
+    createdDate = createdAt.toLocaleDateString("es-AR");
+    createdTime = createdAt.toLocaleTimeString("es-AR");
     return (
       <h4>
         {createdDate} at {createdTime}
@@ -59,6 +59,9 @@ function OrderDetail() {
         <div className="modalheader">
           <div className="title">
             <h1>Order Detail</h1>
+            <div className="subtitle">
+              <h2>Description</h2>
+              </div>
           </div>
         </div>
         <hr />
@@ -73,16 +76,16 @@ function OrderDetail() {
           </div>
           <hr />
           <div className="productdetails">
-              <div className="orderDetailTitle">
-              <h2>DESCRIPTION</h2>
-              </div>
+              
             {order.products.map((n) => (
               <div className="description">
                 <div className="productinfo">
-                  <h4 className="pr1">{n.name}</h4>
+                  <div className="productinfo-right">
                   <Link className="link" to={`/product/${n.id}`}>
                     <img src={n.preview} alt={n.name} width="50" height="50" background-size="cover" />
                   </Link>
+                  <h4 className="pr1">{n.name}</h4>                    
+                  </div>
                   <h4 className="pr1">${n.price}</h4>
                 </div>
               </div>
@@ -93,8 +96,8 @@ function OrderDetail() {
         <div className="modalFooter">
             {order.state === "open" && <Link to="/checkout"><button className="buyit">Buy It!</button></Link>}            
             <div className="totalprice">
-            <h2>TOTAL</h2>
-            <h1>{order.total}</h1>
+            <h2>Total</h2>
+            <h2>{order.total}</h2>
             </div>       
         </div>
       </div>
