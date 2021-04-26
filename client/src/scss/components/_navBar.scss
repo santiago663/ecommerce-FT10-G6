@@ -10,7 +10,7 @@ $primary: #24262c;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.877);
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.877);
   @media only screen and(max-width: 560px) {
     font-size: 13px;
     padding: 0rem 0.5rem;
@@ -21,8 +21,8 @@ $primary: #24262c;
       top: -2px;
       background-color: #24262c;
       box-shadow: 0px 1px 2px 2px #000000c9;
-      border-bottom-left-radius: 27px;
-      border-bottom-right-radius: 27px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
       &:hover {
         box-shadow: 0px 2px 5px 0px #19f9a4;
       }

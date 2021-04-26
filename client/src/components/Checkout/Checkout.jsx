@@ -88,13 +88,13 @@ const Checkout = () => {
                 className="btn-primary"
                 onClick={() => handleCreatePreference(currentOrder[0]?.id)}
               >
-                Pagar
+                Pay
             </button>
             </Link>
           </div>
         ) : (
           <div>
-            <h3>You dont have a items pending</h3>
+            <h3>You dont have items pending</h3>
           </div>
         )}
       </div>
