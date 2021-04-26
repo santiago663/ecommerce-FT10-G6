@@ -22,11 +22,11 @@ function ProductCard(props) {
 		data: { name, author, preview, id, price, available, score },
   } = props;
 
-  // const [score, setScore] = useState({})
+  const [scoreX, setScore] = useState({})
 
-  // useEffect(() => {
-  //   if (allScores) setScore(allScores?.find(scores => scores.id == id))
-  // }, [])
+  useEffect(() => {
+    if (allScores) setScore(allScores?.find(scores => scores.id == id))
+  }, [])
 
   let backScores = allScores?.find(scores => scores.id == id)
 
