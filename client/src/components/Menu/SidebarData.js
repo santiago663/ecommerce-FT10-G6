@@ -15,7 +15,7 @@ export const SidebarData = [
     },
     {
         title: 'Library',
-        path: '/user/library/library',
+        path: '/user/library',
         icon: <FaIcons.FaImages />,
         cName: 'navm-text',
         belong: [101]

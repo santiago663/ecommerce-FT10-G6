@@ -1,10 +1,12 @@
 /*eslint-disable*/
 import React, { Fragment } from 'react'
 import { Route } from 'react-router-dom';
+import PrivateRouteUser from '../../app/PrivateRouteUser'
 import Profile from './Components/Profile'
 import '../../scss/containers/_dashboardUser.scss'
 import UserOrder from './Components/UserOrders'
 import OrderDetail from './Components/OrderDetail';
+import Library from './Components/Library';
 
 export default function DashboardUser() {
   return (
@@ -12,9 +14,10 @@ export default function DashboardUser() {
       <Route>
         <div className="container-dashboard">
         <div className='container-inner'>
-          <Route path="/user/profile" component={Profile} />
-          <Route path="/user/orders" component={UserOrder} />
-          <Route path="/user/orders/:id" component={OrderDetail} />
+          <PrivateRouteUser path="/user/library" component={Library} />
+          <PrivateRouteUser path="/user/profile" component={Profile} />
+          <PrivateRouteUser path="/user/orders" component={UserOrder} />
+          <PrivateRouteUser path="/user/orders/:id" component={OrderDetail} />
         </div>
         </div>
       </Route>
