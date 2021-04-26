@@ -21,6 +21,7 @@ function ProductDetails() {
   const productCache = useSelector((store) => store.reducerProduct.productCache);
   const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
   const loading = useSelector((store) => store.reducerLoading.loading)
+  const productReview = useSelector((store) => store.reducerProduct.productReview);
 
   const [productScore, setproductScore] = useState([0])
 
@@ -113,7 +114,11 @@ function ProductDetails() {
             <div className="headerDet">
               <div className="score">
                 {
-                  loading ? <span> </span> : <span className="spanScore">{productScore[0]} {FunctionStar(Number(productScore[0]))} </span>
+                  loading ? <span> </span> : 
+                  <span className="spanScore">{productScore[0]} 
+                  <span> </span><div className="divStars">{FunctionStar(Number(productScore[0]))}</div><span> </span>
+                  <span className="reviewNumber">({productReview?.length})</span> 
+                  </span>
                 }
               </div>
               <div className="linkClose">

@@ -22,27 +22,22 @@ export default function Library() {
         }
     }, [completedUserOrder[0]?.id])
 
-    useEffect(() => {
-        if (products[0]) console.log(products)
-    }, [products[0]])
-
     return (
-
         <div className="big-container">
             <div className="title">
                 <h1>My products</h1>
             </div>
             <hr className="divisor" />
             <div className="tableheader">
-                <h4>Preview</h4>
-                <h4>Name</h4>
+                <div><h4>Preview</h4></div>
+                <div><h4>Name</h4></div>                
             </div>
-            <div className="results">
+            <div className="myProductsResults">
                 {products.length !== 0 &&
                     products.map((product, index) => (
                         <>
                             <div className="orderPreview" >
-                                <div className="option">
+                                <div className="divImage">
                                     <img className="myProductsImage" src={product.preview} alt=""/>                                    
                                 </div>
                                 <div className="option">

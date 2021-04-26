@@ -1,5 +1,18 @@
+.big-container {
+    display: flex;
+    justify-content: end;
+    padding: 0;
+    /* align-content: center; */
+    // align-items: center;
+}
+
 .myProductsImage {
-    width: 200px;
+    width: 30%;
     object-fit: cover;
-    border-radius: 2px 2px 0 0;    
+    border-radius: 2px 2px 0 0;
+    box-shadow: 2px 3px 15px #2c2c2c;
+}
+
+.divImage {
+    padding-left: 20px;
 }
