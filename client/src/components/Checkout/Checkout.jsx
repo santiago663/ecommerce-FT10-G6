@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import "./_checkout.scss";
 
 const Checkout = () => {
-  let history = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
   const shoppingCart = useSelector(
     (state) => state.reducerShoppingCart.shoppingCart
@@ -22,13 +22,14 @@ const Checkout = () => {
 
   // Verificando el estado del pago
   useEffect(() => {
+    const lStorage = JSON.parse(localStorage.getItem("beforeOrder"));
     const query = new URLSearchParams(window.location.search);
     const stripe = JSON.parse(window.localStorage.getItem("stripe"));
     // logged user
-    if (query.get("success") && currentOrder.length > 0) {
+    if (query.get("success") && lStorage.id) {
       dispatch(
         formUserOrder({
-          id: currentOrder[0].id,
+          id: lStorage.id,
           state: "completed",
           payment: stripe.id,
           methodId: 4,
@@ -42,6 +43,7 @@ const Checkout = () => {
         icon: "success",
         confirmButtonText: "OK",
       })
+        .then(() => window.localStorage.setItem("beforeOrder", JSON.stringify("")))
         .then(() => window.localStorage.setItem("stripe", JSON.stringify("")))
         .then(() => history.push("/Browser/products"));
     } else if (query.get("canceled")) {
@@ -53,8 +55,9 @@ const Checkout = () => {
         confirmButtonText: "OK",
       }).then(() => history.push("/checkout"));
     }
-  }, [currentOrder]);
+  }, []);
 
+  // calculate total
   const handleSumTotal = () => {
     const reducer = (accumulator, currentValue) =>
       Number(currentValue.price) + accumulator;
@@ -62,6 +65,7 @@ const Checkout = () => {
     return sum;
   };
 
+  //remove items
   const handleRemoveFromCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {
       let total = 0;
@@ -81,8 +85,11 @@ const Checkout = () => {
     }
   };
 
+  // button pay
   const handleClickPay = () => {
-    if (currentOrder.length > 0) {
+    let lStorage = JSON.parse(localStorage.getItem("CurrentUser"));
+    if (currentOrder.length > 0 && lStorage.id) {
+      localStorage.setItem("beforeOrder", JSON.stringify(currentOrder[0]));
       dispatch(mercadoPago(currentOrder[0].id));
       dispatch(stripe(currentOrder[0].id));
       history.push("/checkout/information");

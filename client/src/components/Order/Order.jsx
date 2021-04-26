@@ -39,6 +39,7 @@ function Order() {
     });
   };
 
+  // select payment
   const handlePayments = async (type, order, payment) => {
     let MercadoPago = JSON.parse(window.localStorage.getItem("MercadoPago"));
     let stripe = JSON.parse(window.localStorage.getItem("stripe"));
@@ -48,7 +49,6 @@ function Order() {
         if (type === "mercado-pago") {
           window.location.href = MercadoPago.url;
         } else if (type === "stripe") {
-          // Stripe
           const stripeResponse = await stripePromise;
           const result = await stripeResponse.redirectToCheckout({
             sessionId: stripe.id,
@@ -61,6 +61,7 @@ function Order() {
     }
   };
 
+  // verify de info in the state or localStorage
   if (
     (payments.mercadoPago.url && payments.stripe.id) ||
     (JSON.parse(window.localStorage.getItem("mercadoPago")) &&
