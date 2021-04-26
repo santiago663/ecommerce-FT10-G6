@@ -1,6 +1,6 @@
 /* eslint-disable  */
 import { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/actionFront";
 import { removeToCartUser } from "../../redux/actions/actionOrder";

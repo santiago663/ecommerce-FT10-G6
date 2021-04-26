@@ -9,7 +9,7 @@ import "./_order.scss";
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx"); //stripe connection
 
 function Order() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const currentUser = useSelector((store) => store.auth.currentUser);
   const currentOrder = useSelector(
     (store) => store.reducerOrderUser.currentOrder
@@ -58,13 +58,6 @@ function Order() {
         }
         //guest user
       }
-      // else {
-      //   setOrderData({ ...orderData, payment: payment });
-      //   dispatch(formGuestOrder(orderData));
-      //   // alert("success !!");
-      //   // location.assign("http://localhost:3000/Browser/products");
-      //   // localStorage.clear();
-      // }
     } catch (err) {
       console.error(err.message);
     }
