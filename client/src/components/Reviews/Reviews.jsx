@@ -51,16 +51,16 @@ function Reviews({ currentUser, productId }) {
     useEffect(() => {
         if (!change.e) {
             var newScore;
-            if (!allProductReviews[0]) newScore = "-"
+            if (!allProductReviews[0]) newScore = null
             else newScore = (allProductReviews.map(review => review.score).reduce((a, b) => a + b) / allProductReviews.length).toFixed(1)
             //aprovecho de modificar allScores con el nuevo score para despacharlo en el siguiente useEffect
             if (allScores.find(product => product.id == productId)) {
-                allScores.find(product => product.id == productId).score = newScore.toString()
+                allScores.find(product => product.id == productId).score = newScore ? newScore.toString() : newScore
             }
             if (allProduct.find(product => product.id == productId)) {
-                allProduct.find(product => product.id == productId).score = newScore.toString()
+                allProduct.find(product => product.id == productId).score = newScore ? newScore.toString() : newScore
             }
-            dispatch(updateReviewProduct(productId, newScore.toString()))
+            dispatch(updateReviewProduct(productId, newScore ? newScore.toString() : newScore))
             setChange({ ...change, b: false, e: true })
         }
     }, [change.a])
@@ -112,6 +112,7 @@ function Reviews({ currentUser, productId }) {
     //funcion para abrir input de edit review
     function editReview() {
         setChange({ ...change, d: false })
+        setNewReview(productReview.find(review => review.userId == currentUser.id))
     }
 
     //borrar un review
@@ -182,14 +183,14 @@ function Reviews({ currentUser, productId }) {
                         <form>
                             <div className="reviewForm">
                                 <span className="spanAddReview">Score</span>
-                                <select name="scoreEdit" id="reviewScoreSelector" onChange={handleInputChangeSc}>
+                                <select name="scoreEdit" id="reviewScoreSelector" value={eReview.score} onChange={handleInputChangeSc}>
                                     {["Select", 1, 2, 3, 4, 5].map((x) => <option key={`PD${key++}`} value={x}>{x}</option>)}
                                 </select>
                                 <span className={!change.c ? "selectScore" : "selectScoreHide"}> Select a score</span>
                             </div>
                             <div className="divAddReview">
                                 <span className="spanAddReview">Comment</span>
-                                <textarea className="inputReviewComment" type="text" name="commentEdit" onChange={handleInputChangeCo} />
+                                <textarea className="inputReviewComment" type="text" value={eReview.comment} name="commentEdit" onChange={handleInputChangeCo} />
                             </div>
                             <div className="divReviewButton">
                                 <input className="inputSubmit" type="submit" value="Add" onClick={submitReviewEdit} />
