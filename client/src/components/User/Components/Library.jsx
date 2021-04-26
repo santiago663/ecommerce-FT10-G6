@@ -16,8 +16,6 @@ export default function Library() {
 
     const [products, setProducts] = useState([])
 
-    console.log(userProducts)
-
     useEffect(() => {
         if (completedUserOrder[0]) {
             setProducts(userProducts)
