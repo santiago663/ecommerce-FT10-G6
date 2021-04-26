@@ -9,6 +9,7 @@ import {
 import { removeError } from "../../redux/actions/uiError";
 import "../../scss/components/_signIn.scss";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -86,6 +87,9 @@ const SignIn = () => {
           <button type="submit" className="btn" disabled={loading}>
             Login
           </button>
+          <a className="reset" href="#" onClick={() => handleResetPassword()}>
+            Reset password
+          </a>
         </div>
         <div>
           <p>Login whit social networks</p>
@@ -102,13 +106,12 @@ const SignIn = () => {
             </p>
           </div>
         </div>
-        <div className="a-link a__signin">
-          <a href="#">Create New Account</a>
-          <br />
-          <a href="#" onClick={() => handleResetPassword()}>
-            Reset password
-          </a>
-        </div>
+        <Link to='/register'>
+          <div className="a-link a__signin">
+            <a href="#">Create New Account</a>
+            <br />
+          </div>
+        </Link>
       </form>
     </div>
   );

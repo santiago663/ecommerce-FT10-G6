@@ -1,23 +1,22 @@
 .Container-Filter {
   position: sticky;
-  top: 155px;
+  top: 116px;
   display: flex;
-  width: 100%;
+  width: 95%;
   text-align: center;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   z-index: 1;
+  padding: 0;
 }
 .filter {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
-  box-shadow: 0px 3px 2px 0px #0000003f;
+  box-shadow: 0px 3px 2px 3px #0000003f;
   display: flex;
   align-items: center;
   justify-content: space-around;
   background: #fafafa;
-  border-radius: 5px;
+  border-radius: 0 5px 5px 5px;
   padding: 5px 5px;
 }
 
@@ -27,7 +26,7 @@
   margin: 0;
   padding: 1%;
   height: 6%;
-  width: 30%;
+  width: 20%;
   min-width: 67px;
   border: none;
   outline: none;
@@ -81,21 +80,18 @@
 }
 
 .Boton-Reset {
-  width: 130px;
-  min-width: 90px;
-  margin-right: 20px;
+  width: 48px;
+  min-width: 45px;
   height: 35px;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   border: none;
   background: #474747;
   color: #fff;
   font-weight: 800;
-  border-radius: 27px;
-  border-bottom-left-radius: 1px;
-  border-bottom-right-radius: 1px;
+  border-radius: 5px 5px 0 0;
   cursor: pointer;
-
   transition: 150ms;
+  box-shadow: 0px 0px 2px 3px #0000003f;
   &:hover {
     background-color: #1b1b1b;
     color: #19f9a4;
