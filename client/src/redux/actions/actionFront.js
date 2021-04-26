@@ -125,3 +125,8 @@ export const filterAllProductReviews = (reviews) => (dispatch) =>{
     payload: reviews
   })
 }
+
+export const cleanShoopingCart = () => {
+	return { type: TYPES.CLEAN_SHOPPING_CART };
+};
+
