@@ -1,36 +1,57 @@
 .pagination {
-  width: auto;
+  border-radius: 3px;
+  width: 100%;
   text-align: center;
-  margin: 2rem auto;
-  & > li {
+  margin: 1.5rem auto;
+  li {
     display: inline-block;
-    margin: 0 1rem;
-    & > a {
+    a {
       display: inline-block;
-      padding: 0.7rem 1rem;
+      padding: 0.3rem 0.2rem;
       text-decoration: none;
-      border-radius: 20px;
+      background-color: #24262c;
+      color: #fafafa;
+      font-size: 14px;
       &:hover {
-        background: #ddd;
+        color: #19f9a4;
       }
     }
   }
 }
 .page-item-select {
-  display: inline-block;
+  width: 20px;
+  text-align: center;
   text-decoration: none;
-  border-radius: 20px;
-  background: rgb(207, 207, 207); 
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  box-shadow: 0px 0px 0px 4px #19f9a4, 0px 3px 4px 3px #242424;
+  margin: 5px;
+  transform: scale(1.1);
+  background-color: #24262c;
+  .page-link {
+    font-size: 17px;
+    font-weight: 900;
+    color: #19f9a4;
+  }
 }
 
-.pageButton{
-  border-radius: 20px;
-  font-size: 0.8rem;
+.pageButton {
+  transition: 250ms;
+  border-radius: 0px;
+  font-size: 0.9rem;
   border: none;
-  background: rgb(228, 228, 228);
-  color: rgb(68, 68, 68);
-  font-weight: 700;
-  &:focus {
+  font-weight: 900;
+  color: #fafafa;
+  background-color: #24262c;
+  padding: 3px 5px;
+  margin: 0 3px;
+  text-align: center;
+  box-shadow: 0px 0px 1px 3px #00ff9d, 0px 4px 5px 1px #242424;
+  z-index: 999;
+  &:hover {
+    color: #19f9a4;
     outline: none;
+    cursor: pointer;
+    transform: scale(1.2);
   }
- }
+}

@@ -517,7 +517,7 @@ export const postUserReview = (productId, userId, review) => {
         .then((res) => {
           dispatch({
             type: TYPES.POST_NEW_USER_REVIEW,
-            payload: res
+            payload: res.data
           });
           
         }).catch((error) => console.error(error))
@@ -553,7 +553,6 @@ export const deleteUserReview = (id) => {
 };
 
 export const editUserReview = (id, review) => {
-  console.log(id, review)
   return async (dispatch) => {
     try {
       await axios.put(`http://localhost:3001/put/review/${id}`, review)

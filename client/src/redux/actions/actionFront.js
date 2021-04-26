@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import * as TYPES from "../types/index";
+import { requestData, requestSuccess } from './request.js'
 
 //                                      //
 //          ACTIONS SHOPPINGCART        //
@@ -103,10 +104,29 @@ export const orderStar = (payload)=> (dispatch) => {
 //all scores
 
 export const allProductsScores = (allScores) => (dispatch) =>{ 
+  dispatch(requestData())
   dispatch({
     type: TYPES.ALL_PRODUCTS_SCORES,
     payload: allScores
   })
+  dispatch(requestSuccess())
 }
 
+export const filterNewProductReviews = (reviews) => (dispatch) =>{ 
+  dispatch({
+    type: TYPES.PUT_NEW_USER_REVIEW,
+    payload: reviews
+  })
+}
+
+export const filterAllProductReviews = (reviews) => (dispatch) =>{ 
+  dispatch({
+    type: TYPES.FILTER_PRODUCT_REVIEW,
+    payload: reviews
+  })
+}
+
+export const cleanShoopingCart = () => {
+	return { type: TYPES.CLEAN_SHOPPING_CART };
+};
 

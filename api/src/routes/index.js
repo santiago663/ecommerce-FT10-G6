@@ -41,13 +41,12 @@ router.use("/put/order", require("./orders/PUT"));
 // => Reviews
 router.use("/get/review", require("./reviews/GET"));
 router.use("/post/review", require("./reviews/POST"));
-//router.use("/put/review", require("./reviews/PUT"));
+router.use("/put/review", require("./reviews/PUT"));
+router.use("/delete/review", require("./reviews/DELETE"));
 
  //=> auth
 router.use("/emails", require("./auth/POST"));
 
-router.use("/put/review", require("./reviews/PUT"));
-router.use("/delete/review", require("./reviews/DELETE"));
 // => Mercado pago
 router.use("/get/mercadopago", require("./mercadoPago/GET"));
 

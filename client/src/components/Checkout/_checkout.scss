@@ -1,6 +1,8 @@
 .checkout-container {
 	margin: 3px 0;
-	height: 100vh;
+	height: 100%;
+	width: 100vw;
+	min-height: 100vh;
 	padding-top: 20px;
 	background-image: radial-gradient(
 			circle at 13% 47%,
@@ -62,11 +64,18 @@
 	flex-direction: column;
 	justify-content: space-between;
 	text-align: center;
+	align-items: center;
 	padding: 1em 0 2em 0em;
 	background-color: #fff;
+	@media only screen and(min-width: 650px) {
+		min-width: 580px;
+	}
 	.Checkout-content {
 		margin: 0 auto;
 		width: 270px;
+		@media only screen and(min-width: 650px) {
+			min-width: 550px;
+		}
 		h3 {
 			padding: 10px;
 			background-color: #3f7764ce;
@@ -83,6 +92,11 @@
 	align-items: center;
 	text-align: center;
 	margin: 10px 0 0 0;
+	@media only screen and(min-width: 650px) {
+		min-width: 550px;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
 	.fas {
 		margin: 0 0 0 10px;
 		color: rgba(0, 0, 0, 0.4);
@@ -103,6 +117,9 @@
 	align-items: center;
 	border: 1px solid #eee;
 	margin: 5px 0;
+	@media only screen and(min-width: 650px) {
+		margin: 5px;
+	}
 	h4 {
 		text-align: center;
 	}
@@ -116,6 +133,7 @@
 	}
 	img {
 		width: 100px;
+		height: 75px;
 	}
 	.price-item__checkout {
 		color: rgb(78, 184, 118);
@@ -132,11 +150,29 @@
 	margin: 0 auto;
 	margin-top: 20px;
 	text-align: center;
+	border-top: 1px dashed rgba(3, 3, 3, 0.082);
+	padding-top: 10px;
+	@media only screen and(min-width: 650px) {
+		min-width: 550px;
+		flex-direction: row;
+		flex-wrap: wrap;
+		margin-top: 40px;
+	}
 	button {
 		margin-top: 20px;
 		width: 96%;
+		height: 40px;
 		border-radius: 3px;
 		cursor: pointer;
+		color: #fff;
+		background-color: #24262c;
+		border: none;
+		font-size: 18px;
+		&:hover {
+			box-shadow: none;
+			background-color: #24262cda;
+			color: #fff;
+		}
 	}
 	h3 {
 		span {

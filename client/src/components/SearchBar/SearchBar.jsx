@@ -3,7 +3,6 @@ import axios from 'axios'
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchByTitle } from '../../redux/actions/actionBack';
-import { setActive } from '../../redux/actions/request'
 import '../../scss/components/_searchBar.scss';
 
 function SearchBar() {
@@ -36,18 +35,13 @@ function SearchBar() {
     }
   }
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (input.length > 0) {
       activeButton === "1" && dispatch(searchByTitle(input));
+      activeButton === "1" && setArraySuggestions("");
     }
   };
-
-  const buttonHandleChange = (e) => {
-    e.preventDefault()
-    dispatch(setActive(e.target.value))
-  }
 
   const handleSuggestionClick = (name) => {
     dispatch(searchByTitle(name))
@@ -96,7 +90,7 @@ function SearchBar() {
             type="submit"
             className="btn-rounded searchbar-filters--btn_active search-button">
             <i class="fas fa-search"></i></button>
-          <button
+          {/* <button
             className={activeButton === "1" ? "btn-rounded searchbar-filters--btn_active" : "btn-rounded searchbar-filters--btn_inactive "}
             type="submit"
             value={1}
@@ -119,7 +113,7 @@ function SearchBar() {
             onClick={(e) => { buttonHandleChange(e) }}
           >
             Authors
-          </button>
+          </button> */}
         </div>
       </form>
     </div>

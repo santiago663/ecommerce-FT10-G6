@@ -2,22 +2,24 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postUserReview, updateReviewProduct, deleteUserReview, editUserReview } from "../../redux/actions/actionBack";
-import { allProductsScores } from "../../redux/actions/actionFront"
-import { getAllUserOrders } from "../../redux/actions/actionOrder";
+import { allProductsScores, filterNewProductReviews, filterAllProductReviews } from "../../redux/actions/actionFront";
+import { upgradeEditProducts } from "../../redux/actions/actionUpgrade"
 import "../../scss/components/_reviews.scss";
 
 function Reviews({ currentUser, productId }) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (currentUser.id) dispatch(getAllUserOrders(currentUser.id))
-    }, [currentUser?.id]);
-
     const productReview = useSelector((store) => store.reducerProduct.productReview);
     const userOrders = useSelector((store) => store.reducerOrderUser.userOrders);
     const allScores = useSelector((store) => store.reducerProduct.allProductsScores);
-    const newReview = useSelector((store) => store.reducerProduct.newProductReviews);
+    const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
+
+    useEffect(() => {
+        if (!allScores[0]) {
+            dispatch(allProductsScores(allProduct.map(product => { return { id: product.id, score: product.score } })))
+        }
+    }, [currentUser?.id]);
 
     //filtro por las ordenes completadas
     let completedUserOrder = userOrders.filter(order => order.state === "completed")
@@ -26,99 +28,105 @@ function Reviews({ currentUser, productId }) {
     let canReview = completedUserOrder.filter(order => order.products.find(product => product.id == productId))
     if (productReview.find(review => review.userId == currentUser.id)) canReview = false
 
-    //saco el promedio del score
-    let score;
-    if (productReview.map(review => review.score)[0]) {
-        score = (productReview.map(review => review.score).reduce((a, b) => a + b) / productReview.length).toFixed(1)
-    }
-
     //Add review states
     const [review, setReview] = useState({ comment: "", score: 0 })
     const [eReview, setNewReview] = useState({ comment: "", score: 0 })
     const [allProductReviews, setProductReviews] = useState([])
-    const [change, setChange] = useState({ a: true, b: true, c: true, d: true })
+    const [change, setChange] = useState({ a: true, b: true, c: true, d: true, e: true, f: true })
+    const [canReview2, setCanReview2] = useState({ a: false })
 
     //Guardo los reviews del producto en un state
     useEffect(() => {
-        if (productReview[0]) setProductReviews(productReview.filter(product => product.productId == productId))
-    }, [productReview[0]])
+        if (productReview?.slice(-1)[0]?.id !== "delete") {
+            setProductReviews(productReview)
+            setChange({ ...change, a: false, e: false })
+        }
+        else if (productReview?.slice(-1)[0]?.id == "delete") {
+            setProductReviews([])
+            setChange({ ...change, a: false, e: false })
+        }
+    }, [productReview[0], productReview[0]?.id, productReview?.slice(-1)[0]?.updatedAt])
 
     //Modifico el score del producto en el back
     useEffect(() => {
-        if (review.score) {
-            var newScore = (allProductReviews.map(review => review.score).reduce((a, b) => a + b) / allProductReviews.length).toFixed(1)
+        if (!change.e) {
+            var newScore;
+            if (!allProductReviews[0]) newScore = null
+            else newScore = (allProductReviews.map(review => review.score).reduce((a, b) => a + b) / allProductReviews.length).toFixed(1)
+            //aprovecho de modificar allScores con el nuevo score para despacharlo en el siguiente useEffect
             if (allScores.find(product => product.id == productId)) {
-                allScores.find(product => product.id == productId).score = newScore.toString()
+                allScores.find(product => product.id == productId).score = newScore ? newScore.toString() : newScore
             }
-            dispatch(updateReviewProduct(productId, newScore.toString()))
-            setChange({ ...change, b: false })
+            if (allProduct.find(product => product.id == productId)) {
+                allProduct.find(product => product.id == productId).score = newScore ? newScore.toString() : newScore
+            }
+            dispatch(updateReviewProduct(productId, newScore ? newScore.toString() : newScore))
+            setChange({ ...change, b: false, e: true })
         }
     }, [change.a])
 
-    //Modifico los scores de los productos en el front
+    //Ultimo useEffect para modificar los scores de los productos en el front
     useEffect(() => {
-        if (allScores) dispatch(allProductsScores(allScores))
+        if (allScores && !change.b) {
+            dispatch(allProductsScores(allScores))
+            dispatch(upgradeEditProducts(allProduct))
+            setChange({ ...change, a: true, b: true })
+        }
     }, [change.b])
 
     //handle score
     function handleInputChangeSc(event) {
         event.preventDefault()
         setChange({ ...change, c: true })
-        setReview({ ...review, score: Number(event.target.value) })
-    }
-    //handle score edit
-    function handleInputChangeScEdit(event) {
-        event.preventDefault()
-        // setChange({ ...change, c: true })
-        setNewReview({ ...eReview, score: Number(event.target.value) })
+        if (event.target.name == "score") setReview({ ...review, score: Number(event.target.value) })
+        if (event.target.name == "scoreEdit") setNewReview({ ...eReview, score: Number(event.target.value) })
     }
 
     //handle comment
     function handleInputChangeCo(event) {
         event.preventDefault()
-        setReview({ ...review, comment: event.target.value })
-    }
-    //handle comment edit
-    function handleInputChangeCoEdit(event) {
-        event.preventDefault()
-        setNewReview({ ...eReview, comment: event.target.value })
+        if (event.target.name == "comment") setReview({ ...review, comment: event.target.value })
+        if (event.target.name == "commentEdit") setNewReview({ ...eReview, comment: event.target.value })
     }
 
-    //submit
+    //submit add modifica el review en el back
     function submitReview(event) {
         event.preventDefault()
         if (review.score) {
             dispatch(postUserReview(productId, currentUser.id, review))
-
+            setChange({ ...change, f: false })
         }
         else setChange({ ...change, c: false })
     }
 
-    //submit edit
-    function submitReviewEdit(event) {        
+    //submit edit modifica el review en el back
+    function submitReviewEdit(event) {
         event.preventDefault()
         if (eReview.score) {
-            dispatch(editUserReview(allProductReviews.find(review => review.userId == currentUser?.id).id, eReview))
-            // setProductReviews(allProductReviews.slice(0, allProductReviews.length - 1))
+            dispatch(editUserReview(allProductReviews.find(review => review.userId == currentUser?.id).id, { ...eReview, productId }))
             setChange({ ...change, d: true })
         }
-        // else setChange({ ...change, c: false })
+        else setChange({ ...change, c: false })
     }
 
-    useEffect(() => {
-        if (newReview.slice(-1)[0]?.id) {
-            setChange({ ...change, a: false })
-            setProductReviews([...allProductReviews, ...newReview.slice(-1)])
-        }
-    }, [newReview?.slice(-1)[0]?.id])
-
+    //funcion para abrir input de edit review
     function editReview() {
         setChange({ ...change, d: false })
+        setNewReview(productReview.find(review => review.userId == currentUser.id))
     }
 
+    //borrar un review
     function deleteReview() {
         dispatch(deleteUserReview(allProductReviews.find(review => review.userId == currentUser?.id).id))
-        setProductReviews(allProductReviews.slice(0, allProductReviews.length - 1))
+        setProductReviews(allProductReviews.filter(review => review.userId != currentUser.id))
+        dispatch(filterAllProductReviews(allProductReviews.filter(review => review.userId != currentUser.id)))
+        dispatch(filterNewProductReviews(
+            allProductReviews.filter(review => review.userId != currentUser.id)[0] ?
+                allProductReviews.filter(review => review.userId != currentUser.id) :
+                [{ id: "delete" }]
+        ))
+        setCanReview2({ a: true })
+        setChange({ ...change, a: true, e: false, f: true })
     }
 
     var key = 1
@@ -134,7 +142,7 @@ function Reviews({ currentUser, productId }) {
                         {review.userId == currentUser?.id &&
                             <div>
                                 <button className="reviewButton" onClick={editReview}>...</button>
-                                <button className="reviewButton" onClick={deleteReview}>X</button>
+                                <button className={ change.d ? "reviewButton" : "reviewButtonHide"} onClick={deleteReview}>X</button>
                             </div>
                         }
                     </div>
@@ -143,7 +151,7 @@ function Reviews({ currentUser, productId }) {
                     <span className="noReviewsYet">No reviews yet  :(</span>
                 }
             </div>
-            {canReview[0] && change.a ?
+            {(canReview[0] || canReview2.a) && change.f ?
                 <div className="add-review">
                     <span>Add review</span>
                     <div>
@@ -175,14 +183,14 @@ function Reviews({ currentUser, productId }) {
                         <form>
                             <div className="reviewForm">
                                 <span className="spanAddReview">Score</span>
-                                <select name="score" id="reviewScoreSelector" onChange={handleInputChangeScEdit}>
+                                <select name="scoreEdit" id="reviewScoreSelector" value={eReview.score} onChange={handleInputChangeSc}>
                                     {["Select", 1, 2, 3, 4, 5].map((x) => <option key={`PD${key++}`} value={x}>{x}</option>)}
                                 </select>
                                 <span className={!change.c ? "selectScore" : "selectScoreHide"}> Select a score</span>
                             </div>
                             <div className="divAddReview">
                                 <span className="spanAddReview">Comment</span>
-                                <textarea className="inputReviewComment" type="text" name="comment" onChange={handleInputChangeCoEdit} />
+                                <textarea className="inputReviewComment" type="text" value={eReview.comment} name="commentEdit" onChange={handleInputChangeCo} />
                             </div>
                             <div className="divReviewButton">
                                 <input className="inputSubmit" type="submit" value="Add" onClick={submitReviewEdit} />
