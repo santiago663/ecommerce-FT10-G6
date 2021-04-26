@@ -20,8 +20,10 @@ function ProductDetails() {
   const productCache = useSelector((store) => store.reducerProduct.productCache);
   const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
   const loading = useSelector((store) => store.reducerLoading.loading)
+  const allScores = useSelector((store) => store.reducerProduct.allProductsScores);
 
   const [productScore, setproductScore] = useState([0])
+  let score = allScores.find(product => product.id == id)?.score  
 
   useEffect(() => {
     dispatch(getOneProduct(id));
