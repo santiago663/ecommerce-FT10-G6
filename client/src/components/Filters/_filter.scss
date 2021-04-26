@@ -2,15 +2,15 @@
   position: sticky;
   top: 155px;
   display: flex;
-  width: 90%;
+  width: 100%;
   text-align: center;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 9;
+  z-index: 1;
 }
 .filter {
-  width: 80%;
+  width: 95%;
   margin: 0 auto;
   box-shadow: 0px 3px 2px 0px #0000003f;
   display: flex;
@@ -19,21 +19,26 @@
   background: #fafafa;
   border-radius: 5px;
   padding: 5px 5px;
-  // border-left: 1px solid #1d1a1a83;
-  // border-right: 2px solid #1d1a1a83;
 }
 
 .filter select {
+  font-size: 15px;
+  font-weight: 400;
   margin: 0;
   padding: 1%;
   height: 6%;
   width: 30%;
+  min-width: 67px;
   border: none;
   outline: none;
   background-color: transparent;
   &:hover {
     color: #19f9a4;
     cursor: pointer;
+  }
+  @media only screen and(max-width: 560px) {
+    font-size: 10px;
+    font-weight: 900;
   }
 }
 
@@ -94,5 +99,15 @@
   &:hover {
     background-color: #1b1b1b;
     color: #19f9a4;
+  }
+}
+.fa-star {
+  border: none;
+  background: transparent;
+  padding: 0px 1px;
+  font-size: 17px;
+  &:hover {
+    color: rgb(247, 250, 66);
+    text-shadow: 0 0 5px #1b1b1b;
   }
 }
