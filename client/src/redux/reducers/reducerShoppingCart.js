@@ -31,7 +31,7 @@ export default function reducerShoppingCart(state = initialState, action) {
       };
       case TYPES.CLEAN_SHOPPING_CART:
         return {
-			currenUser: false,
+			...state,
 			shoppingCart: [],
 		};
     default:
