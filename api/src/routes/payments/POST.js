@@ -11,7 +11,7 @@ mercadopago.configure({
   access_token: ACCESS_TOKEN_MP,
 });
 
-server.get("/mercado-pago/create-preference/:orderId", async (req, res) => {
+server.post("/mercado-pago/create-preference/:orderId", async (req, res) => {
   try {
     const orderId = req.params.orderId;
     if (orderId) {
@@ -72,7 +72,7 @@ server.get("/mercado-pago/create-preference/:orderId", async (req, res) => {
   }
 });
 
-server.get("/stripe/create-session/:orderId", async (req, res) => {
+server.post("/stripe/create-session/:orderId", async (req, res) => {
   try {
     const orderId = req.params.orderId;
     if (orderId) {

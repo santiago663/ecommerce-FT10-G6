@@ -1,12 +1,5 @@
 const server = require('express').Router();
 const { Orders, Users, Roles } = require('../../db');
-const mercadopago = require('mercadopago');
-const { TOKEN_MP } = process.env;
-
-
-mercadopago.configure({
-	access_token: 'TEST-264844096734817-042118-df9e69b534cb72c823f9e75f204db6a2-189126844',
-});
 
 server.post('/', async (req, res) => {
 	

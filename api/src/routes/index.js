@@ -46,7 +46,7 @@ router.use("/delete/review", require("./reviews/DELETE"));
  //=> auth
 router.use("/emails", require("./auth/POST"));
 // => Payments
-router.use("/get/payments", require("./payments/GET"));
+router.use("/post/payments", require("./payments/POST"));
 // => Middleware
 router.use(static("."));
 
