@@ -6,6 +6,7 @@ import { getOneProduct, getProductReview } from "../../redux/actions/actionBack"
 import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
 import { addToCartUser, removeToCartUser } from "../../redux/actions/actionOrder";
 import Loading from "../Loading/Loading"
+import FunctionStar from '../FunctionStar/FunctionStar';
 import Reviews from "../Reviews/Reviews.jsx"
 import "../../scss/components/_productDetails.scss";
 import { IoArrowUndoSharp } from 'react-icons/io5';
@@ -112,7 +113,7 @@ function ProductDetails() {
             <div className="headerDet">
               <div className="score">
                 {
-                  loading ? <span> </span> : <span className="spanScore">{productScore[0]} <i className="far fa-star"></i></span>
+                  loading ? <span> </span> : <span className="spanScore">{productScore[0]} {FunctionStar(Number(productScore[0]))} </span>
                 }
               </div>
               <div className="linkClose">
@@ -189,6 +190,7 @@ function ProductDetails() {
         </div>
       </div>
     );
+
   }
 
 }
