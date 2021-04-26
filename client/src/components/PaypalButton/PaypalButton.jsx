@@ -3,7 +3,6 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import  {PayPalButton}  from 'react-paypal-button-v2';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
-import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 function PaypalButton({input} ) {
@@ -15,7 +14,8 @@ function PaypalButton({input} ) {
 	const reducer = (accumulator, currentValue) => Number(currentValue.price) + accumulator;
 	let sum = shoppingCart.reduce(reducer, 0) / 92;
 	const total = shoppingCart.reduce(reducer, 0);
-const history = useHistory();
+	
+
 	const paypalOptions = {
 		client: 'AdbNICxqoNl8uNCVRJmT0g40u_AxW6gmU7k8ldvUJamnekCgcewwCxoqG8csJylNS0D2FaCgzfAJzN5T',
 		intent: 'capture',
@@ -31,14 +31,15 @@ const history = useHistory();
 		
 		if (currentUser.id) {
 			try {
+				Swal.fire('Saved!', '', '');
 
 				let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };
-				console.log("useeeeeer--->",user)
+				
 				dispatch(formUserOrder(user));
-				// Swal.fire('Saved!', '', 'success');
-				alert('banca')
 				localStorage.clear();
-				// history.push('Browser/products');
+				setTimeout(() => {
+					location.assign('http://localhost:3000/Browser/products');
+				}, 1000);
 			} catch (err) {
 				console.error(err.message);
 			}
@@ -47,11 +48,13 @@ const history = useHistory();
 				input.payment = paymentId;
 				input.methodId = 3;
 				input.total = total;
-				console.log('inpuuuut--->', input);
+				
 				dispatch(formGuestOrder(input));
-				// Swal.fire('Saved!', '', 'success');
-				alert('banca')
-				// history.push('Browser/products');
+				Swal.fire('Saved!', '', '');
+				setTimeout(() => {
+					location.assign('http://localhost:3000/Browser/products');
+				}, 1000);
+					
 				localStorage.clear();
 			} catch (err) {
 				console.error(err.message);
