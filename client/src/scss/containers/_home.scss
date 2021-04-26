@@ -3,8 +3,8 @@ $primary-light: #6874b5;
 
 .landing-section {
   width: 100%;
-  height: 800px;
-  padding: 2rem 0 0 4rem;
+  height: 100vh;
+  padding: 2rem 0 0 0;
   background-color: #ddd;
   background-image: url("https://cdn.discordapp.com/attachments/829710868413546511/829924062276485121/face.jpg");
   background-size: cover;
@@ -15,21 +15,37 @@ $primary-light: #6874b5;
 
 .landing-title {
   color: #fff;
-max-width: 25rem;
-margin-top: 100px;
-line-height: 2.3rem;
-font-size: 30px;
-margin-bottom: 10px;
+  text-shadow: 1px 1px 1px #145a33;
+  max-width: 25rem;
+  margin-top: 0px;
+  text-align: center;
+  line-height: 2.3rem;
+  font-size: 30px;
+  margin-bottom: 10px;
+  padding: 0px;
+  @media only screen and(max-width: 560px) {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 30px;
+    width: 70%;
+  }
 }
 
 .landing-action {
   width: 150px;
+  height: 50px;
+  bottom: 50px;
   border: none;
-  background: $primary-light;
-  color: #fff;
+  background-color: #19f9a4;
+  color: rgba(0, 0, 0, 0.671);
   padding: 1rem 1rem;
   border-radius: 9999px;
   text-transform: capitalize;
+  font-weight: 800;
+  transition: 100ms ease all;
+  box-shadow: 1px 3px 1px 2px #0000002c;
+  cursor: pointer;
+
   &:hover {
     opacity: 0.8;
   }
@@ -45,8 +61,25 @@ margin-bottom: 10px;
   }
 }
 
-.botonesqueseio{
+.botonesqueseio {
   position: absolute;
   top: 100px;
-  left: 40px
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  .linkto {
+    width: 100%;
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 15%;
+    cursor: pointer;
+  }
+}
+.tsparticles-canvas-el {
+  position: absolute;
+  bottom: 0px;
 }

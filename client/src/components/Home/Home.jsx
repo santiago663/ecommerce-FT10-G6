@@ -2,11 +2,11 @@
 import React from 'react';
 import '../../scss/containers/_home.scss';
 import Particles from 'react-particles-js'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Home() {
 
-  return (
+	return (
 		<div className="home-wrapper">
 			<div className="landing-section">
 				<Particles
@@ -76,18 +76,18 @@ function Home() {
 			</div>
 			<div className="botonesqueseio">
 				<h1 className="landing-title">
-					<span className="title-bg">Become a collector</span>
+					<span className="title-bg">Become a collector !</span>
 					<span className="title-bg"> Support digital artists & </span>
-					<span className="title-bg">earn money by holding their art pieces</span>
+					<span className="title-bg">earn money by holding their art pieces .</span>
 				</h1>
-				<Link to="/Browser/products">
+				<Link className="linkto" to="/Browser/products">
 					<button className="landing-action btn-rounded" type="button">
 						Browse now!
 					</button>
 				</Link>
 			</div>
 		</div>
-  );
+	);
 }
 
 export default Home;

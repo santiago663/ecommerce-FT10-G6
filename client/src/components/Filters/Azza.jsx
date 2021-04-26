@@ -36,81 +36,83 @@ function Filter() {
 
 	return (
 		<>
-			<div className="Container-Filter">
-				<button className="Boton-Reset" onClick={(e) => handleBackUp(e)}>
-					{`Reset`}
-				</button>
-				<div className="filter">
-					{(selectAuthor && selectScore) ||
-						(selectScore && selectCategorie) ||
-						(selectCategorie && selectAuthor) ? (
-						<button onClick={(e) => handleBackUp(e)} className="Button-Try-Again">
-							Try Again
-						</button>
-					) : selectAuthor || selectCategorie ? (
-						<>
-							<select onChange={(e) => handleFilter(e)}>
-								<option default>Filter By Category</option>
-								{selectAuthor
-									? disponibleCategories &&
-									disponibleCategories.map((C) => {
-										return <option value={C}>{C}</option>;
-									})
-									: allCategories &&
-									allCategories.map((C) => {
-										return <option value={C.name}>{C.name}</option>;
-									})}
-							</select>
+			<div className="glass-background">
+				<div className="Container-Filter">
+					<button className="Boton-Reset" onClick={(e) => handleBackUp(e)}>
+						{`Reset`}
+					</button>
+					<div className="filter">
+						{(selectAuthor && selectScore) ||
+							(selectScore && selectCategorie) ||
+							(selectCategorie && selectAuthor) ? (
+							<button onClick={(e) => handleBackUp(e)} className="Button-Try-Again">
+								Try Again
+							</button>
+						) : selectAuthor || selectCategorie ? (
+							<>
+								<select onChange={(e) => handleFilter(e)}>
+									<option default>Filter By Category</option>
+									{selectAuthor
+										? disponibleCategories &&
+										disponibleCategories.map((C) => {
+											return <option value={C}>{C}</option>;
+										})
+										: allCategories &&
+										allCategories.map((C) => {
+											return <option value={C.name}>{C.name}</option>;
+										})}
+								</select>
 
-							<select onChange={(e) => handleAuthor(e)}>
-								<option default>Filter By Author</option>
-								{!selectCategorie
-									? allArtist &&
-									allArtist.map((a) => {
-										return <option value={a.name}>{a.name}</option>;
-									})
-									: disponibleAuthor &&
-									disponibleAuthor.map((a) => {
-										return <option value={a}>{a}</option>;
-									})}
-							</select>
-						</>
-					) : (
-						<>
-							<select onChange={(e) => handleFilter(e)}>
-								<option default>Category</option>
-								{selectAuthor
-									? disponibleCategories &&
-									disponibleCategories.map((C) => {
-										return <option value={C}>{C}</option>;
-									})
-									: allCategories &&
-									allCategories.map((C) => {
-										return <option value={C.name}>{C.name}</option>;
-									})}
-							</select>
+								<select onChange={(e) => handleAuthor(e)}>
+									<option default>Filter By Author</option>
+									{!selectCategorie
+										? allArtist &&
+										allArtist.map((a) => {
+											return <option value={a.name}>{a.name}</option>;
+										})
+										: disponibleAuthor &&
+										disponibleAuthor.map((a) => {
+											return <option value={a}>{a}</option>;
+										})}
+								</select>
+							</>
+						) : (
+							<>
+								<select onChange={(e) => handleFilter(e)}>
+									<option default>Category</option>
+									{selectAuthor
+										? disponibleCategories &&
+										disponibleCategories.map((C) => {
+											return <option value={C}>{C}</option>;
+										})
+										: allCategories &&
+										allCategories.map((C) => {
+											return <option value={C.name}>{C.name}</option>;
+										})}
+								</select>
 
-							<select onChange={(e) => handleAuthor(e)}>
-								<option default>Author</option>
-								{!selectCategorie
-									? allArtist &&
-									allArtist.map((a) => {
-										return <option value={a.name}>{a.name}</option>;
-									})
-									: disponibleAuthor &&
-									disponibleAuthor.map((a) => {
-										return <option value={a}>{a}</option>;
-									})}
-							</select>
-							<Score />
-						</>
-					)}
+								<select onChange={(e) => handleAuthor(e)}>
+									<option default>Author</option>
+									{!selectCategorie
+										? allArtist &&
+										allArtist.map((a) => {
+											return <option value={a.name}>{a.name}</option>;
+										})
+										: disponibleAuthor &&
+										disponibleAuthor.map((a) => {
+											return <option value={a}>{a}</option>;
+										})}
+								</select>
+								<Score />
+							</>
+						)}
 
-					{!toggle ? (
-						<button className="fas fa-sort-alpha-down" value="asc_name" onClick={(e) => handleOrder(e)} />
-					) : (
-						<button className="fas fa-sort-alpha-up" value="desc_name" onClick={(e) => handleOrder(e)} />
-					)}
+						{!toggle ? (
+							<button className="fas fa-sort-alpha-down" value="asc_name" onClick={(e) => handleOrder(e)} />
+						) : (
+							<button className="fas fa-sort-alpha-up" value="desc_name" onClick={(e) => handleOrder(e)} />
+						)}
+					</div>
 				</div>
 			</div>
 		</>
