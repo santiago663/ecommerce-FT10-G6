@@ -199,12 +199,8 @@ p {
 }
 
 .mainDivEP {
-  height: 50%;
-  margin-top: 1%;
-  margin-left: 1%;
-  margin-bottom: 2%;
-  color: #252525;
-  white-space: pre;
+  margin-top: 15;
+  margin-left: 15;
 }
 .mainDivEP .title {
   margin: 20px 0px 20px 20px;
@@ -254,10 +250,6 @@ p {
   margin: 10px 0px 0px 35px;
   padding: 5px;
   border-radius: 5px;
-}
-
-.input {
-  margin: 5px;
 }
 
 .landing-section {
