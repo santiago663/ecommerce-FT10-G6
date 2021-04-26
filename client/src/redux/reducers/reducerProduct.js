@@ -275,11 +275,11 @@ export default function reducerProduct(state = initialState, action) {
 
 		case TYPES.POST_NEW_USER_REVIEW:
 			//guarda los reviews antiguos y nuevos de los productos a los cuales se les hace review
-			return {...state, newProductReviews: action.payload};
+			return {...state, productReview: action.payload};
 
 		case TYPES.PUT_NEW_USER_REVIEW:
 			//guarda el review editado y sobreescribe lo que habia antes en newProductReviews
-			return {...state, newProductReviews: action.payload};
+			return {...state, productReview: action.payload};
 
 
 		default:

@@ -12,18 +12,20 @@ function ProductDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(getOneProduct(id));
-    dispatch(getProductReview(id))
-  }, []);
-
   const currentUser = useSelector((store) => store.auth.currentUser);
   const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder);
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const productCache = useSelector((store) => store.reducerProduct.productCache);
-  const allScores = useSelector((store) => store.reducerProduct.allProductsScores);
+  const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
+  const loading = useSelector((store) => store.reducerLoading.loading)
 
-  let score = allScores.find(product => product.id == id)?.score  
+  const [score, setScore] = useState([0])
+
+  useEffect(() => {
+    dispatch(getOneProduct(id));
+    dispatch(getProductReview(id))
+    setScore([allProduct.find(product => product.id == id)?.score])
+  }, [allProduct.find(product => product.id == id)?.score]);
 
   if (productCache.length !== 0) {
     var {
@@ -99,8 +101,9 @@ function ProductDetails() {
           <div className="linkClose">
             <Link className="link" to="/Browser/products">✘</Link>
           </div>
-          <div className="score">
-            <span>{score ? score : "-"} <i className="far fa-star"></i></span>
+          <div className="score"> {
+            loading ? <span> </span> : <span className="spanScore">{score[0]} <i className="far fa-star"></i></span>
+          }
           </div>
           <div className="titulo">{name}</div>
           <div className="det">
@@ -136,34 +139,30 @@ function ProductDetails() {
             </div>
           </div>
           <div className="contecarrito">
-            {available === "Available"
-            ?
-              <div className="btncarrito">
-                {!lStorage ?  (
-                  <button
-                    className="fas fa-cart-plus add btn"
-                    key={productCache.id}
-                    onClick={() =>
-                      handleAddToCart(productCache, currentUser, currentOrder)
-                    }
-                  >ADD</button>
-                ) : (
-                  <button
-                    className="fas fa-cart-arrow-down remove btn"
-                    key={productCache.id}
-                    onClick={() =>
-                      handleRemoveFromCart(productCache, currentUser, currentOrder)
-                    }
-                  >
-                    REMOVE</button>
-                )}
-              </div>
-            :null
-            }
+            <div className="btncarrito">
+              {!lStorage ? (
+                <button
+                  className="fas fa-cart-plus add btn"
+                  key={productCache.id}
+                  onClick={() =>
+                    handleAddToCart(productCache, currentUser, currentOrder)
+                  }
+                >ADD</button>
+              ) : (
+                <button
+                  className="fas fa-cart-arrow-down remove btn"
+                  key={productCache.id}
+                  onClick={() =>
+                    handleRemoveFromCart(productCache, currentUser, currentOrder)
+                  }
+                >
+                  REMOVE</button>
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <Reviews currentUser={currentUser} productId={id} />      
+      <Reviews currentUser={currentUser} productId={id} />
     </div>
   );
 }
