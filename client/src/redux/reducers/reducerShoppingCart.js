@@ -29,6 +29,11 @@ export default function reducerShoppingCart(state = initialState, action) {
           (item) => item.id !== action.payload.id
         ),
       };
+      case TYPES.CLEAN_SHOPPING_CART:
+        return {
+			...state,
+			shoppingCart: [],
+		};
     default:
       return state;
   }
