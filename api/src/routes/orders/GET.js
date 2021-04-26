@@ -57,7 +57,11 @@ const state = req.query.status;
                 {
                     model: Products,
                     through: { attributes: [] },
-                }, ],
+                },
+                {
+                  model: Methods,
+                  
+              }, ],
             }); res.status(200).json(cart); }
   } catch (err) {
     console.log(err);
@@ -80,7 +84,11 @@ server.get("/:id", async (req, res) => {
             {
                 model: Products,
                 through: { attributes: [] },
-            }, ],
+            },
+            {
+              model: Methods,
+              
+          }, ],
           }); res.status(200).json(cart);
     } catch (err) {
     console.log(err);
