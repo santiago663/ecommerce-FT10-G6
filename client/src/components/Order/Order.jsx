@@ -1,15 +1,13 @@
 /*eslint-disable*/
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { formGuestOrder } from "../../redux/actions/actionOrder";
+import { useSelector } from "react-redux";
 import PaypalButton from "../PaypalButton/PaypalButton";
 import { loadStripe } from "@stripe/stripe-js";
 import "./_order.scss";
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx"); //stripe connection
 
 function Order() {
-  // const dispatch = useDispatch();
   const currentUser = useSelector((store) => store.auth.currentUser);
   const currentOrder = useSelector(
     (store) => store.reducerOrderUser.currentOrder
