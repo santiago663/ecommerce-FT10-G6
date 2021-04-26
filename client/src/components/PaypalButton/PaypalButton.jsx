@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import  {PayPalButton}  from 'react-paypal-button-v2';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
+import {cleanShoopingCart} from '../../redux/actions/actionFront'
 import Swal from 'sweetalert2';
 
 function PaypalButton({input} ) {
@@ -31,15 +32,13 @@ function PaypalButton({input} ) {
 		
 		if (currentUser.id) {
 			try {
-				Swal.fire('Saved!', '', '');
-
+				Swal.fire({title:'Completed',text: 'Thanks for trusting us',icon:'info',confirmButtonText: 'Cool'});
 				let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };
 				
 				dispatch(formUserOrder(user));
-				localStorage.clear();
-				setTimeout(() => {
-					location.assign('http://localhost:3000/Browser/products');
-				}, 1000);
+				
+				dispatch(cleanShoopingCart())
+				window.history.back();
 			} catch (err) {
 				console.error(err.message);
 			}
@@ -50,11 +49,14 @@ function PaypalButton({input} ) {
 				input.total = total;
 				
 				dispatch(formGuestOrder(input));
-				Swal.fire('Saved!', '', '');
-				setTimeout(() => {
-					location.assign('http://localhost:3000/Browser/products');
-				}, 1000);
-					
+				Swal.fire({
+					title: 'Completed',
+					text: 'Thanks for trusting us',
+					icon: 'info',
+					confirmButtonText: 'Cool',
+				});
+					dispatch(cleanShoopingCart());
+					window.history.back();
 				localStorage.clear();
 			} catch (err) {
 				console.error(err.message);
