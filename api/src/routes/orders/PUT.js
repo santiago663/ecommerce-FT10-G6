@@ -12,7 +12,11 @@ try {
     })
     
     if (orderState[actualOrder.state] < orderState[state]) {
-        await Orders.update({ state: state, payment: payment, methodId: methodId }, { where: { id } });
+        if (!payment){
+            await Orders.update({ state: state }, { where: { id } });
+        }else{
+            await Orders.update({ state: state, payment: payment, methodId: methodId }, { where: { id } });
+        }
         
         return res.status(200).json({message: `Order status changed to ${state}`});
     }
