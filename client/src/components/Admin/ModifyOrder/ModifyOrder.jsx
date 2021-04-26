@@ -27,7 +27,7 @@ const ModifyOrder = () => {
     },[])
 
     const onCellSelect = (event) => {
-        toast.current.show({ severity: 'info', summary: `Orders Selected`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
+        //toast.current.show({ severity: 'info', summary: `Orders Selected`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
         //console.log(event.value)
         setNrorders(event.value)
     }
@@ -118,7 +118,6 @@ const ModifyOrder = () => {
         }
     }
     const statusBodyTemplate = (rowData) => {
-        // console.log("soy ROWDATA", rowData)
         return getStatusLabel(rowData.state);
     }
     return ( 
@@ -135,8 +134,9 @@ const ModifyOrder = () => {
                 <div className="typesfilters">
                         <b>Filter State</b>
                     <div className="filterState">
-                        <div>
+                        <div className="containSelect">
                         <select className="selector" onChange={onChangeStatus}>
+                            <option value="" disabled selected >Selected State</option>
                             <option value="open">Open</option>
                             <option value="loading">Loading</option>
                             <option value="pending">Pending</option>
@@ -160,9 +160,11 @@ const ModifyOrder = () => {
                     <Column field="total" header="Total $"></Column>
              </DataTable>
             <Link to={`/admin/order/${nrorders}`}>
-                Detalle Order N° {nrorders}
+                <div className="titleView">
+                    <h3>View detail Order N° {nrorders}</h3>
+                </div> 
             </Link>
-             <div>
+             <div className="compoEditOrder">
                  <Route path="/admin/order/:id" component={EditOrder} />
              </div>
         </div>
