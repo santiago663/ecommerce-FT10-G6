@@ -141,7 +141,7 @@ function Reviews({ currentUser, productId }) {
                             {review.score} <i className="far fa-star color-star"></i>&nbsp;
                         </div>
                         <div className="nameAndComment">
-                            {review.user.name}<p>{review.comment}</p>
+                             {review.user.name}<p>{review.comment}</p>
                         </div>
                         {review.userId == currentUser?.id &&
                             <div>
