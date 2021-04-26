@@ -25,15 +25,16 @@ const Checkout = () => {
     const query = new URLSearchParams(window.location.search);
     const stripe = JSON.parse(window.localStorage.getItem("stripe"));
     // logged user
-    if (query.get("success")) {
+    if (query.get("success") && currentOrder.length > 0) {
       dispatch(
         formUserOrder({
-          id: 4,
+          id: currentOrder[0].id,
           state: "completed",
           payment: stripe.id,
           methodId: 4,
         })
       );
+      history.push("/checkout");
       Swal.fire({
         title: "Gracias por tu compra!",
         text:
@@ -50,9 +51,9 @@ const Checkout = () => {
           "Declinaste el pago? si necesitas información adicional o ayuda, escríbenos. Sera un gusto atenderte",
         icon: "warning",
         confirmButtonText: "OK",
-      });
+      }).then(() => history.push("/checkout"));
     }
-  }, []);
+  }, [currentOrder]);
 
   const handleSumTotal = () => {
     const reducer = (accumulator, currentValue) =>
@@ -73,9 +74,9 @@ const Checkout = () => {
       );
     } else {
       let data = JSON.parse(localStorage.getItem("orderProducts"));
-      let found = data.filter((product) => product.id !== productOnClick.id);
+      let result = data.filter((product) => product.id !== productOnClick.id);
 
-      localStorage.setItem("orderProducts", JSON.stringify(found));
+      localStorage.setItem("orderProducts", JSON.stringify(result));
       dispatch(removeFromCart(productOnClick));
     }
   };

@@ -57,13 +57,14 @@ function Order() {
           });
         }
         //guest user
-      } else {
-        setOrderData({ ...orderData, payment: payment });
-        dispatch(formGuestOrder(orderData));
-        // alert("success !!");
-        // location.assign("http://localhost:3000/Browser/products");
-        // localStorage.clear();
       }
+      // else {
+      //   setOrderData({ ...orderData, payment: payment });
+      //   dispatch(formGuestOrder(orderData));
+      //   // alert("success !!");
+      //   // location.assign("http://localhost:3000/Browser/products");
+      //   // localStorage.clear();
+      // }
     } catch (err) {
       console.error(err.message);
     }
@@ -149,7 +150,7 @@ function Order() {
             <br></br>
             <div className="Information-buttons">
               <div className="Information-next">
-                <PaypalButton input={input} />
+                {/* <PaypalButton input={input} /> */}
                 <button
                   className="stripe"
                   onClick={() => handlePayments("stripe")}
