@@ -20,12 +20,12 @@ function ProductDetails() {
   const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
   const loading = useSelector((store) => store.reducerLoading.loading)
 
-  const [score, setScore] = useState([0])
+  const [productScore, setproductScore] = useState([0])
 
   useEffect(() => {
     dispatch(getOneProduct(id));
     dispatch(getProductReview(id))
-    setScore([allProduct.find(product => product.id == id)?.score])
+    setproductScore([allProduct.find(product => product.id == id)?.score])
   }, [allProduct.find(product => product.id == id)?.score]);
 
   if (productCache.length !== 0) {
@@ -92,7 +92,7 @@ function ProductDetails() {
     }
   }
 
-  if (loading && !allProduct.find(product => product.id == id)?.score) {
+  if (loading && (false && !allProduct.find(product => product.id == id)?.score)) {
     return (
       <Loading />
     )
@@ -109,7 +109,7 @@ function ProductDetails() {
               <Link className="link" to="/Browser/products">✘</Link>
             </div>
             <div className="score"> {
-              loading ? <span> </span> : <span className="spanScore">{score[0]} <i className="far fa-star"></i></span>
+              loading ? <span> </span> : <span className="spanScore">{productScore[0]} <i className="far fa-star"></i></span>
             }
             </div>
             <div className="titulo">{name}</div>
