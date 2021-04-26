@@ -1,5 +1,5 @@
 /* eslint-disable  */
-import { useEffect } from "react"
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/actionFront";
@@ -38,7 +38,7 @@ const Checkout = () => {
           "Se enviara los links de descarga y datos adicionales a correo registrado",
         icon: "success",
         confirmButtonText: "OK",
-      });
+      }).then(() => window.localStorage.setItem("stripe", JSON.stringify("")));
     } else if (query.get("canceled")) {
       Swal.fire({
         title: "Declinado",
