@@ -6,8 +6,6 @@ server.put("/", async (req, res) => {
 const orderState = { open: 1, pending: 2, cancelled: 3, completed: 3 };
 const { id, state, payment, methodId } = req.body;
 
-    
-
 try {
     let actualOrder = await Orders.findOne({
     where: { id }

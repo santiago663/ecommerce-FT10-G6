@@ -11,7 +11,7 @@ mercadopago.configure({
 server.post('/', async (req, res) => {
 	
 	const { total, userId, price, productId, id, name, email,payment,methodId } = req.body;
-
+	
 	try {
 		const orderG = {
 			date: new Date(),
@@ -21,6 +21,7 @@ server.post('/', async (req, res) => {
 			methodId: methodId,
 			payment: payment,
 		};
+	
 		const order = {
 			date: new Date(),
 			total: total,
@@ -28,17 +29,16 @@ server.post('/', async (req, res) => {
 			userId: userId,
 			
 		};
-		
 		let idOrder = id;
 		let newOrder;
 		let newOrder2;
 		let resultOrder;
 		
 		if (!userId) {
-			
+
 			let roleGuest = await Roles.findOne({
 				where: {
-					description: 'Guess',
+					description: 'Guest',
 				},
 			});
 			const guest = await Users.findOrCreate({
@@ -56,28 +56,36 @@ server.post('/', async (req, res) => {
 
 		for (let i = 0; i < productId.length; i++) {
 			if (i === 0 && !id) {
-				newOrder = await Orders.create(order);
-				
-				await newOrder.addProducts(productId[i], {
+
+				newOrder = await Orders.create(orderG);		
+				await newOrder.setProducts(productId[i], {
 					through: { price: price[i] },
+
 				});
-				
 				idOrder = newOrder.id;
+
 			} else {
+
 				newOrder2 = await Orders.update(order, {
 					where: { id: idOrder },
 					returning: true,
+
 				});
+
 				resultOrder = await Orders.findOne({
 					where: { id: idOrder },
+
 				});
 
 				await resultOrder.addProducts(productId[i], {
 					through: { price: price[i] },
+
 				});
 			}
 		}
+		
 		if (!resultOrder && newOrder) {
+		
 			return res.status(200).json({ message: 'order created successfully', id: newOrder.id });
 		}
 
@@ -87,7 +95,6 @@ server.post('/', async (req, res) => {
 			res.status(200).json({ message: 'order created successfully', id: resultOrder.id });
 		}
 	} catch (error) {
-		// console.log(error);
 		res.status(500).json({ message: 'Internal server error', status: 500 });
 	}
 });
