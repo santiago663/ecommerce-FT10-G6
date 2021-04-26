@@ -137,8 +137,12 @@ function Reviews({ currentUser, productId }) {
                 <p className="reviewTitle">Reviews</p>
                 {allProductReviews[0] ? allProductReviews.map(review =>
                     <div className="reviewComment">
-                        <div>{review.score} <i className="far fa-star"></i></div>
-                        <div className="nameAndComment">{review.user.name}<p>{review.comment}</p></div>
+                        <div className="scoreDet">
+                            {review.score} <i className="far fa-star color-star"></i>&nbsp;
+                        </div>
+                        <div className="nameAndComment">
+                            {review.user.name}<p>{review.comment}</p>
+                        </div>
                         {review.userId == currentUser?.id &&
                             <div>
                                 <button className="reviewButton" onClick={editReview}>...</button>
@@ -151,10 +155,11 @@ function Reviews({ currentUser, productId }) {
                     <span className="noReviewsYet">No reviews yet  :(</span>
                 }
             </div>
+            <br/>
             {(canReview[0] || canReview2.a) && change.f ?
                 <div className="add-review">
                     <span>Add review</span>
-                    <div>
+                    <div className="contFormReview">
                         <form>
                             <div className="reviewForm">
                                 <span className="spanAddReview">Score</span>
@@ -176,10 +181,11 @@ function Reviews({ currentUser, productId }) {
                 :
                 <span></span>
             }
+            <br/>
             {!change.d ?
                 <div className="add-review">
                     <span>Edit review</span>
-                    <div>
+                    <div className="contFormReview">
                         <form>
                             <div className="reviewForm">
                                 <span className="spanAddReview">Score</span>

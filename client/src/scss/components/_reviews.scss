@@ -1,16 +1,18 @@
 .review-cont {
     display: flex; 
-    margin-left: 20%;   
-    margin-top: 50px;
-    white-space: pre;
-    width: 400px;
+    // margin-left: 20%;   
+    // margin-top: 50px;
+    margin: 20px 5px 15px 35px;
+    // width: 400px;
+    color: #151515;
+    .reviewTitle {
+        width: 100%;
+        font-size: 35px;
+        font-weight: bold;
+        padding: 10px 0px 10px 10px;
+    }
 }
 
-.reviewTitle {
-    font-size: 30px;
-    font-weight: bold;
-    padding-bottom: 10px;
-}
 
 .reviewComment {
     display: flex;
@@ -18,15 +20,59 @@
     padding-bottom: 10px;
 }
 
-.add-review {
-    font-size: 30px;
-    font-weight: bold;
-    padding-left: 100px;
-    margin: 0;
+.scoreDet{
+    font-weight: 600;
+    margin:10px 5px 0px 10px !important;
+    .color-star{
+        color: #cacc5f;
+        font-size: 20px;
+        
+    } 
 }
 
 .nameAndComment {
-    padding-left: 10px;
+    width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(240, 248, 255, 0.309);
+    font-weight: 800;
+    margin: 3px 0px 10px 0px !important;
+    p{
+        font-weight: 400; 
+        padding-top: 5px; 
+    } 
+}
+
+.add-review {
+    font-size: 35px;
+    font-weight: bold;
+    padding: 5px 25px 5px 5px;
+    margin: 0;
+    color: #151515;
+    
+    .contFormReview{
+        margin: 5px 0px 0px 15px;
+
+        .divAddReview{
+            margin-top: 10px;
+        }
+        #reviewScoreSelector{
+            padding: 3px;
+            border-radius: 7px;
+        }
+        .spanAddReview{
+            font-weight: 600;
+
+        }
+        .inputReviewComment{
+            padding: 5px;
+            border-radius: 10px;
+        }
+        .inputSubmit{
+            background-color: #202020;
+            color: rgb(91, 201, 159);
+        }
+    }
 }
 
 .reviewForm {
@@ -91,10 +137,15 @@
     height: auto;
     width: auto;
     padding: 3px 9px;
-    font-size: 10px;
+    font-size: 12px;
     margin: 2px;
+    border-radius: 5px;
+    background-color: #202020;
+    color: rgb(91, 201, 159);
+
 }
 
 .reviewButtonHide {
     display: none;
 }
+
