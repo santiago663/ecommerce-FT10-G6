@@ -47,6 +47,7 @@ export const stripe = (orderId) => async (dispatch) => {
           method: response.data.method,
           id: response.data.id,
           url: response.data.url,
+          methodId: 4 
         })
       );
     } else {

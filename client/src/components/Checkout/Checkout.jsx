@@ -1,6 +1,6 @@
 /* eslint-disable  */
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/actionFront";
 import { removeToCartUser } from "../../redux/actions/actionOrder";
@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import "./_checkout.scss";
 
 const Checkout = () => {
+  let history = useHistory();
   const dispatch = useDispatch();
   const shoppingCart = useSelector(
     (state) => state.reducerShoppingCart.shoppingCart
@@ -27,9 +28,10 @@ const Checkout = () => {
     if (query.get("success")) {
       dispatch(
         formUserOrder({
-          id: currentOrder[0].id,
+          id: 4,
           state: "completed",
           payment: stripe.id,
+          methodId: 4,
         })
       );
       Swal.fire({
@@ -38,7 +40,9 @@ const Checkout = () => {
           "Se enviara los links de descarga y datos adicionales a correo registrado",
         icon: "success",
         confirmButtonText: "OK",
-      }).then(() => window.localStorage.setItem("stripe", JSON.stringify("")));
+      })
+        .then(() => window.localStorage.setItem("stripe", JSON.stringify("")))
+        .then(() => history.push("/Browser/products"));
     } else if (query.get("canceled")) {
       Swal.fire({
         title: "Declinado",
