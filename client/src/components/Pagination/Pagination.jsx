@@ -16,10 +16,12 @@ function Pagination({ cardsPerPage, totalCards }) {
 
   function previusPage(page) {
     if (page > 1) dispatch(paginate(page - 1))
+    window.scrollTo({top: "300px", behavior: "smooth"})
   }
 
   function nextPage(page, finalPage) {
     if (page < finalPage) dispatch(paginate(page + 1))
+    window.scrollTo({top: "300px", behavior: "smooth"})
   }
 
   return (
@@ -29,7 +31,7 @@ function Pagination({ cardsPerPage, totalCards }) {
         {
           pageNumbers.map((number) => (
             <li key={number} className={page == number ? "page-item-select" : "page-item'"}>
-              <a onClick={() => dispatch(paginate(number))} href="#!" className="page-link">{number}</a>
+              <a onClick={() => {dispatch(paginate(number)); window.scrollTo({top: "300px", behavior: "smooth"})}} href="#!" className="page-link">{number}</a>
             </li>
           ))
         }
