@@ -11,7 +11,7 @@ function LibraryDetail(props) {
       return ( <Loading/>)
   } else {
   return (
-    <div className="orderdetail-container">
+    <div className="librarydetail-container">
         
       <div className="modalLibrary">
           <img src={preview} alt="preview"/>
