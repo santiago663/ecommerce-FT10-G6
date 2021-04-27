@@ -1,68 +1,66 @@
-.orders-body{
+.orders-body {
     // display: flex;
-    margin:20px;
-    .box1{
+    margin: 20px;
+    .box1 {
         width: 70%;
         margin: 10px;
         background-color: #1b1b1b;
-        .everyOrders1{
+        .everyOrders1 {
             margin: 10px;
             padding: 10px;
-            .listOrders1{
+            .listOrders1 {
                 margin: 10px;
-                .dateOrders1{
+                .dateOrders1 {
                     padding: 5px;
                     border-radius: 10px;
-                    .products1{
+                    .products1 {
                         box-shadow: 0px 4px 4px rgb(99, 99, 99);
                         border: 3px solid #19f9a4;
                         border-radius: 10px;
                         background-color: #19f9a4;
-                        .order1{
+                        .order1 {
                             // display: inline;
-                            .orderID1{
+                            .orderID1 {
                                 display: inline-flex;
                                 padding: 0px 30px 0px 0px;
                                 font-size: 16px;
-                                .open{
+                                .open {
                                     color: rgb(11, 135, 36);
                                 }
-                                .cancelled{
+                                .cancelled {
                                     color: rgb(201, 30, 30);
                                 }
-                                .loading{
+                                .loading {
                                     color: rgb(230, 150, 13);
                                 }
-                                .completed{
+                                .completed {
                                     color: rgb(30, 36, 210);
                                 }
                             }
                         }
-                        .TOTAL1{
+                        .TOTAL1 {
                             border-radius: 0 0 10px 10px;
                             background-color: #19f9a4;
-                            .totalPrice1{
+                            .totalPrice1 {
                                 text-align: right;
                                 padding: 10px;
                                 margin-right: 150px;
                                 font-size: 17px;
                             }
                         }
-                        .oneProduct1{
-                           
-                            display:flex;
+                        .oneProduct1 {
+                            display: flex;
                             border: 0.2px solid rgb(230, 230, 230);
                             background-color: rgb(255, 255, 255);
-                            
-                            .dateProducts1{ 
-                           
+
+                            .dateProducts1 {
                                 margin: 10px 200px 10px 20px;
 
-                                .Product1{
+                                .Product1 {
                                     display: inline;
                                     width: 20px;
-                                    
-                                    .date1{
+
+                                    .date1 {
                                         // display: inline-block;
                                         margin: 5px;
                                         padding: 5px;
@@ -71,10 +69,9 @@
                                     }
                                 }
                             }
-                            .imageProduct1{
+                            .imageProduct1 {
                                 margin: 5px;
-                                display:flex;
-                          
+                                display: flex;
                             }
                         }
                     }
@@ -83,24 +80,45 @@
         }
     }
 }
-
+.container-inner {
+    width: 580px;
+    margin: 0 auto;
+}
 .tableheader {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: #19f9a4;
     color: #1b1b1b;
     height: 40px;
     align-items: center;
-    margin-top: 20px;
+    padding: 10px 70px;
     margin-bottom: 20px;
+    .tableheader-date {
+        position: relative;
+        left: -7px;
+    }
+}
+.profile-body {
+    width: 530px;
 }
 
-.orderPreview{
+.orderPreview {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #808080;
-    padding: 10px 20px;
+    background-color: #adadad;
+    padding: 10px 10px;
+    color: rgba(24, 24, 24, 0.616);
+    .option-price {
+        width: 150px;
+        text-align: right;
+    }
+    .option-state {
+        width: 100px;
+        text-align: right;
+        margin-left: 10px;
+    }
 }
 
 .description {
@@ -110,6 +128,7 @@
 }
 
 .seemore a {
+    position: relative;
     font-size: 20px;
     color: #19f9a4;
 }
