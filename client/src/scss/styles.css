@@ -163,6 +163,7 @@ h1 {
 
 .catalogue-wrapper {
   display: flex;
+  padding: 10px 30px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -733,7 +734,6 @@ a.link {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 90px;
   -webkit-animation-name: grow;
           animation-name: grow;
   -webkit-animation-duration: 0.5s;
@@ -744,14 +744,16 @@ a.link {
   justify-content: center;
   margin-left: 35px;
   margin-right: 35px;
+  padding-top: 85px;
 }
 .big-container .product-wrapper .preview {
   display: flex;
   margin-top: 20px;
-  /* width: 680px; */
+  width: 700px;
   height: 500px;
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 5px;
-  box-shadow: 2px 5px 20px #7dd1bf;
 }
 .big-container .product-wrapper .detailProd {
   box-sizing: content-box;
@@ -794,6 +796,7 @@ a.link {
   box-shadow: 0px 1px 15px #789c8f;
 }
 .big-container .product-wrapper .detailProd .headerDet .score {
+  display: flex;
   font-size: 20px;
   padding: 10px 0px 10px 10px;
   color: #cacc5f;
@@ -809,11 +812,20 @@ a.link {
   background-color: #23d18f;
   background-image: repeating-linear-gradient(201deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px, transparent 2px, transparent 4px), linear-gradient(111deg, #a29b9b, #a0e5cb);
 }
-.big-container .cont-Review-Det .review-Det {
-  padding: 25px;
+
+.spanScore {
+  display: flex;
+  align-items: center;
+  white-space: pre;
 }
-.big-container .cont-Review-Det .review-Det * {
-  margin: 0;
+
+.product-preview {
+  align-self: center;
+}
+
+.reviewNumber {
+  font-size: 18px;
+  padding-bottom: 2px;
 }
 
 .titulo, .desc {
@@ -922,6 +934,10 @@ a.link {
   color: #ee2222;
   background-color: #141515;
   transform: scale(1.15);
+}
+
+.divStars {
+  padding-bottom: 7px;
 }
 
 @keyframes grow {
