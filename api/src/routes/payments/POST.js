@@ -63,6 +63,9 @@ server.post("/mercado-pago/create-preference/:orderId", async (req, res) => {
         id: createdPref.body.id,
         url: createdPref.body.init_point,
       });
+    } else if (req.body) {
+      let body = req.body;
+      console.log(body);
     } else {
       res.status(401).json({ message: "Incomplete data" });
     }
@@ -72,13 +75,13 @@ server.post("/mercado-pago/create-preference/:orderId", async (req, res) => {
   }
 });
 
-server.post("/stripe/create-session/:orderId", async (req, res) => {
+server.post("/stripe/create-session", async (req, res) => {
   try {
-    const orderId = req.params.orderId;
-    if (orderId) {
+    const body = req.body;
+    if (body.orderId) {
       const order = await Orders.findOne({
         where: {
-          id: orderId,
+          id: body.orderId,
         },
         include: [
           {
@@ -114,6 +117,30 @@ server.post("/stripe/create-session/:orderId", async (req, res) => {
 
       order.state = "pending"; // change order state
       await order.save(); // save change.
+
+      res.status(201).json({
+        method: "stripe",
+        id: session.id,
+        url: "",
+      });
+    } else if (body.products) {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: body.products.map((product) => ({
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: product.name,
+              images: [product.preview],
+            },
+            unit_amount: Number(Number(product.price).toFixed()),
+          },
+          quantity: 1,
+        })),
+        mode: "payment",
+        success_url: `${domainFront}/checkout/?success=true`,
+        cancel_url: `${domainFront}/checkout/?canceled=true`,
+      });
 
       res.status(201).json({
         method: "stripe",

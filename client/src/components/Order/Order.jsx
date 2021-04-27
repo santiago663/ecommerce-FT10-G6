@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import PaypalButton from "../PaypalButton/PaypalButton";
 import { loadStripe } from "@stripe/stripe-js";
 import "./_order.scss";
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx"); //stripe connection
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE); //stripe connection
 
 function Order() {
   const currentUser = useSelector((store) => store.auth.currentUser);
@@ -41,13 +41,14 @@ function Order() {
 
   // select payment
   const handlePayments = async (type, order, payment) => {
-    let MercadoPago = JSON.parse(window.localStorage.getItem("MercadoPago"));
+    let user = JSON.parse(window.localStorage.getItem("CurrentUser"));
+    // let MercadoPago = JSON.parse(window.localStorage.getItem("MercadoPago"));
     let stripe = JSON.parse(window.localStorage.getItem("stripe"));
     try {
       //logged user and open order
-      if (currentUser.id && currentOrder.length > 0) {
+      if (user && currentOrder.length > 0) {
         if (type === "mercado-pago") {
-          window.location.href = MercadoPago.url;
+          // window.location.href = MercadoPago.url;
         } else if (type === "stripe") {
           const stripeResponse = await stripePromise;
           const result = await stripeResponse.redirectToCheckout({
@@ -55,17 +56,28 @@ function Order() {
           });
         }
         //guest user
+      } else {
+        if (type === "mercado-pago") {
+          // window.location.href = MercadoPago.url;
+        } else if (type === "stripe") {
+          const stripeResponse = await stripePromise;
+          const result = await stripeResponse.redirectToCheckout({
+            sessionId: stripe.id,
+          });
+        }
       }
     } catch (err) {
       console.error(err.message);
     }
   };
 
-  // verify de info in the state or localStorage
+  // verify info in the state or localStorage
   if (
-    (payments.mercadoPago.url && payments.stripe.id) ||
-    (JSON.parse(window.localStorage.getItem("mercadoPago")) &&
-      JSON.parse(window.localStorage.getItem("stripe")))
+    // payments.mercadoPago.url &&
+    payments.stripe.id ||
+    // (JSON.parse(window.localStorage.getItem("mercadoPago")) &&
+    JSON.parse(window.localStorage.getItem("stripe")) ||
+    !JSON.parse(window.localStorage.getItem("CurrentUser"))
   ) {
     return (
       <div className="Information">

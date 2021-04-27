@@ -31,10 +31,11 @@ export const mercadoPago = (orderId) => async (dispatch) => {
   }
 };
 
-export const stripe = (orderId) => async (dispatch) => {
+export const stripe = (body) => async (dispatch) => {
   try {
     const response = await axios.post(
-      `http://localhost:3001/post/payments/stripe/create-session/${orderId}`
+      `http://localhost:3001/post/payments/stripe/create-session`,
+      body
     );
     if (response.status === 201) {
       dispatch({
@@ -47,7 +48,7 @@ export const stripe = (orderId) => async (dispatch) => {
           method: response.data.method,
           id: response.data.id,
           url: response.data.url,
-          methodId: 4 
+          methodId: 4,
         })
       );
     } else {

@@ -6,6 +6,7 @@ import { removeFromCart } from "../../redux/actions/actionFront";
 import { removeToCartUser } from "../../redux/actions/actionOrder";
 import { formUserOrder } from "../../redux/actions/actionOrder";
 import { mercadoPago, stripe } from "../../redux/actions/payments";
+import { cleanShoopingCart } from "../../redux/actions/actionFront.js";
 import Swal from "sweetalert2";
 import "./_checkout.scss";
 
@@ -22,38 +23,70 @@ const Checkout = () => {
 
   // Verificando el estado del pago
   useEffect(() => {
+    const user = JSON.parse(window.localStorage.getItem("CurrentUser"));
     const lStorage = JSON.parse(localStorage.getItem("beforeOrder"));
     const query = new URLSearchParams(window.location.search);
     const stripe = JSON.parse(window.localStorage.getItem("stripe"));
+
     // logged user
-    if (query.get("success") && lStorage.id) {
-      dispatch(
-        formUserOrder({
-          id: lStorage.id,
-          state: "completed",
-          payment: stripe.id,
-          methodId: 4,
+    if (query.get("success")) {
+      if (user && lStorage.id) {
+        dispatch(
+          formUserOrder({
+            id: lStorage.id,
+            state: "completed",
+            payment: stripe.id,
+            methodId: 4,
+          })
+        );
+        Swal.fire({
+          title: "Thanks for your purchase!",
+          text:
+            "Download links and additional data will be sent to the registered email",
+          icon: "success",
+          confirmButtonText: "OK",
         })
-      );
-      history.push("/checkout");
-      Swal.fire({
-        title: "Thanks for your purchase!",
-        text:
-          "Download links and additional data will be sent to the registered email",
-        icon: "success",
-        confirmButtonText: "OK",
-      })
-        .then(() => window.localStorage.setItem("beforeOrder", JSON.stringify("")))
-        .then(() => window.localStorage.setItem("stripe", JSON.stringify("")))
-        .then(() => history.push("/Browser/products"));
+          .then(() =>
+            window.localStorage.setItem("beforeOrder", JSON.stringify(""))
+          )
+          .then(() => window.localStorage.setItem("stripe", JSON.stringify("")))
+          .then(() => history.push("/Browser/products"));
+      } else {
+        dispatch(cleanShoopingCart());
+        localStorage.setItem("orderProducts", JSON.stringify(""));
+        Swal.fire({
+          title: "Thanks for your purchase!",
+          text: "Download links and additional data will be sent to the email",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => history.push("/Browser/products"));
+      }
     } else if (query.get("canceled")) {
-      Swal.fire({
-        title: "Declined",
-        text:
-          "Did you decline the payment? If you need additional information or help, write to us. It will be a pleasure to assist you",
-        icon: "warning",
-        confirmButtonText: "OK",
-      }).then(() => history.push("/checkout"));
+      if (user && lStorage.id) {
+        dispatch(
+          formUserOrder({
+            id: lStorage.id,
+            state: "cancelled",
+            payment: "",
+            methodId: "",
+          })
+        );
+        Swal.fire({
+          title: "Declined",
+          text: `Did you decline the payment? If you need additional information or help, write to us. 
+          It will be a pleasure to assist you.`,
+          icon: "warning",
+          confirmButtonText: "OK",
+        }).then(() => history.push("/user/orders"));
+      } else {
+        Swal.fire({
+          title: "Declined",
+          text:
+            "Did you decline the payment? If you need additional information or help, write to us. It will be a pleasure to assist you",
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
+      }
     }
   }, []);
 
@@ -88,26 +121,31 @@ const Checkout = () => {
   // button pay
   const handleClickPay = () => {
     let lStorage = JSON.parse(localStorage.getItem("CurrentUser"));
+    let lsProducts = JSON.parse(localStorage.getItem("orderProducts"));
     if (currentOrder.length > 0 && lStorage.id) {
       localStorage.setItem("beforeOrder", JSON.stringify(currentOrder[0]));
-      dispatch(mercadoPago(currentOrder[0].id));
-      dispatch(stripe(currentOrder[0].id));
+      // dispatch(mercadoPago(currentOrder[0].id));
+      dispatch(stripe({ orderId: currentOrder[0].id }));
       history.push("/checkout/information");
     } else {
       Swal.fire({
-        icon: "info",
-        title: "Great!!",
-        text:
-          "To continue the process you must be registered, so we can offer you more personalized functions.",
+        icon: "warning",
+        title: "Ops... ",
+        text: "Do you want to continue without an account?",
         showCloseButton: true,
         showCancelButton: true,
-        cancelButtonText: `I want to register`,
-        confirmButtonText: `I have an account`,
+        showDenyButton: true,
+        cancelButtonText: `OMG!, I want to register`,
+        confirmButtonText: `Sing in`,
+        denyButtonText: `Yes, It's OK`,
       }).then((result) => {
-        if (result.isConfirmed) {
-          history.push("/signin");
+        if (result.isDenied) {
+          dispatch(stripe({ products: lsProducts }));
+          history.push("/checkout/information");
         } else if (result.isDismissed) {
           history.push("/register");
+        } else if (result.isConfirmed) {
+          history.push("/signin");
         }
       });
     }
