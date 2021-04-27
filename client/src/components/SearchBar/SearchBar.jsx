@@ -53,44 +53,44 @@ function SearchBar() {
     /* ------------ */
     /* SEARCH INPUT */
     /* ------------ */
-
-    <div className="wrapper searchbar-wrapper">
-      <form onSubmit={handleSubmit} action='#'>
-        <div className="searchbar-container">
-          <label htmlFor="input">
-            <input className="searchbar-input"
-              type="text"
-              name="input"
-              value={input}
-              autoComplete="off"
-              placeholder="Browse our gallery..."
-              onChange={handleInputChange}
-            />
-          </label>
-          <ul className="suggestions-container">
-            {arraySuggestions ? arraySuggestions.map(suggestion => {
-              return (
-                <div
-                  className="li-container"
-                  onClick={() => handleSuggestionClick(suggestion.name)}>
-                  <img
-                    src={suggestion.preview} />
-                  <i className="fas fa-search"></i>
-                  <li>{suggestion.name}</li>
-                  <hr />
-                </div>
-              )
-            }) :
-              null
-            }
-          </ul>
-        </div>
-        <div className="searchbar-filters">
-          <button
-            type="submit"
-            className="btn-rounded searchbar-filters--btn_active search-button">
-            <i class="fas fa-search"></i></button>
-          {/* <button
+    <div className="glass-background">
+      <div className="wrapper searchbar-wrapper">
+        <form onSubmit={handleSubmit} action='#'>
+          <div className="searchbar-container">
+            <label htmlFor="input">
+              <input className="searchbar-input"
+                type="text"
+                name="input"
+                value={input}
+                autoComplete="off"
+                placeholder="Browse our gallery..."
+                onChange={handleInputChange}
+              />
+            </label>
+            <ul className="suggestions-container">
+              {arraySuggestions ? arraySuggestions.map(suggestion => {
+                return (
+                  <div
+                    className="li-container"
+                    onClick={() => handleSuggestionClick(suggestion.name)}>
+                    <img
+                      src={suggestion.preview} />
+                    <i className="fas fa-search"></i>
+                    <li>{suggestion.name}</li>
+                    <hr />
+                  </div>
+                )
+              }) :
+                null
+              }
+            </ul>
+          </div>
+          <div className="searchbar-filters">
+            <button
+              type="submit"
+              className="btn-rounded searchbar-filters--btn_active search-button">
+              <i class="fas fa-search"></i></button>
+            {/* <button
             className={activeButton === "1" ? "btn-rounded searchbar-filters--btn_active" : "btn-rounded searchbar-filters--btn_inactive "}
             type="submit"
             value={1}
@@ -114,8 +114,9 @@ function SearchBar() {
           >
             Authors
           </button> */}
-        </div>
-      </form>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
