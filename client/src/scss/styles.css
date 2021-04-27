@@ -734,40 +734,41 @@ a.link {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 100vh;
+  align-items: center;
   -webkit-animation-name: grow;
           animation-name: grow;
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
+  background-image: radial-gradient(circle at center center, rgba(33, 33, 33, 0), #212121), repeating-linear-gradient(135deg, #212121 0px, #212121 1px, transparent 1px, transparent 4px), repeating-linear-gradient(45deg, #383838 0px, #383838 5px, transparent 5px, transparent 6px), linear-gradient(90deg, #212121, #212121);
 }
 .big-container .product-wrapper {
   display: flex;
-  justify-content: center;
-  margin-left: 35px;
-  margin-right: 35px;
-  padding-top: 85px;
+  justify-content: space-between;
+  padding-top: 130px;
+  width: 80%;
 }
 .big-container .product-wrapper .preview {
   display: flex;
-  margin-top: 20px;
-  width: 700px;
-  height: 500px;
-  -o-object-fit: contain;
-     object-fit: contain;
+  margin-right: 20px;
+  max-width: 97%;
+  min-width: 400px;
+  max-height: 600px;
+  -o-object-fit: stretch;
+     object-fit: stretch;
   border-radius: 5px;
+  box-shadow: 1px 1px 10px 1px black;
 }
 .big-container .product-wrapper .detailProd {
-  box-sizing: content-box;
-  background-image: radial-gradient(circle at 77% 43%, rgba(168, 168, 168, 0.04) 0%, rgba(168, 168, 168, 0.04) 50%, rgba(10, 10, 10, 0.04) 50%, rgba(10, 10, 10, 0.04) 100%), radial-gradient(circle at 33% 65%, rgba(248, 248, 248, 0.04) 0%, rgba(248, 248, 248, 0.04) 50%, rgba(228, 228, 228, 0.04) 50%, rgba(228, 228, 228, 0.04) 100%), radial-gradient(circle at 92% 79%, rgba(152, 152, 152, 0.04) 0%, rgba(152, 152, 152, 0.04) 50%, rgba(28, 28, 28, 0.04) 50%, rgba(28, 28, 28, 0.04) 100%), radial-gradient(circle at 91% 13%, rgba(41, 41, 41, 0.04) 0%, rgba(41, 41, 41, 0.04) 50%, rgba(214, 214, 214, 0.04) 50%, rgba(214, 214, 214, 0.04) 100%), linear-gradient(90deg, #313030, #6bdfb6);
+  background-image: radial-gradient(circle at 77% 43%, rgba(168, 168, 168, 0.04) 0%, rgba(168, 168, 168, 0.04) 50%, rgba(10, 10, 10, 0.04) 50%, rgba(10, 10, 10, 0.04) 100%), radial-gradient(circle at 33% 65%, rgba(248, 248, 248, 0.04) 0%, rgba(248, 248, 248, 0.04) 50%, rgba(228, 228, 228, 0.04) 50%, rgba(228, 228, 228, 0.04) 100%), radial-gradient(circle at 92% 79%, rgba(152, 152, 152, 0.04) 0%, rgba(152, 152, 152, 0.04) 50%, rgba(28, 28, 28, 0.04) 50%, rgba(28, 28, 28, 0.04) 100%), radial-gradient(circle at 91% 13%, rgba(41, 41, 41, 0.04) 0%, rgba(41, 41, 41, 0.04) 50%, rgba(214, 214, 214, 0.04) 50%, rgba(214, 214, 214, 0.04) 100%), linear-gradient(90deg, #313030, #4f4f50);
   display: flex;
   flex-direction: column;
-  width: 350px;
-  margin-left: 30px;
-  margin-top: 20px;
-  border-right: 20px;
+  min-width: 250px;
+  margin-right: 0px;
   border-radius: 10px;
   background-color: #1b1b1b;
   align-content: center;
-  box-shadow: 2px 3px 15px #7dd1bf;
+  box-shadow: 1px 1px 10px 1px black;
 }
 .big-container .product-wrapper .detailProd .headerDet {
   display: inline;
@@ -793,24 +794,25 @@ a.link {
 }
 .big-container .product-wrapper .detailProd .headerDet .linkClose .link:hover {
   color: #ffffff;
-  box-shadow: 0px 1px 15px #789c8f;
+  box-shadow: 1px 1px 10px 1px black;
 }
 .big-container .product-wrapper .detailProd .headerDet .score {
   display: flex;
   font-size: 20px;
   padding: 10px 0px 10px 10px;
-  color: #cacc5f;
+  color: goldenrod;
   float: left;
 }
 .big-container .cont-Review-Det {
   display: flex;
-  margin: 25px 20px 40px 20px;
+  margin-top: 20px;
   border: none;
   border-radius: 10px;
-  width: 1090px;
+  width: 80%;
   align-self: center;
-  background-color: #23d18f;
-  background-image: repeating-linear-gradient(201deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px, transparent 2px, transparent 4px), linear-gradient(111deg, #a29b9b, #a0e5cb);
+  background-color: #23d18e8c;
+  box-shadow: 1px 1px 10px 1px black;
+  background-image: repeating-linear-gradient(201deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 2px, transparent 2px, transparent 4px), linear-gradient(111deg, #a29b9b, #9bc2b3);
 }
 
 .spanScore {
@@ -820,7 +822,9 @@ a.link {
 }
 
 .product-preview {
-  align-self: center;
+  width: 90%;
+  display: flex;
+  justify-content: center;
 }
 
 .reviewNumber {
@@ -828,13 +832,14 @@ a.link {
   padding-bottom: 2px;
 }
 
-.titulo, .desc {
-  color: #1d1d1d;
+.titulo,
+.desc {
+  color: #1d1d1dfa;
 }
 
 .det {
-  background-color: #55c29844;
-  color: #f5f5f5;
+  background-color: #55c29817;
+  color: #fafafa;
   border-radius: 7px;
   justify-content: center;
   height: auto;
@@ -848,7 +853,7 @@ a.link {
 .desc {
   margin-top: 0px;
   font-weight: 600;
-  color: #101010;
+  color: gray;
   border-radius: 0 0 7px 7px;
   height: auto;
   padding-top: 5px;
@@ -911,12 +916,12 @@ a.link {
   padding: 0px;
   border: none;
   border-radius: 5px;
-  box-shadow: 0px 1px 1px 2px #141515;
+  box-shadow: 0px 1px 1px 1px #3bc7a986;
 }
 
 .espV {
   color: #c1c5c4;
-  background-color: #141515;
+  background-color: #141515af;
   transition: 350ms;
 }
 .espV:hover {
@@ -938,6 +943,15 @@ a.link {
 
 .divStars {
   padding-bottom: 7px;
+}
+
+.acquiedPD {
+  color: #dddddd;
+  background-color: #12121491;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 @keyframes grow {
@@ -1145,6 +1159,19 @@ a.link {
   color: #a8a8a8;
   border: none;
   border-radius: 5px;
+}
+.Information .mercadolibreee {
+  background: #009ee3;
+  border-color: #009ee3;
+  color: #fff;
+  border-radius: 5px;
+}
+.Information .stripe {
+  background: #556cd6;
+  border-color: #556cd6;
+  color: #fff;
+  border-radius: 5px;
+  padding: 15px;
 }
 .Information .Information-sidebar {
   margin: 20px 0 0 0;
