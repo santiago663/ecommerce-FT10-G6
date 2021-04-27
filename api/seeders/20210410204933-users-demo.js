@@ -12,6 +12,7 @@ module.exports = {
       { id: 1, description: "Ninguno" },
       { id: 2, description: "Mercado Pago" },
       { id: 3, description: "Paypal" },
+      { id: 4, description: "stripe" },
     ]);
 
     await queryInterface.bulkInsert("users", [

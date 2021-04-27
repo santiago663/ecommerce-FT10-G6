@@ -12,7 +12,7 @@ import reducerErrorRoutes from './reducerErrorRoutes'
 import reducerOrderUser from './reducerOrderUser'
 import uiError from './reducerUiError'
 import reducerRoles from './reducerRoles'
-import { mercadoPago } from "./mercadoPago";
+import { payments } from "./payments";
 import reducerOrderState from "./reducerOrderState"
 // import reducerTest from './reducerTest';
 
@@ -30,7 +30,7 @@ export default combineReducers({
   reducerErrorRoutes: reducerErrorRoutes,
   reducerOrderUser: reducerOrderUser,
   reducerRoles: reducerRoles,
-  mercadoPago: mercadoPago,
+  payments: payments,
   reducerOrderState: reducerOrderState,
 });
 
