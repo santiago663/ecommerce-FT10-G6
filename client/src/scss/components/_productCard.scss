@@ -85,7 +85,7 @@ a.link {
   display: flex;
 }
 .shopping {
-  display: none;
+  display: none;  
 }
 .fa-cart-plus {
   font-size: 20px;
@@ -105,12 +105,15 @@ a.link {
 .scoreCard {
   display: flex;
   position: absolute;
-  // top: 200px;
-  margin-left: 0px;
-  margin-top: -30px;
-  color: rgb(247, 247, 247);
+  margin-left: -3px;
+  margin-top: -36px;
+  color: #f7f7f7;
   font-size: 20px;
   letter-spacing: 5px;
-  text-shadow: 1px 0 0 rgb(66, 66, 66), -1px 0 0 rgb(66, 66, 66), 0 1px 0 rgb(66, 66, 66), 0 -1px 0 rgb(66, 66, 66),
-    1px 1px rgb(66, 66, 66), -1px -1px 0 rgb(66, 66, 66), 1px -1px 0 rgb(66, 66, 66), -1px 1px 0 rgb(66, 66, 66);
+  text-shadow: 1px 0 0 #424242, -1px 0 0 #424242, 0 1px 0 #424242, 0 -1px 0 #424242, 1px 1px #424242, -1px -1px 0 #424242, 1px -1px 0 #424242, -1px 1px 0 #424242;
+  align-items: baseline;
+}
+
+.acquiredPC {
+  font-size: 10px;
 }

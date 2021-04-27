@@ -8,6 +8,7 @@ const initialState = {
   allOrders: [],
   allUsers: [],
   userOrders: [],
+  allUserProducts: [],
 };
 
 export default function reducerOrderUser(state = initialState, action) {
@@ -45,6 +46,12 @@ export default function reducerOrderUser(state = initialState, action) {
         ...state,
         userOrders: action.payload,
       };
+
+    case TYPES.ALL_USER_PRODUCTS: 
+      return {
+        ...state,
+        allUserProducts: action.payload
+      }
 
     default:
       return state;
