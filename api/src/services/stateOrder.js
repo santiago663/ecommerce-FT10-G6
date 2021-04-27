@@ -1,61 +1,44 @@
-// var name2 = "luci";
-// var dateBasicOrder = [ 27, "2021-04-22T22:08:35.181Z", 'completed', '5419.00' ];
 
-// var dataOrder = [
-//     {
-//       product: 'Whisper',
-//       image: 'https://deliciousthemes-ourtutscom.netdna-ssl.com/wp-content/uploads/2013/02/link-2-flaming_cat___psd_by_pshoudini-d4uzbee.jpg',
-//       price: '5000'
-//     },
-//     {
-//       product: 'What You Want',
-//       image: 'https://p4.wallpaperbetter.com/wallpaper/796/270/435/cyberpunk-digital-art-futuristic-wallpaper-preview.jpg',
-//       price: '130'
-//     },
-//     {
-//       product: 'Sick',
-//       image: 'https://c4.wallpaperflare.com/wallpaper/846/57/155/digital-art-rabbits-horns-women-comic-art-hd-wallpaper-preview.jpg',
-//       price: '289'
-//     }
-// ];
-  
-let stateOrder = (name2, dateBasicOrder, dataOrder) => {
+let stateOrder = (name2, prodsImgPrice,) => {
 
     var msg = {};
 
-    if(!!name2 && dateBasicOrder.length !==0 && dataOrder.length !==0){
+    if(!!name2 && prodsImgPrice.length !==0){
         
         msg["to"] = "lls28programacion@hotmail.com",
         msg["from"] = "lu_23-7-92@hotmail.com",
-        msg["subject"] = "Testing Node Emailulitma11?",
+        msg["subject"] = "DigitalArt: Orden Completada",
         msg["html"] = `
             <div>
                 <h1>DigitalArt LOGO<h1/>
-                <h2>${name2}: DigitalArt te informa que tu orden ID:${dateBasicOrder[0]}, con fecha de creación ${dateBasicOrder[1]} se encuentra en estado ${dateBasicOrder[2]}</h2>
+                <h2>${name2}: DigitalArt te informa que tu orden ID:${prodsImgPrice[0].Graldate[0]}, con fecha de creación ${prodsImgPrice[0].Graldate[1]} se encuentra en estado ${prodsImgPrice[0].Graldate[2]}</h2>
                     <table width="300" height="50" align="center" >
                         <tr>
                             <h2>Products:</h2>
-                ${dataOrder.map((m) => {
+                ${prodsImgPrice.map((m) => {
                     return(`
                         <div>
-                            <table width="300" height="50" align="center" style="background:#FFFFFF; padding:15px 15px 15px 15px; border:solid 2px #E5E5E5; border-bottom:5; width:70%">
+                            <table width="800" height="150" align="center" style="background:#FFFFFF; padding:15px 15px 15px 15px; border:solid 2px #E5E5E5; border-bottom:5; width:80%">
                                 <tr bgcolor="#6a7da5" >
                                     <td >
-                                        <img src="${m.image}" alt="${m.product} style="border:solid 1px #E5E5E5; border-radius:5" height="125" align="center" />
+                                        <img src="${m.image}" alt="${m.product} style="border:solid 1px #E5E5E5; border-radius:5" height="200" align="center" />
                                     </td>
-                                    <th align="center" style="padding: 0 20px 20px 0;"height="115"  style="padding: 0 20px 20px 0;">
+                                    <th align="center" style="padding: 0 20px 20px 0;"height="200"  style="padding: 0 20px 20px 0;">
                                         producto:${m.product}
                                         <br/>
                                         precio: $${m.price}
+                                        <br/>
+                                        
                                     </th>
                                 </tr>
                                 
                             </table>
+                            <h5 align="center">Download Link: ${m.image}</h5>
                         </div>
                         `
                     )
                 })}
-                            <h2>Valor Total de la compra: $${dateBasicOrder[3]}</h2>
+                            <h2>Valor Total de la compra: $${prodsImgPrice[0].Graldate[3]}</h2>
                         </tr>
                     </table>
                 
@@ -71,5 +54,4 @@ let stateOrder = (name2, dateBasicOrder, dataOrder) => {
 
 }
 
-// console.log(stateOrder(name2, dateBasicOrder, dataOrder))
 module.exports = stateOrder;
