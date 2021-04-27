@@ -22,8 +22,12 @@ function ProductDetails() {
   const allProduct = useSelector((store) => store.reducerProduct.allProductCache);
   const loading = useSelector((store) => store.reducerLoading.loading)
   const productReview = useSelector((store) => store.reducerProduct.productReview);
+  const userOrders = useSelector((store) => store.reducerOrderUser.userOrders);
 
   const [productScore, setproductScore] = useState([0])
+
+  const completedUserOrder = userOrders.filter(order => order.state === "completed")
+  const canBuy = completedUserOrder.filter(order => order.products.find(product => product.id == id))
 
 
   useEffect(() => {
@@ -114,15 +118,15 @@ function ProductDetails() {
             <div className="headerDet">
               <div className="score">
                 {
-                  loading ? <span> </span> : 
-                  <span className="spanScore">{productScore[0]} 
-                  <span> </span><div className="divStars">{FunctionStar(Number(productScore[0]))}</div><span> </span>
-                  <span className="reviewNumber">({productReview?.length})</span> 
-                  </span>
+                  loading ? <span> </span> :
+                    <span className="spanScore">{productScore[0]}
+                      <span> </span><div className="divStars">{FunctionStar(Number(productScore[0]))}</div><span> </span>
+                      <span className="reviewNumber">({productReview?.length})</span>
+                    </span>
                 }
               </div>
               <div className="linkClose">
-                <Link className="link" to="/Browser/products"><IoArrowUndoSharp/></Link>
+                <Link className="link" to="/Browser/products"><IoArrowUndoSharp /></Link>
               </div>
             </div>
             <div className="contDet">
@@ -156,15 +160,17 @@ function ProductDetails() {
               <div className="det">
                 <h3>Price:</h3>
                 <div className="desc">
-                 $ {price}
+                  $ {price}
                 </div>
               </div>
             </div>
             <div className="contecarrito">
               {available === "Available"
-              ?
+                ?
                 <div className="btncarrito">
-                  {!lStorage ?  (
+                  {canBuy[0] ? <span className="acquiedPD">Acquired</span> : false
+                    ||
+                    !lStorage ? (
                     <button
                       className="fas fa-cart-plus add btn btn-Det espV"
                       key={productCache.id}
@@ -180,10 +186,10 @@ function ProductDetails() {
                         handleRemoveFromCart(productCache, currentUser, currentOrder)
                       }
                     >
-                     &nbsp;DROP</button>
+                      &nbsp;DROP</button>
                   )}
                 </div>
-              :null
+                : null
               }
             </div>
           </div>
@@ -191,7 +197,7 @@ function ProductDetails() {
         <div className="cont-Review-Det">
           <div className="review-Det">
             <Reviews currentUser={currentUser} productId={id} />
-          </div>    
+          </div>
         </div>
       </div>
     );
