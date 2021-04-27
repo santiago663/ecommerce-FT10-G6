@@ -33,7 +33,12 @@ setPreview(image)
     }
 
     return (
-        <div className="big-container">
+        <>
+        {
+                preview !== false ? <LibraryDetail preview={preview} setPreview={setPreview} /> : null
+            }
+
+        <div className="profile-body">
             <div className="title">
                 <h1>My products</h1>
             </div>
@@ -43,9 +48,6 @@ setPreview(image)
                 <div className="libraryNameTitle"><h4>Name</h4></div>
                 <div><h4>Download / Detail</h4></div>                 
             </div>
-            {
-                preview !== false ? <LibraryDetail preview={preview} setPreview={setPreview} /> : null
-            }
             <div className="myProductsResults">
                 {products.length !== 0 &&
                     products.map((product, index) => (
@@ -68,5 +70,6 @@ setPreview(image)
                     ))}
             </div>
         </div>
+        </>
     )
 }
