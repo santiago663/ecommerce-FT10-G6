@@ -63,4 +63,8 @@ thead.p-datatable-thead {
 
 .filterState {
   display: flex;
+}
+
+.titleView {
+  margin-left: 15px;
 }/*# sourceMappingURL=OrdersEdit.css.map */
