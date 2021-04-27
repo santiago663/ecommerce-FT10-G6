@@ -10,10 +10,11 @@ const sengridEmail = require ('../../services/sengridEmail.js');
 
 server.post("/signup", async(req, res) => {
 
-    const { name, orderId, email, state } = req.body;
+    let { name, orderId, email, state } = req.body;
 
-    let dataOrder = []
-    let product ={}
+    if(name === undefined){
+        name = "Dear buyer"
+    }
     try{
         if(!email || !name || !orderId) return res.status(422).json({message:"please add all the fields"});
         
@@ -22,7 +23,7 @@ server.post("/signup", async(req, res) => {
         })
         var orders = await Orders.findOne({
             where:{
-                userId: user.id,
+                // userId: user.id,
                 id: orderId,
                 state: state
             }, include: [Products]
@@ -32,16 +33,19 @@ server.post("/signup", async(req, res) => {
             res.status(422).json({message:`the user does not have an order in ${state} status`});
         }
         else{
-            var dateBasicOrder = []
+
+            var ordIdDateStateTotal = []
 
             let orderID = orders.id;
             let date = orders.date;
             let total = orders.total;        
             let state = orders.state;
+            ordIdDateStateTotal.push(orderID, date, state, total)
 
-            dateBasicOrder.push(orderID, date, state, total)
+            let prodsImgPrice = []
+            let product ={}
 
-            if(dateBasicOrder.length === 4){
+            if(ordIdDateStateTotal.length === 4){
                 var i = 0
                 while(orders.products.length > i ){
                     
@@ -51,17 +55,19 @@ server.post("/signup", async(req, res) => {
                             product:orders.products[i].name,
                             image: orders.products[i].preview,
                             price:orders.products[i].price,
+                            Graldate:ordIdDateStateTotal
                         }
-                        dataOrder.push(product)
+                        prodsImgPrice.push(product)
                     }
                     i++
                 }
             }
           
-            let msgBody = (stateOrder(name, dateBasicOrder, dataOrder))
+            let msgBody = (stateOrder(name, prodsImgPrice, email))
             console.log(msgBody)
 
-            //console.log(sengridEmail(msgBody)) //SENDGRID MANDAR EMAIL, NO BORRAR, SOLO 100 EMAILS POR DIA
+            sengridEmail(msgBody) 
+            //SENDGRID MANDAR EMAIL, NO BORRAR, SOLO 100 EMAILS POR DIA
 
             return res.status(200).json({message:"email enviado exitosamente"}) 
         }
@@ -71,6 +77,10 @@ server.post("/signup", async(req, res) => {
         res.status(500).json({ message: "Internal server error", status: 500})
     }
 });
+
+
+
+
 
 
 server.post("/productOffers", async(req, res) => {
