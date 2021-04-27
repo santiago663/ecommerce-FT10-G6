@@ -39,11 +39,12 @@ export default function Library() {
                             <div className="orderPreview" >
                                 <div className="divImage">
                                     <img className="myProductsImage" src={product.preview} alt=""/>                                    
-                                </div>
+                                </div>                               
                                 <div className="option">
                                     <h4 className="orderID1"> {product.name}</h4>
                                 </div>
-                                <div className="seemore">
+                                <div className="seemore"> 
+                                <a className="orderID1" href={product.fileLink}><AiIcons.AiOutlineDownload /></a>                                   
                                     <Link to={`/product/${product.id}`}>
                                         <AiIcons.AiFillEye />
                                     </Link>
