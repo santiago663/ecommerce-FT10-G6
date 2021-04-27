@@ -5,15 +5,15 @@ module.exports = {
     return await queryInterface.bulkInsert("products", [
       {
         id: 100,
-        name: "Hold My Last Breath",
+        name: "Pop Plop",
         description:
-          "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
+          "Make it Pop - Photoshop / Illustrator",
         price: "2000",
         available: true,
         fileLink:
-          "https://blog.tubikstudio.com/wp-content/uploads/2019/12/zombie-date-illustration-halloween.png",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FPoplast.jpg?alt=media&token=8ed2c0b9-554c-4c42-9fa1-42d993fc6957",
         preview:
-          "https://blog.tubikstudio.com/wp-content/uploads/2019/12/zombie-date-illustration-halloween.png",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FPoplast.jpg?alt=media&token=8ed2c0b9-554c-4c42-9fa1-42d993fc6957",
         authorId: 100,
       },
       {
@@ -24,7 +24,7 @@ module.exports = {
         price: "340",
         available: true,
         fileLink:
-          "https://i.pinimg.com/originals/60/b2/28/60b2288698ba4db05ab9c1bc88ce7405.png",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FGoing%20Under.png?alt=media&token=8261f91b-d667-4a49-a0a2-bfc50d2223ed",
         preview:
           "https://i.pinimg.com/originals/60/b2/28/60b2288698ba4db05ab9c1bc88ce7405.png",
         authorId: 101,
@@ -36,7 +36,7 @@ module.exports = {
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "576",
         available: true,
-        fileLink: "https://wallpaperaccess.com/thumb/1506254.jpg",
+        fileLink: "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FGoing%20Under.png?alt=media&token=8261f91b-d667-4a49-a0a2-bfc50d2223ed",
         preview: "https://wallpaperaccess.com/thumb/1506254.jpg",
         authorId: 102,
       },
@@ -48,22 +48,22 @@ module.exports = {
         price: "5000",
         available: true,
         fileLink:
-          "https://deliciousthemes-ourtutscom.netdna-ssl.com/wp-content/uploads/2013/02/link-2-flaming_cat___psd_by_pshoudini-d4uzbee.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fwhisper.jpg?alt=media&token=b6d0b2d3-9685-498c-9029-d6aa37d92557",
         preview:
           "https://deliciousthemes-ourtutscom.netdna-ssl.com/wp-content/uploads/2013/02/link-2-flaming_cat___psd_by_pshoudini-d4uzbee.jpg",
         authorId: 103,
       },
       {
         id: 104,
-        name: "What You Want",
+        name: "Death Wing",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "130",
         available: true,
         fileLink:
-          "https://p4.wallpaperbetter.com/wallpaper/796/270/435/cyberpunk-digital-art-futuristic-wallpaper-preview.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FDeathwing.jpg?alt=media&token=5da80ba1-bd1d-45a1-a601-0e9bd83e42b3",
         preview:
-          "https://p4.wallpaperbetter.com/wallpaper/796/270/435/cyberpunk-digital-art-futuristic-wallpaper-preview.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FDeathwing.jpg?alt=media&token=5da80ba1-bd1d-45a1-a601-0e9bd83e42b3",
         authorId: 104,
       },
       {
@@ -74,7 +74,7 @@ module.exports = {
         price: "289",
         available: true,
         fileLink:
-          "https://c4.wallpaperflare.com/wallpaper/846/57/155/digital-art-rabbits-horns-women-comic-art-hd-wallpaper-preview.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FSick.jpg?alt=media&token=00e063ed-4f52-48cc-819f-481d46336f9c",
         preview:
           "https://c4.wallpaperflare.com/wallpaper/846/57/155/digital-art-rabbits-horns-women-comic-art-hd-wallpaper-preview.jpg",
         authorId: 105,
@@ -87,7 +87,7 @@ module.exports = {
         price: "579",
         available: true,
         fileLink:
-          "https://wallpapercrafter.com/desktop/149370-digital-digital-art-artwork-illustration-simple-simple-background-minimalism-black-colorful-Marvel-Comics-Marvel-Cinematic-Universe-superhero-Ant-Man-fictional-fiction.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FColdNine.jpg?alt=media&token=4473a381-6c62-4376-8c40-1776d2cd05ef",
         preview:
           "https://wallpapercrafter.com/desktop/149370-digital-digital-art-artwork-illustration-simple-simple-background-minimalism-black-colorful-Marvel-Comics-Marvel-Cinematic-Universe-superhero-Ant-Man-fictional-fiction.jpg",
         authorId: 106,
@@ -100,7 +100,7 @@ module.exports = {
         price: "1000",
         available: true,
         fileLink:
-          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/23444447985543.588ab66d222dd.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fpushthebottom.jpg?alt=media&token=38b5b37c-6960-4aed-8e2b-87850aeb0b7e",
         preview:
           "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/23444447985543.588ab66d222dd.jpg",
         authorId: 107,
@@ -113,7 +113,7 @@ module.exports = {
         price: "300",
         available: true,
         fileLink:
-          "https://c4.wallpaperflare.com/wallpaper/670/870/564/colors-digital-art-3d-geometric-wallpaper-preview.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FLost%20In%20Paradise.jpg?alt=media&token=362250c2-bf1f-44c0-9e2e-00fe8c0fe67b",
         preview:
           "https://c4.wallpaperflare.com/wallpaper/670/870/564/colors-digital-art-3d-geometric-wallpaper-preview.jpg",
         authorId: 108,
@@ -126,358 +126,358 @@ module.exports = {
         price: "458",
         available: true,
         fileLink:
-          "https://papers.co/wallpaper/papers.co-bb02-digital-art-color-circle-illustration-art-3d-green-40-wallpaper.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FBlah.jpg?alt=media&token=be6e609e-40f5-4bec-880d-2ddffbbe11fe",
         preview:
-          "https://papers.co/wallpaper/papers.co-bb02-digital-art-color-circle-illustration-art-3d-green-40-wallpaper.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FBlah.jpg?alt=media&token=be6e609e-40f5-4bec-880d-2ddffbbe11fe",
         authorId: 109,
       },
       {
         id: 110,
-        name: "Alley by the Lake",
+        name: "DarVoldemort",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "2000",
         available: true,
         fileLink:
-          "https://afremov.com/images/product/image.jpeg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fdarvoldemort.jpg?alt=media&token=3bb6b941-2e86-4a92-a097-dda94711f4f9",
         preview:
-          "https://afremov.com/images/product/image.jpeg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fdarvoldemort.jpg?alt=media&token=3bb6b941-2e86-4a92-a097-dda94711f4f9",
         authorId: 110,
       },
       {
         id: 111,
-        name: "Yacht Club",
+        name: "Kerrigan",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "340",
         available: true,
         fileLink:
-          "https://afremov.com/var/images/product/300.300/image_189.jpeg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fface.jpg?alt=media&token=db3967c4-2b7d-4829-85c1-7f8f81f6fac3",
         preview:
-          "https://afremov.com/var/images/product/300.300/image_189.jpeg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fface.jpg?alt=media&token=db3967c4-2b7d-4829-85c1-7f8f81f6fac3",
         authorId: 111,
       },
       {
         id: 112,
-        name: "Elevation",
+        name: "Within the water",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "576",
         available: true,
-        fileLink: "https://afremov.com/images/product/image_219.jpeg",
-        preview: "https://afremov.com/images/product/image_219.jpeg",
+        fileLink: "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FinsideWathe.jpg?alt=media&token=9bb83ece-3f93-4cf3-a4c4-8b2a9d88ddb3",
+        preview: "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FinsideWathe.jpg?alt=media&token=9bb83ece-3f93-4cf3-a4c4-8b2a9d88ddb3",
         authorId: 111,
       },
       {
         id: 113,
-        name: "Stockholm",
+        name: "Max Res",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "5000",
         available: true,
         fileLink:
-          "https://afremov.com/images/product/STOCKHOLM.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fmaxres.jpg?alt=media&token=20ed724a-7df6-4d6c-b47f-bc5b179ea46f",
         preview:
-          "https://afremov.com/images/product/STOCKHOLM.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fmaxres.jpg?alt=media&token=20ed724a-7df6-4d6c-b47f-bc5b179ea46f",
         authorId: 111,
       },
       {
         id: 114,
-        name: "Lion",
+        name: "Buda Rocks",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "130",
         available: true,
         fileLink:
-          "https://afremov.com/images/product/LION.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Frock-face-environment-statue.jpg?alt=media&token=a3af88d2-59ec-4ebc-9766-a04cb1b43428",
         preview:
-          "https://afremov.com/images/product/LION.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Frock-face-environment-statue.jpg?alt=media&token=a3af88d2-59ec-4ebc-9766-a04cb1b43428",
         authorId: 111,
       },
       {
         id: 115,
-        name: "Angry Tiger",
+        name: "Wolven",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "289",
         available: true,
         fileLink:
-          "https://afremov.com/images/product/tiger-painting.jpeg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fwolven.jpg?alt=media&token=94158a24-a813-481a-837e-74b663e774b2",
         preview:
-          "https://afremov.com/images/product/tiger-painting.jpeg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fwolven.jpg?alt=media&token=94158a24-a813-481a-837e-74b663e774b2",
         authorId: 111,
       },
       {
         id: 116,
-        name: "Two Spring Colors",
+        name: "Future nostalgia",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "579",
         available: true,
         fileLink:
-          "https://afremov.com/images/product/image_109.jpeg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FApocalipticFuture.jpg?alt=media&token=c6292355-fa39-4021-a027-a7aefd33ab2c",
         preview:
-          "https://afremov.com/images/product/image_109.jpeg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FApocalipticFuture.jpg?alt=media&token=c6292355-fa39-4021-a027-a7aefd33ab2c",
         authorId: 111,
       },
       {
         id: 117,
-        name: "Rainy Day",
+        name: "Blackarch",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "1000",
         available: true,
         fileLink:
-          "https://afremov.com/images/product/DSC_1685.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fwp2618282-blackarch-wallpaper.png?alt=media&token=ac74c5e0-4feb-4a2e-a7d9-b19df6b85154",
         preview:
-          "https://afremov.com/images/product/DSC_1685.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fwp2618282-blackarch-wallpaper.png?alt=media&token=ac74c5e0-4feb-4a2e-a7d9-b19df6b85154",
         authorId: 111,
       },
       {
         id: 118,
-        name: "Evening Street",
+        name: "Lilith Promises",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "300",
         available: true,
         fileLink:
-          "https://afremov.com/images/product/EVENING_1.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FLilith_DIV_face.jpg?alt=media&token=6cd36f3e-ea22-4f35-b620-445ced0fc8c0",
         preview:
-          "https://afremov.com/images/product/EVENING_1.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FLilith_DIV_face.jpg?alt=media&token=6cd36f3e-ea22-4f35-b620-445ced0fc8c0",
         authorId: 111,
       },
       {
         id: 119,
-        name: "Lovers in the Park",
+        name: "Cindy",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "458",
         available: true,
         fileLink:
-          "https://afremov.com/images/product/paintings-of-lovers_1.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fb6042623-0b04-4c53-86d6-260b08687da3.jpg?alt=media&token=bc3d95f2-db1a-4283-a963-835f00ad32b9",
         preview:
-          "https://afremov.com/images/product/paintings-of-lovers_1.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2Fb6042623-0b04-4c53-86d6-260b08687da3.jpg?alt=media&token=bc3d95f2-db1a-4283-a963-835f00ad32b9",
         authorId: 111,
       },
       {
         id: 120,
-        name: "Beautiful Flowers",
+        name: "Algalon the Observer",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "1000",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/5/8/5/1209695.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FAlgalon%20the%20Observer.jpg?alt=media&token=3cb977f0-7153-4683-a84c-733f69a2f95a",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/5/8/5/1209695.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FAlgalon%20the%20Observer.jpg?alt=media&token=3cb977f0-7153-4683-a84c-733f69a2f95a",
         authorId: 112,
       },
       {
         id: 121,
-        name: "Memories",
+        name: "Athenas LSD",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "300",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/7/4/0/1208970.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FAtenas%20LSD.jpg?alt=media&token=4a534f3a-03b9-4f13-82cf-258b2491af38",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/7/4/0/1208970.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FAtenas%20LSD.jpg?alt=media&token=4a534f3a-03b9-4f13-82cf-258b2491af38",
         authorId: 112,
       },
       {
         id: 122,
-        name: "Among Thoughts",
+        name: "Bastion in the forest",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "458",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/4/6/0/1208986.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FBastion%20in%20the%20Forest.jpg?alt=media&token=c2007338-b9ad-464f-8e91-955fe855632a",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/4/6/0/1208986.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FBastion%20in%20the%20Forest.jpg?alt=media&token=c2007338-b9ad-464f-8e91-955fe855632a",
         authorId: 112,
       },
       {
         id: 123,
-        name: "Ensayo 118",
+        name: "Bastion",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "5000",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/7/2/3/1209499-607343d0652b4.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FBastion.jpg?alt=media&token=027f668e-7db5-4e02-becb-4b85a0c1e7c2",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/7/2/3/1209499-607343d0652b4.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FBastion.jpg?alt=media&token=027f668e-7db5-4e02-becb-4b85a0c1e7c2",
         authorId: 113,
       },
       {
         id: 124,
-        name: "Ensayo 116",
+        name: "Bio Robotic",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "130",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/8/6/2/1208214.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FBio%20robotic.jpg?alt=media&token=0258fa60-6d99-4895-88aa-eafa863fcd91",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/8/6/2/1208214.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FBio%20robotic.jpg?alt=media&token=0258fa60-6d99-4895-88aa-eafa863fcd91",
         authorId: 113,
       },
       {
         id: 125,
-        name: "Ensayo 104",
+        name: "Chinesse Sense",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "289",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/4/1/5/1199833.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FCyber%20Chinese%20Girl.jpg?alt=media&token=c7e7b9c9-4a2c-4420-9788-74c6b73d5273",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/4/1/5/1199833.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FCyber%20Chinese%20Girl.jpg?alt=media&token=c7e7b9c9-4a2c-4420-9788-74c6b73d5273",
         authorId: 113,
       },
       {
         id: 126,
-        name: "Ensayo 108",
+        name: "Dominatrix Demon",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "579",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/7/5/2/1202529.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FDominatrix%20demon.jpg?alt=media&token=63dd66e0-22bf-4df6-9ed5-60df54ccff5d",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/7/5/2/1202529.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FDominatrix%20demon.jpg?alt=media&token=63dd66e0-22bf-4df6-9ed5-60df54ccff5d",
         authorId: 113,
       },
       {
         id: 127,
-        name: "Ischia Ponte",
+        name: "Egyptian Trapers",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "1000",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/5/4/9/1209311.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FEgyptian%20trapers.jpg?alt=media&token=355bae9e-67ac-42af-9458-bf0dba0df732",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/5/4/9/1209311.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FEgyptian%20trapers.jpg?alt=media&token=355bae9e-67ac-42af-9458-bf0dba0df732",
         authorId: 114,
       },
       {
         id: 128,
-        name: "Procida 2022",
+        name: "Elen",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "300",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/7/4/6/1208550.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FElen.jpg?alt=media&token=ffecd857-872f-4b9b-99ab-c784f0dbbefb",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/7/4/6/1208550.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FElen.jpg?alt=media&token=ffecd857-872f-4b9b-99ab-c784f0dbbefb",
         authorId: 114,
       },
       {
         id: 129,
-        name: "Legende Napoletane",
+        name: "Emotional Sad Anime",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "458",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/4/4/6/1207267.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FEmotional%20Sad%20Anime.jpg?alt=media&token=0df7a407-3206-4a1c-b4d1-f3940f647506",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/4/4/6/1207267.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FEmotional%20Sad%20Anime.jpg?alt=media&token=0df7a407-3206-4a1c-b4d1-f3940f647506",
         authorId: 114,
       },
       {
         id: 130,
-        name: "Procida, Isola arcobaleno",
+        name: "Fendom Contract",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "1000",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/8/7/3/1206509.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FFendom%20Contract.png?alt=media&token=660f3d04-bfb4-4551-9648-9cf2875e3399",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/8/7/3/1206509.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FFendom%20Contract.png?alt=media&token=660f3d04-bfb4-4551-9648-9cf2875e3399",
         authorId: 114,
       },
       {
         id: 131,
-        name: "Roma, viaggio nel tempo",
+        name: "Genji",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "300",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/7/6/1/1207781-60494a30c9f1f.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FGenji.jpg?alt=media&token=e72e8d1f-f00b-433f-a7cb-5a386152407b",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/7/6/1/1207781-60494a30c9f1f.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FGenji.jpg?alt=media&token=e72e8d1f-f00b-433f-a7cb-5a386152407b",
         authorId: 114,
       },
       {
         id: 132,
-        name: "Old Houses in Summer",
+        name: "Japanese Art",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "458",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/0/1/1/1208014.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FJapanese%20Art.jpg?alt=media&token=bacb9551-707e-4d5d-b7f4-00af5fd73b27",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/0/1/1/1208014.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FJapanese%20Art.jpg?alt=media&token=bacb9551-707e-4d5d-b7f4-00af5fd73b27",
         authorId: 115,
       },
       {
         id: 133,
-        name: "Autumnal Flowers",
+        name: "La Santa de las Vendas",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "5000",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/0/6/7/1205537.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FLa%20Santa%20de%20las%20Banditas.jpg?alt=media&token=c98a7134-192c-4d06-8272-5352d9a775cd",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/0/6/7/1205537.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FLa%20Santa%20de%20las%20Banditas.jpg?alt=media&token=c98a7134-192c-4d06-8272-5352d9a775cd",
         authorId: 115,
       },
       {
         id: 134,
-        name: "Autumn - 672021",
+        name: "Loolipop Fantasy",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "130",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/8/8/4/1205536.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FLolipop%20fantasy.jpg?alt=media&token=4c87ee14-e673-4930-8b86-edd077316403",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/8/8/4/1205536.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FLolipop%20fantasy.jpg?alt=media&token=4c87ee14-e673-4930-8b86-edd077316403",
         authorId: 115,
       },
       {
         id: 135,
-        name: "Summer - 672021",
+        name: "Zoth the Corruptor",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "289",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/8/6/1/1203743.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FN'Zoth%20the%20Corruptor.jpg?alt=media&token=6075c484-229d-4031-9979-05244d329be9",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/8/6/1/1203743.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FN'Zoth%20the%20Corruptor.jpg?alt=media&token=6075c484-229d-4031-9979-05244d329be9",
         authorId: 115,
       },
       {
         id: 136,
-        name: "Blue cornflowers",
+        name: "Necrotic Dragon",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "579",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/2/2/1/1201565.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FNecrotic%20Dragon.jpg?alt=media&token=0b0522b4-e469-4ace-be71-38d9e7dee8a1",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/2/2/1/1201565.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FNecrotic%20Dragon.jpg?alt=media&token=0b0522b4-e469-4ace-be71-38d9e7dee8a1",
         authorId: 115,
       },
       {
@@ -495,65 +495,65 @@ module.exports = {
       },
       {
         id: 138,
-        name: "Clairière fleurie",
+        name: "Nega Nemo",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "300",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/9/6/2/5512773761573881.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FNega%20Nemo.jpg?alt=media&token=510601ea-7253-4a4e-9798-3fda19a275fd",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/9/6/2/5512773761573881.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FNega%20Nemo.jpg?alt=media&token=510601ea-7253-4a4e-9798-3fda19a275fd",
         authorId: 115,
       },
       {
         id: 139,
-        name: "Blue cornflowers",
+        name: "Niki Nicole Cyberpunk",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "458",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/8/1/0/1461129440097326.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FNiki%20Nicole%20CyberPunk.jpg?alt=media&token=1cfff7dd-f0da-4f1f-9a3c-3e01d479e20e",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/8/1/0/1461129440097326.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FNiki%20Nicole%20CyberPunk.jpg?alt=media&token=1cfff7dd-f0da-4f1f-9a3c-3e01d479e20e",
         authorId: 115,
       },
       {
         id: 140,
-        name: "Iguana In Paradise",
+        name: "Sad Punk",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "2000",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/1/7/5/1192412.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FSad%20Punk.jpg?alt=media&token=4cd853b1-cde1-45eb-9269-db529618ed13",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/1/7/5/1192412.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FSad%20Punk.jpg?alt=media&token=4cd853b1-cde1-45eb-9269-db529618ed13",
         authorId: 116,
       },
       {
         id: 141,
-        name: "TRUE ELEGANCE",
+        name: "Sindragosa",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "340",
         available: true,
         fileLink:
-          "https://artelista.s3.amazonaws.com/obras/big/8/5/8/1191515-5f120ba1b4a92.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FSindragosa.jpg?alt=media&token=1cc500fb-fc6e-45fd-a388-172823cd5325",
         preview:
-          "https://artelista.s3.amazonaws.com/obras/big/8/5/8/1191515-5f120ba1b4a92.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FSindragosa.jpg?alt=media&token=1cc500fb-fc6e-45fd-a388-172823cd5325",
         authorId: 116,
       },
       {
         id: 142,
-        name: "NATURALEZA EN PAZ",
+        name: "Yogg Saron",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "576",
         available: true,
-        fileLink: "https://artelista.s3.amazonaws.com/obras/big/6/2/4/1191509-5f010e8d33961.jpg",
-        preview: "https://artelista.s3.amazonaws.com/obras/big/6/2/4/1191509-5f010e8d33961.jpg",
+        fileLink: "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FYogg-Saron.jpg?alt=media&token=1e733702-5226-4cd1-88da-fa082a11f509",
+        preview: "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FYogg-Saron.jpg?alt=media&token=1e733702-5226-4cd1-88da-fa082a11f509",
         authorId: 116,
       },
       {
