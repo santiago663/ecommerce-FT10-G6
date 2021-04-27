@@ -28,13 +28,6 @@ export const SidebarData = [
         belong: [101]
     },
     {
-        title: 'Settings',
-        path: '/user/settings',
-        icon: <IoIcons.IoMdSettings />,
-        cName: 'navm-text',
-        belong: [101],
-    },
-    {
         title: 'Questions',
         path: '/user/questions',
         icon: <FiIcons.FiHelpCircle />,
