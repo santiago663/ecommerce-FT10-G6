@@ -40,6 +40,7 @@ const ModifyCategory = () => {
             <div className='FilterAndProducts'>
                 <div className='authorFilter'>
                     <select 
+                        className="selector"
                         name="authorId" 
                         id="selectorArAP" 
                         onChange={handleChange}
@@ -59,7 +60,7 @@ const ModifyCategory = () => {
                                 <li className="product" key={m.id}>
                                     <Link to={`/Admin/Category/Edit/${m.id}`}>
                                         <h4>{m.name}</h4>
-                                        <h5>Products:</h5>
+                                        <h3>Products:</h3>
                                         {products.length !== 0 && products.map(m => {
                                            return(<p>✽{m.name}</p>) 
                                         })}

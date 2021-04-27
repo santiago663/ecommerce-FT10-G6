@@ -129,7 +129,7 @@ function EditAuthor() {
 
     return (
         <div className="mainDivEP">
-            <h2 className="title">Edit Author</h2>
+            <h2 className="titleCat">Edit Author</h2>
             <Link 
                 className="nav-link" 
                 to="/Admin/Author"
@@ -143,7 +143,7 @@ function EditAuthor() {
                         Name: 
                         <input 
                             required
-                            className="input" 
+                            className="inputprod" 
                             type="text" 
                             onChange={handleInputChange} 
                             value={author.name} 
@@ -154,7 +154,7 @@ function EditAuthor() {
                         Email: 
                         <input 
                             required 
-                            className="input"
+                            className="inputprod"
                             type="text" 
                             onChange={handleInputChangeEmail} 
                             value={author.email} 
@@ -165,7 +165,8 @@ function EditAuthor() {
                         Available:
                         <select 
                             name="available" 
-                            id="selectorAvEP" 
+                            id="selectorAvEP"
+                            className="selector" 
                             value={author.available ? "Yes" : "No"} 
                             onChange={handleInputChangeAv}
                         >

@@ -71,7 +71,7 @@ function EditUsers() {
 
     const alertSucces = () =>{
         Swal.fire({
-           title: "Producto Editado",
+           title: "User Changed",
            icon: "success",
            timer: "1500",
            showConfirmButton: false,
@@ -132,7 +132,7 @@ function EditUsers() {
                 to="/Admin/User"
             ><li>Add Author</li></Link>
             <div className="divEP">
-                <h3>ROLES TABLE</h3>
+                {/* <h3>ROLES TABLE</h3>
                 {allRoles !==0 
                 ? allRoles.map(m =>{
                     return(
@@ -143,7 +143,7 @@ function EditUsers() {
                 })
                 : null 
                 }
-                <br/>
+                <br/> */}
                 <h3>USER DATA</h3>
                 <form 
                     className="formEP" 
