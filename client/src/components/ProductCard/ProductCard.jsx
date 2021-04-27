@@ -15,6 +15,7 @@ function ProductCard(props) {
   const userOrders = useSelector((store) => store.reducerOrderUser.userOrders);
   const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder)
   const allScores = useSelector((store) => store.reducerProduct.allProductsScores)
+  const allUserProducts = useSelector((store) => store.reducerOrderUser.allUserProducts)
   
   const shoppingCart = useSelector(
     (state) => state.reducerShoppingCart.shoppingCart
@@ -24,9 +25,8 @@ function ProductCard(props) {
   } = props;
 
   const [scoreX, setScore] = useState({})
-
-  const completedUserOrder = userOrders.filter(order => order.state === "completed")
-  const canBuy = completedUserOrder.filter(order => order.products.find(product => product.id == id))
+  
+  const canBuy = allUserProducts.filter(product => product.id == id)
 
   useEffect(() => {
     if (allScores) setScore(allScores?.find(scores => scores.id == id))

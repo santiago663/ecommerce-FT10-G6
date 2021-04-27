@@ -1,0 +1,20 @@
+.modalLibrary {
+    padding-top: 100px;
+    position: relative;
+    img{
+        max-width: 1200px ;
+    }
+}
+
+.closeWindowLibrary{
+    position: absolute;
+    top: 120px;
+    right: 20px;
+    font-size: 30px;
+    color: #1b1b1b;
+    transition: 350ms;
+    &:hover{
+        color: #13ae73;
+    }
+
+}

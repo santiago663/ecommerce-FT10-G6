@@ -99,6 +99,7 @@ export const GET_ALL_USERS_ERROR = "GET_ALL_USERS_ERROR";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const PUT_USER = "PUT_USER";
 export const PUT_USER_ERROR = "PUT_USER_ERROR";
+export const ALL_USER_PRODUCTS = "ALL_USER_PRODUCTS"
 
 //ROLE
 export const GET_ALL_ROLES = "GET_ALL_ROLES";

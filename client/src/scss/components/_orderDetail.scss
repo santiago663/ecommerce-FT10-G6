@@ -1,13 +1,15 @@
 .orderdetail-container {
-    background-color: rgba(1, 1, 1, 0.8);
+    background-color: rgba(168, 168, 168, 0.13);
+    backdrop-filter: blur(4px);
     position: absolute;
     width: 100vw;
-    height: 710px;
+    height: 100vh;
     top: 0;
     left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 250ms;
     animation-name: grow;
     animation-duration: 200ms;
 
@@ -16,36 +18,40 @@
         padding: 15px;
         position: relative;
         border: 1px solid rgba(0, 0, 0, 0.075);
-        box-shadow: 0px 5px 10px 5px #00000010;
+        box-shadow: 0px 1px 100px 100px #00ff9d1e;
         background-color: #24262c;
-        
-        hr{
+        transition: 250ms;
+
+        hr {
             border: 0.5px solid #1f2025;
-            
         }
     }
 }
 
-.title{
+.title {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    color: #08f198;
+    color: #1ed38d;
     text-shadow: 0 0 6px black;
-    .subtitle h2{
+
+    .subtitle h2 {
         color: rgb(146, 146, 146);
         margin-left: 5px;
-        font-weight: 300;
+        padding: 5px 0;
+        font-weight: 400;
     }
-  
 }
 
 .productinfo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
-    h4{
+    margin: 20px 0px;
+    h4 {
+        padding-left: 20px;
+        font-family: "Helvetica";
+        font-weight: 400;
         color: rgb(146, 146, 146);
     }
 }
@@ -56,11 +62,9 @@
     color: #929292;
     align-items: center;
 
-    img{
+    img {
         margin-right: 10px;
     }
-
-    
 }
 
 .generalinfo {
@@ -68,8 +72,8 @@
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    
-    .timedata{
+
+    .timedata {
         color: rgb(146, 146, 146);
         font-weight: 400;
         font-size: 13px;
@@ -88,34 +92,34 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    .totalprice {
+        color: rgb(146, 146, 146);
+        h2 {
+            color: #1ed38d;
+            border-bottom: 1px solid #13ae73;
 
-.totalprice {
-    text-align: right;
-    margin-left: 20px;
-    color: rgb(146, 146, 146);
-        h2{
-            color: #19f9a4;
+            text-align: center;
         }
-
+        h3 {
+            padding: 10px;
+            text-align: right;
+        }
+    }
 }
-}
 
-.closeWindow a{
+.closeWindow a {
     position: absolute;
     top: 15px;
     right: 15px;
     font-size: 30px;
-    color: #1b1b1b;
+    color: #797979;
     transition: 350ms;
-    &:hover{
+    &:hover {
         color: #13ae73;
     }
-
 }
 
-
-
-.buyit{
+.buyit {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,30 +150,30 @@
 
 @keyframes grow {
     0% {
-      opacity: 0;
-      top: -1000px;
+        opacity: 0;
+        top: -1000px;
     }
-  
+
     100% {
-      opacity: 1;
-      top:0px;
+        opacity: 1;
+        top: 0px;
     }
-  }
+}
 
 @keyframes coloring {
     0% {
-      color:#24262c;
+        color: #24262c;
     }
     25% {
         color: #19f9a4;
     }
-    50%{
-        color:#24262c;    
+    50% {
+        color: #24262c;
     }
-    75%{
+    75% {
         color: #19f9a4;
     }
     100% {
-        color:#24262c;
+        color: #24262c;
     }
-  }
+}

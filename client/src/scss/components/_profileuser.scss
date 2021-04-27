@@ -1,29 +1,26 @@
-
-
 .profile-body {
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-
-    hr{
+    hr {
         margin-top: 10px;
         margin-bottom: 10px;
+        color: rgb(175, 175, 175);
     }
-    .title{
+    .title {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         color: #13ae73;
-        
 
-        h1{
+        h1 {
             margin: 0px;
             font-size: 50px;
         }
-        h2{
+        h2 {
             margin-left: 5px;
-            color: whitesmoke;
+            color: rgb(113, 121, 124);
         }
     }
 }
@@ -33,8 +30,8 @@
     align-content: center;
     flex-direction: row;
     justify-content: space-between;
-    
-    .imagecover{
+
+    .imagecover {
         background-image: url("https://joomly.net/frontend/web/images/googlemap/map.png");
         background-size: cover;
         width: 300px;
@@ -44,13 +41,13 @@
 
     .container-user-info {
         width: 60%;
-    
-        .data{
+
+        .data {
             display: flex;
             flex-direction: row;
             margin-top: 20px;
             margin-bottom: 20px;
-    
+
             .inputs-profile {
                 background-color: #19f9a4;
                 display: flex;
@@ -62,16 +59,12 @@
                 font-size: smaller;
                 font-weight: bolder;
                 color: #1b1b1b;
-        
-                
             }
             .ipro {
                 width: 300px;
             }
         }
     }
-    
-    
 }
 
 .btn-inactive {
@@ -90,7 +83,6 @@
     border: none;
     cursor: not-allowed;
     pointer-events: none;
-    
 }
 
 .btn-active {

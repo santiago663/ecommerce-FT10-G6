@@ -130,3 +130,10 @@ export const cleanShoopingCart = () => {
 	return { type: TYPES.CLEAN_SHOPPING_CART };
 };
 
+export const allUserProducts = (products) => (dispatch) =>{ 
+  dispatch({
+    type: TYPES.ALL_USER_PRODUCTS,
+    payload: products
+  })
+}
+
