@@ -54,7 +54,7 @@ function CategoryForm() {
 
   return (
     <div className="mainDivEP">
-      <h2 className="title">Add Categories for your Galery!</h2>
+      <h2 className="titleCat">Add Categories for your Galery!</h2>
       <div className="divEP">
         <form 
           className="formEP"  
@@ -65,7 +65,7 @@ function CategoryForm() {
             <input
                 required
                 placeholder="New Category"
-                className="input" 
+                className="inputprod" 
                 type="text"
                 name="name"
                 value={input.name}

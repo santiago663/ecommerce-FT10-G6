@@ -31,6 +31,7 @@ const ModifyAuthor = () => {
                 <div className='authorFilter'>
                     <select 
                         name="authorId" 
+                        className="selector"
                         id="selectorArAP" 
                         onChange={handleChange}
                     >
