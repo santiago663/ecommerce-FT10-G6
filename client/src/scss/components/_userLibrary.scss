@@ -5,7 +5,8 @@
 }
 
 .myProductsImage {
-    width: 30%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: cover;
     border-radius: 2px 2px 0 0;
     box-shadow: 2px 3px 15px #2c2c2c;
@@ -13,4 +14,37 @@
 
 .divImage {
     padding-left: 20px;
+    width: 30%;
+}
+
+.libraryPreview {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #808080;
+    padding: 10px 20px;
+    align-items: center;
+}
+
+.libraryProductName {
+    font-size: 20px;
+    padding-right: 18%;
+}
+
+.libraryDownload a{
+    font-size: 33px;
+    color: #19F9A9;
+}
+
+.libraryDownload{
+    padding-right: 6%;
+}
+
+.libraryNameTitle {    
+    padding-left: 16%;
+    padding-right: 20%;
+}
+
+.libraryPreviewTitle {
+    padding-left: 9%;
 }

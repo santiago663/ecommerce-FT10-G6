@@ -29,22 +29,23 @@ export default function Library() {
             </div>
             <hr className="divisor" />
             <div className="tableheader">
-                <div><h4>Preview</h4></div>
-                <div><h4>Name</h4></div>                
+                <div className="libraryPreviewTitle"><h4>Preview</h4></div>
+                <div className="libraryNameTitle"><h4>Name</h4></div>
+                <div><h4>Download / Detail</h4></div>                 
             </div>
             <div className="myProductsResults">
                 {products.length !== 0 &&
                     products.map((product, index) => (
                         <>
-                            <div className="orderPreview" >
+                            <div className="libraryPreview" >
                                 <div className="divImage">
                                     <img className="myProductsImage" src={product.preview} alt=""/>                                    
                                 </div>                               
-                                <div className="option">
-                                    <h4 className="orderID1"> {product.name}</h4>
+                                <div className="libraryProductName">
+                                    <h4> {product.name}</h4>
                                 </div>
-                                <div className="seemore"> 
-                                <a className="orderID1" href={product.fileLink}><AiIcons.AiOutlineDownload /></a>                                   
+                                <div className="libraryDownload"> 
+                                <a download className="orderID1" href={product.fileLink}><AiIcons.AiOutlineDownload /></a>                                   
                                     <Link to={`/product/${product.id}`}>
                                         <AiIcons.AiFillEye />
                                     </Link>
