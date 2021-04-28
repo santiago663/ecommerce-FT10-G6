@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/actionFront";
 import { removeToCartUser } from "../../redux/actions/actionOrder";
-import { formUserOrder } from "../../redux/actions/actionOrder";
+import { formUserOrder, formGuestOrder } from "../../redux/actions/actionOrder";
 import { mercadoPago, stripe } from "../../redux/actions/payments";
 import { cleanShoopingCart } from "../../redux/actions/actionFront.js";
 import Swal from "sweetalert2";
@@ -23,6 +23,7 @@ const Checkout = () => {
 
   // Verificando el estado del pago
   useEffect(() => {
+    const guestOrder = JSON.parse(localStorage.getItem("guestOrderDetails"));
     const user = JSON.parse(window.localStorage.getItem("CurrentUser"));
     const lStorage = JSON.parse(localStorage.getItem("beforeOrder"));
     const query = new URLSearchParams(window.location.search);
@@ -54,12 +55,25 @@ const Checkout = () => {
       } else {
         dispatch(cleanShoopingCart());
         localStorage.setItem("orderProducts", JSON.stringify(""));
+        localStorage.setItem("guestOrderDetails", JSON.stringify(""));
         Swal.fire({
           title: "Thanks for your purchase!",
           text: "Download links and additional data will be sent to the email",
           icon: "success",
           confirmButtonText: "OK",
-        }).then(() => history.push("/Browser/products"));
+        })
+          .then(() =>
+            dispatch(
+              formGuestOrder({
+                name: guestOrder.name,
+                email: guestOrder.email,
+                total: guestOrder.total,
+                payment: stripe.id,
+                methodId: 4,
+              })
+            )
+          )
+          .then(() => history.push("/Browser/products"));
       }
     } else if (query.get("canceled")) {
       if (user && lStorage.id) {
