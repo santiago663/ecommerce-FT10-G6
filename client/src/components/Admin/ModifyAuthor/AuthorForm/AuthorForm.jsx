@@ -61,7 +61,7 @@ function CreateAuthor() {
 
   return (
     <div className="mainDivEP">
-      <h2 className="title">Add a new Author</h2>
+      <h2 className="titleCat">Add a new Author</h2>
       <div className="divEP">
         <form 
           className="formEP" 
@@ -72,7 +72,7 @@ function CreateAuthor() {
             <input
               required
               placeholder="New Author"
-              className="input"
+              className="inputprod"
               type="text"
               name="name"
               value={input.name}
@@ -84,7 +84,7 @@ function CreateAuthor() {
             <input
               required
               placeholder="email"
-              className="input"
+              className="inputprod"
               type="text"
               name="email"
               value={input.email}

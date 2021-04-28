@@ -35,8 +35,7 @@ function Filter() {
 	};
 
 	return (
-		<>
-			<div className="glass-background">
+		<>			
 				<div className="Container-Filter">
 					<button className="Boton-Reset" onClick={(e) => handleBackUp(e)}>
 						{`Reset`}
@@ -113,8 +112,7 @@ function Filter() {
 							<button className="fas fa-sort-alpha-up" value="desc_name" onClick={(e) => handleOrder(e)} />
 						)}
 					</div>
-				</div>
-			</div>
+				</div>			
 		</>
 	);
 }

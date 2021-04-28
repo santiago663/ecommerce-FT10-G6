@@ -139,7 +139,7 @@ function EditCategory() {
                         Name: 
                         <input 
                             required
-                            className="input" 
+                            className="inputprod" 
                             type="text" 
                             onChange={handleInputChange} 
                             value={category.name} 
@@ -150,6 +150,7 @@ function EditCategory() {
                         Available:
                         <select 
                             name="available" 
+                            className="selector"
                             id="selectorAvEP" 
                             value={category.available ? "Yes" : "No"} 
                             onChange={handleInputChangeAv}
