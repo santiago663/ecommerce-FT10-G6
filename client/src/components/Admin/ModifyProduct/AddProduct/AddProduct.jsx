@@ -1,8 +1,11 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, Route, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { addProducts, getAllProducts } from  '../../../../redux/actions/actionBack';
+import { addProducts, getAllProducts,deleteProductCategory,
+    editProductByBody, deleteProduct } from  '../../../../redux/actions/actionBack';
+import { upgradeEditProducts } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_addProduct.scss';
 import {firebase} from '../../../../firebase/firebase-config';
 
@@ -12,8 +15,11 @@ function AddProduct() {
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
     const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
+    const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
     const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
 
+    const {id} = useParams();
+    
     const [product, setProduct] = useState({
         name: "",
         description: "",
@@ -25,6 +31,34 @@ function AddProduct() {
         authorId: 0,        
         seriesId: null
     })
+
+    const [authorName, setAuthorName] = useState("")
+    const [boolean, setBoolean] = useState(false)
+    
+    useEffect(() => {
+
+        const findProduct = allProducts.find(f => f.id === Number(id))
+        findProduct ? console.log(findProduct) : null
+        if (findProduct?.id) {
+          
+            setProduct({
+                id: findProduct.id,
+                name: findProduct.name,
+                description: findProduct.description,
+                price: findProduct.price,
+                available: findProduct.available,
+                fileLink: findProduct.fileLink,
+                preview: findProduct.preview,
+                categories: findProduct.categories,
+                author: findProduct.author,
+                seriesId: findProduct.seriesId,
+            })
+            
+            const findArtist = allArtist.find(g => g.id == findProduct.author.id)
+            setAuthorName(findArtist.name) 
+        }
+        
+    }, [id])
  
     function handleInputChange(event) {
         setProduct({ ...product, [event.target.name]: event.target.value })
@@ -63,17 +97,29 @@ function AddProduct() {
     //Handle input para borrar categoria
     function handleInputDeleteCa(event, id) {
         var cat = product.categories
+        if (id){
+            dispatch( deleteProductCategory(product.id, id) );
+        }
         cat = cat.filter( cId => cId != Number(id))        
         setProduct({ ...product, categories: cat })
     }
    
     const alertSucces = () =>{
-        Swal.fire({
-           title: "Producto Creado",
-           icon: "success",
-           timer: "1500",
-           showConfirmButton: false,
-        })
+        if(!id){
+            Swal.fire({
+               title: "Producto Creado",
+               icon: "success",
+               timer: "1500",
+               showConfirmButton: false,
+            })
+        }else{
+            Swal.fire({
+                title: "Producto Editado",
+                icon: "success",
+                timer: "1500",
+                showConfirmButton: false,
+             })
+        }
     }
  
     const alertError = () =>{
@@ -159,49 +205,93 @@ function AddProduct() {
             <h2 className="title">Add Product</h2>
                 <form className="formAP" onSubmit={submitForm}>
                     <div>
-                        Name: 
+                        Name:
+                        {id ? 
                         <input
                             required
                             className="inputprod"
                             type="text"
                             onChange={handleInputChange}
-                            name="name" 
-                        />
+                            name="name"
+                            value={product.name}
+                        /> :
+                        <input
+                            required
+                            className="inputprod"
+                            type="text"
+                            onChange={handleInputChange}
+                            name="name"
+                            
+                        />}
+
                     </div>
                     <div>
-                        Description: 
+                        Description:
+                        {id ? 
                         <input
                             required
                             className="inputprod" 
                             type="text" 
                             onChange={handleInputChange} 
-                            name="description" 
+                            name="description"
+                            value={id ? product.description : ""}
+                        /> :
+                        <input
+                            required
+                            className="inputprod" 
+                            type="text" 
+                            onChange={handleInputChange} 
+                            name="description"
                         />
+                        }
                     </div>
                     <div>
                         Price: 
+                        {id ?
                         <input
                             required
                             className="inputprod" 
                             type="text" 
                             onChange={handleInputChangePr} 
-                            name="price" 
+                            name="price"
+                            value={product.price}
                         />
+                        :
+                        <input
+                            required
+                            className="inputprod" 
+                            type="text" 
+                            onChange={handleInputChangePr} 
+                            name="price"
+                        /> }
                     </div>
                     <div>
                         Available:
+                        {id ?
                         <select 
                             className="selector"
                             name="available" 
                             id="selectorAvAP" 
                             onChange={handleInputChangeAv}
+                            value={product.available ? "Yes" : "No"}
                         >
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
+                        :
+                        <select 
+                            className="selector"
+                            name="available" 
+                            id="selectorAvAP" 
+                            onChange={handleInputChangeAv}
+                            >
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        }
                     </div>
                     <div>
-                        Select to File: 
+                        Select to File:
                         <input 
                             required
                             className="SelectorFile" 
@@ -211,7 +301,18 @@ function AddProduct() {
                         />
                     </div>                    
                     <div>
-                        FileLink: 
+                        FileLink:
+                        {id ?
+                        <input 
+                            required
+                            className="inputprod" 
+                            type="text" 
+                            onChange={handleInputChange} 
+                            name="fileLink"
+                            value={product.fileLink}
+                            onChangeCapture=""
+                        />
+                        :
                         <input 
                             required
                             className="inputprod" 
@@ -221,9 +322,20 @@ function AddProduct() {
                             value={uploadValue.picture}
                             onChangeCapture=""
                         />
+                        }
                     </div>
                     <div>
-                        Preview: 
+                        Preview:
+                        {id ?
+                        <input 
+                            required
+                            className="inputprod" 
+                            type="text" 
+                            onChange={handleInputChange} 
+                            name="preview"
+                            value={product.preview}
+                        />
+                        :
                         <input 
                             required
                             className="inputprod" 
@@ -231,19 +343,32 @@ function AddProduct() {
                             onChange={handleInputChange} 
                             name="preview"
                             value={uploadValue.picture}
-                        />
+                        /> }
                     </div>
                     <div>
                         Artist:
+                        {id ?
                         <select 
                             className="selector"
                             name="authorId" 
                             id="selectorArAP" 
                             onChange={handleInputChangeAr}
+                            value = {product.author?.id}
                         >
-                            <option key={`AP${key++}`}> </option>
+                            <option> </option>
                             {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
                         </select>
+                        :
+                        <select 
+                            className="selector"
+                            name="authorId" 
+                            id="selectorArAP" 
+                            onChange={handleInputChangeAr}
+                            >
+                            <option> </option>
+                            {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+                        </select>
+                        }
                     </div>
                     <div>
                         Series:
@@ -263,10 +388,14 @@ function AddProduct() {
                             id="selectorCaAP" 
                             onChange={handleInputChangeCa}
                         >
-                            <option key={`AP${key++}`}> </option>
+                            <option> </option>
                             {allCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                         </select>
-                        {product.categories.map(id => 
+                        {id ?
+                        product.categories.map(p => 
+                        <span className="catego" key={`EP${key++}`} onClick={(event) => handleInputDeleteCa(event, p?.id)} >{p?.name}</span>)
+                        :
+                        product.categories.map(id => 
                         <span className="catego" key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
                         }
                     </div>
@@ -282,7 +411,8 @@ function AddProduct() {
                     {uploadValue.uploadValue} %
                 </progress>
                 <div className="image">
-                    <img className="image" src={uploadValue.picture} />
+                    {id ? <img className="image" src={product.preview} />
+                    : <img className="image" src={uploadValue.picture} />}
                 </div>
                 <input type="submit" value="quitar" onClick={deletefile} />
             </div>

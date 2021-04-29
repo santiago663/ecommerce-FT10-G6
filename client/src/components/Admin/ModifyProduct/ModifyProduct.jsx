@@ -34,6 +34,7 @@ const ModifyProduct = () => {
             <div className="FilterAndProducts">
                 <div className='authorFilter'>
                     <select 
+                        className="selector"
                         name="authorId" 
                         id="selectorArAP" 
                         onChange={handleChange}
@@ -64,8 +65,7 @@ const ModifyProduct = () => {
             </div>
             <div className='compProd'>
                 <Route exact path="/Admin/Product" component={AddProduct} />
-               
-                <Route exact path="/Admin/Product/Edit/:id" component={EditProduct} />
+                <Route exact path="/Admin/Product/Edit/:id" component={AddProduct} />
             </div>
         </div>
     );
