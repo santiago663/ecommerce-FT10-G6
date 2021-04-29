@@ -15,6 +15,7 @@ server.put("/:id", async (req, res) => {
     phone_Number,
     location_id,
     roleId,
+    profilePic
 
   } = req.body;
 
@@ -51,6 +52,7 @@ server.put("/:id", async (req, res) => {
         phone_Number,
         location_id,
         roleId,
+        profilePic
       },
       {
         where: { id: id },

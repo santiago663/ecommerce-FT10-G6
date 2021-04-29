@@ -101,14 +101,44 @@
     border: none;
 }
 
-.btn-active:hover {
+.btn-active:hover  {
     color: #19f9a4;
 }
 
-.profilePic img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+
+.profile-pic-div{
+    height: 100px;
+    width: 100px;
     position: absolute;
-    right: 10px;
+    top: -10px;
+    right:20px;
+    border-radius: 50%;
+    overflow: hidden;
+  
+}
+#photo{
+    height: 100%;
+    width: 100%;
+}
+#file{
+    display: none;
+}
+#uploadBtn{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: wheat;
+    line-height: 30px;
+    font-size: 10px;
+    cursor: pointer;
+    opacity: 0;
+    :hover{
+        opacity: 1;
+    }
+    
 }
