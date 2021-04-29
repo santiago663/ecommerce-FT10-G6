@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import axios from "axios";
 import * as TYPES from "../types/index";
 import { requestData, requestSuccess } from './request.js'
 
@@ -135,5 +136,9 @@ export const allUserProducts = (products) => (dispatch) =>{
     type: TYPES.ALL_USER_PRODUCTS,
     payload: products
   })
+}
+
+export const sendEmailOrderSuccess = (data) => (dispatch) => {
+  axios.post(`http://localhost:3001/emails/signup`, data);
 }
 

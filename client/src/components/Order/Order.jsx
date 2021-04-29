@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import PaypalButton from "../PaypalButton/PaypalButton";
 import { loadStripe } from "@stripe/stripe-js";
 import "./_order.scss";
+import Swal from "sweetalert2";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE); //stripe connection
 
 function Order() {
@@ -41,30 +42,49 @@ function Order() {
 
   // select payment
   const handlePayments = async (type, order, payment) => {
+    localStorage.setItem("guestOrderDetails", JSON.stringify(input));
     let user = JSON.parse(window.localStorage.getItem("CurrentUser"));
     // let MercadoPago = JSON.parse(window.localStorage.getItem("MercadoPago"));
     let stripe = JSON.parse(window.localStorage.getItem("stripe"));
     try {
-      //logged user and open order
-      if (user && currentOrder.length > 0) {
-        if (type === "mercado-pago") {
-          // window.location.href = MercadoPago.url;
-        } else if (type === "stripe") {
-          const stripeResponse = await stripePromise;
-          const result = await stripeResponse.redirectToCheckout({
-            sessionId: stripe.id,
+      if (/\S+@\S+\.\S+/.test(input.email)) {
+        if (input.name !== "") {
+          //logged user and open order
+          if (user && currentOrder.length > 0) {
+            if (type === "mercado-pago") {
+              // window.location.href = MercadoPago.url;
+            } else if (type === "stripe") {
+              const stripeResponse = await stripePromise;
+              const result = await stripeResponse.redirectToCheckout({
+                sessionId: stripe.id,
+              });
+            }
+            //guest user
+          } else {
+            if (type === "mercado-pago") {
+              // window.location.href = MercadoPago.url;
+            } else if (type === "stripe") {
+              const stripeResponse = await stripePromise;
+              const result = await stripeResponse.redirectToCheckout({
+                sessionId: stripe.id,
+              });
+            }
+          }
+        } else {
+          Swal.fire({
+            title: "Ops...",
+            text: "el nombre no vacio",
+            icon: "warning",
+            confirmButtonText: "OK",
           });
         }
-        //guest user
       } else {
-        if (type === "mercado-pago") {
-          // window.location.href = MercadoPago.url;
-        } else if (type === "stripe") {
-          const stripeResponse = await stripePromise;
-          const result = await stripeResponse.redirectToCheckout({
-            sessionId: stripe.id,
-          });
-        }
+        Swal.fire({
+          title: "Ops...",
+          text: "Digite un email valido",
+          icon: "warning",
+          confirmButtonText: "OK",
+        })
       }
     } catch (err) {
       console.error(err.message);
