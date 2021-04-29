@@ -1,9 +1,5 @@
 const server = require("express").Router();
-// const sgMail = require('@sendgrid/mail');
 const { Users, Orders, Products } = require("../../db");
-
-// import { sengridEmail } from '../../services/sengridEmail.js'
-// import {stateOrder} from '../../services/stateOrder.js'
 const stateOrder = require ('../../services/stateOrder.js');
 const discountProduct = require ('../../services/discountProduct');
 const sengridEmail = require ('../../services/sengridEmail.js');
@@ -23,7 +19,7 @@ server.post("/signup", async(req, res) => {
         })
         var orders = await Orders.findOne({
             where:{
-                // userId: user.id,
+                userId: user.id,
                 id: orderId,
                 state: state
             }, include: [Products]
@@ -37,10 +33,10 @@ server.post("/signup", async(req, res) => {
             var ordIdDateStateTotal = []
 
             let orderID = orders.id;
-            let date = orders.date;
-            let total = orders.total;        
+            let date = orders.date;       
             let state = orders.state;
-            ordIdDateStateTotal.push(orderID, date, state, total)
+            let total = orders.total; 
+            ordIdDateStateTotal.push(orderID, date, state, Number(total))
 
             let prodsImgPrice = []
             let product ={}
@@ -53,20 +49,19 @@ server.post("/signup", async(req, res) => {
 
                         product = {
                             product:orders.products[i].name,
-                            image: orders.products[i].preview,
-                            price:orders.products[i].price,
-                            Graldate:ordIdDateStateTotal
+                            image: orders.products[i].fileLink,
+                            price: Number(orders.products[i].price),
                         }
                         prodsImgPrice.push(product)
                     }
                     i++
                 }
             }
+            console.log(name, ordIdDateStateTotal, prodsImgPrice, email)
           
-            let msgBody = (stateOrder(name, prodsImgPrice, email))
-            // console.log(msgBody)
+            let msgBody = (stateOrder(name, ordIdDateStateTotal, prodsImgPrice, email))
 
-            sengridEmail(msgBody) 
+            // sengridEmail(msgBody)
             //SENDGRID MANDAR EMAIL, NO BORRAR, SOLO 100 EMAILS POR DIA
 
             return res.status(200).json({message:"email enviado exitosamente"}) 
@@ -86,9 +81,8 @@ server.post("/signup", async(req, res) => {
 server.post("/productOffers", async(req, res) => {
 
     const { name, orderId, email, state } = req.body;
+    console.log(req.body)
 
-    let dataOrder = []
-    let product ={}
     try{
         if(!email || !name || !orderId && state === "open") return res.status(422).json({message:"please add all the fields"});
         
@@ -108,14 +102,17 @@ server.post("/productOffers", async(req, res) => {
         }
         else{
 
-            var dateBasicOrder = []
+            var ordIdDateStateTotal = []
 
             let orderID = orders.id;
-            let date = orders.date;
-            let total = orders.total;        
+            let date = orders.date;       
             let state = orders.state;
+            let total = orders.total; 
 
-            dateBasicOrder.push(orderID, date, state, total)
+            ordIdDateStateTotal.push(orderID, date, state, Number(total));
+
+            let prodsImgPrice = []
+            let product ={}
 
             var diez100=(10/100);
             var TotalDiscount = 0;
@@ -132,25 +129,26 @@ server.post("/productOffers", async(req, res) => {
                         var result = productUser.price  *diez100;
                         var descuento = productUser.price - result;
                         TotalDiscount = TotalDiscount +descuento
-                        console.log("VALORES___",TotalDiscount, descuento)
 
                         product = {
 
                             product:orders.products[i].name,
-                            image: orders.products[i].preview,
-                            price:orders.products[i].price,
+                            image: orders.products[i].fileLink,
+                            price: Number(orders.products[i].price),
                             priceDiscount: descuento,
+           
                         }
                     }
-                    dateBasicOrder.push(TotalDiscount) 
-                    dataOrder.push(product)
+                    prodsImgPrice.push(product)
                 }
                 i++
             }
-            
-            let msgBody = (discountProduct(name, dateBasicOrder, dataOrder))
+            ordIdDateStateTotal.push(TotalDiscount) 
+           
+            let msgBody = (discountProduct(name, ordIdDateStateTotal, prodsImgPrice, email))
 
-            //console.log(sengridEmail(msgBody)) //SENDGRID MANDAR EMAIL, NO BORRAR, SOLO 100 EMAILS POR DIA
+            // sengridEmail(msgBody)
+            //SENDGRID MANDAR EMAIL, NO BORRAR, SOLO 100 EMAILS POR DIA
 
             return res.status(200).json({message:"email enviado exitosamente"}) 
         }
