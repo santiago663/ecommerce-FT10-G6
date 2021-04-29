@@ -79,10 +79,6 @@ export default function Profile() {
 
               task.snapshot.ref.getDownloadURL().then(
                   function(downloadURL) {
-                    console.log("cargo la respuesta")
-                    console.log(downloadURL)
-      
-                    console.log('antes del dispatch')
                     dispatch(editCurrentUser(currentUser.id, {...user, profilePic:downloadURL}));
                      
               });
