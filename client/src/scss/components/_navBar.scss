@@ -204,3 +204,12 @@ $primary: #24262c;
     transform: scale(1.1);
   }
 }
+
+.navbarProfilePic img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  right: 200px;
+  top: 25px;
+}
