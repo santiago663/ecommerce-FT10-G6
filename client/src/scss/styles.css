@@ -8,12 +8,14 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
   height: 100vh;
   background: #fff;
   font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
 }
 
 /* ------ */
@@ -168,7 +170,9 @@ h1 {
   flex-wrap: wrap;
   justify-content: space-around;
   width: 100%;
-  margin: 0 auto;
+  margin: 100px auto 20px auto;
+  max-width: 1500px;
+  scroll-behavior: smooth;
 }
 
 .wrapper {
@@ -207,10 +211,16 @@ p {
 .mainDivEP {
   margin-top: 15;
   margin-left: 15;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
 }
-.mainDivEP .title {
+.mainDivEP .titleCat {
   margin: 20px 0px 20px 20px;
   display: inline-block;
+  text-shadow: 0 0 6px black;
+  color: #08f198;
 }
 .mainDivEP .nav-link {
   margin-left: 45px;
@@ -227,6 +237,9 @@ p {
 }
 .mainDivEP .divEP .formEP {
   margin: 1%;
+  width: 275px;
+  display: flex;
+  flex-direction: column;
 }
 .mainDivEP .divEP .formEP .EditAndDelete {
   width: 60px;
@@ -596,10 +609,18 @@ p {
   transform: scale(1.1);
 }
 
+.navbarProfilePic img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  right: 200px;
+  top: 25px;
+}
+
 .product-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 300px;
   margin: 10px;
   background: linear-gradient(356deg, #fffeff, #ffffff);
@@ -622,7 +643,6 @@ p {
   height: 195px;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 2px 2px 0 0;
   transition: transform 0.5s;
 }
 .product-card:hover {
@@ -720,14 +740,20 @@ a.link {
 }
 
 .scoreCard {
+  z-index: 0;
   display: flex;
   position: absolute;
-  margin-left: 0px;
-  margin-top: -30px;
+  margin-left: -3px;
+  margin-top: -36px;
   color: #f7f7f7;
   font-size: 20px;
   letter-spacing: 5px;
   text-shadow: 1px 0 0 #424242, -1px 0 0 #424242, 0 1px 0 #424242, 0 -1px 0 #424242, 1px 1px #424242, -1px -1px 0 #424242, 1px -1px 0 #424242, -1px 1px 0 #424242;
+  align-items: baseline;
+}
+
+.acquiredPC {
+  font-size: 10px;
 }
 
 .big-container {

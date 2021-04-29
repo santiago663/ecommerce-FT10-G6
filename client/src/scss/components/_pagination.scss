@@ -1,17 +1,19 @@
 .pagination {
   border-radius: 3px;
   width: 100%;
+  min-width: 300px;
   text-align: center;
   margin: 1.5rem auto;
   li {
     display: inline-block;
     a {
       display: inline-block;
-      padding: 0.3rem 0.2rem;
+      padding: 0.3rem 0.4rem;
       text-decoration: none;
-      background-color: #24262c;
+      // background-color: #24262c;
       color: #fafafa;
       font-size: 14px;
+      font-weight: 400;
       &:hover {
         color: #19f9a4;
       }
@@ -22,14 +24,13 @@
   width: 20px;
   text-align: center;
   text-decoration: none;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  box-shadow: 0px 0px 0px 1px #19f9a4, 0px 5px 28px 1px #000000d7;
+  border-radius: 2px;
+  box-shadow: 0px 0px 0px 3px #19f9a4;
   margin: 5px;
   transform: scale(1.1);
   background-color: #24262c;
   .page-link {
-    font-size: 17px;
+    background-color: rgb(71, 71, 71);
     font-weight: 900;
     color: #19f9a4;
   }
@@ -39,14 +40,15 @@
   transition: 250ms;
   border-radius: 0px;
   font-size: 1rem;
-  border: none;
   font-weight: 900;
   color: #fafafa;
-  background-color: #24262c;
-  padding: 3px 5px;
-  margin: 0 3px;
+  background-color: #515253;
+  padding: 5px 10px;
+  margin: 0 10px;
   text-align: center;
-  box-shadow: 0px 0px 1px 1px #00ff9d, 0px 4px 5px 1px #242424;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0px 0px 2px 3px #00ff9d, 0px 4px 5px 1px #242424;
   z-index: 999;
   &:hover {
     color: #19f9a4;
