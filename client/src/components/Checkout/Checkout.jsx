@@ -6,7 +6,10 @@ import { removeFromCart } from "../../redux/actions/actionFront";
 import { removeToCartUser } from "../../redux/actions/actionOrder";
 import { formUserOrder, formGuestOrder } from "../../redux/actions/actionOrder";
 import { mercadoPago, stripe } from "../../redux/actions/payments";
-import { cleanShoopingCart } from "../../redux/actions/actionFront.js";
+import {
+  cleanShoopingCart,
+  sendEmailOrderSuccess,
+} from "../../redux/actions/actionFront.js";
 import Swal from "sweetalert2";
 import "./_checkout.scss";
 
@@ -23,18 +26,18 @@ const Checkout = () => {
 
   // Verificando el estado del pago
   useEffect(() => {
-    const guestOrder = JSON.parse(localStorage.getItem("guestOrderDetails"));
-    const user = JSON.parse(window.localStorage.getItem("CurrentUser"));
-    const lStorage = JSON.parse(localStorage.getItem("beforeOrder"));
+    let guestOrder = JSON.parse(localStorage.getItem("guestOrderDetails"));
+    const loggedUser = JSON.parse(window.localStorage.getItem("CurrentUser"));
+    const beforeOrder = JSON.parse(localStorage.getItem("beforeOrder"));
     const query = new URLSearchParams(window.location.search);
     const stripe = JSON.parse(window.localStorage.getItem("stripe"));
 
     // logged user
     if (query.get("success")) {
-      if (user && lStorage.id) {
+      if (loggedUser && beforeOrder.id) {
         dispatch(
           formUserOrder({
-            id: lStorage.id,
+            id: beforeOrder.id,
             state: "completed",
             payment: stripe.id,
             methodId: 4,
@@ -48,38 +51,69 @@ const Checkout = () => {
           confirmButtonText: "OK",
         })
           .then(() =>
+            dispatch(
+              sendEmailOrderSuccess({
+                name: loggedUser.name,
+                orderId: beforeOrder.id,
+                email: loggedUser.email,
+                state: "completed",
+              })
+            )
+          )
+          .then(() =>
             window.localStorage.setItem("beforeOrder", JSON.stringify(""))
           )
           .then(() => window.localStorage.setItem("stripe", JSON.stringify("")))
           .then(() => history.push("/Browser/products"));
       } else {
-        dispatch(cleanShoopingCart());
-        localStorage.setItem("orderProducts", JSON.stringify(""));
-        localStorage.setItem("guestOrderDetails", JSON.stringify(""));
         Swal.fire({
           title: "Thanks for your purchase!",
           text: "Download links and additional data will be sent to the email",
           icon: "success",
           confirmButtonText: "OK",
         })
-          .then(() =>
+          .then(
             dispatch(
               formGuestOrder({
                 name: guestOrder.name,
                 email: guestOrder.email,
+                productId: guestOrder.productId,
+                price: guestOrder.price,
                 total: guestOrder.total,
                 payment: stripe.id,
                 methodId: 4,
               })
             )
           )
-          .then(() => history.push("/Browser/products"));
+          .then(() => {
+            return (guestOrder = JSON.parse(
+              localStorage.getItem("guestOrderDetails")
+            ));
+          })
+          .then(() =>
+            dispatch(
+              sendEmailOrderSuccess({
+                name: guestOrder.name,
+                orderId: guestOrder.orderId,
+                email: guestOrder.email,
+                state: "completed",
+              })
+            )
+          )
+          .then(() => history.push("/Browser/products"))
+          .then(
+            () => (
+              localStorage.setItem("orderProducts", JSON.stringify("")),
+              localStorage.setItem("guestOrderDetails", JSON.stringify(""))
+            )
+          )
+          .then(() => dispatch(cleanShoopingCart()));
       }
     } else if (query.get("canceled")) {
-      if (user && lStorage.id) {
+      if (loggedUser && beforeOrder.id) {
         dispatch(
           formUserOrder({
-            id: lStorage.id,
+            id: beforeOrder.id,
             state: "cancelled",
             payment: "",
             methodId: "",

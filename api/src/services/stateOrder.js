@@ -1,11 +1,11 @@
 
-let stateOrder = (name2, prodsImgPrice,) => {
+let stateOrder = (name2, prodsImgPrice, email) => {
 
     var msg = {};
 
     if(!!name2 && prodsImgPrice.length !==0){
         
-        msg["to"] = "lls28programacion@hotmail.com",
+        msg["to"] = `${email}`,
         msg["from"] = "lu_23-7-92@hotmail.com",
         msg["subject"] = "DigitalArt: Orden Completada",
         msg["html"] = `

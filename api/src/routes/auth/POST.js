@@ -64,7 +64,7 @@ server.post("/signup", async(req, res) => {
             }
           
             let msgBody = (stateOrder(name, prodsImgPrice, email))
-            console.log(msgBody)
+            // console.log(msgBody)
 
             sengridEmail(msgBody) 
             //SENDGRID MANDAR EMAIL, NO BORRAR, SOLO 100 EMAILS POR DIA
