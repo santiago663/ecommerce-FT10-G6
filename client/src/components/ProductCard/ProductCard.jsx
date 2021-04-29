@@ -12,25 +12,14 @@ function ProductCard(props) {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((store) => store.auth.currentUser)
-  const userOrders = useSelector((store) => store.reducerOrderUser.userOrders);
   const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder)
   const allScores = useSelector((store) => store.reducerProduct.allProductsScores)
   const allUserProducts = useSelector((store) => store.reducerOrderUser.allUserProducts)
-  
-  const shoppingCart = useSelector(
-    (state) => state.reducerShoppingCart.shoppingCart
-  );
-  const {
-		data: { name, author, preview, id, price, available, score },
-  } = props;
 
-  const [scoreX, setScore] = useState({})
-  
+  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+  const { data: { name, author, preview, id, price, available, score, stock, initialStock }, } = props;
+
   const canBuy = allUserProducts.filter(product => product.id == id)
-
-  useEffect(() => {
-    if (allScores) setScore(allScores?.find(scores => scores.id == id))
-  }, [])
 
   let backScores = allScores?.find(scores => scores.id == id)
 
@@ -80,49 +69,53 @@ function ProductCard(props) {
   }
 
   return (
-		<>
-			<div className="product-card">
-				{available === true ? (
-					<div className="shopping">
-						<div className="price">
-							<b>$ {price} </b>
-						</div>
-						<div>
-							{canBuy[0] ? <span className="acquiredPC">Acquired</span> : false              
-              ||
-              !lStorage ? (
-								<i
-									className="fas fa-cart-plus add"
-									key={id}
-									onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
-								></i>
-							) : (
-								<i
-									className="fas fa-cart-arrow-down remove"
-									key={id}
-									onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
-								>
-									<br />
-								</i>
-							)}
-						</div>
-					</div>
-				) : null}
-				<Link className="link" to={`/product/${id}`}>
-					<img src={preview} alt={name} />
-				</Link>
-				<div className="conten">
-					<div className="nameAutor">
-						<span className="scoreCard">
-							{score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
-							{score === null ? FunctionStar(0) : FunctionStar(Number(score))}
-						</span>
-						<h4>{name}</h4>
-						<h6>{author.name}</h6>
-					</div>
-				</div>
-			</div>
-		</>
+    <>
+      <div className="product-card">
+        {available === true ? (
+          <div className="shopping">
+            <div className="price">
+              <b>$ {price} </b>
+            </div>
+            <div>
+              {canBuy[0] ? <span className="acquiredPC">Acquired</span> : false
+                ||
+                !lStorage ? (
+                <i
+                  className="fas fa-cart-plus add"
+                  key={id}
+                  onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
+                ></i>
+              ) : (
+                <i
+                  className="fas fa-cart-arrow-down remove"
+                  key={id}
+                  onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
+                >
+                  <br />
+                </i>
+              )}
+            </div>
+          </div>
+        ) : null}
+        <Link className="link" to={`/product/${id}`}>
+          <img src={preview} alt={name} />
+        </Link>
+        <div className="contenInfo">
+          <div className="conten">
+            <div className="nameAutor">
+              <span className="scoreCard">
+                {score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
+                {score === null ? FunctionStar(0) : FunctionStar(Number(score))}
+              </span>
+              <h4 maxlength="10" className="nameProductCard">{name}</h4>
+            </div>
+          </div>
+          <div>
+            {stock ? <span className="stockProductCard">Edition of {initialStock} - <span className="stockNumberPC">{stock}</span> left</span> : <h6>{author.name}</h6>}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

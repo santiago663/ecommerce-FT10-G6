@@ -21,6 +21,8 @@ function AddProduct() {
         available: true,
         fileLink: "",
         preview: "",
+        stock: null,
+        initialStock: null,
         categories: [],
         authorId: 0,        
         seriesId: null
@@ -184,6 +186,26 @@ function AddProduct() {
                             type="text" 
                             onChange={handleInputChangePr} 
                             name="price" 
+                        />
+                    </div>
+                    <div>
+                        Stock: 
+                        <input
+                            required
+                            className="inputprod" 
+                            type="text" 
+                            onChange={handleInputChangePr} 
+                            name="stock" 
+                        />
+                    </div>
+                    <div>
+                        Initial stock: 
+                        <input
+                            required
+                            className="inputprod" 
+                            type="text" 
+                            onChange={handleInputChangePr} 
+                            name="initialStock" 
                         />
                     </div>
                     <div>

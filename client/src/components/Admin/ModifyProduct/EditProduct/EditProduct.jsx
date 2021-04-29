@@ -28,6 +28,8 @@ function EditProduct() {
         available: true,
         fileLink: "",
         preview: "",
+        stock: null,
+        initialStock: null,
         categories: [],
         authorId: 1,
         seriesId: null
@@ -49,6 +51,8 @@ function EditProduct() {
                 available: findProduct.available,
                 fileLink: findProduct.fileLink,
                 preview: findProduct.preview,
+                stock: findProduct.stock,
+                initialStock: findProduct.initialStock,
                 categories: findProduct.categories,
                 author: findProduct.author,
                 seriesId: findProduct.seriesId,
@@ -75,6 +79,11 @@ function EditProduct() {
             setProduct({ ...product, [price]: Number(event.target.value) })  
         }
     }
+
+    //Handle input para stock
+    function handleInputChangeSto(event) {
+            setProduct({ ...product, [event.target.name]: Number(event.target.value) })         
+    }    
 
     //Handle input para artist
     function handleInputChangeAr(event) {
@@ -134,7 +143,6 @@ function EditProduct() {
 
     function submitForm(event) {
         event.preventDefault();
-
         dispatch( editProductByBody(product.id, product) );
     }
 
@@ -221,6 +229,28 @@ function EditProduct() {
                             onChange={handleInputChangePri} 
                             value={product.price} 
                             name="price" 
+                        />
+                    </div>
+                    <div>
+                        Stock: 
+                        <input 
+                            required
+                            className="inputprod"
+                            type="text" 
+                            onChange={handleInputChangeSto} 
+                            value={product.stock} 
+                            name="stock" 
+                        />
+                    </div>
+                    <div>
+                        Initial stock: 
+                        <input 
+                            required
+                            className="inputprod"
+                            type="text" 
+                            onChange={handleInputChangeSto} 
+                            value={product.initialStock} 
+                            name="initialStock" 
                         />
                     </div>
                     <div>

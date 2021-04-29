@@ -31,6 +31,14 @@ module.exports = (sequelize) => {
     score:{
       type: DataTypes.STRING,
       allowNull: true
+    },
+    stock:{
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    initialStock:{
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   },
   {
