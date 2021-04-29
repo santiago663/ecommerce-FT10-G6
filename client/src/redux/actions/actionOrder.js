@@ -107,8 +107,11 @@ export const emptyToCartUser = (currentUser) => {
 }
 
 export const formGuestOrder = (form) => {
-	return (dispatch) => {
-		axios.post('http://localhost:3001/post/order/', form).catch((e) => console.log(e));
+	return async (dispatch) => {
+        let res = await axios.post('http://localhost:3001/post/order/', form).catch((e) => console.log(e));
+        let guestOrderDetails = JSON.parse(localStorage.getItem("guestOrderDetails"));
+        guestOrderDetails.orderId = res.data.id;
+        localStorage.setItem("guestOrderDetails", JSON.stringify(guestOrderDetails));
 	};
 }; 
 

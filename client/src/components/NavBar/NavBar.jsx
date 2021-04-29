@@ -5,7 +5,6 @@ import { logout } from '../../redux/actions/auth';
 import { setMenu } from '../../redux/actions/request'
 import { useSelector, useDispatch } from 'react-redux';
 import * as FaIcons from 'react-icons/fa';
-import * as IoIcons from 'react-icons/io';
 import * as HiIcons from 'react-icons/hi';
 
 import '../../scss/components/_navBar.scss';
@@ -49,10 +48,18 @@ function NavBar() {
         </ul>
       </div>
       <div className="nav-buttons_authentication">
+      {currentUser?.profilePic ? <div className="navbarProfilePic">
+      <Link to="/user/profile">
+          <img src={currentUser.profilePic} type="file" alt="profilePic"/>
+          </Link>
+      </div> : 
+          null
+          }
+        
         <ul className="Icon-Cart">
           <Link to="/checkout">
             <i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i>
-          </Link>
+          </Link>         
         </ul>
         {currentUser?.name ?
           <button type="button" className="signin--btn logout" onClick={handleLogOut}>Log out</button>

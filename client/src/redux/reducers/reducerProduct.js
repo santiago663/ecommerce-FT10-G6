@@ -9,9 +9,12 @@ const initialState = {
 	allProductCache: [],
 	authorDisponible: [],
 	contegorieDisponible: [],
+	categorieBackUp: [],
+	authorBackUp: [],
+	actualStars: [],
 	author: false,
 	categorie: false,
-	score:false,
+	score: false,
 	productReview: [],
 	newProductReviews: [],
 	allProductsScores: [],
@@ -36,7 +39,6 @@ export default function reducerProduct(state = initialState, action) {
 			return {
 				...state,
 				allProductCache: action.payload,
-				
 			};
 
 		case TYPES.GET_ONE_PRODUCT:
@@ -59,52 +61,98 @@ export default function reducerProduct(state = initialState, action) {
 		case TYPES.ORDER_BY_CATEGORIES:
 			if (state.author) {
 				let filteredProducts = [];
+				let actualStars = [];
+				let actualAuthor = [];
 
-				state.allProductCache.filter((f) =>
-					f.categories.forEach((x) => {
-						x.name === action.payload ? filteredProducts.push(f) : null;
-					})
-				);
+				if (state.authorBackUp.length >= 1) {
+					[...state.authorBackUp].filter((f) =>
+						f.categories.forEach((x) => {
+							x.name === action.payload
+								? (filteredProducts.push(f),
+								  actualAuthor.push(f.author.name),
+								  actualStars.push(Math.floor(Number(f.score))))
+								: null;
+						})
+					);
+				} else {
+					[...state.authorBackUp].filter((f) =>
+						f.categories.forEach((x) => {
+							x.name === action.payload
+								? (filteredProducts.push(f),
+								  actualAuthor.push(f.author.name),
+								  actualStars.push(Math.floor(Number(f.score))))
+								: null;
+						})
+					);
+				}
 
 				return {
 					...state,
 					allProductCache: filteredProducts,
 					categorie: !state.categorie,
+					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
+					authorDisponible: [...new Set((actualAuthor = [].concat.apply([], actualAuthor)))],
 				};
 			} else {
 				let filteredProducts = [];
 				let actualAuthor = [];
+				let actualStars = [];
 
-				state.backUpProducts.filter((f) =>
-					f.categories.forEach((x) => (x.name === action.payload ? filteredProducts.push(f) : null))
+				[...state.backUpProducts].filter((f) =>
+					f.categories.forEach((x) =>
+						x.name === action.payload
+							? (actualAuthor.push(f.author.name),
+							  filteredProducts.push(f),
+							  actualStars.push(Math.floor(Number(f.score))))
+							: null
+					)
 				);
-				filteredProducts.filter((f) => actualAuthor.push(f.author.name));
 
 				return {
 					...state,
 					allProductCache: filteredProducts,
 					categorie: true,
 					authorDisponible: [...new Set((actualAuthor = [].concat.apply([], actualAuthor)))],
+					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
+					categorieBackUp: filteredProducts,
 				};
 			}
 		case TYPES.ORDER_BY_AUTHOR:
+			if (action.payload === state.authorDisponible) {
+				return {
+					...state,
+					allProductCache: state.allProductCache,
+					contegorieDisponible: Empty,
+				};
+			}
 			if (state.categorie) {
 				let filteredProducts = [];
-				state.allProductCache.filter((f) =>
-					f.author.name === action.payload ? filteredProducts.push(f) : null
+				let actualStars = [];
+				let actualCategories = [];
+
+				[...state.categorieBackUp].filter((f) =>
+					f.author.name === action.payload
+						? (filteredProducts.push(f), actualStars.push(Math.floor(Number(f.score))))
+						: null
 				);
+				filteredProducts.forEach((f) => f.categories.filter((x) => actualCategories.push(x.name)));
 
 				return {
 					...state,
 					allProductCache: filteredProducts,
 					author: !state.author,
+					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
+					contegorieDisponible: [...new Set((actualCategories = [].concat.apply([], actualCategories)))],
 				};
 			} else {
 				let filteredProducts = [];
 				let actualCategories = [];
+				let actualStars = [];
 
-				state.backUpProducts.filter((f) =>
-					f.author.name === action.payload ? filteredProducts.push(f) : null
+				[...state.backUpProducts].filter((f) =>
+					f.author.name === action.payload
+						? (filteredProducts.push(f), actualStars.push(Math.floor(Number(f.score))))
+						: null
 				);
 				filteredProducts.forEach((f) => f.categories.filter((x) => actualCategories.push(x.name)));
 
@@ -113,6 +161,8 @@ export default function reducerProduct(state = initialState, action) {
 					allProductCache: filteredProducts,
 					author: true,
 					contegorieDisponible: [...new Set((actualCategories = [].concat.apply([], actualCategories)))],
+					authorBackUp: filteredProducts,
+					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
 				};
 			}
 		case TYPES.ALL_PRODUCTS_RESET:
@@ -128,45 +178,73 @@ export default function reducerProduct(state = initialState, action) {
 				allProductCache: state.backUpProducts,
 				author: false,
 				categorie: false,
-				score:false,
+				score: false,
 			};
 
 		case TYPES.GET_PRODUCT_REVIEW:
+			return { ...state, productReview: action.payload };
 
-			return {...state, productReview: action.payload};
-			
 		case TYPES.FILTER_PRODUCT_REVIEW:
 			//actualizo el state cuando se hace un delete
-			return {...state, productReview: action.payload};
+			return { ...state, productReview: action.payload };
 
 		case TYPES.ALL_PRODUCTS_SCORES:
 			return { ...state, allProductsScores: action.payload };
 
 		case 'ORDER_STARS':
-			if (action.payload === "starUp") {
+			//ordenamiento de mayor a menor en rating
+			if (action.payload === 'starUp') {
+				if (state.author && state.categorie) {
+					state.allProductCache.sort(function (o1, o2) {
+						if ((o1.score === null ? 0 : Number(o1.score)) > (o2.score === null ? 0 : Number(o2.score))) {
+							return -1;
+						} else if (
+							(o1.score === null ? 0 : Number(o1.score)) < (o2.score === null ? 0 : Number(o2.score))
+						) {
+							return 1;
+						}
 
-				if (state.author || state.categorie) {
-
-					let arr = state.allProductCache.sort(function (o1, o2) {
-						
-							if ((o1.score === null ? 0.1 : Number(o1.score)) > (o2.score === null ? 0.1 : Number(o2.score))) {
-								return -1;
-							} else if (
-								(o1.score === null ? 0.1 : Number(o1.score)) < (o2.score === null ? 0.1 : Number(o2.score))
-							) {
-								return 1;
-							}
-						
 						return 0;
 					});
 					return {
 						...state,
-						allProductCache: arr,
-						author: !!state.author ? false : true,
-						categorie: !!state.author ? false : true,
-						score: !state.score,
+						allProductCache: state.allProductCache,
 					};
-				}else{
+				}
+				if (state.categorie) {
+					state.categorieBackUp.sort(function (o1, o2) {
+						if ((o1.score === null ? 0 : Number(o1.score)) > (o2.score === null ? 0 : Number(o2.score))) {
+							return -1;
+						} else if (
+							(o1.score === null ? 0 : Number(o1.score)) < (o2.score === null ? 0 : Number(o2.score))
+						) {
+							return 1;
+						}
+
+						return 0;
+					});
+					return {
+						...state,
+						allProductCache: state.categorieBackUp,
+					};
+				}
+				if (state.author) {
+					return {
+						...state,
+						allProductCache: state.authorBackUp.sort(function (o1, o2) {
+							if (
+								(o1.score === null ? 0 : Number(o1.score)) > (o2.score === null ? 0 : Number(o2.score))
+							) {
+								return -1;
+							} else if (
+								(o1.score === null ? 0 : Number(o1.score)) < (o2.score === null ? 0 : Number(o2.score))
+							) {
+								return 1;
+							}
+							return 0;
+						}),
+					};
+				} else {
 					let arr = state.backUpProducts.sort(function (o1, o2) {
 						if (Number(o1.score) > Number(o2.score)) {
 							return -1;
@@ -177,11 +255,11 @@ export default function reducerProduct(state = initialState, action) {
 					});
 					return { ...state, allProductCache: arr.filter((x) => x.score !== null), score: true };
 				}
+			}
 
-			
-			} if (action.payload === 'starDown') {
-				
-				if(state.author || state.categorie){
+			//Ordenamiento de menor a mayor en rating
+			if (action.payload === 'starDown') {
+				if (state.author && state.categorie) {
 					let arr = state.allProductCache.sort(function (o1, o2) {
 						if ((o1?.score === null ? 0 : Number(o1?.score)) > (o2.score === null ? 0 : Number(o2.score))) {
 							return 1;
@@ -191,6 +269,23 @@ export default function reducerProduct(state = initialState, action) {
 							return -1;
 						}
 
+						return 0;
+					});
+
+					return {
+						...state,
+						allProductCache: arr,
+					};
+				}
+				if (state.categorie) {
+					let arr = state.categorieBackUp.sort(function (o1, o2) {
+						if ((o1?.score === null ? 0 : Number(o1?.score)) > (o2.score === null ? 0 : Number(o2.score))) {
+							return 1;
+						} else if (
+							(o1.score === null ? 0 : Number(o1.score)) < (o2.score === null ? 0 : Number(o2.score))
+						) {
+							return -1;
+						}
 
 						return 0;
 					});
@@ -198,11 +293,26 @@ export default function reducerProduct(state = initialState, action) {
 					return {
 						...state,
 						allProductCache: arr,
-						author: !!state.author ? false : true,
-						categorie: !!state.author ? false : true,
-						score: !state.score,
 					};
-				}else{
+				}
+				if (state.author) {
+					let arr = state.authorBackUp.sort(function (o1, o2) {
+						if ((o1?.score === null ? 0 : Number(o1?.score)) > (o2.score === null ? 0 : Number(o2.score))) {
+							return 1;
+						} else if (
+							(o1.score === null ? 0 : Number(o1.score)) < (o2.score === null ? 0 : Number(o2.score))
+						) {
+							return -1;
+						}
+
+						return 0;
+					});
+
+					return {
+						...state,
+						allProductCache: arr,
+					};
+				} else {
 					let arr = state.backUpProducts.sort(function (o1, o2) {
 						if (o1?.score > o2?.score) {
 							return 1;
@@ -212,80 +322,293 @@ export default function reducerProduct(state = initialState, action) {
 						return 0;
 					});
 
-					return { ...state, allProductCache: arr.filter((x) => x.score !== null), score: true};
+					return { ...state, allProductCache: arr.filter((x) => x.score !== null) };
 				}
 			}
-			case 'CANTS_STARS':
-				if(action.payload >= 5.0){
-					let result = []
-					state.backUpProducts.forEach((c) => {
-						if(Number(c.score) ===  5)return result.push(c)
+		case 'CANTS_STARS':
+			if (action.payload == 0) {
+				if (state.author && !state.categorie) {
+					let result = [];
+
+					[...state.authorBackUp].forEach((c) => {
+						if (c.score === null) return result.push(c);
 					});
 					return {
 						...state,
 						allProductCache: result,
 					};
 				}
-				if(action.payload >= 4.0){
-					let result = []
-					state.backUpProducts.forEach((c) => {
-						if(Number(c.score) ===  4)return result.push(c)
+				if (state.categorie && !state.author) {
+					let result = [];
+
+					[...state.categorieBackUp].forEach((c) => {
+						if (c.score === null) return result.push(c);
 					});
 					return {
 						...state,
 						allProductCache: result,
 					};
 				}
-				if(action.payload >= 3.0){
-					let result = []
-					state.backUpProducts.forEach((c) => {
-						if(Number(c.score) ===  3)return result.push(c)
+				if (state.categorie && state.author) {
+					let result = [];
+
+					[...state.allProductCache].forEach((c) => {
+						if (c.score === null) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				} else {
+					let result = [];
+
+					[...state.backUpProducts].forEach((c) => {
+						if (c.score === null) return result.push(c);
 					});
 					return {
 						...state,
 						allProductCache: result,
 					};
 				}
-				if(action.payload >= 3.0){
-					let result = []
-					state.backUpProducts.forEach((c) => {
-						if(Number(c.score) ===  3)return result.push(c)
+			}
+
+			///////
+			if (action.payload >= 5) {
+				if (state.author && !state.categorie) {
+					let result = [];
+
+					[...state.authorBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 5 && Math.ceil(Number(c.score)) >= 5) return result.push(c);
 					});
 					return {
 						...state,
 						allProductCache: result,
 					};
 				}
-				if(action.payload >= 2.0){
-					let result = []
-					state.backUpProducts.forEach((c) => {
-						if(Number(c.score) ===  2)return result.push(c)
+				if (state.categorie && !state.author) {
+					let result = [];
+
+					[...state.categorieBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 5 && Math.ceil(Number(c.score)) >= 5) return result.push(c);
 					});
 					return {
 						...state,
 						allProductCache: result,
 					};
 				}
-				if(action.payload >= 1.0){
-					let result = []
-					state.backUpProducts.forEach((c) => {
-						if(Number(c.score) ===  1)return result.push(c)
+				if (state.categorie && state.author) {
+					let result = [];
+
+					[...state.allProductCache].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 5 && Math.ceil(Number(c.score)) >= 5) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				} else {
+					let result = [];
+
+					[...state.backUpProducts].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 5 && Math.ceil(Number(c.score)) >= 5) return result.push(c);
 					});
 					return {
 						...state,
 						allProductCache: result,
 					};
 				}
-				
+			}
+
+			if (action.payload >= 4.0) {
+				if (state.author && !state.categorie) {
+					let result = [];
+
+					[...state.authorBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 4 && Math.ceil(Number(c.score)) >= 4) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+				if (state.categorie && !state.author) {
+					let result = [];
+
+					[...state.categorieBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 4 && Math.ceil(Number(c.score)) >= 4) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+				if (state.categorie && state.author) {
+					let result = [];
+
+					[...state.allProductCache].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 4 && Math.ceil(Number(c.score)) >= 4) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				} else {
+					let result = [];
+
+					[...state.backUpProducts].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 4 && Math.ceil(Number(c.score)) >= 4) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+			}
+			if (action.payload >= 3.0) {
+				if (state.author && !state.categorie) {
+					let result = [];
+
+					[...state.authorBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 3 && Math.ceil(Number(c.score)) >= 3) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+				if (state.categorie && !state.author) {
+					let result = [];
+
+					[...state.categorieBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 3 && Math.ceil(Number(c.score)) >= 3) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+				if (state.categorie && state.author) {
+					let result = [];
+
+					[...state.allProductCache].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 3 && Math.ceil(Number(c.score)) >= 3) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				} else {
+					let result = [];
+
+					[...state.backUpProducts].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 3 && Math.ceil(Number(c.score)) >= 3) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+			}
+
+			//Math.floor(Number(c.score)) <= 1 && Math.ceil(Number(c.score)) >= 1
+			if (action.payload >= 2.0) {
+				if (state.author && !state.categorie) {
+					let result = [];
+
+					[...state.authorBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 2 && Math.ceil(Number(c.score)) >= 2) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+				if (state.categorie && !state.author) {
+					let result = [];
+
+					[...state.categorieBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 2 && Math.ceil(Number(c.score)) >= 2) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+				if (state.categorie && state.author) {
+					let result = [];
+
+					[...state.allProductCache].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 2 && Math.ceil(Number(c.score)) >= 2) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				} else {
+					let result = [];
+
+					[...state.backUpProducts].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 2 && Math.ceil(Number(c.score)) >= 2) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+			}
+			if (action.payload >= 1.0 && action.payload !== 0) {
+				if (state.author && !state.categorie) {
+					let result = [];
+
+					[...state.authorBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 1 && Math.ceil(Number(c.score)) >= 1) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+				if (state.categorie && !state.author) {
+					let result = [];
+
+					[...state.categorieBackUp].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 1 && Math.ceil(Number(c.score)) >= 1) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+				if (state.categorie && state.author) {
+					let result = [];
+
+					[...state.allProductCache].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 1 && Math.ceil(Number(c.score)) >= 1) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				} else {
+					let result = [];
+
+					[...state.backUpProducts].forEach((c) => {
+						if (Math.floor(Number(c.score)) === 1 && Math.ceil(Number(c.score)) >= 1) return result.push(c);
+					});
+					return {
+						...state,
+						allProductCache: result,
+					};
+				}
+			}
 
 		case TYPES.POST_NEW_USER_REVIEW:
 			//guarda los reviews antiguos y nuevos de los productos a los cuales se les hace review
-			return {...state, productReview: action.payload};
+			return { ...state, productReview: action.payload };
 
 		case TYPES.PUT_NEW_USER_REVIEW:
 			//guarda el review editado y sobreescribe lo que habia antes en newProductReviews
-			return {...state, productReview: action.payload};
-
+			return { ...state, productReview: action.payload };
 
 		default:
 			return state;
