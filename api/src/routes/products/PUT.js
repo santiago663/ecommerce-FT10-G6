@@ -32,6 +32,8 @@ server.put("/:id", (req, res) => {
     available,
     fileLink,
     preview,
+    stock,
+    initialStock,
     authorId,
     seriesId,
   } = req.body;
@@ -44,6 +46,8 @@ server.put("/:id", (req, res) => {
       available: available,
       fileLink: fileLink,
       preview: preview,
+      stock: stock == 0 ? null : stock ,
+      initialStock: initialStock == 0 ? null : initialStock,
       authorId: authorId,
       seriesId: seriesId,
     },
