@@ -43,32 +43,32 @@ function Filter() {
 						<>
 							<select onChange={(e) => handleFilter(e)}>
 								<option default value="All">
-									Filter By Category
+									Category
 								</option>
 								{selectAuthor
 									? disponibleCategories &&
-									  disponibleCategories.map((C) => {
-											return <option value={C}>{C}</option>;
-									  })
+									disponibleCategories.map((C) => {
+										return <option value={C}>{C}</option>;
+									})
 									: allCategories &&
-									  allCategories.map((C) => {
-											return <option value={C.name}>{C.name}</option>;
-									  })}
+									allCategories.map((C) => {
+										return <option value={C.name}>{C.name}</option>;
+									})}
 							</select>
 
 							<select onChange={(e) => handleAuthor(e)}>
 								<option default value="All">
-									Filter By Author
+									Author
 								</option>
 								{!selectCategorie
 									? allArtist &&
-									  allArtist.map((a) => {
-											return <option value={a.name}>{a.name}</option>;
-									  })
+									allArtist.map((a) => {
+										return <option value={a.name}>{a.name}</option>;
+									})
 									: disponibleAuthor &&
-									  disponibleAuthor.map((a) => {
-											return <option value={a}>{a}</option>;
-									  })}
+									disponibleAuthor.map((a) => {
+										return <option value={a}>{a}</option>;
+									})}
 							</select>
 							<Score />
 						</>

@@ -77,7 +77,6 @@ function SearchBar() {
                       src={suggestion.preview} />
                     <i className="fas fa-search"></i>
                     <li>{suggestion.name}</li>
-                    <hr />
                   </div>
                 )
               }) :

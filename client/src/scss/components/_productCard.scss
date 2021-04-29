@@ -1,7 +1,6 @@
 .product-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 300px;
   margin: 10px;
   background: linear-gradient(356deg, #fffeff, #ffffff);
@@ -22,7 +21,6 @@
     width: 300px;
     height: 195px;
     object-fit: cover;
-    border-radius: 2px 2px 0 0;
     transition: transform 0.5s;
   }
   &:hover {
@@ -85,7 +83,7 @@ a.link {
   display: flex;
 }
 .shopping {
-  display: none;  
+  display: none;
 }
 .fa-cart-plus {
   font-size: 20px;
@@ -103,6 +101,7 @@ a.link {
 }
 
 .scoreCard {
+  z-index: 0;
   display: flex;
   position: absolute;
   margin-left: -3px;
@@ -110,7 +109,8 @@ a.link {
   color: #f7f7f7;
   font-size: 20px;
   letter-spacing: 5px;
-  text-shadow: 1px 0 0 #424242, -1px 0 0 #424242, 0 1px 0 #424242, 0 -1px 0 #424242, 1px 1px #424242, -1px -1px 0 #424242, 1px -1px 0 #424242, -1px 1px 0 #424242;
+  text-shadow: 1px 0 0 #424242, -1px 0 0 #424242, 0 1px 0 #424242, 0 -1px 0 #424242, 1px 1px #424242,
+    -1px -1px 0 #424242, 1px -1px 0 #424242, -1px 1px 0 #424242;
   align-items: baseline;
 }
 
