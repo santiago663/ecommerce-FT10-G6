@@ -22,10 +22,11 @@ const Register = () => {
         name: '',
         email: '',
         password: '',
-        confirm: ''
+        confirm: '',
+        profilePic:'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
     });
 
-    const { name, email, password, confirm } = regState;
+    const { name, email, password, confirm, profilePic } = regState;
 
     const handleInputChange = ({ target }) => {
         setRegState({
@@ -38,7 +39,7 @@ const Register = () => {
         e.preventDefault()
 
         if (isFormValid()) {
-            dispatch(startRegister(name, email, password))
+            dispatch(startRegister(name, email, password, profilePic))
         }
     }
 

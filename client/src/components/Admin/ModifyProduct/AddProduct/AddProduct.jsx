@@ -112,8 +112,6 @@ function AddProduct() {
     const [uploadValue, setUploadValue] = useState(initialState)
     const handleOnChange = (e) => {
                 const file = e.target.files[0]
-                console.log(e.target.file);
-                console.log(file);
                 const storageRef = firebase.storage().ref(`pictures/${file.name}`)
                 const task = storageRef.put(file)
             

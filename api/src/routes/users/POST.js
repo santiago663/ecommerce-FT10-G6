@@ -14,6 +14,7 @@ server.post("/", async (req, res) => {
         phone_Number,
         location_id,
         isGuest,
+        profilePic
     } = req.body;
 
     //creación de usuario como guest
@@ -41,7 +42,8 @@ server.post("/", async (req, res) => {
                     phone_Number,
                     location_id,
                     roleId: roleGuest.id,
-                    available: false
+                    available: false,
+                    profilePic
                 }, 
             })
             return res.status(200).json(userGuest)
@@ -76,7 +78,8 @@ server.post("/", async (req, res) => {
                     phone_Number,
                     location_id,
                     roleId: role.id,
-                    available: true
+                    available: true,
+                    profilePic
                 }
             })
 
@@ -92,7 +95,8 @@ server.post("/", async (req, res) => {
                         phone_Number,
                         location_id,
                         roleId: role.id,
-                        available: true
+                        available: true,
+                        profilePic
                     },
                     {
                         where: { email },

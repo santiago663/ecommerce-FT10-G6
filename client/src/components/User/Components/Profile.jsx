@@ -21,7 +21,10 @@ export default function Profile() {
         phone_Number: 0,
         role: {},
         roleId: 0,
+        profilePic:''
     })
+
+    
 
     useEffect(() => {
         setInputs({
@@ -35,6 +38,7 @@ export default function Profile() {
             phone_Number: currentUser.phone_Number,
             role: currentUser.role,
             roleId: currentUser.roleId,
+            profilePic: currentUser.profilePic
         })
     }, [currentUser])
 
@@ -92,6 +96,9 @@ export default function Profile() {
     return (
        
             <div className='profile-body'>
+                <div className="profilePic">
+                <img src={user.profilePic} type="file" alt="profilePic"/>
+                </div>
                 <div className="title">
                     <h1>Profile</h1>
                     <h2>about me</h2>

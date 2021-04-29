@@ -27,7 +27,7 @@ export const logout = () => {
   };
 };
 
-export const startRegister = (name, email, password) => {
+export const startRegister = (name, email, password, profilePic) => {
   return (dispatch) => {
     firebase
       .auth()
@@ -36,7 +36,7 @@ export const startRegister = (name, email, password) => {
         const resp = await axios({
           method: "post",
           url: "http://localhost:3001/post/user",
-          data: { name: name, email: user.email, isGuest: false },
+          data: { name: name, email: user.email, isGuest: false, profilePic: profilePic },
         });
         if (additionalUserInfo.isNewUser) {
           const currentProducts = JSON.parse(
@@ -128,7 +128,7 @@ export const startGoogleLogin = () => {
           const resp = await axios({
             method: "post",
             url: "http://localhost:3001/post/user",
-            data: { name: user.displayName, email: user.email, isGuest: false },
+            data: { name: user.displayName, email: user.email, isGuest: false, profilePic: user.photoURL },
           });
 
           const currentProducts = JSON.parse(
