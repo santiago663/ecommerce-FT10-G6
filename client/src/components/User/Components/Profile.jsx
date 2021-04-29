@@ -73,19 +73,26 @@ export default function Profile() {
         if(file){
             const storageRef = firebase.storage().ref(`profile/${file.name}`)
             const task = storageRef.put(file)
-            task.on('state_changed', (snapshot) => {
-            }, (error) => {
-              console.error(error.message)
-            }, async () => {
-              setInputs({
-                ...user,
-                profilePic: await task.snapshot.ref.getDownloadURL(),
-                })
-              dispatch(editCurrentUser(currentUser.id, user));              
-            })
+            task.on('state_changed', function(snapshot){
+            }, function(error) {console.log(error);
+            }, function() {
+
+              task.snapshot.ref.getDownloadURL().then(
+                  function(downloadURL) {
+                    console.log("cargo la respuesta")
+                    console.log(downloadURL)
+      
+                    console.log('antes del dispatch')
+                    dispatch(editCurrentUser(currentUser.id, {...user, profilePic:downloadURL}));
+                     
+              });
+            });
+            
+        } else {
+          dispatch(editCurrentUser(currentUser.id, user));       
+          Swal.fire("Saved!", "", "success");
         }
-                
-        Swal.fire("Saved!", "", "success");
+    
       } else if (result.isDenied) {
         setInputs({
           ...user,
