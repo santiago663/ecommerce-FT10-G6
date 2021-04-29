@@ -36,7 +36,7 @@ function ProductDetails() {
 	}, [allProduct.find((product) => product.id == id)?.score]);
 
 	if (productCache.length !== 0) {
-		var { name, description, price, available, preview, seriesId, author, categories } = productCache;
+		var { name, description, price, available, preview, author, categories, stock, initialStock } = productCache;
 		if (available) {
 			available = 'Available';
 		} else {
@@ -151,6 +151,12 @@ function ProductDetails() {
 								<div className="desc">$ {price}</div>
 							</div>
 						</div>
+						{stock &&
+							<div className="det">
+								<h3>Limited Edition</h3>
+								<span className="stockProductDetail">Edition of {initialStock} - <span className="stockNumberPD">{stock}</span> left</span>
+							</div>
+						}
 						<div className="contecarrito">
 							{available === 'Available' ? (
 								<div className="btncarrito">
