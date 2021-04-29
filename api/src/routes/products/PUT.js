@@ -61,7 +61,7 @@ server.put("/:id", (req, res) => {
       .then((resp2) => {
         res.status(200).json(resp2[0]);
       })
-      .catch(() => {
+      .catch((error) => {
         console.log(error)
         res.status(500).json({ message: "Internal server error", status: 500 })
       });
@@ -77,16 +77,43 @@ server.put("/review/:idProduct/", async (req, res) => {
 
     const product = await Products.update(
       { score },
-      { where: { id: idProduct}}
+      { where: { id: idProduct } }
     )
 
     res.json(product)
-    
+
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: "Internal server error", status: 500 })
   }
- 
+
+});
+
+server.put("/stock/edit", async (req, res) => {
+
+  const { product, stock } = req.body
+
+  try {
+
+    for (var i = 0; i < product.length; i++) {
+      var available = true
+      if (stock[i] == 0) {
+        stock[i] = null
+        available = false
+      }
+     await Products.update(
+        { stock: stock[i], available: available },
+        { where: { id: product[i] } }
+      )
+    }
+
+    res.json({message: "Stock moddified"})
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: "Internal server error", status: 500 })
+  }
+
 });
 
 module.exports = server;

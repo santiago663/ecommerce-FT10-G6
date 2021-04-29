@@ -3,7 +3,7 @@
 import * as TYPES from '../types/index';
 
 const initialState = {
-  productsPerPage: 12,
+  productsPerPage: 20,
   currentPage:1,
 
 };
