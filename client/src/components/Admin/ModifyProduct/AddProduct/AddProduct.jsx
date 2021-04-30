@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { addProducts, getAllProducts,deleteProductCategory,
-    editProductByBody, deleteProduct } from  '../../../../redux/actions/actionBack';
+         editProductByBody, deleteProduct } from  '../../../../redux/actions/actionBack';
 import { upgradeEditProducts } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_addProduct.scss';
 import {firebase} from '../../../../firebase/firebase-config';
@@ -38,7 +38,7 @@ function AddProduct() {
     useEffect(() => {
 
         const findProduct = allProducts.find(f => f.id === Number(id))
-        findProduct ? console.log(findProduct) : null
+        
         if (findProduct?.id) {
           
             setProduct({
@@ -85,13 +85,29 @@ function AddProduct() {
 
     //Handle input para categories
     function handleInputChangeCa(event) {           
-        var cat = product.categories
-        if(event.target.value)
-        cat.push(allCategories.find(c => c.id == Number(event.target.value)).id)
+        if (id){
+            var cat = product.categories
+            if (cat.find(c => c?.id != event.target.value)) {
+                cat.push(allCategories.find(c => c.id == Number(event.target.value)))
+            }
+            else if (cat[0] == undefined) {
+                cat.push(allCategories.find(c => c.id == Number(event.target.value)))
+            }
+            //borra los repetidos
+            cat = cat.filter((thing, index, self) => index === self.findIndex((t) => (t?.id === thing?.id)))
+            setProduct({ ...product, [event.target.name]: cat })
+        }else{
+            var cat = product.categories
+            if(event.target.value)
+            cat.push(allCategories.find(c => c.id == Number(event.target.value)).id)
+            
+            //borra los repetidos
+            cat = cat.filter((arg, pos) => cat.indexOf(arg)==pos)
+            setProduct({ ...product, [event.target.name]: cat })
+        }
 
-        //borra los repetidos
-        cat = cat.filter((arg, pos) => cat.indexOf(arg)==pos)
-        setProduct({ ...product, [event.target.name]: cat })
+
+        
     }
 
     //Handle input para borrar categoria
@@ -101,6 +117,11 @@ function AddProduct() {
             dispatch( deleteProductCategory(product.id, id) );
         }
         cat = cat.filter( cId => cId != Number(id))        
+        setProduct({ ...product, categories: cat })
+
+        var cat = product.categories
+        dispatch( deleteProductCategory(product.id, id) );
+        cat = cat.filter(c => c?.id != Number(id))
         setProduct({ ...product, categories: cat })
     }
    
@@ -126,23 +147,83 @@ function AddProduct() {
         Swal.fire({
             title: "Error Creating Product",
             icon: "error",
-            timer: "2500",
+            timer: "1500",
             showConfirmButton: false,
         })
     }
     
+    
     function submitForm(event) {        
         event.preventDefault();
-      if( product.name !== "" || product.description !== "" || product.price !== 0 || product.fileLink !== "" || product.preview !== "", product.categories.length !==0 || product.authorId !== 0){
-        dispatch( addProducts(product) );
-        dispatch( getAllProducts() );
-        location.reload();
-      }
-      else{
-        alertError();
+      if(id){
+            dispatch( editProductByBody(product.id, product) );
+      }else{
+          if( product.name !== "" || product.description !== "" || product.price !== 0 || product.fileLink !== "" || product.preview !== "", product.categories.length !==0 || product.authorId !== 0){
+            dispatch( addProducts(product) );
+            dispatch( getAllProducts() );
+            location.reload();
+          }
+          else{
+            alertError();
+          }
       }
     }
+    const deleteProducts = (e) => {
+        e.preventDefault()
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `The Delete to ${product.name}` ,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteProduct(product.id))
+                setBoolean(true)
+                setProduct({
+                    name: "",
+                    description: "",
+                    price: 0,
+                    available: true,
+                    fileLink: "",
+                    preview: "",
+                    categories: [],
+                    authorId: 0,        
+                    seriesId: null
+                })
+              Swal.fire(
+                'Deleted!',
+                'this product is deleted',
+                'success'
+              )
+            }else{
+                e.target.value=0;
+            }
+          })
+    }
 
+    if(productOrError && productOrError.status === 200){
+        if(id){
+            let allProductsCop = allProducts
+            if(product.id !==0 ){
+
+                let indice = allProductsCop.findIndex((elemento) => {
+                    if(elemento.id === Number(id)) return true;
+                });
+                
+                if(indice !== -1 ){
+                    allProductsCop[indice] = product
+                }
+                allProductsCop=[] 
+            }
+            if(allProductsCop.length !== 0)upgradeEditProducts(allProductsCop);      
+        } 
+        alertSucces();
+        productOrError.status = 0
+    }
+    
     if(productOrError && productOrError.status === 200){
      
         alertSucces();
@@ -291,7 +372,6 @@ function AddProduct() {
                     <div>
                         Select to File:
                         <input 
-                            required
                             className="SelectorFile" 
                             type="file" 
                             onChange={handleOnChange} 
@@ -391,17 +471,33 @@ function AddProduct() {
                         </select>
                         {id ?
                         product.categories.map(p => 
-                        <span className="catego" key={`EP${key++}`} onClick={(event) => handleInputDeleteCa(event, p?.id)} >{p?.name}</span>)
+                        <span className="catego" key={p.id} onClick={(event) => handleInputDeleteCa(event, p?.id)} >{p?.name}</span>)
                         :
                         product.categories.map(id => 
-                        <span className="catego" key={`AP${key++}`} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
+                        <span className="catego" key={id.id} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
                         }
                     </div>
+                    {id ?
+                    <div>
+                        <input 
+                            className="EditOrAdd" 
+                            type="submit" 
+                            value="Edit" 
+                        />
+                        <input 
+                            className="EditOrAdd"
+                            type="button" 
+                            value="Delete" 
+                            onClick={deleteProducts} 
+                        />
+                    </div>
+                    :
                     <input
                         className="EditOrAdd"
                         type="submit" 
                         value="Add" 
                     />
+                    }
                 </form>
             </div>
             <div className="imgfile">
