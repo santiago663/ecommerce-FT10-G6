@@ -1,20 +1,20 @@
-let discountProduct = (name2, dateBasicOrder, dataOrder) => {
+let discountProduct = (name2, ordIdDateStateTotal, prodsImgPrice, email) => {
 
     var msg = {};
 
-    if(!!name2 && dateBasicOrder.length !==0 && dataOrder.length !==0){
+    if(!!name2 && ordIdDateStateTotal.length !==0 && prodsImgPrice.length !==0){
         
-        msg["to"] = "lls28programacion@hotmail.com",
+        msg["to"] = `${email}`//"lls28programacion@hotmail.com",
         msg["from"] = "lu_23-7-92@hotmail.com",
-        msg["subject"] = "DESCUENTOS EN PRODUCTOS",
+        msg["subject"] = "digitalArt: DESCUENTOS EN PRODUCTOS",
         msg["html"] = `
             <div>
                 <h1>DigitalArt LOGO<h1/>
-                <h2>${name2}:tienes una compra pendiente en DigitalArt (orden ID:${dateBasicOrder[0]}), algunos de los productos tienen descuento. Aprovecha ésta oportunidad para Comprarlos!</h2>
+                <h2>${name2}:tienes una compra pendiente en DigitalArt (orden ID:${ordIdDateStateTotal[0]}), algunos de los productos tienen descuento. Aprovecha ésta oportunidad para Comprarlos!</h2>
                     <table width="300" height="50" align="center" >
                         <tr>
                             <h2>Products:</h2>
-                ${dataOrder.map((m) => {
+                ${prodsImgPrice.map((m) => {
                     return(`
                         <div>
                             <table width="300" height="50" align="center" style="background:#FFFFFF; padding:15px 15px 15px 15px; border:solid 2px #E5E5E5; border-bottom:5; width:70%">
@@ -26,7 +26,7 @@ let discountProduct = (name2, dateBasicOrder, dataOrder) => {
                                         producto: ${m.product}
                                         <br/>
                                         precio: $${m.price}
-                                        
+                                        <br/>
                                         PRECIO CON DESCUENTO: $${m.priceDiscount}
                                     </th>
                                 </tr>
@@ -35,8 +35,8 @@ let discountProduct = (name2, dateBasicOrder, dataOrder) => {
                         `
                     )
                 })}
-                            <h2>Valor Total de la compra sin descuento: $${dateBasicOrder[3]}</h2>
-                            <h2>Valor Total conDescuento: $${dateBasicOrder[4]}</h2>
+                            <h2>Valor Total de la compra sin descuento: $${ordIdDateStateTotal[3]}</h2>
+                            <h2>Valor Total conDescuento: $${ordIdDateStateTotal[4]}</h2>
                         </tr>
                     </table>
                 
@@ -49,7 +49,6 @@ let discountProduct = (name2, dateBasicOrder, dataOrder) => {
         msg["Error"]="incomplete data"
         return (msg)
     } 
-
 }
 
 module.exports = discountProduct;

@@ -161,7 +161,7 @@
 .desc {
     margin-top: 0px;
     font-weight: 600;
-    color: gray;
+    color: silver;
     border-radius: 0 0 7px 7px;
     height: auto;
     padding-top: 5px;
@@ -265,4 +265,15 @@
     100% {
         opacity: 1;
     }
+}
+
+.stockProductDetail {
+    color: #1cd08b;
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+    padding: 4px;
+}
+
+.stockNumberPD {
+    font-weight: bold;
 }

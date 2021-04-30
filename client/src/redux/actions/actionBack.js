@@ -568,3 +568,14 @@ export const editUserReview = (id, review) => {
     }
   }
 };
+
+export const editProductStock = (stock) => {
+  return async () => {
+    try {
+      await axios.put(`http://localhost:3001/put/product/stock/edit`, stock)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+};
