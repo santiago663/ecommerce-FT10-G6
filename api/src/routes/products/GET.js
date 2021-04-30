@@ -80,6 +80,8 @@ server.get("/", async (req, res) => {
         "fileLink",
         "preview",
         "score",
+        "stock",
+        "initialStock",
       ],
       include: [{ model: Authors }, { model: Categories }],
     });

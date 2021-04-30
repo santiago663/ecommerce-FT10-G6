@@ -1,14 +1,14 @@
 /* eslint-disable  */
 import React from 'react';
-import './_FunctionStar.scss'
+import './_FunctionStar.scss';
 
 const FuncionEstrella = (star) => {
 	var estar = { color: 'rgb(251, 255, 0)' };
 
-	if ( star === 0) {
+	if (star === 0) {
 		return (
 			<>
-				<i className="fas fa-star" id="icon5" ></i>
+				<i className="fas fa-star" id="icon5"></i>
 				<i className="fas fa-star" id="icon5"></i>
 				<i className="fas fa-star" id="icon5"></i>
 				<i className="fas fa-star" id="icon5"></i>
@@ -69,7 +69,7 @@ const FuncionEstrella = (star) => {
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				{star < 5 && star >= 4.5 ? (
-					<i class="fas fa-star-half-alt"id="icon5" style={estar}></i>
+					<i class="fas fa-star-half-alt" id="icon5" style={estar}></i>
 				) : (
 					<i className="fas fa-star" id="icon5"></i>
 				)}
@@ -84,7 +84,6 @@ const FuncionEstrella = (star) => {
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				<i className="fas fa-star" id="icon5" style={estar}></i>
-				
 			</>
 		);
 	}

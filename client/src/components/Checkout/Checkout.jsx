@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/actionFront";
+import { editProductStock } from "../../redux/actions/actionBack";
 import { removeToCartUser } from "../../redux/actions/actionOrder";
 import { formUserOrder, formGuestOrder } from "../../redux/actions/actionOrder";
 import { mercadoPago, stripe } from "../../redux/actions/payments";
@@ -16,17 +17,17 @@ import "./_checkout.scss";
 const Checkout = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const shoppingCart = useSelector(
-    (state) => state.reducerShoppingCart.shoppingCart
-  );
+  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const currentUser = useSelector((store) => store.auth.currentUser);
-  const currentOrder = useSelector(
-    (store) => store.reducerOrderUser.currentOrder
-  );
+  const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder);
+
+  const userOrderProducts = {product: [], stock: []}
+  shoppingCart?.map(product => {userOrderProducts.product.push(product.id); userOrderProducts.stock.push(product.stock)})   
 
   // Verificando el estado del pago
   useEffect(() => {
     let guestOrder = JSON.parse(localStorage.getItem("guestOrderDetails"));
+    let guestProducts = JSON.parse(localStorage.getItem("orderProducts"));
     const loggedUser = JSON.parse(window.localStorage.getItem("CurrentUser"));
     const beforeOrder = JSON.parse(localStorage.getItem("beforeOrder"));
     const query = new URLSearchParams(window.location.search);
@@ -35,6 +36,7 @@ const Checkout = () => {
     // logged user
     if (query.get("success")) {
       if (loggedUser && beforeOrder.id) {
+        dispatch(editProductStock({...beforeOrder.products, stock: beforeOrder.products.stock.map(stock => stock == null ? null : stock-1 )}));
         dispatch(
           formUserOrder({
             id: beforeOrder.id,
@@ -43,6 +45,7 @@ const Checkout = () => {
             methodId: 4,
           })
         );
+        
         Swal.fire({
           title: "Thanks for your purchase!",
           text:
@@ -64,8 +67,9 @@ const Checkout = () => {
             window.localStorage.setItem("beforeOrder", JSON.stringify(""))
           )
           .then(() => window.localStorage.setItem("stripe", JSON.stringify("")))
-          .then(() => history.push("/Browser/products"));
-      } else {
+          .then(() => location.assign("/browser/products"));
+      } else {        
+        dispatch(editProductStock({product: guestProducts.map(product => product.id), stock: guestProducts.map(product => product.stock == null ? null : product.stock - 1 )}));
         Swal.fire({
           title: "Thanks for your purchase!",
           text: "Download links and additional data will be sent to the email",
@@ -100,7 +104,7 @@ const Checkout = () => {
               })
             )
           )
-          .then(() => history.push("/Browser/products"))
+          .then(() => location.assign("/browser/products"))
           .then(
             () => (
               localStorage.setItem("orderProducts", JSON.stringify("")),
@@ -171,6 +175,7 @@ const Checkout = () => {
     let lStorage = JSON.parse(localStorage.getItem("CurrentUser"));
     let lsProducts = JSON.parse(localStorage.getItem("orderProducts"));
     if (currentOrder.length > 0 && lStorage.id) {
+      currentOrder[0].products = userOrderProducts
       localStorage.setItem("beforeOrder", JSON.stringify(currentOrder[0]));
       // dispatch(mercadoPago(currentOrder[0].id));
       dispatch(stripe({ orderId: currentOrder[0].id }));

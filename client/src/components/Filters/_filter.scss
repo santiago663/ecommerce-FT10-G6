@@ -1,15 +1,15 @@
-
 .Container-Filter {
+  z-index: 1;
   margin: 0 auto;
-    top: 122px;
-    position: sticky;
-    display: flex;
-    width: 95%;
-    text-align: center;
-    flex-direction: column;
-    z-index: 1;
-    padding: 0;
-    max-width: 1500px;
+  top: 151px;
+  position: sticky;
+  display: flex;
+  width: 95%;
+  text-align: center;
+  flex-direction: column;
+  padding: 0;
+  max-width: 1500px;
+  min-width: 320px;
 }
 .filter {
   width: 100%;
@@ -19,7 +19,7 @@
   align-items: center;
   justify-content: space-around;
   background: #fafafa;
-  border-radius: 0 5px 5px 5px;
+  border-radius: 5px 5px 5px 0px;
   padding: 5px 5px;
 }
 
@@ -84,21 +84,25 @@
 }
 
 .Boton-Reset {
+  position: absolute;
+  top: 100%;
   width: 48px;
   min-width: 45px;
-  height: 35px;
+  height: 80%;
   font-size: 0.7rem;
   border: none;
-  background: #474747;
+  background: #616161;
   color: #fff;
   font-weight: 800;
-  border-radius: 5px 5px 0 0;
+  border-radius: 0px 0px 27px 27px;
   cursor: pointer;
   transition: 150ms;
-  box-shadow: 0px 0px 2px 3px #0000003f;
+  box-shadow: 0px 3px 2px 1px #00000070;
+  transition: 250ms;
   &:hover {
-    background-color: #1b1b1b;
+    // background-color: #1b1b1b;
     color: #19f9a4;
+    box-shadow: 0px 1px 2px 1px #19f9a4;
   }
 }
 .fa-star {

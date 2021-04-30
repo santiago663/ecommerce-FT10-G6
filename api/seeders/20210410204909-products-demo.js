@@ -10,6 +10,8 @@ module.exports = {
           "Make it Pop - Photoshop / Illustrator",
         price: "2000",
         available: true,
+        stock: 9,
+        initialStock: 10,
         fileLink:
           "https://firebasestorage.googleapis.com/v0/b/e-commerce-digitalart.appspot.com/o/pictures%2FPoplast.jpg?alt=media&token=8ed2c0b9-554c-4c42-9fa1-42d993fc6957",
         preview:

@@ -1,17 +1,16 @@
-
-let stateOrder = (name2, prodsImgPrice, email) => {
+let stateOrder = (name2, ordIdDateStateTotal, prodsImgPrice, email) => {
 
     var msg = {};
 
     if(!!name2 && prodsImgPrice.length !==0){
         
-        msg["to"] = `${email}`,
+        msg["to"] = `${email}`//"lls28programacion@hotmail.com",
         msg["from"] = "lu_23-7-92@hotmail.com",
         msg["subject"] = "DigitalArt: Orden Completada",
         msg["html"] = `
             <div>
                 <h1>DigitalArt LOGO<h1/>
-                <h2>${name2}: DigitalArt te informa que tu orden ID:${prodsImgPrice[0].Graldate[0]}, con fecha de creación ${prodsImgPrice[0].Graldate[1]} se encuentra en estado ${prodsImgPrice[0].Graldate[2]}</h2>
+                <h2>${name2}: DigitalArt te informa que tu orden ID:${ordIdDateStateTotal[0]}, con fecha de creación ${ordIdDateStateTotal[1]} se encuentra en estado ${ordIdDateStateTotal[2]}</h2>
                     <table width="300" height="50" align="center" >
                         <tr>
                             <h2>Products:</h2>
@@ -27,18 +26,15 @@ let stateOrder = (name2, prodsImgPrice, email) => {
                                         producto:${m.product}
                                         <br/>
                                         precio: $${m.price}
-                                        <br/>
-                                        
                                     </th>
                                 </tr>
-                                
                             </table>
                             <h5 align="center">Download Link: ${m.image}</h5>
                         </div>
                         `
                     )
                 })}
-                            <h2>Valor Total de la compra: $${prodsImgPrice[0].Graldate[3]}</h2>
+                            <h2>Valor Total de la compra: $${ordIdDateStateTotal[3]}</h2>
                         </tr>
                     </table>
                 
