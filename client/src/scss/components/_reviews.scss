@@ -1,92 +1,217 @@
-.review-cont {
-    display: flex; 
-    // margin-left: 20%;   
-    // margin-top: 50px;
-    margin: 20px 5px 15px 35px;
-    // width: 400px;
-    color: #151515;
-    .reviewTitle {
-        width: 100%;
-        font-size: 35px;
-        font-weight: bold;
-        padding: 10px 0px 10px 10px;
+.cont-Review-Det {
+    display: flex;
+    padding: 20px 0;
+    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(187, 186, 186);
+    overflow: hidden;
+    background-color: #151515;
+    box-shadow: 1px 1px 10px 1px rgb(0, 0, 0);
+    border: 1px solid #020202;
+    width: 98%;
+    @media only screen and(max-width: 1000px) {
+        flex-direction: column;
+        width: 98%;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .review-cont {
+        width: 100vw;
+        min-width: 850px;
+        display: flex;
+        padding: 0px;
+        margin-left: 2%;
+        color: rgb(185, 184, 184);
+        @media only screen and(max-width: 1000px) {
+            flex-direction: column;
+            max-width: 100%;
+            min-width: 320px;
+        }
+        .review-cont-divisor {
+            width: 55%;
+            padding: 10px 0px;
+            border-right: 5px solid #202020;
+            @media only screen and(max-width: 1000px) {
+                border: none;
+                border-bottom: 3px solid #202020;
+                width: 92%;
+            }
+            .reviewTitle {
+                color: #19f9a4;
+                width: 100%;
+                font-size: 35px;
+                font-weight: bold;
+            }
+        }
     }
 }
-
 
 .reviewComment {
     display: flex;
     font-size: 18px;
     padding-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    // border-bottom: 5px solid red;
+    border-radius: 15px 15px 15px 15px;
+    // border-radius: 27px;
+    margin-top: 20px;
+    // box-shadow: 0px 1px 10px 0px #19f9a4;
+    border: #19f9a4 4px solid;
+    padding: 10px;
+    @media only screen and(max-width: 1000px) {
+        flex-direction: column;
+        min-width: 250px;
+        padding: 0;
+        margin: 0;
+    }
+    .buttons-review {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: 0px 10px;
+        @media only screen and(max-width: 1000px) {
+            flex-direction: row;
+            justify-content: flex-end;
+            border-top: 1px solid #19f9a4;
+            padding: 10px 10px;
+        }
+    }
+    @media only screen and(max-width: 1000px) {
+        font-size: 18px;
+    }
 }
 
-.scoreDet{
-    font-weight: 600;
-    margin:10px 5px 0px 10px !important;
-    .color-star{
+.scoreDet {
+    font-weight: 200;
+    min-width: 80px;
+    margin: 10px 5px 0px 10px !important;
+    font-size: 20px;
+    i {
+        background-color: transparent;
+    }
+    .fa-star {
+        -webkit-text-stroke: 1px white;
+        &::before {
+            background-color: transparent;
+        }
+    }
+    .color-star {
         color: #cacc5f;
-        font-size: 20px;
-        
-    } 
+    }
 }
 
 .nameAndComment {
     width: 80%;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: rgba(240, 248, 255, 0.309);
+    padding: 5px;
+    border-radius: 2px;
+    background-color: transparent;
     font-weight: 800;
-    margin: 3px 0px 10px 0px !important;
-    p{
+    margin: 10px 0px 10px 0px !important;
+    color: #fafafa;
+    font-size: 18px;
+    p {
         height: auto;
-        width: 450px;
+        min-width: 250px;
         word-wrap: break-word;
-        font-weight: 400; 
-        padding-top: 5px; 
-    } 
+        font-weight: 300;
+        padding-top: 10px;
+        color: #fafafa;
+    }
 }
 
 .add-review {
     font-size: 35px;
     font-weight: bold;
-    padding: 5px 25px 5px 25px;
-    margin: 0;
-    color: #151515;
-    
-    .contFormReview{
+    padding: 5px 10px 5px 10px;
+    // margin-right: 20px;
+    color: #19f9a4;
+    width: 50%;
+    @media only screen and(max-width: 1000px) {
+        width: 100%;
+    }
+    .contFormReview {
         margin: 5px 0px 0px 15px;
+        width: 88%;
 
-        .divAddReview{
-            margin-top: 10px;
+        form {
+            margin: 0;
+            width: 100%;
         }
-        #reviewScoreSelector{
+        @media only screen and(max-width: 1000px) {
+            margin: 0;
+            padding: 0;
+            form {
+                margin: 0;
+                width: 100%;
+            }
+        }
+        .divAddReview {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+            margin-top: 10px;
+            padding-right: 10px;
+            @media only screen and(max-width: 1000px) {
+                margin: 0;
+                width: 100%;
+                min-width: 258px;
+                padding: 0;
+            }
+        }
+        #reviewScoreSelector {
             padding: 3px;
             border-radius: 7px;
         }
-        .spanAddReview{
+        .spanAddReview {
             font-weight: 600;
-
+            color: gray;
+            // padding-left: 20px;
         }
-        .inputReviewComment{
+        .inputReviewComment {
             padding: 5px;
             border-radius: 10px;
+            background-color: transparent;
+            outline: none;
+            color: gray;
+            width: 100%;
         }
-        .inputSubmit{
+        .inputSubmit {
+            border-radius: 27px;
+            padding: 10px;
             background-color: #202020;
-            color: rgb(91, 201, 159);
+            color: rgb(223, 33, 74);
+            transition: 350ms;
+            &:hover {
+                box-shadow: 1px 1px 10px 1px rgb(0, 0, 0);
+                color: #19f9a4;
+            }
         }
     }
 }
 
 .reviewForm {
+    color: transparent;
     margin: 0;
+    .fa-star {
+        -webkit-text-stroke: 1px white;
+    }
+    @media only screen and(max-width: 1000px) {
+        width: 100%;
+        display: flex;
+        // flex-direction: row;
+        padding: 10px 0;
+    }
 }
 
 .noReviewsYet {
     font-size: 18px;
     white-space: pre;
-    margin: 0;
-    margin-right: 450px;
+    padding-left: 20px;
+    // margin-right: 450px;
 }
 
 .inputReviewComment {
@@ -94,12 +219,12 @@
     font-size: 15px;
     width: 300px;
     height: 100px;
-    margin:0;
+    margin: 0;
 }
 
 .divReviewButton {
     align-content: end;
-    margin-left: 16px;
+    margin-top: 20px;
     width: 100px;
 }
 
@@ -113,6 +238,11 @@
 .divAddReview {
     display: flex;
     align-content: flex-start;
+    @media only screen and(max-width: 1000px) {
+        width: 100%;
+        position: relative;
+        padding: 0;
+    }
 }
 
 .inputSubmit {
@@ -124,17 +254,16 @@
     color: rgb(68, 68, 68);
     font-weight: 600;
     &:focus {
-      outline: none;
+        outline: none;
     }
 }
 
 .selectScore {
-    color: red;
-    font-size: 15px;
+    font-size: 5px;
 }
 
 .selectScoreHide {
-    display:none
+    display: none;
 }
 
 .reviewButton {
@@ -142,11 +271,16 @@
     width: auto;
     padding: 3px 9px;
     font-size: 12px;
-    margin: 2px;
     border-radius: 5px;
     background-color: #202020;
     color: rgb(91, 201, 159);
-
+    box-shadow: 0px 2px 1px 2px #19f9a4;
+    border: 3px solid transparent;
+    transition: 150ms;
+    &:hover {
+        background-color: #2b2a2a;
+        transform: scale(1.1);
+    }
 }
 
 .reviewButtonHide {
@@ -159,7 +293,7 @@
 }
 
 .selectScoreHide {
-    display:none
+    display: none;
 }
 
 .reviewButton {
