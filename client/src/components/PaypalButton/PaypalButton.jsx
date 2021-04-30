@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import  {PayPalButton}  from 'react-paypal-button-v2';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
-import {cleanShoopingCart} from '../../redux/actions/actionFront'
+import { cleanShoopingCart, sendEmailOrderSuccess } from '../../redux/actions/actionFront';
 import Swal from 'sweetalert2';
 
 function PaypalButton({input} ) {
@@ -36,7 +36,7 @@ function PaypalButton({input} ) {
 				let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };
 				
 				dispatch(formUserOrder(user));
-				
+				sendEmailOrderSuccess({name: guestOrder.name,orderId: guestOrder.orderId,email: guestOrder.email,state: 'completed',});
 				dispatch(cleanShoopingCart())
 				window.history.back();
 			} catch (err) {
