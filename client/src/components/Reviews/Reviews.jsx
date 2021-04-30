@@ -147,7 +147,7 @@ function Reviews({ currentUser, productId }) {
 
 	return (
 		<div className="review-cont">
-			<div>
+			<div className="review-cont-divisor">
 				<p className="reviewTitle">Reviews</p>
 				{allProductReviews[0] ? (
 					allProductReviews.map((review) => (
@@ -158,7 +158,7 @@ function Reviews({ currentUser, productId }) {
 								<p>{review.comment}</p>
 							</div>
 							{review.userId == currentUser?.id && (
-								<div>
+								<div className="buttons-review">
 									<button className="reviewButton" onClick={editReview}>
 										...
 									</button>
