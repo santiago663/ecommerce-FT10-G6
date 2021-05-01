@@ -14,6 +14,7 @@ import uiError from './reducerUiError'
 import reducerRoles from './reducerRoles'
 import { payments } from "./payments";
 import reducerOrderState from "./reducerOrderState"
+import reducerWishlist from "./reducerWishlist"
 // import reducerTest from './reducerTest';
 
 
@@ -32,5 +33,6 @@ export default combineReducers({
   reducerRoles: reducerRoles,
   payments: payments,
   reducerOrderState: reducerOrderState,
+  reducerWishlist: reducerWishlist,
 });
 
