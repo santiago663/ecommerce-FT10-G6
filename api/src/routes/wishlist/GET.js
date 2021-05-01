@@ -9,7 +9,7 @@ server.get("/", async (req, res) => {
             include: [
                 {
                     model: Users,
-                    attributes: ['id', 'name']
+                    attributes: []
                 },
                 {
                     model: Products,
@@ -19,6 +19,37 @@ server.get("/", async (req, res) => {
         })
 
         res.json(wishlist)
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal server error", status:500});
+    }
+
+});
+
+server.get("/:userId", async (req, res) => {
+
+    const { userId } = req.params
+
+    try {
+
+        const userWishlist = await Wishlists.findOne({
+            where: {
+                userId
+            },
+            include: [
+                {
+                    model: Users,
+                    attributes: []
+                },
+                {
+                    model: Products,
+                    through: { attributes: [] },
+                },
+            ],
+        })
+
+        res.json(userWishlist)
 
     } catch (error) {
         console.log(error);
