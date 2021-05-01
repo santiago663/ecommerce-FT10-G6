@@ -3,8 +3,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import  {PayPalButton}  from 'react-paypal-button-v2';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
+import { cleanShoopingCart, sendEmailOrderSuccess } from '../../redux/actions/actionFront';
 import { editProductStock } from "../../redux/actions/actionBack";
-import {cleanShoopingCart} from '../../redux/actions/actionFront'
 import Swal from 'sweetalert2';
 
 function PaypalButton({input} ) {
@@ -41,8 +41,15 @@ function PaypalButton({input} ) {
 		
 		if (currentUser.id) {
 			try {
-				let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };				
+
+				let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };
 				dispatch(formUserOrder(user));
+
+				sendEmailOrderSuccess({name: guestOrder.name,orderId: guestOrder.orderId,email: guestOrder.email,state: 'completed',});
+				
+				dispatch(cleanShoopingCart())
+				window.history.back();
+
 				dispatch(editProductStock({...userOrderProducts, stock: userOrderProducts.stock.map(stock => stock == null ? null : stock-1 )}));
 				
 				Swal.fire({
@@ -54,6 +61,7 @@ function PaypalButton({input} ) {
 					dispatch(cleanShoopingCart())				
 					location.assign("/browser/products")
 				})				
+
 			} catch (err) {
 				console.error(err.message);
 			}
