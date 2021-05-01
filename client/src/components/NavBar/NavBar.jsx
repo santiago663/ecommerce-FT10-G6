@@ -44,7 +44,9 @@ function NavBar() {
           <Link className="nav-link" to="/Browser/products">
             <li>Find Art</li>
           </Link>
+          <Link to='/about'>
           <li>About Us</li>
+          </Link>
         </ul>
       </div>
       <div className="nav-buttons_authentication">
