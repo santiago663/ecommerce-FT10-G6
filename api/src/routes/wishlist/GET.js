@@ -33,9 +33,10 @@ server.get("/:userId", async (req, res) => {
 
     try {
 
-        const userWishlist = await Wishlists.findOne({
+        const userWishlist = await Wishlists.findOrCreate({
             where: {
-                userId
+                userId: userId,
+                available: true
             },
             include: [
                 {
@@ -49,7 +50,7 @@ server.get("/:userId", async (req, res) => {
             ],
         })
 
-        res.json(userWishlist)
+        res.json(userWishlist[0])
 
     } catch (error) {
         console.log(error);
