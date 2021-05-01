@@ -11,3 +11,21 @@ export const getUserWhislist = (userId) => {
         })
     }
 }
+
+export const putUserWhislist = (Body) => {
+    return (dispatch) => {
+        axios.put("http://localhost:3001/put/wishlist/add" + Body)
+        .then((resp) => {
+            dispatch({type: TYPES.PUT_CURRENT_WISHLIST, payload: resp.data})
+        })
+    }
+}
+
+export const deleteUserWhislist = (Body) => {
+    return (dispatch) => {
+        axios.put("http://localhost:3001/put/wishlist//delete" + Body)
+        .then((resp) => {
+            dispatch({type: TYPES.DELETE_CURRENT_WISHLIST, payload: resp.data})
+        })
+    }
+}
