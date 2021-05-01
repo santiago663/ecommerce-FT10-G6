@@ -2,7 +2,7 @@ const server = require("express").Router();
 const { Wishlists, Products } = require("../../db");
 const { Op } = require('sequelize');
 
-server.put("/", async (req, res) => { 
+server.put("/delete", async (req, res) => { 
     
     const { userId, productId } = req.body
 

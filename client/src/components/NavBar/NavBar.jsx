@@ -16,8 +16,7 @@ function NavBar() {
   const { menu } = useSelector((store) => store.reducerLoading)
 
   function handleLogOut() {
-    dispatch(logout())
-    location.assign("http://localhost:3000")
+    dispatch(logout())    
   }
 
   const showSidebar = () => {
@@ -45,23 +44,26 @@ function NavBar() {
             <li>Find Art</li>
           </Link>
           <Link to='/about'>
-          <li>About Us</li>
+            <li>About Us</li>
           </Link>
         </ul>
-      </div>
+      </div>      
       <div className="nav-buttons_authentication">
-      {currentUser?.profilePic ? <div className="navbarProfilePic">
-      <Link to="/user/profile">
-          <img src={currentUser.profilePic} type="file" alt="profilePic"/>
+      {(currentUser[0] || currentUser["id"] ) && <Link to="/user/wishlist">
+        <button className="signin--btn btn-secondary">My wishlist</button>
+      </Link>}
+        {currentUser?.profilePic ? <div className="navbarProfilePic">
+          <Link to="/user/profile">
+            <img src={currentUser.profilePic} type="file" alt="profilePic" />
           </Link>
-      </div> : 
+        </div> :
           null
-          }
-        
+        }
+
         <ul className="Icon-Cart">
           <Link to="/checkout">
             <i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i>
-          </Link>         
+          </Link>
         </ul>
         {currentUser?.name ?
           <button type="button" className="signin--btn logout" onClick={handleLogOut}>Log out</button>
