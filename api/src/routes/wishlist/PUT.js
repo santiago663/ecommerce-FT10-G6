@@ -25,4 +25,36 @@ server.put("/delete", async (req, res) => {
 
 })
 
+server.put("/add", async (req, res) => { 
+    
+    const { userId, productId } = req.body
+
+    try { 
+        const wishList = { available: true, userId: userId }    
+        let wish;
+        let resultWish    
+    
+        for (let i = 0; i < productId.length; i++){
+           
+                wish = await Wishlists.update(wishList, {
+                    where: { userId },
+                    returning: true,
+                });
+    
+                resultWish = await Wishlists.findOne({
+                    where: { userId },
+                });
+                await resultWish.addProducts(productId[i])            
+          }
+          if( resultWish ){
+            res.status(200).json( { message: "wish add successfully", id: resultWish.id })
+          }  
+        
+      } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Internal server error" });
+      }
+
+})
+
 module.exports = server;
