@@ -1,6 +1,5 @@
 const server = require("express").Router();
 const { Wishlists, Products } = require("../../db");
-const { Op } = require('sequelize');
 
 server.put("/delete", async (req, res) => { 
     
