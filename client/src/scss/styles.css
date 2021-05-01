@@ -464,18 +464,13 @@ p {
     min-width: 320px;
   }
   .navbar .nav-buttons_navigation {
-    position: absolute;
-    left: 55px;
-    top: -2px;
-    background-color: #24262cf1;
-    -webkit-backdrop-filter: blur(15px);
-            backdrop-filter: blur(15px);
-    box-shadow: 0px 1px 2px 2px #000000c9;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  .navbar .nav-buttons_navigation:hover {
-    box-shadow: 0px 2px 5px 0px #19f9a4;
+    position: relative;
+    margin: 0;
+    left: -10px;
+    width: 55vw;
+    min-width: 197px;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -498,21 +493,11 @@ p {
 }
 @media only screen and (max-width: 660px) {
   .nav-buttons_navigation li {
-    font-size: 13px;
-    height: 0px;
-    width: 100%;
-    margin: 0;
+    font-size: 12px;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: none;
-    border-radius: 3px;
-  }
-  .nav-buttons_navigation li:hover {
-    color: #19f9a4;
-    border-bottom: none;
-    background-color: transparent;
+    padding: 0 5px;
   }
 }
 
@@ -574,6 +559,13 @@ p {
   transition: 250ms;
   cursor: pointer;
 }
+@media only screen and (max-width: 600px) {
+  .Icon-Cart {
+    position: relative;
+    top: -19px;
+    right: 40%;
+  }
+}
 .Icon-Cart:hover {
   box-shadow: 0px 0px 5px 1px #19f9a4;
   transform: scale(1.1);
@@ -603,6 +595,11 @@ p {
   box-shadow: 0px 1px 2px 2px #00000071;
   cursor: pointer;
 }
+@media only screen and (max-width: 600px) {
+  .logout {
+    display: none;
+  }
+}
 .logout:hover {
   box-shadow: 0px 0px 5px 1px #19f9a4;
   color: #19f9a4;
@@ -616,6 +613,18 @@ p {
   border-radius: 50%;
   right: 200px;
   top: 25px;
+  cursor: pointer;
+  transition: 250ms;
+}
+.navbarProfilePic img:hover {
+  box-shadow: 0px 0px 1px 2px #19f9a4;
+}
+@media only screen and (max-width: 600px) {
+  .navbarProfilePic img {
+    position: relative;
+    right: -30%;
+    top: 22px;
+  }
 }
 
 .product-card {

@@ -33,7 +33,7 @@ export default function UserOrders() {
         <h1>Orders</h1>
         <h2>Check your previous purchases </h2>
       </div>
-      <hr className="divisor" />
+      {/* <hr className="divisor" /> */}
       <div className="tableheader">
         <h4 className="tableheader-date">Date</h4>
         <h4 className="tableheader-tate">State</h4>
@@ -75,7 +75,7 @@ export default function UserOrders() {
                       </div>
                     </div>
                   ))}
-                <hr />
+                {/* <hr /> */}
               </div>
             </>
           ))}
