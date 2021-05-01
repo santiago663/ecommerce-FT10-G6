@@ -9,7 +9,7 @@ server.get("/", async (req, res) => {
             include: [
                 {
                     model: Users,
-                    attributes: ['id', 'name']
+                    attributes: []
                 },
                 {
                     model: Products,
@@ -40,7 +40,7 @@ server.get("/:userId", async (req, res) => {
             include: [
                 {
                     model: Users,
-                    attributes: ['id', 'name']
+                    attributes: []
                 },
                 {
                     model: Products,
