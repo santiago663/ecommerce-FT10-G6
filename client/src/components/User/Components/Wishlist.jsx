@@ -4,42 +4,34 @@ import { useSelector, useDispatch } from "react-redux";
 import * as AiIcons from 'react-icons/ai';
 import * as GiIcons from 'react-icons/gi';
 import { Link } from "react-router-dom";
+import { deleteUserWhislist } from '../../../redux/actions/actionWishlist'
 import "../../../scss/components/_userLibrary.scss";
 import "../../../scss/components/_userWishlist.scss";
 
 
 export default function Wishlist() {
 
-    var userProducts = []
+    const dispatch = useDispatch();
 
-    //TRAER PRODUCTOS AGREGADOS A LA WISHLIST
     const wishlistUser = useSelector((store) => store.reducerWishlist.wishlist); 
-	
-
-    const userOrders = useSelector((store) => store.reducerOrderUser.userOrders); 
-    const completedUserOrder = userOrders.filter(order => order.state === "completed")
-    completedUserOrder.map(order => order.products.map(product => userProducts.push(product)))
-
-
-    const loading = useSelector((store) => store.reducerLoading.loading)
-
-    const [products, setProducts] = useState([])
-    const [ preview, setPreview ] = useState(false)
-
-    useEffect(() => {
-        if (completedUserOrder[0]) {
-            setProducts(userProducts)
-        }
-    }, [completedUserOrder[0]?.id])
-
 
     const openPreview = (e, image) => {
         e.preventDefault()
-        console.log(image)
         setPreview(image)
 
     }
 
+    const deleteProduct = e => {
+
+        let body ={
+            userId: wishlistUser.userId,
+            productId: e,
+        }
+        
+        if(body.userId && body.productId){
+            dispatch( deleteUserWhislist( body) )
+        }
+    }
 
     return (
         <>
@@ -55,8 +47,8 @@ export default function Wishlist() {
                 <div><h4>To Buy / Detail</h4></div>                 
             </div>
             <div className="myProductsResults">
-                {wishlistUser.length !== 0 && //PRODUCTOS DE LA WISHLIS
-                    wishlistUser.products.map((product, index) => (
+                {wishlistUser.length !== 0 &&
+                    wishlistUser.products.map((product) => (
                         <>
                             <div className="libraryPreview" >
                                 <div className="divImage">
@@ -69,13 +61,15 @@ export default function Wishlist() {
                                     <h4> ${product.price}</h4>
                                 </div>
                                 <div className="libraryDownload">
-                                {product.available === true ?
                                     <button
                                         className=" button-wishlist"
+                                        type="button"
+                                        key={product.id}
+                                        onClick={()=>deleteProduct(product.id)}
                                     >
                                         <GiIcons.GiHeartMinus />
                                     </button> 
-                                    :null}
+                                   
                                     <Link to={`/product/${product.id}`}>
                                         <AiIcons.AiFillEye />
                                     </Link>
