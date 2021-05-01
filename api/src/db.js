@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+const Wishlist = require("./models/Wishlist");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
 
 const sequelize = new Sequelize(
@@ -36,7 +37,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Products, Categories, Authors, Series, Users, Orders, Roles, Reviews, Methods } = sequelize.models;
+const { Products, Categories, Authors, Series, Users, Orders, Roles, Reviews, Methods, Wishlists } = sequelize.models;
 
 // ############################## Relations ###############################
 
@@ -49,9 +50,14 @@ Reviews.belongsTo(Users);
 Products.hasMany(Reviews);
 Reviews.belongsTo(Products);
 
+Users.hasOne(Wishlists);
+Wishlists.belongsTo(Users);
+
+Wishlists.belongsToMany(Products, { through: "products_wishlists" });
+Products.belongsToMany(Wishlists, { through: "products_wishlists" }); 
+
 Methods.hasMany(Orders);
 Orders.belongsTo(Methods); 
-
 
 Authors.hasMany(Products);
 Products.belongsTo(Authors);
