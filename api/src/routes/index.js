@@ -51,7 +51,7 @@ router.use("/post/payments", require("./payments/POST"));
 router.use(static("."));
 // => Wishlist
 router.use("/get/wishlist", require("./wishlist/GET"));
-// router.use("/post/wishlist", require("./wishlist/POST"));
-// router.use("/put/wishlist", require("./wishlist/PUT"));
+router.use("/post/wishlist", require("./wishlist/POST"));
+router.use("/put/wishlist", require("./wishlist/PUT"));
 
 module.exports = router;
