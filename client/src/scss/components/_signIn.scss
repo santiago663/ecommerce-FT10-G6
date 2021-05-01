@@ -10,6 +10,7 @@ $button-active: #969494;
     background-color: $bg-color;
     margin: 0 auto;
     display: flex;
+    padding-top: 100px;
     align-items: center;
     justify-content: center;
     * {
@@ -23,7 +24,8 @@ $button-active: #969494;
         position: relative;
         width: 320px;
         padding: 15px;
-        background-color: $bg-form-color;
+        // background-color: $bg-form-color;
+        background-color: #24262c;
         top: -100px;
         border-radius: 1px;
         box-shadow: 0px 2px 0px 0px #19f9a4;
@@ -44,7 +46,8 @@ $button-active: #969494;
         .a__signin {
             margin-top: 30px;
             a {
-                color: $bg-color;
+                // color: $bg-color;
+                color: #fafafa;
                 &:hover {
                     color: $button-active;
                     color: #19f9a4;
@@ -56,20 +59,25 @@ $button-active: #969494;
             font-size: 25px;
             font-family: "Roboto";
             font-weight: 600;
-            color: $bg-color;
+            // color: $bg-color;
+            color: #19f9a4;
         }
         p {
             text-align: center;
             margin-bottom: 10px;
+            color: #fafafa;
         }
         .form-control {
             width: 100%;
+            color: #fafafa;
             height: 20px;
             border: 0px;
             margin-bottom: 15px;
             font-size: 16px;
-            background-color: $bg-form-color;
-            border-bottom: 1px solid rgb(218, 223, 224);
+            // background-color: $bg-form-color;
+            background-color: transparent;
+            // border-bottom: 1px solid rgb(218, 223, 224);
+            border-bottom: 1px solid #19f9a4;
             transition: border-bottom 0.3s ease;
             border-radius: 0px;
             &:focus {
@@ -104,7 +112,7 @@ $button-active: #969494;
             height: 42px;
             background-color: $google;
             border-radius: 2px;
-            box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+            // box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
             transition: box-shadow 0.3s ease;
             .google-icon-wrapper {
                 position: absolute;
@@ -132,7 +140,8 @@ $button-active: #969494;
                 text-align: center;
             }
             &:hover {
-                box-shadow: 0 0 6px $google;
+                // box-shadow: 0 0 6px $google;
+                box-shadow: 0 1px 2px 0 #19f9a4;
             }
             &:active {
                 background: $button-active;
@@ -142,7 +151,7 @@ $button-active: #969494;
     .reset {
         position: relative;
         top: -15px;
-        color: rgb(87, 87, 87);
+        color: rgb(165, 165, 165);
         &:hover {
             color: #19f9a4;
         }
