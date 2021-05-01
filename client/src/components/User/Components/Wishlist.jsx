@@ -2,17 +2,22 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import * as AiIcons from 'react-icons/ai';
+import * as GiIcons from 'react-icons/gi';
 import { Link } from "react-router-dom";
 import "../../../scss/components/_userLibrary.scss";
 import "../../../scss/components/_userWishlist.scss";
-import LibraryDetail from './LibraryDetail'
+
 
 export default function Wishlist() {
 
     var userProducts = []
 
     //TRAER PRODUCTOS AGREGADOS A LA WISHLIST
-   
+    const wishlistUser = useSelector((store) => store.reducerWishlist.wishlist); 
+   console.log(wishlistUser)
+
+
+
     const userOrders = useSelector((store) => store.reducerOrderUser.userOrders); 
     const completedUserOrder = userOrders.filter(order => order.state === "completed")
     completedUserOrder.map(order => order.products.map(product => userProducts.push(product)))
@@ -84,8 +89,6 @@ export default function Wishlist() {
 	// }
 
 
-    console.log(products)
-
     return (
         <>
         <div className="profile-body">
@@ -95,12 +98,13 @@ export default function Wishlist() {
             <hr className="divisor" />
             <div className="tableheader">
                 <div className="libraryPreviewTitle"><h4>Preview</h4></div>
-                <div className="libraryNameTitle"><h4>Name</h4></div>
+                <div className="libraryPreviewTitle"><h4>Name</h4></div>
+                <div className="libraryPreviewTitle"><h4>Price</h4></div>
                 <div><h4>To Buy / Detail</h4></div>                 
             </div>
             <div className="myProductsResults">
-                {products.length !== 0 && //PRODUCTOS DE LA WISHLIS
-                    products.map((product, index) => (
+                {wishlistUser.length !== 0 && //PRODUCTOS DE LA WISHLIS
+                    wishlistUser.products.map((product, index) => (
                         <>
                             <div className="libraryPreview" >
                                 <div className="divImage">
@@ -109,43 +113,16 @@ export default function Wishlist() {
                                 <div className="libraryProductName">
                                     <h4> {product.name}</h4>
                                 </div>
+                                <div className="libraryProductName">
+                                    <h4> ${product.price}</h4>
+                                </div>
                                 <div className="libraryDownload">
                                 {product.available === true ?
                                     <button
-                                        className="fas fa-shopping-cart button-wishlist"
-                                        // key={productCache.id}
-                                        // onClick={() =>
-                                        //     handleRemoveFromCart(productCache, currentUser, currentOrder)
-                                        // }
+                                        className=" button-wishlist"
                                     >
-                                        
+                                        <GiIcons.GiHeartMinus />
                                     </button> 
-                                        // (
-                                        // <div>
-                                    	// 	{canBuy[0] ? (
-                                        //         <span className="acquiedPD">Acquired</span>
-                                        //     ) : false || !lStorage ? (
-                                        //         <button
-                                        //             className="fas fa-shopping-cart button-wishlist"
-                                        //             // key={productCache.id}
-                                        //             // onClick={() => handleAddToCart(productCache, currentUser, currentOrder)}
-                                        //         >
-                                                 
-                                        //         </button>
-                                        //     ) : (
-                                        //         <button
-                                        //             className="fas fa-shopping-cart button-wishlist"
-                                        //             // key={productCache.id}
-                                        //             // onClick={() =>
-                                        //             //     handleRemoveFromCart(productCache, currentUser, currentOrder)
-                                        //             // }
-                                        //         >
-                                                   
-                                        //         </button>
-                                        //     )}
-                                        // </div>
-                                
-                                        // )
                                     :null}
                                     <Link to={`/product/${product.id}`}>
                                         <AiIcons.AiFillEye />
