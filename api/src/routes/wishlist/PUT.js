@@ -8,9 +8,7 @@ server.put("/delete", async (req, res) => {
 
     try { 
           const wishlistResult = await Wishlists.findOne({
-            where: {
-              [Op.and]: [{ userId }],
-            },
+            where: { userId },
             include: [{ model: Products, through: { attributes: [] } }],
           });
     
