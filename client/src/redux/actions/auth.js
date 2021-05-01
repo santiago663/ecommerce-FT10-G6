@@ -22,7 +22,10 @@ export const logout = () => {
       .signOut()
       .then(async (resp) => {
         localStorage.removeItem("CurrentUser");
-        dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+        dispatch({ type: TYPES.AUTH_LOGIN, payload: true });        
+      })
+      .then(()=>{
+        location.assign("http://localhost:3000")
       });
   };
 };
