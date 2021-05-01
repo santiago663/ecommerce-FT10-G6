@@ -4,12 +4,12 @@ const { Op } = require('sequelize');
 
 server.put("/", async (req, res) => { 
     
-    const { wishlistId, productId } = req.body
+    const { userId, productId } = req.body
 
     try { 
           const wishlistResult = await Wishlists.findOne({
             where: {
-              [Op.and]: [{ id: wishlistId }],
+              [Op.and]: [{ userId }],
             },
             include: [{ model: Products, through: { attributes: [] } }],
           });
