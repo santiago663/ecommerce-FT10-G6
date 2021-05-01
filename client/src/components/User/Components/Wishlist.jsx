@@ -14,9 +14,7 @@ export default function Wishlist() {
 
     //TRAER PRODUCTOS AGREGADOS A LA WISHLIST
     const wishlistUser = useSelector((store) => store.reducerWishlist.wishlist); 
-   console.log(wishlistUser)
-
-
+	
 
     const userOrders = useSelector((store) => store.reducerOrderUser.userOrders); 
     const completedUserOrder = userOrders.filter(order => order.state === "completed")
@@ -41,52 +39,6 @@ export default function Wishlist() {
         setPreview(image)
 
     }
-
-    // const canBuy = completedUserOrder.filter((order) => order.products.find((product) => product.id == id));
-
-    // const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
-	// 	if (currentUser.id) {
-	// 		let total = 0;
-	// 		shoppingCart.forEach((product) => {
-	// 			total += product.price ? Number(product.price) : 0;
-	// 		});
-	// 		total = total + Number(productOnClick.price);
-	// 		dispatch(addToCartUser(productOnClick, currentUser, currentOrder, total));
-	// 	} else {
-	// 		let data = JSON.parse(localStorage.getItem('orderProducts')) || [];
-	// 		let found = data.filter((product) => product.id === productOnClick.id);
-
-	// 		if (found.length === 0) {
-	// 			data.push(productOnClick);
-	// 			localStorage.setItem('orderProducts', JSON.stringify(data));
-	// 			dispatch(addToCart(productOnClick));
-	// 		}
-	// 	}
-	// };
-
-	// const handleRemoveFromCart = (productOnClick, currentUser, currentOrder) => {
-	// 	if (currentUser.id) {
-	// 		let total = 0;
-	// 		shoppingCart.forEach((product) => {
-	// 			total += product.price ? Number(product.price) : 0;
-	// 		});
-	// 		total = total - Number(productOnClick.price);
-	// 		dispatch(removeToCartUser(productOnClick, currentUser, currentOrder, total));
-	// 	} else {
-	// 		let data = JSON.parse(localStorage.getItem('orderProducts'));
-	// 		let found = data.filter((product) => product.id !== productOnClick.id);
-
-	// 		localStorage.setItem('orderProducts', JSON.stringify(found));
-	// 		dispatch(removeFromCart(productOnClick));
-	// 	}
-	// };
-
-	// let lStorage;
-	// if (shoppingCart.length !== 0) {
-	// 	if (shoppingCart.filter((prod) => prod.id === productCache.id).length === 1) {
-	// 		lStorage = true;
-	// 	}
-	// }
 
 
     return (
