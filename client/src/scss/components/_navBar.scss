@@ -90,11 +90,14 @@ $primary: #24262c;
     border-bottom: 3px solid #19f9a4;
   }
   @media only screen and(max-width: 660px) {
-    font-size: 12px;
+    font-size: 14px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 5px;
+  }
+  @media only screen and(max-width: 460px) {
+    font-size: 12px;
   }
 }
 
@@ -156,9 +159,9 @@ $primary: #24262c;
   transition: 250ms;
   cursor: pointer;
   @media only screen and(max-width: 600px) {
-    position: relative;
-    top: -19px;
-    right: 40%;
+    position: absolute;
+    top: 8px;
+    right: 2%;
   }
   &:hover {
     box-shadow: 0px 0px 5px 1px #19f9a4;
@@ -213,7 +216,9 @@ $primary: #24262c;
   }
   @media only screen and(max-width: 600px) {
     position: relative;
-    right: -30%;
-    top: 22px;
+    right: 12px;
+    top: 32px;
+    border: #313131 2px dotted;
+    box-shadow: 0px 1px 2px 2px #00000071;
   }
 }

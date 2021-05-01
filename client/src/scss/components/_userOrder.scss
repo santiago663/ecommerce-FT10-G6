@@ -85,14 +85,19 @@
     margin: 0 auto;
 }
 .tableheader {
+    // text-transform: uppercase;
     display: flex;
     justify-content: space-between;
-    background-color: #19f9a4;
-    color: #1b1b1b;
+    background-color: #111111;
+    // border: 2px solid #19f9a4;
+    border: 1px solid #030303;
+    box-shadow: 0px 5px 15px 7px #386b58;
+    color: #19f9a4;
     height: 40px;
     align-items: center;
     text-align: center;
     padding: 10px 40px;
+    font-weight: 100;
     // margin-bottom: 20px;
     .tableheader-date {
         position: relative;

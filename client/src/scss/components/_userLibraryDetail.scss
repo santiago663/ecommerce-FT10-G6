@@ -2,9 +2,11 @@
     background-color: rgba(0, 0, 0, 0.9);
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
+    z-index: 9999;
     position: fixed;
+    min-width: 320px;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     top: 0;
     left: 0;
     display: flex;
@@ -13,24 +15,27 @@
     transition: 250ms;
     animation-name: grow;
     animation-duration: 200ms;
-    padding-top: 80px;
 }
 
 .modalLibrary {
-    padding-top: 40px;
+    padding-top: 0px;
     img {
-        max-height: 600px;
+        min-width: 320px;
+        max-width: 100%;
+        // min-height: 200px;
+        // max-height: 100%;
+        height: auto;
     }
 }
 
 .closeWindowLibrary {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 50px;
+    right: 50px;
     font-size: 30px;
-    color: #1b1b1b;
     transition: 350ms;
+    color: #13ae73;
     &:hover {
-        color: #13ae73;
+        color: #fafafa;
     }
 }
