@@ -164,3 +164,62 @@
 		color: #b7bcbd;
 	}
 }
+
+.contactInfoButton {
+	border-radius: 20px;
+    color: #19f9a4;
+    background: #202020;
+    width: 80px;
+    height: 30px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.contactInfoForm {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.insertValidData {
+	margin: 0 auto;
+    font-size: 16px;
+    background: silver;
+    padding: 9px 20px;
+    border-radius: 28px;
+    color: rgb(245, 245, 245);
+    font-weight: 550;
+}
+
+.cartSteps {
+	display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin-bottom: 15px;
+	font-size: 16px;
+
+}
+
+.Information-content {
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkContactInfoHide {
+	display: none;
+}
+
+.checkPaymentHide {
+	display: none;
+}
+
+.spanPaymentGrey {
+	color: #b1b1b1;
+}
+
+.checkCompletedHide {
+	display: none;
+}
