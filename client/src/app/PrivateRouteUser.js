@@ -9,7 +9,7 @@ export default function PrivateRouteUser({ component: Component, ...rest }) {
 return (
       <Route {...rest}
          render={props => {
-            return currentUser?.roleId === 101 ? <Component {...props} /> : <Redirect to="/signin" />
+            return currentUser?.roleId === 101 || currentUser?.roleId === 100 ? <Component {...props} /> : <Redirect to="/signin" />
          }}>
       </Route>
    )

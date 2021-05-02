@@ -1,15 +1,15 @@
 /* eslint-disable  */
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logout } from "../../redux/actions/auth";
 import { setMenu } from "../../redux/actions/request";
 import { useSelector, useDispatch } from "react-redux";
 import * as FaIcons from "react-icons/fa";
 import * as HiIcons from "react-icons/hi";
+
 import "../../scss/components/_navBar.scss";
 
 function NavBar() {
-  const location = useLocation();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((store) => store.auth);
   const shoppingCart = useSelector(
@@ -18,11 +18,11 @@ function NavBar() {
   const { menu } = useSelector((store) => store.reducerLoading);
 
   function handleLogOut() {
-    dispatch(logout())    
+    dispatch(logout());
   }
 
-  const showSidebar = () => {
-    dispatch(setMenu(!menu));
+  const showSidebar = (num) => {
+    dispatch(setMenu(num));
   };
 
   useEffect(() => {}, [currentUser]);
@@ -31,13 +31,16 @@ function NavBar() {
     <nav className="navbar">
       <div className="navleft">
         <Link to="#" className="sandwich">
-          {menu ? (
-            <HiIcons.HiChevronDoubleLeft
-              onClick={showSidebar}
+          {menu === "0" ? (
+            <FaIcons.FaBars
+              onClick={() => showSidebar("1")}
               className="iconmenu"
             />
           ) : (
-            <FaIcons.FaBars onClick={showSidebar} className="iconmenu" />
+            <HiIcons.HiChevronDoubleLeft
+              onClick={() => showSidebar("0")}
+              className="iconmenu"
+            />
           )}
         </Link>
 
@@ -48,26 +51,30 @@ function NavBar() {
           <Link className="nav-link" to="/Browser/products">
             <li>Find Art</li>
           </Link>
-          <Link to='/about'>
+          <Link to="/about">
             <li>About Us</li>
           </Link>
         </ul>
-      </div>      
+      </div>
       <div className="nav-buttons_authentication">
-      {(currentUser[0] || currentUser["id"] ) && <Link to="/user/wishlist">
-        <button className="signin--btn btn-secondary">My wishlist</button>
-      </Link>}
-        {currentUser?.profilePic ? <div className="navbarProfilePic">
-          <Link to="/user/profile">
-            <img src={currentUser.profilePic} type="file" alt="profilePic" />
+        {(currentUser[0] || currentUser["id"]) && (
+          <Link to="/user/wishlist">
+            <button className="signin--btn btn-secondary">My wishlist</button>
           </Link>
-        </div> :
-          null
-        }
+        )}
+        {currentUser?.profilePic ? (
+          <div className="navbarProfilePic">
+            <Link to="/user/profile">
+              <img src={currentUser.profilePic} type="file" alt="profilePic" />
+            </Link>
+          </div>
+        ) : null}
 
         <ul className="Icon-Cart">
           <Link to="/checkout">
-            <i className="fas fa-shopping-cart ">{shoppingCart.length > 0 && shoppingCart.length}</i>
+            <i className="fas fa-shopping-cart ">
+              {shoppingCart.length > 0 && shoppingCart.length}
+            </i>
           </Link>
         </ul>
         {currentUser?.name ? (
