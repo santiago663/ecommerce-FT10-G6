@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import * as AiIcons from 'react-icons/ai';
 import * as GiIcons from 'react-icons/gi';
@@ -32,6 +32,7 @@ export default function Wishlist() {
             dispatch( deleteUserWhislist( body) )
         }
     }
+    console.log(wishlistUser)
 
     return (
         <>
@@ -47,9 +48,10 @@ export default function Wishlist() {
                 <div className="libraryPreviewTitle-wishlist toBuy-wishlist"><h4>To Buy / Detail</h4></div>                 
             </div>
             <div className="myProductsResults">
-                {wishlistUser?.length !== 0 &&
-                    wishlistUser?.products.map((product) => (
-                        <>
+                {wishlistUser?.length !== 0 && wishlistUser.products?.length !== 0 &&
+                    wishlistUser.products.map((product) => (
+                        
+                        <div>
                             <div className="libraryPreview-wishlist" >
                                 <div className="divImage-wishlist">
                                     <img className="myProductsImage" src={product.preview} alt="" onClick={(e) => openPreview(e, product.preview)}/>                                    
@@ -60,7 +62,7 @@ export default function Wishlist() {
                                 <div className="libraryProductPrice-wishlist">
                                     <h4> ${product.price}</h4>
                                 </div>
-                                <div className=" libraryDownload-wishlist">
+                                <div className="libraryDownload-wishlist">
                                     <button
                                         className=" button-wishlist"
                                         type="button"
@@ -68,14 +70,13 @@ export default function Wishlist() {
                                         onClick={()=>deleteProduct(product.id)}
                                     >
                                         <GiIcons.GiHeartMinus />
-                                    </button> 
-                                   
+                                    </button>
                                     <Link to={`/product/${product.id}`}>
                                         <AiIcons.AiFillEye />
                                     </Link>
                                 </div>
                             </div>                            
-                        </>
+                        </div>
                     ))}
             </div>
         </div>
