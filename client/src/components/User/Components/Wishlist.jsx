@@ -47,8 +47,8 @@ export default function Wishlist() {
                 <div className="libraryPreviewTitle-wishlist toBuy-wishlist"><h4>To Buy / Detail</h4></div>                 
             </div>
             <div className="myProductsResults">
-                {wishlistUser.length !== 0 &&
-                    wishlistUser.products.map((product) => (
+                {wishlistUser?.length !== 0 &&
+                    wishlistUser?.products.map((product) => (
                         <>
                             <div className="libraryPreview-wishlist" >
                                 <div className="divImage-wishlist">
