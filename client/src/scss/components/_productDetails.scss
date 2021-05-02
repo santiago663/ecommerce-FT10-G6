@@ -7,11 +7,12 @@
     align-items: center;
     animation-name: grow;
     animation-duration: 0.5s;
-    background-image: radial-gradient(circle at center center, rgba(33, 33, 33, 0), #212121),
-        repeating-linear-gradient(135deg, #212121 0px, #212121 1px, transparent 1px, transparent 4px),
-        repeating-linear-gradient(45deg, #383838 0px, #383838 5px, transparent 5px, transparent 6px),
-        linear-gradient(90deg, #212121, #212121);
-    overflow-x: hidden;
+    background-color: #151515;
+    // background-image: radial-gradient(circle at center center, rgba(33, 33, 33, 0), #212121),
+    //     repeating-linear-gradient(135deg, #212121 0px, #212121 1px, transparent 1px, transparent 4px),
+    //     repeating-linear-gradient(45deg, #383838 0px, #383838 5px, transparent 5px, transparent 6px),
+    //     linear-gradient(90deg, #212121, #212121);
+    // overflow-x: hidden;
     @media only screen and(max-width: 1000px) {
         min-width: 320px;
     }
@@ -19,28 +20,25 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 100px;
+        margin-top: 30px;
         width: 100vw;
-        padding: 20px;
-        // border: 1px solid white;
+        max-width: 1350px;
+        // border: 3px solid #2d2e2e;
+
         @media only screen and(max-width: 1000px) {
             left: 0;
             flex-direction: column;
-            padding: 0;
+            padding-top: 50px;
         }
         .preview {
+            margin: 0 auto;
             display: flex;
-            // padding-right: 20px;
-            // margin-right: 20px;
-            max-width: 100%;
-            // min-width: 400px;
-            // max-height: 600px;
+            width: 100%;
+            max-width: 90%;
+            min-width: 400px;
             height: auto;
-            // margin: 0 30px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 1px;
-            // border: 1px solid white;
-            box-shadow: 1px 1px 10px 1px rgb(0, 0, 0);
             @media only screen and(max-width: 1000px) {
                 margin: 0 auto;
                 margin-top: 10px;
@@ -50,36 +48,35 @@
         }
 
         .detailProd {
-            width: 500px;
-            padding: 25px 50px;
-            margin-right: 5%;
+            font-family: "Montserrat";
+            padding: 25px;
+            width: 600px;
             display: flex;
             flex-direction: column;
             height: 100%;
-            align-self: flex-start;
             color: #19f9a4;
-            border-radius: 1px;
             background-color: #151515;
             align-content: center;
-            box-shadow: 0px 2px 10px 1px #000000;
+            border-left: 3px solid #2d2e2e;
+            // box-shadow: 0px 1px 15px 1px #2d2e2e;
             @media only screen and(max-width: 1000px) {
                 min-height: 600px;
-                // margin: 10px auto;
                 align-items: center;
                 justify-content: center;
                 width: 100%;
                 min-width: 320px;
-                border: 1px solid #020202;
+                border: 1px solid #2d2e2e;
             }
             .contDet {
+                font-family: "Montserrat";
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                width: 320px;
-                // border-radius: 3px;
-                border-bottom: 2px solid #19f9a4;
+                width: 100%;
+                // border-bottom: 2px solid #19f9a4;
                 .titulo {
+                    font-family: "Montserrat";
                     font-size: 24px;
                 }
                 @media only screen and(max-width: 1000px) {
@@ -91,7 +88,7 @@
                 .linkClose {
                     margin: 0px;
                     float: right;
-                    border-radius: 9px 11px 0 0px;
+                    // border-radius: 9px 11px 0 0px;
 
                     .link {
                         font-size: 38px;
@@ -100,7 +97,7 @@
                         text-decoration: none;
                         border-radius: 0 9px;
                         border: 1px solid #262727;
-                        background-color: #262727;
+                        background-color: #2d2e2e;
                         color: #1cd08b;
                         display: flex;
                         justify-content: center;
@@ -131,11 +128,18 @@
 }
 
 .product-preview {
+    padding: 10px 0;
     width: 100%;
     height: 100%;
     display: flex;
+    object-fit: contain;
+    // border-right: 1px solid #19f9a4;
+    max-width: 90%;
+    max-height: 600px;
+    // overflow: scroll;
     justify-content: center;
-    margin: 0 auto;
+
+    // object-fit: cover;
 }
 
 .reviewNumber {
@@ -143,16 +147,17 @@
     padding-bottom: 2px;
 }
 
-.titulo {
-    width: 100%;
-    background-color: #d8dad9;
-    align-self: left;
-    color: #19f9a4;
-    border-radius: 0px;
-}
+// .titulo {
+//     width: 100%;
+//     background-color: #d8dad9;
+//     align-self: left;
+//     color: #19f9a4;
+//     border-radius: 0px;
+// }
 
 .det {
-    font-family: "Helvetica";
+    // font-family: "Roboto";
+    font-family: "Montserrat";
     color: #b5b8b7;
     border-radius: 2px;
     justify-content: center;
@@ -165,15 +170,18 @@
     width: 100%;
     text-align: center;
     // background-color: #2627277e;
-    border: 1px solid #19f9a4;
-    box-shadow: 0 5px 5px 0 #19f9a338;
+    border-top: 2px solid #2d2e2e;
+    // border-bottom: 1px double #2d2e2e;
+    // border-radius: 10px 10px 9px 19px;
+    // border-radius: 2px 2px 0px 0px;
+    // box-shadow: 0 3px 5px 2px #626363f3;
     h3 {
         text-transform: uppercase;
-        color: #fafafa;
+        color: #19f9a369;
         padding-bottom: 3px;
     }
     span {
-        color: #b5b8b7;
+        color: #fafafa;
     }
 }
 
@@ -196,7 +204,7 @@
     margin-right: 10px;
 }
 .titulo {
-    color: #fafafa;
+    color: #19f9a3;
     display: flex;
     justify-content: center;
     font-size: 26px;
@@ -205,7 +213,7 @@
     height: 60px;
     align-items: center;
     background-color: rgba(131, 131, 131, 0);
-    border-bottom: 2px solid #19f9a4;
+    // border-bottom: 2px solid #19f9a4;s
     margin-bottom: 20px;
 }
 .contecarrito {
@@ -230,6 +238,7 @@
 }
 
 .dispre {
+    font-family: "Montserrat";
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -239,16 +248,18 @@
     color: rgb(211, 211, 211);
     width: 100%;
     .det {
-        color: #fafafa;
+        color: #fffdffdc;
+        // font-family: "Montserrat";
         padding-top: 20px;
         margin: 0 5px;
-        font-size: 18px;
-        border: 1px solid #19f9a4;
-        box-shadow: 0 0px 20px 0px #19f9a4;
+        font-size: 15px;
+        // border-top: 5px solid #19f9a377;
+        // border-bottom: 5px solid #19f9a377;
+        // box-shadow: 0 5px 10px 0px #19f9a33a;
         h3 {
             font-weight: 400;
             width: 100%;
-            color: #d3d3d3;
+            color: #19f9a4;
         }
     }
 }
@@ -265,7 +276,7 @@
     cursor: pointer;
     padding: 0px;
     border: none;
-    box-shadow: 0px 0px 1px 1px #19f9a4;
+    box-shadow: 0px 0px 0px 3px #19f9a4;
 }
 .espV {
     color: #c1c5c4;
