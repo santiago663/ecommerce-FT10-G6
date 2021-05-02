@@ -35,7 +35,7 @@ function Order() {
     total: sum,
     payment: "",
     methodId: 0,
-    ok: false
+    ok: currentUser?.id ? true : false
   });
 
   const handleInputChange = function (e) {
@@ -43,7 +43,7 @@ function Order() {
       ...input,
       [e.target.name]: e.target.value, ok: false
     });
-  };
+  };  
 
   const handleSubmit = (event) => {
     event.preventDefault();
