@@ -16,18 +16,14 @@ $primary: #24262c;
     padding: 0rem 0.5rem;
     min-width: 320px;
     .nav-buttons_navigation {
-      position: absolute;
-      left: 55px;
-      top: -2px;
-      // background-color: #24262cf1;
-      background-color: #24262cf1;
-      backdrop-filter: blur(15px);
-      box-shadow: 0px 1px 2px 2px #000000c9;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
-      &:hover {
-        box-shadow: 0px 2px 5px 0px #19f9a4;
-      }
+      position: relative;
+      margin: 0;
+      left: -10px;
+      width: 55vw;
+      min-width: 197px;
+      display: flex;
+      // justify-content: space-evenly;
+      align-items: center;
     }
   }
   background-image: linear-gradient(
@@ -94,21 +90,14 @@ $primary: #24262c;
     border-bottom: 3px solid #19f9a4;
   }
   @media only screen and(max-width: 660px) {
-    font-size: 13px;
-    height: 0px;
-    width: 100%;
-    margin: 0;
+    font-size: 14px;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: none;
-    border-radius: 3px;
-    &:hover {
-      color: #19f9a4;
-      border-bottom: none;
-      background-color: transparent;
-    }
+    padding: 0 5px;
+  }
+  @media only screen and(max-width: 460px) {
+    font-size: 12px;
   }
 }
 
@@ -169,6 +158,11 @@ $primary: #24262c;
   width: 50px;
   transition: 250ms;
   cursor: pointer;
+  @media only screen and(max-width: 600px) {
+    position: absolute;
+    top: 8px;
+    right: 2%;
+  }
   &:hover {
     box-shadow: 0px 0px 5px 1px #19f9a4;
     transform: scale(1.1);
@@ -198,6 +192,9 @@ $primary: #24262c;
   transition: 250ms;
   box-shadow: 0px 1px 2px 2px #00000071;
   cursor: pointer;
+  @media only screen and(max-width: 600px) {
+    display: none;
+  }
   &:hover {
     box-shadow: 0px 0px 5px 1px #19f9a4;
     color: #19f9a4;
@@ -205,11 +202,25 @@ $primary: #24262c;
   }
 }
 
-.navbarProfilePic img {
-  position: absolute;
+.navbarProfilePic img {  
   width: 30px;
-  height: 30px;
+  /* height: 30px; */
   border-radius: 50%;
-  right: 200px;
-  top: 25px;
+  /* right: 200px; */
+  /* top: 29px; */
+  cursor: pointer;
+  transition: 250ms;
+  margin-right: 14px;
+  margin-top: 4px;
+  margin-left: 16px;
+  &:hover {
+    box-shadow: 0px 0px 1px 2px #19f9a4;
+  }
+  @media only screen and(max-width: 600px) {
+    position: relative;
+    right: 12px;
+    top: 32px;
+    border: #313131 2px dotted;
+    box-shadow: 0px 1px 2px 2px #00000071;
+  }
 }

@@ -21,6 +21,13 @@ export const SidebarData = [
         belong: [101]
     },
     {
+        title: 'Wishlist',
+        path: '/user/wishlist',
+        icon: <FaIcons.FaImages />,
+        cName: 'navm-text',
+        belong: [101]
+    },
+    {
         title: 'Orders',
         path: '/user/orders',
         icon: <IoIcons.IoIosPaper />,

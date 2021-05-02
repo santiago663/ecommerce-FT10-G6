@@ -85,21 +85,56 @@
     margin: 0 auto;
 }
 .tableheader {
+    // text-transform: uppercase;
     display: flex;
     justify-content: space-between;
-    background-color: #19f9a4;
-    color: #1b1b1b;
+    background-color: #111111;
+    // border: 2px solid #19f9a4;
+    border: 1px solid #030303;
+    box-shadow: 0px 5px 15px 7px #386b58;
+    color: #19f9a4;
     height: 40px;
     align-items: center;
-    padding: 10px 70px;
-    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px 40px;
+    font-weight: 100;
+    // margin-bottom: 20px;
     .tableheader-date {
         position: relative;
-        left: -7px;
+        left: -10px;
+    }
+    .tableheader-tate {
+        position: relative;
+        left: -20px;
+    }
+    .tableheader-price {
+        position: relative;
+        left: -20px;
+    }
+    @media only screen and(max-width: 600px) {
+        // padding: 10px 0px;
+        // padding-right: 25px;
+        .tableheader-date {
+            position: relative;
+            left: -20px;
+        }
+        .tableheader-tate {
+            position: relative;
+            left: -5px;
+        }
+        .tableheader-price {
+            position: relative;
+            left: 0px;
+        }
     }
 }
 .profile-body {
     width: 530px;
+    @media only screen and(max-width: 600px) {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
 }
 
 .orderPreview {
@@ -110,14 +145,27 @@
     background-color: #adadad;
     padding: 10px 10px;
     color: rgba(24, 24, 24, 0.616);
+    @media only screen and(max-width: 600px) {
+        font-size: 11px;
+    }
     .option-price {
         width: 150px;
         text-align: right;
     }
     .option-state {
         width: 100px;
-        text-align: right;
-        margin-left: 10px;
+        text-align: left;
+        margin-left: 70px;
+        @media only screen and(max-width: 600px) {
+            margin-left: 70px;
+            margin-left: 30px;
+            text-align: center;
+        }
+    }
+    .seemore {
+        position: relative;
+        right: -5px;
+        top: -3px;
     }
 }
 
@@ -131,4 +179,10 @@
     position: relative;
     font-size: 20px;
     color: #19f9a4;
+}
+.seemore {
+    @media only screen and(max-width: 600px) {
+        // text-align: center;
+        padding-left: 5px;
+    }
 }

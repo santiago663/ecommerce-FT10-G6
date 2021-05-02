@@ -8,6 +8,7 @@ import {
   getAllCategories,
   getAllSeries,
 } from "../redux/actions/actionBack";
+import { getUserWhislist } from "../redux/actions/actionWishlist"
 import { getLocalStorageGuest } from "../redux/actions/actionFront";
 import { getCurrentOrder, getAllUserOrders } from "../redux/actions/actionOrder";
 import { setCurrentUser } from "../redux/actions/auth";
@@ -25,7 +26,8 @@ function App() {
     if (currentUser) {
       dispatch(getCurrentOrder(currentUser.id));
       dispatch(setCurrentUser(currentUser));
-      dispatch(getAllUserOrders(currentUser.id) )
+      dispatch(getAllUserOrders(currentUser.id));
+      dispatch(getUserWhislist(currentUser.id))
     } else {
       dispatch(getLocalStorageGuest());
     }

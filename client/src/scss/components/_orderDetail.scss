@@ -11,7 +11,7 @@
     justify-content: center;
     transition: 250ms;
     animation-name: grow;
-    animation-duration: 200ms;
+    animation-duration: 500ms;
 
     .modal {
         width: 500px;
@@ -24,6 +24,10 @@
 
         hr {
             border: 0.5px solid #1f2025;
+        }
+        @media only screen and(max-width: 600px) {
+            width: 310px;
+            margin-top: 50px;
         }
     }
 }
@@ -64,6 +68,8 @@
 
     img {
         margin-right: 10px;
+        max-width: 100%;
+        height: auto;
     }
 }
 
@@ -92,12 +98,15 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    .buyit {
+        padding: 10px 0;
+        margin-right: 90px;
+    }
     .totalprice {
-        color: rgb(146, 146, 146);
+        color: goldenrod;
         h2 {
             color: #1ed38d;
             border-bottom: 1px solid #13ae73;
-
             text-align: center;
         }
         h3 {
@@ -142,6 +151,10 @@
     margin: 0;
     padding: 0;
     color: #19f9a4;
+    transition: 450ms;
+    &:hover {
+        color: #242323;
+    }
 }
 
 .buyit:hover {
