@@ -5,6 +5,9 @@ import "../../scss/components/_productCard.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
 import { addToCartUser, removeToCartUser } from "../../redux/actions/actionOrder"
+import { putUserWhislist, deleteUserWhislist } from "../../redux/actions/actionWishlist"
+import * as IoIcons from "react-icons/io"
+import * as AiIcons from "react-icons/ai"
 import { useState, useEffect } from "react";
 import FunctionStar from "../FunctionStar/FunctionStar"
 
@@ -15,13 +18,20 @@ function ProductCard(props) {
   const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder)
   const allScores = useSelector((store) => store.reducerProduct.allProductsScores)
   const allUserProducts = useSelector((store) => store.reducerOrderUser.allUserProducts)
+  const userWishlist = useSelector((store) => store.reducerWishlist.wishlist)
 
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const { data: { name, author, preview, id, price, available, score, stock, initialStock }, } = props;
 
-  const canBuy = allUserProducts.filter(product => product.id == id)
-
   let backScores = allScores?.find(scores => scores.id == id)
+  const canBuy = allUserProducts.filter(product => product.id == id)
+  const [canAdd, setCanAdd] = useState(false)
+
+  useEffect(()=>{
+    if(userWishlist?.id) {
+      setCanAdd(userWishlist?.products?.filter(product => product.id == id))
+    }
+  },[userWishlist?.products?.length])
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {
@@ -60,6 +70,18 @@ function ProductCard(props) {
       dispatch(removeFromCart(productOnClick));
     }
   };
+
+  const handleAddWishlist = (e) => {
+    e.preventDefault()
+    dispatch(putUserWhislist({ userId: currentUser.id, productId: [id] }))
+
+  }
+
+  const handleDeleteWishlist = (e) => {
+    e.preventDefault()
+    dispatch(deleteUserWhislist({ userId: currentUser.id, productId: id }))
+
+  }
 
   let lStorage;
   if (shoppingCart.length !== 0) {
@@ -107,6 +129,12 @@ function ProductCard(props) {
                 {score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
                 {score === null ? FunctionStar(0) : FunctionStar(Number(score))}
               </span>
+              <div className="wishlistHeartCard">
+                { canAdd[0] ? 
+                  <span onClick={handleDeleteWishlist}><AiIcons.AiFillHeart /></span>
+                  :
+                  <span className="wishlistHeartOutLineCard" onClick={handleAddWishlist}><AiIcons.AiOutlineHeart /></span>}
+              </div>
               <h4 maxlength="10" className="nameProductCard">{name}</h4>
             </div>
           </div>
