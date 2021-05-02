@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { addProducts, getAllProducts,deleteProductCategory,
-         editProductByBody, deleteProduct } from  '../../../../redux/actions/actionBack';
+         editProductByBody, deleteProduct, editProductCategory } from  '../../../../redux/actions/actionBack';
 import { upgradeEditProducts } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_addProduct.scss';
 import {firebase} from '../../../../firebase/firebase-config';
@@ -27,8 +27,8 @@ function AddProduct() {
         available: true,
         fileLink: "",
         preview: "",
-        stock: null,
-        initialStock: null,
+        stock: 0,
+        initialStock: 0,
         categories: [],
         authorId: 0,        
         seriesId: null
@@ -38,6 +38,11 @@ function AddProduct() {
     const [boolean, setBoolean] = useState(false)
     
     useEffect(() => {
+     if (id){
+        setBoolean(true)
+    }else{
+        setBoolean(false)
+    }
 
         const findProduct = allProducts.find(f => f.id === Number(id))
         
@@ -51,7 +56,9 @@ function AddProduct() {
                 available: findProduct.available,
                 fileLink: findProduct.fileLink,
                 preview: findProduct.preview,
-                categories: findProduct.categories,
+                stock: findProduct.stock,
+                initialStock: findProduct.initialStock,
+                categories: findProduct.categories.map(cat => cat.id),
                 author: findProduct.author,
                 seriesId: findProduct.seriesId,
             })
@@ -65,9 +72,7 @@ function AddProduct() {
     function handleInputChange(event) {
         setProduct({ ...product, [event.target.name]: event.target.value })
     }
-
-    //Handle input para price
-    function handleInputChangePr(event) {
+    function handleInputChangeNro(event) {
         setProduct({ ...product, [event.target.name]: Number(event.target.value) })
     }
 
@@ -80,70 +85,48 @@ function AddProduct() {
         setProduct({ ...product, [event.target.name]: option })
     }
 
-    //Handle input para artist
-    function handleInputChangeAr(event) {
-        setProduct({ ...product, [event.target.name]: Number(event.target.value)})
-    }
-
     //Handle input para categories
     function handleInputChangeCa(event) {           
-        if (id){
+        
             var cat = product.categories
-            if (cat.find(c => c?.id != event.target.value)) {
-                cat.push(allCategories.find(c => c.id == Number(event.target.value)))
-            }
-            else if (cat[0] == undefined) {
-                cat.push(allCategories.find(c => c.id == Number(event.target.value)))
-            }
-            //borra los repetidos
-            cat = cat.filter((thing, index, self) => index === self.findIndex((t) => (t?.id === thing?.id)))
-            setProduct({ ...product, [event.target.name]: cat })
-        }else{
-            var cat = product.categories
-            if(event.target.value)
             cat.push(allCategories.find(c => c.id == Number(event.target.value)).id)
+            
+            if(boolean){
+                 dispatch(editProductCategory(product.id,event.target.value))
+            }
             
             //borra los repetidos
             cat = cat.filter((arg, pos) => cat.indexOf(arg)==pos)
             setProduct({ ...product, [event.target.name]: cat })
-        }
-
-
-        
     }
 
     //Handle input para borrar categoria
     function handleInputDeleteCa(event, id) {
         var cat = product.categories
-        if (id){
-            dispatch( deleteProductCategory(product.id, id) );
+        if (boolean){
+            dispatch( deleteProductCategory(product.id, id));
         }
         cat = cat.filter( cId => cId != Number(id))        
         setProduct({ ...product, categories: cat })
-
-        var cat = product.categories
-        dispatch( deleteProductCategory(product.id, id) );
-        cat = cat.filter(c => c?.id != Number(id))
-        setProduct({ ...product, categories: cat })
     }
    
-    const alertSucces = () =>{
-        if(!id){
-            Swal.fire({
-               title: "Producto Creado",
-               icon: "success",
-               timer: "1500",
-               showConfirmButton: false,
-            })
-        }else{
-            Swal.fire({
-                title: "Producto Editado",
-                icon: "success",
-                timer: "1500",
-                showConfirmButton: false,
-             })
-        }
-    }
+    // const alertSucces = () =>{
+    //     if(!id){
+    //         Swal.fire({
+    //            title: "Producto Creado",
+    //            icon: "success",
+    //            timer: "1500",
+    //            showConfirmButton: false,
+    //         })
+    //     }else{
+    //         Swal.fire({
+    //             title: "Producto Editado",
+    //             icon: "success",
+    //             timer: "1500",
+    //             showConfirmButton: false,
+    //          })
+    //     }
+    // }
  
     const alertError = () =>{
         Swal.fire({
@@ -154,22 +137,63 @@ function AddProduct() {
         })
     }
     
-    
     function submitForm(event) {        
         event.preventDefault();
       if(id){
-            dispatch( editProductByBody(product.id, product) );
+            
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `The Edit to ${product.name}` ,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    dispatch( editProductByBody(product.id, product) );
+                  Swal.fire(
+                    'Updated!',
+                    'this product is updated',
+                    'success'
+                  )
+                }else{
+                    e.target.value=0;
+                }
+              })
       }else{
-          if( product.name !== "" || product.description !== "" || product.price !== 0 || product.fileLink !== "" || product.preview !== "", product.categories.length !==0 || product.authorId !== 0){
-            dispatch( addProducts(product) );
-            dispatch( getAllProducts() );
-            location.reload();
+          if(product.categories.length !==0 || product.authorId !== 0){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `The Add to ${product.name}` ,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    dispatch( addProducts(product) );
+                    dispatch( getAllProducts() );
+                  Swal.fire(
+                    'Salved!',
+                    'this product is SAlved',
+                    'success'
+                  )
+                  location.reload();
+                }else{
+                    e.target.value=0;
+                }
+              })
+            
+            
           }
           else{
             alertError();
           }
       }
     }
+
     const deleteProducts = (e) => {
         e.preventDefault()
         Swal.fire({
@@ -183,7 +207,7 @@ function AddProduct() {
           }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(deleteProduct(product.id))
-                setBoolean(true)
+                // setBoolean(true)
                 setProduct({
                     name: "",
                     description: "",
@@ -191,6 +215,8 @@ function AddProduct() {
                     available: true,
                     fileLink: "",
                     preview: "",
+                    stock: null,
+                    initialStock: null,
                     categories: [],
                     authorId: 0,        
                     seriesId: null
@@ -222,7 +248,7 @@ function AddProduct() {
             }
             if(allProductsCop.length !== 0)upgradeEditProducts(allProductsCop);      
         } 
-        alertSucces();
+        // alertSucces();
         productOrError.status = 0
     }
     
@@ -279,7 +305,7 @@ function AddProduct() {
         console.log(error);
         });
     }
-
+    
     return (
         <div className="mainDivAP">
             <div className="divAP">
@@ -332,8 +358,8 @@ function AddProduct() {
                         <input
                             required
                             className="inputprod" 
-                            type="text" 
-                            onChange={handleInputChangePr} 
+                            type="number" 
+                            onChange={handleInputChangeNro} 
                             name="price"
                             value={product.price}
                         />
@@ -341,30 +367,53 @@ function AddProduct() {
                         <input
                             required
                             className="inputprod" 
-                            type="text" 
-                            onChange={handleInputChangePr} 
+                            type="number" 
+                            onChange={handleInputChangeNro} 
                             name="price"
                         /> }
                     </div>
-                    <div>
-                        Stock: 
-                        <input
-                            required
-                            className="inputprod" 
-                            type="text" 
-                            onChange={handleInputChangePr} 
-                            name="stock" 
-                        />
-                    </div>
-                    <div>
-                        Initial stock: 
-                        <input
-                            required
-                            className="inputprod" 
-                            type="text" 
-                            onChange={handleInputChangePr} 
-                            name="initialStock" 
-                        />
+                    <div className="contentStock">
+                        <div className="inputStock">
+                            Stock: 
+                            {id ?
+                            <input
+                                required
+                                className="inputprod" 
+                                type="number" 
+                                onChange={handleInputChangeNro} 
+                                value={product.stock} 
+                                name="stock" 
+                            /> :
+                            <input 
+                                required
+                                className="inputprod"
+                                type="number" 
+                                onChange={handleInputChangeNro} 
+                                name="stock" 
+                            />
+                            }
+                        </div>
+                        <div className="inputStock">
+                            Max Stock:
+                            {id ?
+                            <input 
+                                required
+                                className="inputprod"
+                                type="number" 
+                                onChange={handleInputChangeNro} 
+                                value={product.initialStock} 
+                                name="initialStock" 
+                            />
+                            :
+                            <input
+                                required
+                                className="inputprod" 
+                                type="number" 
+                                onChange={handleInputChangeNro} 
+                                name="initialStock" 
+                            />
+                            } 
+                        </div>
                     </div>
                     <div>
                         Available:
@@ -452,7 +501,7 @@ function AddProduct() {
                             className="selector"
                             name="authorId" 
                             id="selectorArAP" 
-                            onChange={handleInputChangeAr}
+                            onChange={handleInputChangeNro}
                             value = {product.author?.id}
                         >
                             <option> </option>
@@ -463,7 +512,7 @@ function AddProduct() {
                             className="selector"
                             name="authorId" 
                             id="selectorArAP" 
-                            onChange={handleInputChangeAr}
+                            onChange={handleInputChangeNro}
                             >
                             <option> </option>
                             {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
@@ -493,10 +542,10 @@ function AddProduct() {
                         </select>
                         {id ?
                         product.categories.map(p => 
-                        <span className="catego" key={p.id} onClick={(event) => handleInputDeleteCa(event, p?.id)} >{p?.name}</span>)
+                        <span className="catego" key={p?.id} onClick={(event) => handleInputDeleteCa(event, p)} >{allCategories.find(c=>c.id==p)?.name}</span>)
                         :
                         product.categories.map(id => 
-                        <span className="catego" key={id.id} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
+                        <span className="catego" key={id?.id} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
                         }
                     </div>
                     {id ?
@@ -504,7 +553,7 @@ function AddProduct() {
                         <input 
                             className="EditOrAdd" 
                             type="submit" 
-                            value="Edit" 
+                            value="Update" 
                         />
                         <input 
                             className="EditOrAdd"

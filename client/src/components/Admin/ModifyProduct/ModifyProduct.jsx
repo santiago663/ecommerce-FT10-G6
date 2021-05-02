@@ -62,6 +62,7 @@ const ModifyProduct = () => {
                     }
                 </div> 
             </div>
+            
             <div className='compProd'>
                 <Route exact path="/Admin/Product" component={AddProduct} />
                 <Route exact path="/Admin/Product/Edit/:id" component={AddProduct} />
