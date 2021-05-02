@@ -1297,6 +1297,7 @@ a.link {
   box-shadow: 0px 5px 10px 5px #00000052;
   border-radius: 1px;
   border: 1px solid rgba(255, 255, 255, 0.822);
+  margin-top: 100px;
 }
 
 .Information {
@@ -1313,9 +1314,12 @@ a.link {
 }
 .Information .Information-buttons {
   border-bottom: 1px solid rgba(0, 0, 0, 0.192);
-  padding-bottom: 20px;
+  padding-bottom: 10px 0;
 }
 .Information .Information-buttons .Information-next {
+  margin-top: -30px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.192);
   width: 100%;
   display: flex;
   align-items: center;
@@ -1334,11 +1338,14 @@ a.link {
   border-radius: 5px;
 }
 .Information .stripe {
+  border: none;
   background: #556cd6;
-  border-color: #556cd6;
   color: #fff;
   border-radius: 5px;
-  padding: 15px;
+  width: 200px;
+  padding: 10px 15px;
+  letter-spacing: 1px;
+  font-weight: 800;
 }
 .Information .Information-sidebar {
   margin: 20px 0 0 0;
