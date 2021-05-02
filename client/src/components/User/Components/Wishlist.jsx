@@ -35,32 +35,32 @@ export default function Wishlist() {
 
     return (
         <>
-        <div className="profile-body">
+        <div className="profile-body-wishlist ">
             <div className="title">
                 <h1>My Wishlist</h1>
             </div>
             <hr className="divisor" />
-            <div className="tableheader">
-                <div className="libraryPreviewTitle"><h4>Preview</h4></div>
-                <div className="libraryPreviewTitle"><h4>Name</h4></div>
-                <div className="libraryPreviewTitle"><h4>Price</h4></div>
-                <div><h4>To Buy / Detail</h4></div>                 
+            <div className="tableheader tableheader-wishlist">
+                <div className="libraryPreviewTitle-wishlist previewTitle-wishlist"><h4>Preview</h4></div>
+                <div className="libraryPreviewTitle-wishlist nameTitle-wishlist"><h4>Name</h4></div>
+                <div className="libraryPreviewTitle-wishlist price-wishlist"><h4>Price</h4></div>
+                <div className="libraryPreviewTitle-wishlist toBuy-wishlist"><h4>To Buy / Detail</h4></div>                 
             </div>
             <div className="myProductsResults">
                 {wishlistUser.length !== 0 &&
                     wishlistUser.products.map((product) => (
                         <>
-                            <div className="libraryPreview" >
-                                <div className="divImage">
+                            <div className="libraryPreview-wishlist" >
+                                <div className="divImage-wishlist">
                                     <img className="myProductsImage" src={product.preview} alt="" onClick={(e) => openPreview(e, product.preview)}/>                                    
                                 </div>                               
-                                <div className="libraryProductName">
+                                <div className="libraryProductName-wishlist">
                                     <h4> {product.name}</h4>
                                 </div>
-                                <div className="libraryProductName">
+                                <div className="libraryProductPrice-wishlist">
                                     <h4> ${product.price}</h4>
                                 </div>
-                                <div className="libraryDownload">
+                                <div className=" libraryDownload-wishlist">
                                     <button
                                         className=" button-wishlist"
                                         type="button"
