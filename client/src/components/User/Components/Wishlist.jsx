@@ -13,7 +13,7 @@ export default function Wishlist() {
 
     const dispatch = useDispatch();
 
-    const wishlistUser = useSelector((store) => store.reducerWishlist.wishlist); 
+    const wishlistUser = useSelector((store) => store.reducerWishlist.wishlist);
 
     const openPreview = (e, image) => {
         e.preventDefault()
@@ -23,16 +23,15 @@ export default function Wishlist() {
 
     const deleteProduct = e => {
 
-        let body ={
+        let body = {
             userId: wishlistUser.userId,
             productId: e,
         }
-        
-        if(body.userId && body.productId){
-            dispatch( deleteUserWhislist( body) )
+
+        if (body.userId && body.productId) {
+            dispatch(deleteUserWhislist(body))
         }
     }
-    console.log(wishlistUser)
 
     return (
         <>
@@ -79,7 +78,6 @@ export default function Wishlist() {
                         </div>
                     ))}
             </div>
-        </div>
         </>
     )
 }

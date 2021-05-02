@@ -25,7 +25,7 @@ function NavBar() {
     dispatch(setMenu(num));
   };
 
-  useEffect(() => {}, [currentUser]);
+  useEffect(() => { }, [currentUser]);
 
   return (
     <nav className="navbar">
@@ -59,7 +59,7 @@ function NavBar() {
       <div className="nav-buttons_authentication">
         {(currentUser[0] || currentUser["id"]) && (
           <Link to="/user/wishlist">
-            <button className="signin--btn btn-secondary">My wishlist</button>
+            <button className="signin--btn btn-secondary wishlist">My wishlist</button>
           </Link>
         )}
         {currentUser?.profilePic ? (
