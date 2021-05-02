@@ -88,12 +88,12 @@ function NavBar() {
         ) : (
           <>
             <Link to="/signin">
-              <button className="signin--btn btn-primary" type="button">
+              <button className="signin--btn btn-primary signNav" type="button">
                 Sign in
               </button>
             </Link>
             <Link to="/register">
-              <button className="signin--btn btn-secondary" type="button">
+              <button className="signin--btn btn-secondary signNav" type="button">
                 Sign up
               </button>
             </Link>
