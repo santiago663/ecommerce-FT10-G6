@@ -1,109 +1,208 @@
-.Container-Principal {
-  padding-top: 30px;
-	display: flex;
-	flex-direction: row;
-  flex-wrap: wrap;
-  
-  width: 100%;
+//import
+// @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
+
+//const
+$box-shadow: 0px 3px 3px -2px #19f9a400, 0px 3px 4px 0px #19f9a400,
+  0px 1px 8px 0px #19f9a4a1;
+
+$background: radial-gradient(
+    circle at center center,
+    rgba(33, 33, 33, 0),
+    rgb(33, 33, 33)
+  ),
+  repeating-linear-gradient(
+    135deg,
+    rgb(33, 33, 33) 0px,
+    rgb(33, 33, 33) 1px,
+    transparent 1px,
+    transparent 4px
+  ),
+  repeating-linear-gradient(
+    45deg,
+    rgb(56, 56, 56) 0px,
+    rgb(56, 56, 56) 5px,
+    transparent 5px,
+    transparent 6px
+  ),
+  linear-gradient(90deg, rgb(33, 33, 33), rgb(33, 33, 33));
+
+$background-two: linear-gradient(
+    216deg,
+    rgba(77, 77, 77, 0.05) 0%,
+    rgba(77, 77, 77, 0.05) 25%,
+    rgba(42, 42, 42, 0.05) 25%,
+    rgba(42, 42, 42, 0.05) 38%,
+    rgba(223, 223, 223, 0.05) 38%,
+    rgba(223, 223, 223, 0.05) 75%,
+    rgba(36, 36, 36, 0.05) 75%,
+    rgba(36, 36, 36, 0.05) 100%
+  ),
+  linear-gradient(
+    44deg,
+    rgba(128, 128, 128, 0.05) 0%,
+    rgba(128, 128, 128, 0.05) 34%,
+    rgba(212, 212, 212, 0.05) 34%,
+    rgba(212, 212, 212, 0.05) 57%,
+    rgba(25, 25, 25, 0.05) 57%,
+    rgba(25, 25, 25, 0.05) 89%,
+    rgba(135, 135, 135, 0.05) 89%,
+    rgba(135, 135, 135, 0.05) 100%
+  ),
+  linear-gradient(
+    241deg,
+    rgba(55, 55, 55, 0.05) 0%,
+    rgba(55, 55, 55, 0.05) 14%,
+    rgba(209, 209, 209, 0.05) 14%,
+    rgba(209, 209, 209, 0.05) 60%,
+    rgba(245, 245, 245, 0.05) 60%,
+    rgba(245, 245, 245, 0.05) 69%,
+    rgba(164, 164, 164, 0.05) 69%,
+    rgba(164, 164, 164, 0.05) 100%
+  ),
+  linear-gradient(
+    249deg,
+    rgba(248, 248, 248, 0.05) 0%,
+    rgba(248, 248, 248, 0.05) 32%,
+    rgba(148, 148, 148, 0.05) 32%,
+    rgba(148, 148, 148, 0.05) 35%,
+    rgba(202, 202, 202, 0.05) 35%,
+    rgba(202, 202, 202, 0.05) 51%,
+    rgba(181, 181, 181, 0.05) 51%,
+    rgba(181, 181, 181, 0.05) 100%
+  ),
+  linear-gradient(92deg, hsl(214, 0%, 11%), hsl(214, 0%, 11%));
+
+//Styles
+.section-about {
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem 0 0 0;
+  background-size: cover;
+  background-position: center center;
+  animation-name: grow;
+  animation-duration: 0.5s;
+  background-image: $background;
+}
+
+.team {
   margin: 0 auto;
-	
-}
-.Titulo {
-	width: fit-content;
-	font-size: 3rem;
-	line-height: 1.5em;
-	margin: 0;
-	margin-top: 50px;
-	border-bottom: 2px solid white;
-}
-
-.Team-Card {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
+  max-width: 1600px;
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-justify-content: space-around;
-	margin-top: 40px;
-	justify-content: space-between;
-	align-items: center;
+  justify-content: space-around;
+  margin-top: 48px;
+  align-items: center;
 }
 
-
-
-.Imagen {
-	position: relative;
-	width: 120px;
-	height: 120px;
-	object-fit: contain;
-	border-radius: 50%;
-	border: 2px solid white;
-	margin: 15px;
-	align-self: flex-start;
+.card-front {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 266px;
+  height: 335px;
+  border: 3px solid #19f9a4a1;
+  margin-top: 62px;
+  border-radius: 10px;
+  margin: 75px 30px 0px 30px;
+  box-shadow: $box-shadow;
+  background-image: $background-two;
 }
 
-.Img {
-	width: 120px;
-	height: 120px;
-	object-fit: cover;
-	border-radius: 50%;
-}
-.fa-linkedin{
-	width: 100%;
-	
-	font-size: 100px;
-	object-fit: contain;
-	border-radius: 50%;
-	
-}
-
-.Info-Container {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	margin-left: 15px;
-	width: 100%;
+.card-back {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 266px;
+  height: 335px;
+  border: 3px solid #19f9a4a1;
+  margin-top: 62px;
+  border-radius: 10px;
+  margin: 75px 30px 0px 30px;
+  box-shadow: $box-shadow;
+  background-color: #353535;
+  // background-image: $background-two;
 }
 
-.Name {
-	font-size: 1.4rem;
+.body-back {
+  margin: 0px 15px;
+  text-align: justify;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #fafafa;
 }
 
-.divHover {
-	display: none;
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	bottom: 0;
-	border-radius: 50%;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255, 255, 255, 0.356);
+.profilePic {
+  border: 3px solid #19f9a3;
+  box-shadow: $box-shadow;
+  margin: -55px auto 0px auto;
+  width: 200px;
+  height: 200px;
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
 }
 
-
-
-.Info-Container p {
-	margin-top: 5px;
+.information {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.logo {
-	width: 40px;
-	height: 40px;
-	position: absolute;
-	top: 40px;
-	left: 40px;
+.name {
+  color: #19f9a3;
+  font-size: 37px;
+  font-weight: bold;
 }
 
-
-.Card{
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	margin:auto;
+.networks {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  bottom: -10px;
+  width: 260px;
+  height: 95px;
 }
-h1{
-	
-	padding-left:18%;
+
+.icon {
+  width: 50px;
+  height: 50px;
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
+  border: 3px solid #1ef6a3;
+  &:hover {
+    box-shadow: $box-shadow;
+  }
+}
+
+.goToBack {
+  color: #1ef6a3;
+  width: 28px;
+  height: 44px;
+  position: relative;
+  margin: 0 auto;
+  &:hover {
+    color: #047c4e;
+    cursor: pointer;
+  }
+}
+
+.goToFront {
+  color: #1ef6a3;
+  width: 28px;
+  height: 44px;
+  position: relative;
+  margin: 0 auto;
+  &:hover {
+    color: #047c4e;
+    cursor: pointer;
+  }
 }

@@ -15,7 +15,7 @@ import Register from '../components/Auth/Register';
 import PrivateRoute from '../app/PrivateRoute'
 import PrivateRouteGuest from '../app/PrivateRouteGuest'
 import PrivateRouteUser from '../app/PrivateRouteUser'
-import About from '../components/About/About'
+import About from '../components/About'
 
 import User from '../components/User/User';
 import Menu from '../components/Menu/Menu'
@@ -27,7 +27,7 @@ const routes = () => (
     <Route exact path="/" component={Home} />
     <Route path="/browser" component={Browser} />
     <PrivateRoute path="/Admin" component={Admin} />
-    <Route exact path='/about' component={About} />
+    <Route path='/about' component={About} />
     <Route path="/checkout" component={Checkout} />
     <Route path="/checkout/payment" component={Payment} />
     <Route path="/checkout/information" component={Order} />
