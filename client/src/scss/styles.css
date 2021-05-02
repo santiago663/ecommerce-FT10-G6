@@ -106,6 +106,15 @@ h1 {
   display: flex;
 }
 
+.contentStock {
+  display: flex;
+}
+
+.inputStock {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 .selector {
   display: flex;
   border-radius: 5px;
@@ -459,15 +468,17 @@ p {
 }
 @media only screen and (max-width: 660px) {
   .navbar {
+    text-align: center;
     font-size: 13px;
     padding: 0rem 0.5rem;
     min-width: 320px;
   }
   .navbar .nav-buttons_navigation {
+    justify-content: center;
     position: relative;
     margin: 0;
     left: -10px;
-    width: 55vw;
+    width: 50vw;
     min-width: 197px;
     display: flex;
     align-items: center;
@@ -503,6 +514,12 @@ p {
 @media only screen and (max-width: 460px) {
   .nav-buttons_navigation li {
     font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 665px) {
+  .signNav {
+    display: none;
   }
 }
 
@@ -613,10 +630,8 @@ p {
 
 .navbarProfilePic img {
   width: 30px;
-  /* height: 30px; */
+  height: 30px;
   border-radius: 50%;
-  /* right: 200px; */
-  /* top: 29px; */
   cursor: pointer;
   transition: 250ms;
   margin-right: 14px;
@@ -629,8 +644,8 @@ p {
 @media only screen and (max-width: 600px) {
   .navbarProfilePic img {
     position: relative;
-    right: 12px;
-    top: 32px;
+    right: -5px;
+    top: 18px;
     border: #313131 2px dotted;
     box-shadow: 0px 1px 2px 2px #00000071;
   }

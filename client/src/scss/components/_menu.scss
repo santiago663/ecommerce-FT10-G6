@@ -78,7 +78,7 @@
     left: -100%;
     transition: 450ms;
     z-index: 9;
-     @media only screen and(max-width: 560px) {
+    @media only screen and(max-width: 560px) {
         max-width: 180px;
     }
 }
@@ -87,8 +87,7 @@
     height: 100%;
     left: 0;
     transition: 250ms;
-    span{
-        
+    span {
         animation: appear;
         animation-duration: 1.8s;
         transition: 1s;
@@ -101,26 +100,24 @@
     transition: 250ms;
     width: 69px;
 
-    span{
+    span {
         transition: 450ms;
         display: none;
     }
 }
 
-.max-min{
+.max-min {
     padding-top: 1rem;
-font-size: 2.1rem;
-background: none;
-z-index: 999;
-transition: 550ms;
-position: absolute;
-left: 69px;
-top: 545px;
-
+    font-size: 2.1rem;
+    background: none;
+    z-index: 999;
+    transition: 550ms;
+    position: absolute;
+    left: 69px;
+    top: 545px;
 }
 
-.max-min.active{
-
+.max-min.active {
     padding-top: 1rem;
     font-size: 2.1rem;
     background: none;
@@ -186,12 +183,19 @@ top: 545px;
     width: 100%;
     .sign--off {
         width: 39px;
-margin-left: 15px;
-margin-top: 33px;
-padding: 10px;
-cursor: pointer;
-transition: 550ms;
-   }
+        margin-left: 15px;
+        margin-top: 33px;
+        padding: 10px;
+        cursor: pointer;
+        transition: 550ms;
+    }
+}
+.signLateral {
+    transition: 550ms;
+    position: relative;
+    left: -25px;
+    max-width: 50px;
+    height: 50px;
 }
 
 .navbarm-toggle {
@@ -202,24 +206,21 @@ transition: 550ms;
     right: -70%;
 }
 
-
 @keyframes appear {
-    0%{
-        opacity: 0;
-        display: none;
-    };
-    25%{
+    0% {
         opacity: 0;
         display: none;
     }
-    50%{
+    25% {
+        opacity: 0;
+        display: none;
+    }
+    50% {
         opacity: 0.5;
-        display:block;
-    };
-    100%{
-        opacity: 1;
-        display:block;
+        display: block;
     }
-
+    100% {
+        opacity: 1;
+        display: block;
+    }
 }
-

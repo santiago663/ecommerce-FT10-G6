@@ -12,14 +12,16 @@ $primary: #24262c;
   align-items: center;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.877);
   @media only screen and(max-width: 660px) {
+    text-align: center;
     font-size: 13px;
     padding: 0rem 0.5rem;
     min-width: 320px;
     .nav-buttons_navigation {
+      justify-content: center;
       position: relative;
       margin: 0;
       left: -10px;
-      width: 55vw;
+      width: 50vw;
       min-width: 197px;
       display: flex;
       // justify-content: space-evenly;
@@ -100,7 +102,11 @@ $primary: #24262c;
     font-size: 12px;
   }
 }
-
+.signNav {
+  @media only screen and(max-width: 665px) {
+    display: none;
+  }
+}
 .nav-link {
   text-decoration: none;
 }
@@ -202,7 +208,7 @@ $primary: #24262c;
   }
 }
 
-.navbarProfilePic img {  
+.navbarProfilePic img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -216,8 +222,8 @@ $primary: #24262c;
   }
   @media only screen and(max-width: 600px) {
     position: relative;
-    right: 12px;
-    top: 32px;
+    right: -5px;
+    top: 18px;
     border: #313131 2px dotted;
     box-shadow: 0px 1px 2px 2px #00000071;
   }
