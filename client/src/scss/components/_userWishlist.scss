@@ -1,8 +1,13 @@
-.button-wishlist{
+.button-wishlist {
     border: none;
     background-color: rgba(250, 250, 250, 0);
     color: #19f9a9;
     font-size: 30px;
+}
+.wishlist {
+    @media only screen and(max-width: 700px) {
+        display: none;
+    }
 }
 .libraryPreview-wishlist {
     display: flex;
@@ -20,19 +25,19 @@
         padding: 10px;
     }
 }
-.tableheader-wishlist{
+.tableheader-wishlist {
     padding: 0px 20px 0px 30px;
 }
-.previewTitle-wishlist{
+.previewTitle-wishlist {
     margin-left: 20px;
 }
-.nameTitle-wishlist{
+.nameTitle-wishlist {
     margin-left: 120px;
 }
-.price-wishlist{
+.price-wishlist {
     margin-left: 90px;
 }
-.toBuy-wishlist{
+.toBuy-wishlist {
     margin-left: 45px;
 }
 
@@ -47,7 +52,7 @@
     }
 }
 
-.libraryProductName-wishlist{
+.libraryProductName-wishlist {
     font-size: 20px;
     display: flex;
     flex-direction: column;
@@ -59,12 +64,12 @@
         padding-left: 20px;
     }
 }
-.libraryProductPrice-wishlist{
+.libraryProductPrice-wishlist {
     font-size: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:flex-start;
+    align-items: flex-start;
     @media only screen and(max-width: 600px) {
         font-size: 12px;
         width: 250px;
