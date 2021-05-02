@@ -77,8 +77,6 @@ function PaypalButton({input} ) {
 						dispatch(cleanShoopingCart())
 						location.assign("/browser/products")
 					})
-
-
 			} catch (err) {
 				console.error(err.message);
 			}
