@@ -1,30 +1,28 @@
 /*eslint-disable*/
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import  {PayPalButton}  from 'react-paypal-button-v2';
+import { PayPalButton } from 'react-paypal-button-v2';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
 import { cleanShoopingCart, sendEmailOrderSuccess } from '../../redux/actions/actionFront';
 import { editProductStock } from "../../redux/actions/actionBack";
 import Swal from 'sweetalert2';
 
-function PaypalButton({input} ) {
+function PaypalButton({ input }) {
 
 	const dispatch = useDispatch();
 	const currentUser = useSelector((store) => store.auth.currentUser);
 	const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder);
 	const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 	const reducer = (accumulator, currentValue) => Number(currentValue.price) + accumulator;
-	
-	const userOrderProducts = {product: [], stock: []}
-	shoppingCart?.map(product => {userOrderProducts.product.push(product.id); userOrderProducts.stock.push(product.stock)})
+	let guestOrder = JSON.parse(localStorage.getItem("guestOrderDetails"));
 
-	console.log(userOrderProducts)
+	const userOrderProducts = { product: [], stock: [] }
+	shoppingCart?.map(product => { userOrderProducts.product.push(product.id); userOrderProducts.stock.push(product.stock) })
 
 	let sum = shoppingCart.reduce(reducer, 0) / 92;
 	const total = shoppingCart.reduce(reducer, 0);
 
-	let guestProducts = JSON.parse(localStorage.getItem("orderProducts"));	
-	const beforeOrder = JSON.parse(localStorage.getItem("beforeOrder"));
+	let guestProducts = JSON.parse(localStorage.getItem("orderProducts"));
 
 	const paypalOptions = {
 		client: 'AdbNICxqoNl8uNCVRJmT0g40u_AxW6gmU7k8ldvUJamnekCgcewwCxoqG8csJylNS0D2FaCgzfAJzN5T',
@@ -38,55 +36,91 @@ function PaypalButton({input} ) {
 	};
 
 	const handlePaypal = async (currentOrder, paymentId) => {
-		
+
 		if (currentUser.id) {
 			try {
+				localStorage.setItem("completed", JSON.stringify({ status: true }));
+				dispatch(editProductStock({ ...userOrderProducts, stock: userOrderProducts.stock.map(stock => stock == null ? null : stock - 1) }));
 
-				let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };
-				dispatch(formUserOrder(user));
-
-				sendEmailOrderSuccess({name: guestOrder.name,orderId: guestOrder.orderId,email: guestOrder.email,state: 'completed',});
-				
-				dispatch(cleanShoopingCart())
-				window.history.back();
-
-				dispatch(editProductStock({...userOrderProducts, stock: userOrderProducts.stock.map(stock => stock == null ? null : stock-1 )}));
-				
 				Swal.fire({
-					title:'Completed',
+					title: 'Completed',
 					text: 'Thanks for trusting us',
-					icon:'info',confirmButtonText: 'Cool'
+					icon: 'info', confirmButtonText: 'Cool'
 				})
-				.then (()=>{
-					dispatch(cleanShoopingCart())				
-					location.assign("/browser/products")
-				})				
+					.then(() => {
+						let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };
+						console.log(user)
+						dispatch(formUserOrder(user));
+					})
+					.then(() => {
+						dispatch(cleanShoopingCart())
+						window.history.back();
+					})
+					.then(() => {
+						dispatch(
+							sendEmailOrderSuccess({
+								name: currentUser.name,
+								orderId: currentOrder[0].id,
+								email: currentUser.email,
+								state: "completed",
+							})
+						)
+					}
+					)
+					.then(() => {
+						localStorage.setItem("completed", JSON.stringify(""))
+					})
+					.then(() => {
+						dispatch(cleanShoopingCart())
+						location.assign("/browser/products")
+					})
 
 			} catch (err) {
 				console.error(err.message);
 			}
 		} else {
 			try {
+				localStorage.setItem("completed", JSON.stringify({ status: true }));
 				input.payment = paymentId;
 				input.methodId = 3;
 				input.total = total;
 
 				//descuento el stock en el back
-				dispatch(editProductStock({product: guestProducts.map(product => product.id), stock: guestProducts.map(product => product.stock == null ? null : product.stock - 1 )}));
-				
-				dispatch(formGuestOrder(input));
-				Swal.fire({
-					title: 'Completed',
-					text: 'Thanks for trusting us',
-					icon: 'info',
-					confirmButtonText: 'Cool',
-				})
-				.then(()=>{
-					dispatch(cleanShoopingCart());
-					window.history.back();
-					localStorage.clear();
-					location.assign("/browser/products")
-				})
+				dispatch(editProductStock({ product: guestProducts.map(product => product.id), stock: guestProducts.map(product => product.stock == null ? null : product.stock - 1) }));
+
+				dispatch(formGuestOrder(input))
+					.then(() => {
+						return (guestOrder = JSON.parse(
+							localStorage.getItem("guestOrderDetails")
+						));
+					})
+					.then(() => {
+						dispatch(
+							sendEmailOrderSuccess({
+								name: guestOrder.name,
+								orderId: guestOrder.orderId,
+								email: guestOrder.email,
+								state: "completed",
+							})
+						)
+					})
+					.then(() =>
+						Swal.fire({
+							title: 'Completed',
+							text: 'Thanks for trusting us',
+							icon: 'info',
+							confirmButtonText: 'Cool',
+						})
+					)
+					.then(() => {
+						localStorage.setItem("completed", JSON.stringify(""))
+					})
+					.then(() => {
+						dispatch(cleanShoopingCart());
+						window.history.back();
+						localStorage.clear();
+						location.assign("/browser/products")
+					})
 
 			} catch (err) {
 				console.error(err.message);
@@ -120,6 +154,5 @@ function PaypalButton({input} ) {
 		</>
 	);
 }
-//
 
 export default PaypalButton;
