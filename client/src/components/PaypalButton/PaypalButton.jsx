@@ -1,14 +1,16 @@
 /*eslint-disable*/
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import  {PayPalButton}  from 'react-paypal-button-v2';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
 import { cleanShoopingCart, sendEmailOrderSuccess } from '../../redux/actions/actionFront';
 import { editProductStock } from "../../redux/actions/actionBack";
 import Swal from 'sweetalert2';
 
-function PaypalButton({input} ) {
 
+function PaypalButton({input} ) {
+	
 	const dispatch = useDispatch();
 	const currentUser = useSelector((store) => store.auth.currentUser);
 	const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder);
@@ -18,16 +20,16 @@ function PaypalButton({input} ) {
 	const userOrderProducts = {product: [], stock: []}
 	shoppingCart?.map(product => {userOrderProducts.product.push(product.id); userOrderProducts.stock.push(product.stock)})
 
-	console.log(userOrderProducts)
+
 
 	let sum = shoppingCart.reduce(reducer, 0) / 92;
 	const total = shoppingCart.reduce(reducer, 0);
-
+	
 	let guestProducts = JSON.parse(localStorage.getItem("orderProducts"));	
-	const beforeOrder = JSON.parse(localStorage.getItem("beforeOrder"));
+
 
 	const paypalOptions = {
-		client: 'AdbNICxqoNl8uNCVRJmT0g40u_AxW6gmU7k8ldvUJamnekCgcewwCxoqG8csJylNS0D2FaCgzfAJzN5T',
+		client: 'AYmPjFXX8C_i4P9C4XuJpymRIDt-W6Ne5nqPoCW9RVl88AVVWi_2NZi8zk_tHa9FWV-fxZF9ItioLcJF',
 		intent: 'capture',
 		currency: 'USD',
 	};
@@ -38,56 +40,49 @@ function PaypalButton({input} ) {
 	};
 
 	const handlePaypal = async (currentOrder, paymentId) => {
-		
+			(input.payment = paymentId),
+			(input.methodId = 3),
+			(input.total = total),
+			(input.state = 'completed'),
+
+			localStorage.setItem('guestOrderDetails', JSON.stringify(input));
+		let guestOrder = await JSON.parse(localStorage.getItem('guestOrderDetails'))
+
 		if (currentUser.id) {
 			try {
-
-				let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };
-				dispatch(formUserOrder(user));
-
-				sendEmailOrderSuccess({name: guestOrder.name,orderId: guestOrder.orderId,email: guestOrder.email,state: 'completed',});
-				
-				dispatch(cleanShoopingCart())
-				window.history.back();
-
 				dispatch(editProductStock({...userOrderProducts, stock: userOrderProducts.stock.map(stock => stock == null ? null : stock-1 )}));
 				
-				Swal.fire({
-					title:'Completed',
-					text: 'Thanks for trusting us',
-					icon:'info',confirmButtonText: 'Cool'
+				Swal.fire({title:'Completed',text: 'Thanks for trusting us',icon:'info',confirmButtonText: 'Cool'})
+				.then(()=>{
+					let user = { id: currentOrder[0].id, state: 'completed', payment: paymentId, methodId: 3 };
+					dispatch(formUserOrder(user));
 				})
+				
 				.then (()=>{
-					dispatch(cleanShoopingCart())				
+					dispatch(sendEmailOrderSuccess({name: input.name,orderId: currentOrder[0].id,email: input.email,state: 'completed'}))
+					dispatch(cleanShoopingCart())
+					
 					location.assign("/browser/products")
-				})				
-
+				})	
+				
 			} catch (err) {
 				console.error(err.message);
 			}
 		} else {
 			try {
-				input.payment = paymentId;
-				input.methodId = 3;
-				input.total = total;
-
 				//descuento el stock en el back
-				dispatch(editProductStock({product: guestProducts.map(product => product.id), stock: guestProducts.map(product => product.stock == null ? null : product.stock - 1 )}));
+				dispatch(editProductStock({product: guestProducts.map((product) => product.id),stock: guestProducts.map((product) => (product.stock == null ? null : product.stock - 1)),}));
 				
-				dispatch(formGuestOrder(input));
-				Swal.fire({
-					title: 'Completed',
-					text: 'Thanks for trusting us',
-					icon: 'info',
-					confirmButtonText: 'Cool',
-				})
-				.then(()=>{
-					dispatch(cleanShoopingCart());
-					window.history.back();
-					localStorage.clear();
-					location.assign("/browser/products")
-				})
-
+					Swal.fire({title: 'Completed',text: 'Thanks for trusting us',icon: 'info',confirmButtonText: 'Cool',})
+						.then(() => dispatch(formGuestOrder(input)))
+						.then(() => {return (guestOrder = JSON.parse(localStorage.getItem('guestOrderDetails')));})
+						.then(() => {
+							dispatch(
+							sendEmailOrderSuccess({name: input.name,orderId: guestOrder.orderId,email: input.email,state: 'completed',}));
+							localStorage.clear()
+							location.assign('/browser/products');
+						})
+				
 			} catch (err) {
 				console.error(err.message);
 			}
@@ -95,14 +90,18 @@ function PaypalButton({input} ) {
 	};
 
 	const handlePayError = (error) => {
-		alert('We could not make the payment, Please try again');
+		
+		Swal.fire({title: 'Error',text: `We could not complete the purchase please try again`,icon: 'warning',confirmButtonText: 'OK',})
+		
+
 		console.error(error);
-		//dispatch
+		
 	};
 
 	const handleCancelPay = (data) => {
-		console.log('cancel', data);
-		//dispatch
+			
+			Swal.fire({title: 'Canceled',text: `the purchase was canceled, please take the transaction number: ${data.id}`,icon: 'warning',confirmButtonText: 'OK',})
+			
 	};
 
 	return (
@@ -111,15 +110,13 @@ function PaypalButton({input} ) {
 				paypalOptions={paypalOptions}
 				buttonStyles={buttonStyles}
 				amount={sum.toFixed(2)}
-				onSuccess={(data) => {
-					handlePaypal(currentOrder, data.id);
-				}}
+				onSuccess={(data) => {handlePaypal(currentOrder, data.id);}}
 				onError={(error) => handlePayError(error)}
 				onCancel={(data) => handleCancelPay(data)}
 			/>
 		</>
 	);
 }
-//
+
 
 export default PaypalButton;
