@@ -110,24 +110,7 @@ function AddProduct() {
         setProduct({ ...product, categories: cat })
     }
    
-    // const alertSucces = () =>{
-    //     if(!id){
-    //         Swal.fire({
-    //            title: "Producto Creado",
-    //            icon: "success",
-    //            timer: "1500",
-    //            showConfirmButton: false,
-    //         })
-    //     }else{
-    //         Swal.fire({
-    //             title: "Producto Editado",
-    //             icon: "success",
-    //             timer: "1500",
-    //             showConfirmButton: false,
-    //          })
-    //     }
-    // }
- 
+    
     const alertError = () =>{
         Swal.fire({
             title: "Error Creating Product",
