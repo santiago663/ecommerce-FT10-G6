@@ -129,12 +129,12 @@ function ProductCard(props) {
                 {score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
                 {score === null ? FunctionStar(0) : FunctionStar(Number(score))}
               </span>
-              <div className="wishlistHeartCard">
+              {currentUser?.id && <div className="wishlistHeartCard">
                 { canAdd[0] ? 
                   <span onClick={handleDeleteWishlist}><AiIcons.AiFillHeart /></span>
                   :
                   <span className="wishlistHeartOutLineCard" onClick={handleAddWishlist}><AiIcons.AiOutlineHeart /></span>}
-              </div>
+              </div>}
               <h4 maxlength="10" className="nameProductCard">{name}</h4>
             </div>
           </div>
