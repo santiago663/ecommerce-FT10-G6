@@ -19,8 +19,8 @@ function NavBar() {
     dispatch(logout())    
   }
 
-  const showSidebar = () => {
-    dispatch(setMenu(!menu))
+  const showSidebar = (num) => {
+    dispatch(setMenu(num))
   }
 
   useEffect(() => {
@@ -30,9 +30,9 @@ function NavBar() {
     <nav className="navbar">
       <div className="navleft">
         <Link to="#" className="sandwich">
-          {menu ?
-            <HiIcons.HiChevronDoubleLeft onClick={showSidebar} className='iconmenu' /> :
-            <FaIcons.FaBars onClick={showSidebar} className='iconmenu' />
+          {menu === "0" ? <FaIcons.FaBars onClick={() => showSidebar("1")} className='iconmenu' /> :
+            <HiIcons.HiChevronDoubleLeft onClick={() => showSidebar("0")} className='iconmenu' /> 
+            
           }
         </Link>
 
