@@ -89,8 +89,9 @@
 		justify-content: space-evenly;
 	}
 	img {
-		width: 100px;
-		height: 75px;
+		width: 25%;
+		height: auto;
+		max-height: 100px;
 	}
 	.price-item__checkout {
 		color: rgb(144, 203, 162);

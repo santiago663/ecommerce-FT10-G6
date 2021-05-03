@@ -1,7 +1,7 @@
 .order-form {
-	width: 80%;
+	width: 70%;
 	max-width: 700px;
-	min-width: 320px;
+	min-width: 310px;
 	padding: 10px 30px 20px 30px;
 	margin: 0 auto;
 	background-color: #ffffff;
@@ -12,7 +12,9 @@
 	border: 1px solid rgba(255, 255, 255, 0.822);
 	overflow-y: scroll;
 }
-
+.order-form {
+	background-color: #202020;
+}
 .Information {
 	position: fixed;
 	top: 0;
@@ -23,10 +25,10 @@
 	font-size: 0.9rem;
 	text-align: center;
 	text-decoration: none;
-	background-color: rgba(245, 245, 245, 0.932);
+	background-color: rgba(0, 0, 0, 0.95);
 	overflow-y: scroll;
 	.Information-buttons {
-		border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 		padding-bottom: 20px;
 		width: 100%;
 		display: flex;
@@ -71,18 +73,19 @@
 		color: #fff;
 		border-radius: 5px;
 		padding: 15px;
+		cursor: pointer;
 	}
 
 	.Information-sidebar {
 		margin: 20px 0 0 0;
-		color: #6b7685;
+		color: #aaabad;
 		h2 {
 			color: #6b7685;
 		}
 		h3 {
-			color: #8e949c;
+			color: #fafafa;
 			span {
-				color: rgba(80, 179, 245, 0.733);
+				color: #fff099;
 			}
 		}
 	}
@@ -130,7 +133,7 @@
 			margin: 0;
 			font-weight: 500;
 			text-transform: uppercase;
-			color: #0e0c0c;
+			color: #2fbe82;
 			border-bottom: 3px solid #ddd;
 			&:hover {
 				border-bottom: 3px solid #3adbc0;
@@ -146,10 +149,11 @@
 		// border: 1px solid rgb(123, 255, 0);
 		justify-content: center;
 		.name-email__container {
-			width: 30%;
+			width: 50%;
 			display: flex;
 			text-align: center;
 			flex-direction: column;
+			// background-color: #aaabad;
 
 			// border: 1px solid rgb(255, 0, 0);
 			span {
@@ -158,13 +162,15 @@
 			input {
 				min-width: 200px;
 				border: none;
-				background: transparent;
+				background-color: transparent;
 				outline: none;
+				color: #aaabad;
 			}
 			.name__container {
 				display: flex;
 				flex-direction: row;
 				width: 50%;
+				// background-color: #aaabad;
 				// border: 1px solid black;
 				min-width: 150px;
 			}
@@ -225,6 +231,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	color: #fafafa;
 }
 
 .checkContactInfoHide {
