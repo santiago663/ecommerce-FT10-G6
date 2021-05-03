@@ -13,6 +13,9 @@ server.get("/", async (req, res) => {
                     include: [Roles]
                 }
             )
+
+            usersLogin ? usersLogin.authyId = 0 : null
+
             return res.status(200).json(usersLogin)
         } catch (error) {
             console.log(error)
@@ -46,7 +49,8 @@ server.get("/:id", async (req, res) => {
                 where: { id },
                 include: [Roles]
             }
-        )
+        )        
+
         res.status(200).json(users)
 
     } catch (error) {

@@ -31,7 +31,11 @@ module.exports = (sequelize) => {
       profilePic: {
           type: DataTypes.STRING,
           allowNull: true
-      }
+      },
+      authyId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },      
     },
     {
       timestamps: false,
