@@ -13,6 +13,7 @@ import {
 } from "../../redux/actions/actionFront.js";
 import Swal from "sweetalert2";
 import "./_checkout.scss";
+import Slider from '../Carousel/Slider'
 
 const Checkout = () => {
   const history = useHistory();
@@ -210,60 +211,61 @@ const Checkout = () => {
   };
 
   return (
-    <div className="checkout-container">
-      <div className="Checkout">
-        <div className="Checkout-content">
-          {shoppingCart.length > 0 ? (
-            <h3>Order # {currentOrder[0]?.id}</h3>
-          ) : (
-            <h3>Empty Shopping Cart</h3>
-          )}
-          <div className="Checkout-item">
-            {shoppingCart &&
-              shoppingCart.map((item, i) => {
-                return (
-                  <div className="Checkout-element" key={i}>
-                    <img src={item.preview} width="100" />
-                    <div className="price-item">
-                      <h4>{item.name}</h4>
-                      <div className="price-item__checkout">${item.price}</div>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          handleRemoveFromCart(item, currentUser, currentOrder)
-                        }
-                        className="Trash-item"
-                      >
-                        <i className="fas fa-trash"></i>
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-        </div>
-        {shoppingCart && shoppingCart.length > 0 ? (
-          <div className="Checkout-sidebar">
-            <h3>
-              Total Price : <span>${handleSumTotal()}</span>
-            </h3>
-            {/* <Link to="/checkout/information"> */}
-            <button
-              type="button"
-              className="btn-primary"
-              onClick={handleClickPay}
-            >
-              Pay
-            </button>
-            {/* </Link> */}
-          </div>
-        ) : (
-          <div>
-            <h3>You dont have items pending</h3>
-          </div>
-        )}
-      </div>
-    </div>
+		<>
+			<div className="checkout-container">
+				<div className="Checkout">
+					<div className="Checkout-content">
+						{shoppingCart.length > 0 ? (
+							<h3>Order # {currentOrder[0]?.id}</h3>
+						) : (
+							<h3>Empty Shopping Cart</h3>
+						)}
+						<div className="Checkout-item">
+							{shoppingCart &&
+								shoppingCart.map((item, i) => {
+									return (
+										<div className="Checkout-element" key={i}>
+											<img src={item.preview} width="100" />
+											<div className="price-item">
+												<h4>{item.name}</h4>
+												<div className="price-item__checkout">${item.price}</div>
+												<button
+													type="button"
+													onClick={() =>
+														handleRemoveFromCart(item, currentUser, currentOrder)
+													}
+													className="Trash-item"
+												>
+													<i className="fas fa-trash"></i>
+												</button>
+											</div>
+										</div>
+									);
+								})}
+						</div>
+					</div>
+					{shoppingCart && shoppingCart.length > 0 ? (
+						<div className="Checkout-sidebar">
+							<h3>
+								Total Price : <span>${handleSumTotal()}</span>
+							</h3>
+							{/* <Link to="/checkout/information"> */}
+							<button type="button" className="btn-primary" onClick={handleClickPay}>
+								Pay
+							</button>
+							{/* </Link> */}
+						</div>
+					) : (
+            <>
+						<div>
+							<h3>You dont have items pending</h3>
+						</div><br/>
+              </>
+					)}
+				</div>
+          <Slider />
+			</div>
+		</>
   );
 };
 
