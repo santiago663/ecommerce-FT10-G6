@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, useParams } from 'react-router-dom';
+import FilterProductByAuthor from '../FilterProductByAuthor';
 import Swal from 'sweetalert2';
 import { addProducts, getAllProducts,deleteProductCategory,
          editProductByBody, deleteProduct, editProductCategory } from  '../../../../redux/actions/actionBack';
@@ -56,8 +57,8 @@ function AddProduct() {
                 available: findProduct.available,
                 fileLink: findProduct.fileLink,
                 preview: findProduct.preview,
-                stock: findProduct.stock,
-                initialStock: findProduct.initialStock,
+                stock: findProduct.stock ? findProduct.stock : 0 ,
+                initialStock: findProduct.initialStock ? findProduct.initialStock : 0,
                 categories: findProduct.categories.map(cat => cat.id),
                 author: findProduct.author,
                 seriesId: findProduct.seriesId,
@@ -111,7 +112,7 @@ function AddProduct() {
     }
    
     
-    const alertError = () =>{
+        const alertError = () =>{
         Swal.fire({
             title: "Error Creating Product",
             icon: "error",
@@ -291,9 +292,13 @@ function AddProduct() {
     
     return (
         <div className="mainDivAP">
+            <div className="filProductByAuthor">
+                <FilterProductByAuthor/>
+            </div>
             <div className="divAP">
             <h2 className="title">Add Product</h2>
                 <form className="formAP" onSubmit={submitForm}>
+                    <div className="rigth">
                     <div>
                         Name:
                         {id ? 
@@ -318,23 +323,82 @@ function AddProduct() {
                     <div>
                         Description:
                         {id ? 
-                        <input
+                        <textarea
                             required
-                            className="inputprod" 
+                            className="textareaprod" 
                             type="text" 
                             onChange={handleInputChange} 
                             name="description"
                             value={id ? product.description : ""}
                         /> :
-                        <input
+                        <textarea
                             required
-                            className="inputprod" 
+                            className="textareaprod" 
                             type="text" 
                             onChange={handleInputChange} 
                             name="description"
                         />
                         }
                     </div>
+                    <div>
+                        Artist:
+                        {id ?
+                        <select 
+                            className="selector"
+                            name="authorId" 
+                            id="selectorArAP" 
+                            onChange={handleInputChangeNro}
+                            value = {product.author?.id}
+                        >
+                            <option> </option>
+                            {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+                        </select>
+                        :
+                        <select 
+                            className="selector"
+                            name="authorId" 
+                            id="selectorArAP" 
+                            onChange={handleInputChangeNro}
+                            >
+                            <option> </option>
+                            {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+                        </select>
+                        }
+                    </div>
+
+                    <div>
+                        Series:
+                        <select 
+                            className="selector"
+                            name="seriesId" 
+                            id="selectorSeAP"
+                        >
+                            {allSeries.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                        </select>
+                    </div>
+                    <div>
+                        Categories:                        
+                        <select 
+                            className="selector"
+                            name="categories" 
+                            id="selectorCaAP" 
+                            onChange={handleInputChangeCa}
+                        >
+                            <option> </option>
+                            {allCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                        </select>
+                        {id ?
+                        product.categories.map(p => 
+                        <span className="catego" key={p?.id} onClick={(event) => handleInputDeleteCa(event, p)} >{allCategories.find(c=>c.id==p)?.name}</span>)
+                        :
+                        product.categories.map(id => 
+                        <span className="catego" key={id?.id} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
+                        }
+                    </div>
+
+                    </div>
+                   <div className="left">
+                       
                     <div>
                         Price: 
                         {id ?
@@ -428,6 +492,7 @@ function AddProduct() {
                         <input 
                             className="SelectorFile" 
                             type="file" 
+                            title="otra cosa"
                             onChange={handleOnChange} 
                             name="file" 
                         />
@@ -477,60 +542,10 @@ function AddProduct() {
                             value={uploadValue.picture}
                         /> }
                     </div>
-                    <div>
-                        Artist:
-                        {id ?
-                        <select 
-                            className="selector"
-                            name="authorId" 
-                            id="selectorArAP" 
-                            onChange={handleInputChangeNro}
-                            value = {product.author?.id}
-                        >
-                            <option> </option>
-                            {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
-                        </select>
-                        :
-                        <select 
-                            className="selector"
-                            name="authorId" 
-                            id="selectorArAP" 
-                            onChange={handleInputChangeNro}
-                            >
-                            <option> </option>
-                            {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
-                        </select>
-                        }
-                    </div>
-                    <div>
-                        Series:
-                        <select 
-                            className="selector"
-                            name="seriesId" 
-                            id="selectorSeAP"
-                        >
-                            {allSeries.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-                        </select>
-                    </div>
-                    <div>
-                        Categories:                        
-                        <select 
-                            className="selector"
-                            name="categories" 
-                            id="selectorCaAP" 
-                            onChange={handleInputChangeCa}
-                        >
-                            <option> </option>
-                            {allCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                        </select>
-                        {id ?
-                        product.categories.map(p => 
-                        <span className="catego" key={p?.id} onClick={(event) => handleInputDeleteCa(event, p)} >{allCategories.find(c=>c.id==p)?.name}</span>)
-                        :
-                        product.categories.map(id => 
-                        <span className="catego" key={id?.id} onClick={(event)=>handleInputDeleteCa(event, id)} >{allCategories.find(c=>c.id==id)?.name}</span> )
-                        }
-                    </div>
+
+                   </div>
+                  
+                   
                     {id ?
                     <div>
                         <input 

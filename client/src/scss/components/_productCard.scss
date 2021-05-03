@@ -24,7 +24,7 @@
     object-fit: cover;
     transition: transform 0.5s;
   }
-  &:hover {
+  &:hover {    
     transition: transform 0.5s;
     transform: scale(1.1);
     box-shadow: 1px 3px 14px rgba(0, 0, 0, 0.185);
@@ -132,4 +132,12 @@ a.link {
 .contenInfo {
   padding: 1px;
   padding-bottom: 6px;
+}
+
+.wishlistHeartCard {
+  position: absolute;
+  margin-left: 271px;
+  margin-top: -32px;
+  font-size: 25px;
+  color: #0bc970;
 }

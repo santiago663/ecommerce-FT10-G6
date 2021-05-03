@@ -1,12 +1,10 @@
 /*eslint-disable*/
 import React, { useState } from 'react';
-import { Link, Route } from 'react-router-dom';
-import { useDispatch, useSelector} from 'react-redux';
-import AddProduct from './AddProduct/AddProduct';
-import EditProduct from './EditProduct/EditProduct';
-import '../../../scss/components/_modify.scss';
+import { Link } from 'react-router-dom';
+import {  useSelector} from 'react-redux';
+import '../../../scss/components/_filterProductByAuthor.scss';
 
-const ModifyProduct = () => {
+const FilterProductByAuthor = () => {
 
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
@@ -29,13 +27,16 @@ const ModifyProduct = () => {
     }
 
     return ( 
-        <div className='ModifyProduct'>
-            <div className="FilterAndProducts">
-                <div className='authorFilter'>
+        <>
+            <div className="filterProductsByAuhorTitle">
+                    <h3>Find products by author's name</h3>
+                    <span>Select an Author to get all their products</span>
+                    <span> then select a product to see the details and edit it</span>
+                </div>
+                <div className='authorSelect'>
                     <select 
-                        className="selector"
-                        name="authorId" 
-                        id="selectorArAP" 
+                        className="authorSelector"
+                        name="authorId"  
                         onChange={handleChange}
                     >
                         <option 
@@ -45,7 +46,7 @@ const ModifyProduct = () => {
                         {allArtist.map(a => <option value={a.id}>{a.name}</option>)}
                     </select>
                 </div>
-                <div className="productContainer">
+                <div className="authorsProduct">
                     {authorProducts.length !==0 
                     ?<ul>
                         {authorProducts.length !== 0 && authorProducts.map(m => {
@@ -61,14 +62,8 @@ const ModifyProduct = () => {
                     : null
                     }
                 </div> 
-            </div>
-            
-            <div className='compProd'>
-                <Route exact path="/Admin/Product" component={AddProduct} />
-                <Route exact path="/Admin/Product/Edit/:id" component={AddProduct} />
-            </div>
-        </div>
+        </>
     );
 }
  
-export default ModifyProduct;
+export default FilterProductByAuthor;

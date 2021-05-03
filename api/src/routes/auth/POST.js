@@ -49,6 +49,7 @@ server.post("/signup", async(req, res) => {
 
                         product = {
                             product:orders.products[i].name,
+                            preview: orders.products[i].preview,
                             image: orders.products[i].fileLink,
                             price: Number(orders.products[i].price),
                         }
@@ -61,7 +62,7 @@ server.post("/signup", async(req, res) => {
           
             let msgBody = (stateOrder(name, ordIdDateStateTotal, prodsImgPrice, email))
 
-            // sengridEmail(msgBody)
+            sengridEmail(msgBody)
             //SENDGRID MANDAR EMAIL, NO BORRAR, SOLO 100 EMAILS POR DIA
 
             return res.status(200).json({message:"email enviado exitosamente"}) 

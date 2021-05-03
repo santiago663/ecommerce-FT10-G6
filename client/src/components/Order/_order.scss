@@ -1,15 +1,20 @@
 .order-form {
-	width: 80%;
+	width: 70%;
 	max-width: 700px;
+	min-width: 310px;
 	padding: 10px 30px 20px 30px;
 	margin: 0 auto;
 	background-color: #ffffff;
-	margin-top: 10vh;
+	margin-top: 100px;
+	margin-bottom: 20px;
 	box-shadow: 0px 5px 10px 5px #00000052;
 	border-radius: 1px;
 	border: 1px solid rgba(255, 255, 255, 0.822);
+	overflow-y: scroll;
 }
-
+.order-form {
+	background-color: #202020;
+}
 .Information {
 	position: fixed;
 	top: 0;
@@ -20,15 +25,31 @@
 	font-size: 0.9rem;
 	text-align: center;
 	text-decoration: none;
-	background-color: rgba(245, 245, 245, 0.932);
+	background-color: rgba(0, 0, 0, 0.95);
+	overflow-y: scroll;
 	.Information-buttons {
-		border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 		padding-bottom: 20px;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
 		.Information-next {
 			width: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			.Pay-methods {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				@media only screen and(max-width: 630px) {
+					flex-direction: column;
+					.stripe {
+						margin-top: 20px;
+					}
+				}
+			}
 			.mercadolibreee {
 				background-color: rgb(255, 252, 72);
 				color: rgb(168, 168, 168);
@@ -39,30 +60,32 @@
 	}
 
 	.mercadolibreee {
-    background: #009ee3;
-    border-color: #009ee3;
-    color: #fff;
-    border-radius: 5px;
-  }
+		background: #009ee3;
+		border-color: #009ee3;
+		color: #fff;
+		border-radius: 5px;
+	}
 
-  .stripe {
-    background: #556cd6;
-    border-color: #556cd6;
-    color: #fff;
-    border-radius: 5px;
+	.stripe {
+		background: #556cd6;
+		border: none;
+		width: 200px;
+		color: #fff;
+		border-radius: 5px;
 		padding: 15px;
-  }
+		cursor: pointer;
+	}
 
 	.Information-sidebar {
 		margin: 20px 0 0 0;
-		color: #6b7685;
+		color: #aaabad;
 		h2 {
 			color: #6b7685;
 		}
 		h3 {
-			color: #8e949c;
+			color: #fafafa;
 			span {
-				color: rgba(80, 179, 245, 0.733);
+				color: #fff099;
 			}
 		}
 	}
@@ -110,7 +133,7 @@
 			margin: 0;
 			font-weight: 500;
 			text-transform: uppercase;
-			color: #0e0c0c;
+			color: #2fbe82;
 			border-bottom: 3px solid #ddd;
 			&:hover {
 				border-bottom: 3px solid #3adbc0;
@@ -126,10 +149,11 @@
 		// border: 1px solid rgb(123, 255, 0);
 		justify-content: center;
 		.name-email__container {
-			width: 30%;
+			width: 50%;
 			display: flex;
 			text-align: center;
 			flex-direction: column;
+			// background-color: #aaabad;
 
 			// border: 1px solid rgb(255, 0, 0);
 			span {
@@ -138,13 +162,15 @@
 			input {
 				min-width: 200px;
 				border: none;
-				background: transparent;
+				background-color: transparent;
 				outline: none;
+				color: #aaabad;
 			}
 			.name__container {
 				display: flex;
 				flex-direction: row;
 				width: 50%;
+				// background-color: #aaabad;
 				// border: 1px solid black;
 				min-width: 150px;
 			}
@@ -167,45 +193,45 @@
 
 .contactInfoButton {
 	border-radius: 20px;
-    color: #19f9a4;
-    background: #202020;
-    width: 80px;
-    height: 30px;
-    margin: 0 auto;
-    margin-top: 10px;
+	color: #19f9a4;
+	background: #202020;
+	width: 80px;
+	height: 30px;
+	margin: 0 auto;
+	margin-top: 10px;
 }
 
 .contactInfoForm {
 	display: flex;
-    justify-content: center;
-    align-items: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .insertValidData {
 	margin: 0 auto;
-    font-size: 16px;
-    background: silver;
-    padding: 9px 20px;
-    border-radius: 28px;
-    color: rgb(245, 245, 245);
-    font-weight: 550;
+	font-size: 16px;
+	background: silver;
+	padding: 9px 20px;
+	border-radius: 28px;
+	color: rgb(245, 245, 245);
+	font-weight: 550;
 }
 
 .cartSteps {
 	display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin-bottom: 15px;
+	justify-content: space-around;
+	width: 80%;
+	margin-bottom: 15px;
 	font-size: 16px;
-
 }
 
 .Information-content {
 	width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #fafafa;
 }
 
 .checkContactInfoHide {

@@ -4,15 +4,17 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as FiIcons from 'react-icons/fi';
-import * as MdIcons from 'react-icons/md';
+import * as CgIcons from 'react-icons/cg';
+import * as RiIcons from 'react-icons/ri';
+import * as GiIcons from 'react-icons/gi';
 
 export const SidebarData = [
     {
         title: 'Profile',
         path: '/user/profile',
-        icon: <AiIcons.AiFillHome />,
+        icon: <CgIcons.CgProfile />,
         cName: 'navm-text',
-        belong: [100, 101]
+        belong: [100,101]
     },
     {
         title: 'Library',
@@ -24,7 +26,7 @@ export const SidebarData = [
     {
         title: 'Wishlist',
         path: '/user/wishlist',
-        icon: <MdIcons.MdFavorite />,
+        icon: <FaIcons.FaImages />,
         cName: 'navm-text',
         belong: [101]
     },
@@ -40,40 +42,40 @@ export const SidebarData = [
         path: '/user/questions',
         icon: <FiIcons.FiHelpCircle />,
         cName: 'navm-text',
-        belong: [102, 101]
+        belong: [102,101]
     },
     {
         title: 'Products',
         path: '/admin/Product',
-        icon: <AiIcons.AiFillHome />,
+        icon: <FaIcons.FaImages />,
         cName: 'navm-text',
         belong: [100]
     },
     {
         title: 'Orders',
         path: '/admin/Order',
-        icon: <FaIcons.FaImages />,
+        icon: < IoIcons.IoIosPaper />,
         cName: 'navm-text',
         belong: [100]
     },
     {
         title: 'Authors',
         path: '/admin/Author',
-        icon: <IoIcons.IoIosPaper />,
+        icon: <GiIcons.GiAstronautHelmet />,
         cName: 'navm-text',
         belong: [100]
     },
     {
         title: 'Categories',
         path: '/admin/Category',
-        icon: <IoIcons.IoMdSettings />,
+        icon: <AiIcons.AiFillBook />,
         cName: 'navm-text',
         belong: [100]
     },
     {
         title: 'Users',
         path: '/admin/User',
-        icon: <FiIcons.FiHelpCircle />,
+        icon: <RiIcons.RiAdminFill />,
         cName: 'navm-text',
         belong: [100]
     },

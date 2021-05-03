@@ -31,7 +31,7 @@ export default function Wishlist() {
 
   return (
     <>
-      <div className="profile-body-wishlist ">
+      <div className="profile-body ">
         <div className="title">
           <h1>My Wishlist</h1>
         </div>
