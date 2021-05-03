@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { useParams, Link } from 'react-router-dom'
 import { editCategory, deleteCategory } from '../../../../redux/actions/actionBack';
 import { upgradeEditCategories } from '../../../../redux/actions/actionUpgrade';
-import '../../../../scss/components/_editProducts.scss';
+
 
 function EditCategory() {
 

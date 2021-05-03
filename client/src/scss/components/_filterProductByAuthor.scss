@@ -1,0 +1,35 @@
+.filterProductsByAuhorTitle {
+  margin-bottom: 10px;
+}
+
+.authorSelect .authorSelector {
+  width: 100%;
+  background-color: #3c3c3c;
+  height: 30px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  font-weight: 500;
+}
+
+.authorsProduct {
+  ul {
+    display: grid;
+    li {
+        margin: 5px 0px;
+        list-style: none;
+        width: max-content;
+        height: 30px;
+        background-color: #1ed38d;
+        border-radius: 2px;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        a{
+          color: #3c3c3c;
+        }
+    }
+  }
+}

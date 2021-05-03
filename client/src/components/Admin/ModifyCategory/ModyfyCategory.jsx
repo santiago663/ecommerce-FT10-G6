@@ -4,7 +4,7 @@ import { Link, Route } from 'react-router-dom';
 import { useSelector} from 'react-redux';
 import CategoryForm from './AddCategoryForm/CategoryForm'
 import EditCategory from './EditCategory/EditCategory';
-import '../../../scss/components/_modify.scss';
+import '../../../scss/components/_filterProductByAuthor.scss';
 
 
 const ModifyCategory = () => {
