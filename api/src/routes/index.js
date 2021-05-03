@@ -53,5 +53,7 @@ router.use(static("."));
 router.use("/get/wishlist", require("./wishlist/GET"));
 router.use("/post/wishlist", require("./wishlist/POST"));
 router.use("/put/wishlist", require("./wishlist/PUT"));
+// 2 Factor Authentication
+router.use("/post/2fa", require("./authy/POST"));
 
 module.exports = router;
