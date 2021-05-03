@@ -43,7 +43,7 @@ function Order() {
       ...input,
       [e.target.name]: e.target.value, ok: false
     });
-  };  
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -71,7 +71,7 @@ function Order() {
 
   // select payment
   const handlePayments = async (type, order, payment) => {
-    localStorage.setItem("completed", JSON.stringify({status: false, payment: true}));
+    localStorage.setItem("completed", JSON.stringify({ status: false, payment: true }));
     localStorage.setItem("guestOrderDetails", JSON.stringify(input));
     let user = JSON.parse(window.localStorage.getItem("CurrentUser"));
     let stripe = JSON.parse(window.localStorage.getItem("stripe"));
@@ -138,11 +138,11 @@ function Order() {
               </Link>
             </div>
             <div className="cartSteps">
-              <span>1 <IoIcons.IoMdCheckmark className={input.ok ? "checkContactInfo": "checkContactInfoHide"}/> Contact information</span>
-              <span className={input.ok ? "spanPayment" : "spanPaymentGrey"}>2 <IoIcons.IoMdCheckmark className={completed?.status ? "checkPayment": "checkPaymentHide"}/> 
+              <span>1 <IoIcons.IoMdCheckmark className={input.ok ? "checkContactInfo" : "checkContactInfoHide"} /> Contact information</span>
+              <span className={input.ok ? "spanPayment" : "spanPaymentGrey"}>2 <IoIcons.IoMdCheckmark className={completed?.status ? "checkPayment" : "checkPaymentHide"} />
               Payment method</span>
             </div>
-            <div className="Information-head">              
+            <div className="Information-head">
               {currentUser.id ? (
                 <h2>
                   Please <span className="User-Name">{currentUser.name}</span>
@@ -212,7 +212,7 @@ function Order() {
             <div className="Information-buttons">
               <div className="Information-next">
                 {input.ok ?
-                  <div disabled>
+                  <div className="Pay-methods" disabled>
                     <PaypalButton input={input} />
                     <button
                       className="stripe"

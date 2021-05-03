@@ -1,13 +1,16 @@
 .order-form {
 	width: 80%;
 	max-width: 700px;
+	min-width: 320px;
 	padding: 10px 30px 20px 30px;
 	margin: 0 auto;
 	background-color: #ffffff;
-	margin-top: 10vh;
+	margin-top: 100px;
+	margin-bottom: 20px;
 	box-shadow: 0px 5px 10px 5px #00000052;
 	border-radius: 1px;
 	border: 1px solid rgba(255, 255, 255, 0.822);
+	overflow-y: scroll;
 }
 
 .Information {
@@ -21,14 +24,30 @@
 	text-align: center;
 	text-decoration: none;
 	background-color: rgba(245, 245, 245, 0.932);
+	overflow-y: scroll;
 	.Information-buttons {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.192);
 		padding-bottom: 20px;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
 		.Information-next {
 			width: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			.Pay-methods {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				@media only screen and(max-width: 630px) {
+					flex-direction: column;
+					.stripe {
+						margin-top: 20px;
+					}
+				}
+			}
 			.mercadolibreee {
 				background-color: rgb(255, 252, 72);
 				color: rgb(168, 168, 168);
@@ -39,19 +58,20 @@
 	}
 
 	.mercadolibreee {
-    background: #009ee3;
-    border-color: #009ee3;
-    color: #fff;
-    border-radius: 5px;
-  }
+		background: #009ee3;
+		border-color: #009ee3;
+		color: #fff;
+		border-radius: 5px;
+	}
 
-  .stripe {
-    background: #556cd6;
-    border-color: #556cd6;
-    color: #fff;
-    border-radius: 5px;
+	.stripe {
+		background: #556cd6;
+		border: none;
+		width: 200px;
+		color: #fff;
+		border-radius: 5px;
 		padding: 15px;
-  }
+	}
 
 	.Information-sidebar {
 		margin: 20px 0 0 0;
@@ -167,45 +187,44 @@
 
 .contactInfoButton {
 	border-radius: 20px;
-    color: #19f9a4;
-    background: #202020;
-    width: 80px;
-    height: 30px;
-    margin: 0 auto;
-    margin-top: 10px;
+	color: #19f9a4;
+	background: #202020;
+	width: 80px;
+	height: 30px;
+	margin: 0 auto;
+	margin-top: 10px;
 }
 
 .contactInfoForm {
 	display: flex;
-    justify-content: center;
-    align-items: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .insertValidData {
 	margin: 0 auto;
-    font-size: 16px;
-    background: silver;
-    padding: 9px 20px;
-    border-radius: 28px;
-    color: rgb(245, 245, 245);
-    font-weight: 550;
+	font-size: 16px;
+	background: silver;
+	padding: 9px 20px;
+	border-radius: 28px;
+	color: rgb(245, 245, 245);
+	font-weight: 550;
 }
 
 .cartSteps {
 	display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin-bottom: 15px;
+	justify-content: space-around;
+	width: 80%;
+	margin-bottom: 15px;
 	font-size: 16px;
-
 }
 
 .Information-content {
 	width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .checkContactInfoHide {
