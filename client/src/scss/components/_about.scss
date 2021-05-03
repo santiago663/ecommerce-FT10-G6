@@ -93,7 +93,10 @@ $background-two: linear-gradient(
 }
 
 .card-back {
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  word-spacing: -2px;
+  letter-spacing: 0px;
+  line-height: 19px;
   display: flex;
   flex-direction: column;
   width: 266px;
