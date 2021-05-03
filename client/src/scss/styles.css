@@ -106,6 +106,15 @@ h1 {
   display: flex;
 }
 
+.contentStock {
+  display: flex;
+}
+
+.inputStock {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 .selector {
   display: flex;
   border-radius: 5px;
@@ -459,15 +468,17 @@ p {
 }
 @media only screen and (max-width: 660px) {
   .navbar {
+    text-align: center;
     font-size: 13px;
     padding: 0rem 0.5rem;
     min-width: 320px;
   }
   .navbar .nav-buttons_navigation {
+    justify-content: center;
     position: relative;
     margin: 0;
     left: -10px;
-    width: 55vw;
+    width: 50vw;
     min-width: 197px;
     display: flex;
     align-items: center;
@@ -503,6 +514,12 @@ p {
 @media only screen and (max-width: 460px) {
   .nav-buttons_navigation li {
     font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 665px) {
+  .signNav {
+    display: none;
   }
 }
 
@@ -612,14 +629,14 @@ p {
 }
 
 .navbarProfilePic img {
-  position: absolute;
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  right: 200px;
-  top: 25px;
   cursor: pointer;
   transition: 250ms;
+  margin-right: 14px;
+  margin-top: 4px;
+  margin-left: 16px;
 }
 .navbarProfilePic img:hover {
   box-shadow: 0px 0px 1px 2px #19f9a4;
@@ -627,8 +644,8 @@ p {
 @media only screen and (max-width: 600px) {
   .navbarProfilePic img {
     position: relative;
-    right: 12px;
-    top: 32px;
+    right: -5px;
+    top: 18px;
     border: #313131 2px dotted;
     box-shadow: 0px 1px 2px 2px #00000071;
   }
@@ -799,8 +816,7 @@ a.link {
           animation-name: grow;
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
-  background-image: radial-gradient(circle at center center, rgba(33, 33, 33, 0), #212121), repeating-linear-gradient(135deg, #212121 0px, #212121 1px, transparent 1px, transparent 4px), repeating-linear-gradient(45deg, #383838 0px, #383838 5px, transparent 5px, transparent 6px), linear-gradient(90deg, #212121, #212121);
-  overflow-x: hidden;
+  background-color: #151515;
 }
 @media only screen and (max-width: 1000px) {
   .big-container {
@@ -811,25 +827,27 @@ a.link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 30px;
   width: 100vw;
-  padding: 20px;
+  max-width: 1350px;
 }
 @media only screen and (max-width: 1000px) {
   .big-container .product-wrapper {
     left: 0;
     flex-direction: column;
-    padding: 0;
+    padding-top: 50px;
   }
 }
 .big-container .product-wrapper .preview {
+  margin: 0 auto;
   display: flex;
-  max-width: 100%;
+  width: 100%;
+  max-width: 90%;
+  min-width: 400px;
   height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 1px;
-  box-shadow: 1px 1px 10px 1px black;
 }
 @media only screen and (max-width: 1000px) {
   .big-container .product-wrapper .preview {
@@ -840,18 +858,16 @@ a.link {
   }
 }
 .big-container .product-wrapper .detailProd {
-  width: 500px;
-  padding: 25px 50px;
-  margin-right: 5%;
+  font-family: "Montserrat";
+  padding: 25px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  align-self: flex-start;
   color: #19f9a4;
-  border-radius: 1px;
   background-color: #151515;
   align-content: center;
-  box-shadow: 0px 2px 10px 1px #000000;
+  border-left: 3px solid #2d2e2e;
 }
 @media only screen and (max-width: 1000px) {
   .big-container .product-wrapper .detailProd {
@@ -860,18 +876,19 @@ a.link {
     justify-content: center;
     width: 100%;
     min-width: 320px;
-    border: 1px solid #020202;
+    border: 1px solid #2d2e2e;
   }
 }
 .big-container .product-wrapper .detailProd .contDet {
+  font-family: "Montserrat";
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 320px;
-  border-bottom: 2px solid #19f9a4;
+  width: 100%;
 }
 .big-container .product-wrapper .detailProd .contDet .titulo {
+  font-family: "Montserrat";
   font-size: 24px;
 }
 @media only screen and (max-width: 1000px) {
@@ -885,7 +902,6 @@ a.link {
 .big-container .product-wrapper .detailProd .headerDet .linkClose {
   margin: 0px;
   float: right;
-  border-radius: 9px 11px 0 0px;
 }
 .big-container .product-wrapper .detailProd .headerDet .linkClose .link {
   font-size: 38px;
@@ -894,7 +910,7 @@ a.link {
   text-decoration: none;
   border-radius: 0 9px;
   border: 1px solid #262727;
-  background-color: #262727;
+  background-color: #2d2e2e;
   color: #1cd08b;
   display: flex;
   justify-content: center;
@@ -920,11 +936,15 @@ a.link {
 }
 
 .product-preview {
+  padding: 10px 0;
   width: 100%;
   height: 100%;
   display: flex;
+  -o-object-fit: contain;
+     object-fit: contain;
+  max-width: 90%;
+  max-height: 600px;
   justify-content: center;
-  margin: 0 auto;
 }
 
 .reviewNumber {
@@ -932,16 +952,8 @@ a.link {
   padding-bottom: 2px;
 }
 
-.titulo {
-  width: 100%;
-  background-color: #d8dad9;
-  align-self: left;
-  color: #19f9a4;
-  border-radius: 0px;
-}
-
 .det {
-  font-family: "Helvetica";
+  font-family: "Montserrat";
   color: #b5b8b7;
   border-radius: 2px;
   justify-content: center;
@@ -953,16 +965,15 @@ a.link {
   align-items: center;
   width: 100%;
   text-align: center;
-  border: 1px solid #19f9a4;
-  box-shadow: 0 5px 5px 0 #19f9a338;
+  border-top: 2px solid #2d2e2e;
 }
 .det h3 {
   text-transform: uppercase;
-  color: #fafafa;
+  color: #19f9a369;
   padding-bottom: 3px;
 }
 .det span {
-  color: #b5b8b7;
+  color: #fafafa;
 }
 
 .desc {
@@ -986,7 +997,7 @@ a.link {
 }
 
 .titulo {
-  color: #fafafa;
+  color: #19f9a3;
   display: flex;
   justify-content: center;
   font-size: 26px;
@@ -995,7 +1006,6 @@ a.link {
   height: 60px;
   align-items: center;
   background-color: rgba(131, 131, 131, 0);
-  border-bottom: 2px solid #19f9a4;
   margin-bottom: 20px;
 }
 
@@ -1020,6 +1030,7 @@ a.link {
 }
 
 .dispre {
+  font-family: "Montserrat";
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -1030,17 +1041,15 @@ a.link {
   width: 100%;
 }
 .dispre .det {
-  color: #fafafa;
+  color: #fffdffdc;
   padding-top: 20px;
   margin: 0 5px;
-  font-size: 18px;
-  border: 1px solid #19f9a4;
-  box-shadow: 0 0px 20px 0px #19f9a4;
+  font-size: 15px;
 }
 .dispre .det h3 {
   font-weight: 400;
   width: 100%;
-  color: #d3d3d3;
+  color: #19f9a4;
 }
 
 .btn {
@@ -1056,7 +1065,7 @@ a.link {
   cursor: pointer;
   padding: 0px;
   border: none;
-  box-shadow: 0px 0px 1px 1px #19f9a4;
+  box-shadow: 0px 0px 0px 3px #19f9a4;
 }
 
 .espV {
@@ -1281,13 +1290,16 @@ a.link {
 .order-form {
   width: 80%;
   max-width: 700px;
+  min-width: 320px;
   padding: 10px 30px 20px 30px;
   margin: 0 auto;
   background-color: #ffffff;
-  margin-top: 10vh;
+  margin-top: 100px;
+  margin-bottom: 20px;
   box-shadow: 0px 5px 10px 5px #00000052;
   border-radius: 1px;
   border: 1px solid rgba(255, 255, 255, 0.822);
+  overflow-y: scroll;
 }
 
 .Information {
@@ -1301,16 +1313,34 @@ a.link {
   text-align: center;
   text-decoration: none;
   background-color: rgba(245, 245, 245, 0.932);
+  overflow-y: scroll;
 }
 .Information .Information-buttons {
   border-bottom: 1px solid rgba(0, 0, 0, 0.192);
   padding-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 .Information .Information-buttons .Information-next {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.Information .Information-buttons .Information-next .Pay-methods {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 630px) {
+  .Information .Information-buttons .Information-next .Pay-methods {
+    flex-direction: column;
+  }
+  .Information .Information-buttons .Information-next .Pay-methods .stripe {
+    margin-top: 20px;
+  }
 }
 .Information .Information-buttons .Information-next .mercadolibreee {
   background-color: #fffc48;
@@ -1326,7 +1356,8 @@ a.link {
 }
 .Information .stripe {
   background: #556cd6;
-  border-color: #556cd6;
+  border: none;
+  width: 200px;
   color: #fff;
   border-radius: 5px;
   padding: 15px;
@@ -1430,4 +1461,62 @@ a.link {
   font-size: 20px;
   font-family: "Helvetica";
   color: #b7bcbd;
+}
+
+.contactInfoButton {
+  border-radius: 20px;
+  color: #19f9a4;
+  background: #202020;
+  width: 80px;
+  height: 30px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.contactInfoForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.insertValidData {
+  margin: 0 auto;
+  font-size: 16px;
+  background: silver;
+  padding: 9px 20px;
+  border-radius: 28px;
+  color: whitesmoke;
+  font-weight: 550;
+}
+
+.cartSteps {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.Information-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkContactInfoHide {
+  display: none;
+}
+
+.checkPaymentHide {
+  display: none;
+}
+
+.spanPaymentGrey {
+  color: #b1b1b1;
+}
+
+.checkCompletedHide {
+  display: none;
 }/*# sourceMappingURL=styles.css.map */

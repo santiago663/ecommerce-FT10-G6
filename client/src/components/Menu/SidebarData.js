@@ -3,7 +3,8 @@ import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
-import * as FiIcons from 'react-icons/fi'
+import * as FiIcons from 'react-icons/fi';
+import * as MdIcons from 'react-icons/md';
 
 export const SidebarData = [
     {
@@ -11,7 +12,7 @@ export const SidebarData = [
         path: '/user/profile',
         icon: <AiIcons.AiFillHome />,
         cName: 'navm-text',
-        belong: [100,101]
+        belong: [100, 101]
     },
     {
         title: 'Library',
@@ -23,7 +24,7 @@ export const SidebarData = [
     {
         title: 'Wishlist',
         path: '/user/wishlist',
-        icon: <FaIcons.FaImages />,
+        icon: <MdIcons.MdFavorite />,
         cName: 'navm-text',
         belong: [101]
     },
@@ -39,7 +40,7 @@ export const SidebarData = [
         path: '/user/questions',
         icon: <FiIcons.FiHelpCircle />,
         cName: 'navm-text',
-        belong: [102,101]
+        belong: [102, 101]
     },
     {
         title: 'Products',

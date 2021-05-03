@@ -4,19 +4,22 @@
     position: absolute;
     width: 100vw;
     height: 100vh;
-    top: 0;
+    top: 50px;
     left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: 250ms;
-    animation-name: grow;
     animation-duration: 500ms;
+    overflow-y: scroll;
 
     .modal {
         width: 500px;
+        height: 100%;
         padding: 15px;
-        position: relative;
+        position: absolute;
+        top: 0;
+        // left: 0;
         border: 1px solid rgba(0, 0, 0, 0.075);
         box-shadow: 0px 1px 100px 100px #00ff9d1e;
         background-color: #24262c;

@@ -5,7 +5,7 @@ import * as TYPES from '../types/index';
 const initialState = {
   loading: false,
   activeButton: "1",
-  menu: false
+  menu: "0"
 };
 
 export default function reducerLoading (state = initialState, action){

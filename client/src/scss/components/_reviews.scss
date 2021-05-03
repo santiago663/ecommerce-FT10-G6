@@ -1,37 +1,45 @@
 .cont-Review-Det {
+    font-family: "Montserrat";
     display: flex;
     padding: 20px 0;
-    margin-top: 20px;
+    // margin-top: 20px;
     justify-content: space-between;
     align-items: center;
     color: rgb(187, 186, 186);
     overflow: hidden;
     background-color: #151515;
-    box-shadow: 1px 1px 10px 1px rgb(0, 0, 0);
-    border: 1px solid #020202;
-    width: 98%;
-    @media only screen and(max-width: 1000px) {
+    // box-shadow: 1px 1px 10px 1px rgb(0, 0, 0);
+    border-top: 3px solid #2d2e2e;
+    max-width: 1350px;
+    @media only screen and(max-width: 1010px) {
+        width: 100vw;
         flex-direction: column;
-        width: 100%;
+        // width: 100%;
+        // min-width: 1000px;
         flex-wrap: wrap;
         align-items: center;
     }
     .review-cont {
-        width: 100vw;
-        min-width: 850px;
+        width: 100%;
+        min-width: 1350px;
         display: flex;
+        flex-direction: column;
         padding: 0px;
-        margin-left: 2%;
+        margin-left: 15%;
         color: rgb(185, 184, 184);
-        @media only screen and(max-width: 1000px) {
+        @media only screen and(max-width: 990px) {
+            // align-items: center;
             flex-direction: column;
-            max-width: 100%;
+            // max-width: 100%;
+            width: 90vw;
             min-width: 320px;
+            // min-width: 100px;
+            margin-left: 3%;
         }
         .review-cont-divisor {
-            width: 55%;
-            padding: 10px 0px;
-            border-right: 5px solid #202020;
+            width: 40%;
+            padding: 10px 10px;
+            // border-right: 5px solid #202020;
             @media only screen and(max-width: 1000px) {
                 border: none;
                 border-bottom: 3px solid #202020;
@@ -39,7 +47,7 @@
             }
             .reviewTitle {
                 color: #19f9a4;
-                width: 100%;
+                width: 50%;
                 font-size: 25px;
                 font-weight: bold;
             }
@@ -51,7 +59,7 @@
     display: flex;
     font-size: 18px;
     padding-bottom: 10px;
-    width: 100%;
+    width: 50%;
     display: flex;
     justify-content: space-around;
     border-radius: 15px 15px 15px 15px;
@@ -59,10 +67,13 @@
     box-shadow: 0px 3px 5px 2px #19f9a4;
     border: #393a3a 5px solid;
     padding: 10px;
+    width: 100%;
+    min-width: 930px;
     @media only screen and(max-width: 1000px) {
         flex-direction: column;
-        min-width: 250px;
+        min-width: 287px;
         padding: 10px;
+        font-size: 14px;
         margin-top10px: 0;
     }
     .buttons-review {
@@ -102,7 +113,7 @@
 }
 
 .nameAndComment {
-    width: 80%;
+    width: 50%;
     padding: 5px;
     border-radius: 2px;
     background-color: transparent;
@@ -126,13 +137,13 @@
     padding: 5px 10px 5px 10px;
     // margin-right: 20px;
     color: #19f9a4;
-    width: 50%;
+    width: 65%;
     @media only screen and(max-width: 1000px) {
         width: 100%;
     }
     .contFormReview {
-        margin: 5px 0px 0px 15px;
-        width: 88%;
+        margin: 5px 0px 0px 10px;
+        width: 100%;
 
         form {
             margin: 0;
@@ -155,11 +166,12 @@
             padding-right: 10px;
             @media only screen and(max-width: 1000px) {
                 margin: 0;
-                width: 100%;
+                width: 95%;
                 min-width: 258px;
                 padding: 0;
             }
         }
+        // border: 1px solid white;
         #reviewScoreSelector {
             padding: 3px;
             border-radius: 7px;

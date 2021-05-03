@@ -1,25 +1,29 @@
 /*eslint-disable*/
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PaypalButton from "../PaypalButton/PaypalButton";
 import { loadStripe } from "@stripe/stripe-js";
+import * as IoIcons from "react-icons/io"
 import "./_order.scss";
 import Swal from "sweetalert2";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE); //stripe connection
 
+
 function Order() {
   const currentUser = useSelector((store) => store.auth.currentUser);
-  const currentOrder = useSelector(
-    (store) => store.reducerOrderUser.currentOrder
-  );
-  const shoppingCart = useSelector(
-    (state) => state.reducerShoppingCart.shoppingCart
-  );
+  const currentOrder = useSelector((store) => store.reducerOrderUser.currentOrder);
+  const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+  let completed = JSON.parse(window.localStorage.getItem("completed"));
   const payments = useSelector((state) => state.payments);
   const reducer = (accumulator, currentValue) =>
     Number(currentValue.price) + accumulator;
   const sum = shoppingCart.reduce(reducer, 0);
+
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
 
   let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
 
@@ -31,20 +35,45 @@ function Order() {
     total: sum,
     payment: "",
     methodId: 0,
+    ok: currentUser?.id ? true : false
   });
 
   const handleInputChange = function (e) {
     setInput({
       ...input,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value, ok: false
     });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!validateEmail(input.email)) {
+      return Swal.fire({
+        title: "Ops...",
+        text: "Insert a valid email",
+        icon: "warning",
+        confirmButtonText: "OK",
+      })
+    }
+    else if (!input.name) {
+      return Swal.fire({
+        title: "Ops...",
+        text: "Name is missing",
+        icon: "warning",
+        confirmButtonText: "OK",
+      })
+    }
+    else {
+      setInput({ ...input, ok: true });
+      localStorage.setItem("guestOrderDetails", JSON.stringify(input));
+    }
+  }
+
   // select payment
   const handlePayments = async (type, order, payment) => {
+    localStorage.setItem("completed", JSON.stringify({ status: false, payment: true }));
     localStorage.setItem("guestOrderDetails", JSON.stringify(input));
     let user = JSON.parse(window.localStorage.getItem("CurrentUser"));
-    // let MercadoPago = JSON.parse(window.localStorage.getItem("MercadoPago"));
     let stripe = JSON.parse(window.localStorage.getItem("stripe"));
     try {
       if (/\S+@\S+\.\S+/.test(input.email)) {
@@ -108,6 +137,11 @@ function Order() {
                 keep looking art
               </Link>
             </div>
+            <div className="cartSteps">
+              <span>1 <IoIcons.IoMdCheckmark className={input.ok ? "checkContactInfo" : "checkContactInfoHide"} /> Contact information</span>
+              <span className={input.ok ? "spanPayment" : "spanPaymentGrey"}>2 <IoIcons.IoMdCheckmark className={completed?.status ? "checkPayment" : "checkPaymentHide"} />
+              Payment method</span>
+            </div>
             <div className="Information-head">
               {currentUser.id ? (
                 <h2>
@@ -147,46 +181,48 @@ function Order() {
                   </div>
                 </div>
               ) : (
-                <div className="name-email__container">
-                  <div className="name__container">
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      name="name"
-                      value={input.name}
-                      onChange={handleInputChange}
-                    />
+                <form className="contactInfoForm">
+                  <div className="name-email__container">
+                    <div className="name__container">
+                      <input
+                        type="text"
+                        placeholder="Name"
+                        name="name"
+                        value={input.name}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="email__container">
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                        value={input.email}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+                    <button className="contactInfoButton" type="submit" onClick={handleSubmit}>Continue</button>
                   </div>
-                  <div className="email__container">
-                    <input
-                      type="text"
-                      placeholder="Email"
-                      name="email"
-                      value={input.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                </div>
+                </form>
               )}
             </div>
             <br></br>
             <br></br>
             <div className="Information-buttons">
               <div className="Information-next">
-                <PaypalButton input={input} />
-                <button
-                  className="stripe"
-                  onClick={() => handlePayments("stripe")}
-                >
-                  Stripe
+                {input.ok ?
+                  <div className="Pay-methods" disabled>
+                    <PaypalButton input={input} />
+                    <button
+                      className="stripe"
+                      onClick={() => handlePayments("stripe")}
+                    >
+                      Stripe
                 </button>
-                {/* <button
-                  className="mercadolibreee"
-                  onClick={(e) => handlePayments("mercado-pago")}
-                >
-                  Mercado pago
-                </button> */}
+                  </div>
+                  :
+                  <span className="insertValidData">Please insert a valid email and a name</span>}
               </div>
             </div>
           </div>

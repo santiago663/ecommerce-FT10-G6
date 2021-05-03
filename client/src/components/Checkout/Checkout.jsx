@@ -36,6 +36,7 @@ const Checkout = () => {
     // logged user
     if (query.get("success")) {
       if (loggedUser && beforeOrder.id) {
+        localStorage.setItem("completed", JSON.stringify({status: true}));
         dispatch(editProductStock({...beforeOrder.products, stock: beforeOrder.products.stock.map(stock => stock == null ? null : stock-1 )}));
         dispatch(
           formUserOrder({
@@ -64,11 +65,13 @@ const Checkout = () => {
             )
           )
           .then(() =>
-            window.localStorage.setItem("beforeOrder", JSON.stringify(""))
+            window.localStorage.setItem("beforeOrder", JSON.stringify("")),
+            localStorage.setItem("completed", JSON.stringify(""))
           )
           .then(() => window.localStorage.setItem("stripe", JSON.stringify("")))
           .then(() => location.assign("/browser/products"));
       } else {        
+        localStorage.setItem("completed", JSON.stringify({status: true}));
         dispatch(editProductStock({product: guestProducts.map(product => product.id), stock: guestProducts.map(product => product.stock == null ? null : product.stock - 1 )}));
         Swal.fire({
           title: "Thanks for your purchase!",
@@ -108,7 +111,8 @@ const Checkout = () => {
           .then(
             () => (
               localStorage.setItem("orderProducts", JSON.stringify("")),
-              localStorage.setItem("guestOrderDetails", JSON.stringify(""))
+              localStorage.setItem("guestOrderDetails", JSON.stringify("")),
+              localStorage.setItem("completed", JSON.stringify(""))
             )
           )
           .then(() => dispatch(cleanShoopingCart()));
@@ -180,7 +184,8 @@ const Checkout = () => {
       // dispatch(mercadoPago(currentOrder[0].id));
       dispatch(stripe({ orderId: currentOrder[0].id }));
       history.push("/checkout/information");
-    } else {
+    } 
+    else {
       Swal.fire({
         icon: "warning",
         title: "Ops... ",
