@@ -55,7 +55,7 @@ let stateOrder = (name2, ordIdDateStateTotal, prodsImgPrice, email) => {
                                         <tr>        
                                             <td class="aImage" width="350"  valign="top" align="center">
                                                 <img
-                                                src="${m.image}" 
+                                                src="${m.preview}" 
                                                 alt="${m.product}" 
                                                 style="
                                                     box-shadow: 1px 2px 10px black;
