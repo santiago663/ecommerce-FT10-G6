@@ -5,7 +5,7 @@ import { useParams, Link } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import { editUser } from '../../../../redux/actions/actionBack';
 import { upgradeEditUsers } from '../../../../redux/actions/actionUpgrade';
-import '../../../../scss/components/_editProducts.scss'
+
 
 function EditUsers() {
 

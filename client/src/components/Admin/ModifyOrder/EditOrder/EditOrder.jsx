@@ -1,12 +1,11 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Swal from 'sweetalert2';
-import '../../../../scss/components/_editProducts.scss';
 import '../../../../scss/components/_editOrder.scss';
 import { getDetailOrders, formUserOrder } from "../../../../redux/actions/actionOrder"
-import { getAllUsers, getAllOrders, getAllrRoles } from '../../../../redux/actions/actionBack'
+import { getAllOrders } from '../../../../redux/actions/actionBack'
 
 function EditProduct() {
     const dispatch = useDispatch()

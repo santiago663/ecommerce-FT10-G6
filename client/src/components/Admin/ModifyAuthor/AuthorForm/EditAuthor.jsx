@@ -5,7 +5,6 @@ import { useParams, Link } from 'react-router-dom'
 import Swal from 'sweetalert2';
 import { editAuthor, deleteAuthor } from '../../../../redux/actions/actionBack';
 import { upgradeEditAuthors } from '../../../../redux/actions/actionUpgrade';
-import '../../../../scss/components/_editProducts.scss';
 
 function EditAuthor() {
 
