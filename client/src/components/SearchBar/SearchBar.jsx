@@ -67,7 +67,7 @@ function SearchBar() {
                 onChange={handleInputChange}
               />
             </label>
-            <ul className="suggestions-container">
+            {input && <ul className="suggestions-container">
               {arraySuggestions ? arraySuggestions.map(suggestion => {
                 return (
                   <div
@@ -82,7 +82,7 @@ function SearchBar() {
               }) :
                 null
               }
-            </ul>
+            </ul>}
           </div>
           <div className="searchbar-filters">
             <button

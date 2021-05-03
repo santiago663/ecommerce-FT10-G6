@@ -13,7 +13,7 @@
 }
 .filter {
   width: 100%;
-  margin: 0 auto;
+  margin: 1px auto;
   box-shadow: 0px 3px 2px 3px #0000003f;
   display: flex;
   align-items: center;
@@ -21,6 +21,7 @@
   background: #fafafa;
   border-radius: 5px 5px 5px 0px;
   padding: 5px 5px;
+  max-height: 48px;
 }
 
 .filter select {
