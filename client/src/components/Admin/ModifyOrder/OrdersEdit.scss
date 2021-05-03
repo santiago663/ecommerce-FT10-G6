@@ -5,7 +5,7 @@
     text-align: center;
 }
 .p-selectable-row{
-    background-color: cadetblue;
+    background-color: #b9fddd;
     
 }
 .p-row-odd{
@@ -36,26 +36,59 @@ thead.p-datatable-thead {
 }
 .filterorders{
     display: flex;
-    justify-content: center;
+justify-content: center;
+padding-top: 15px;
 }
+
+.containSelect select {
+    background-color: #7a7a7a;
+    height: 32px;
+    border-radius: 5px 0px 0px 5px;
+}
+
 .typesfilters{
     margin-left: 30px;
     justify-content: flex-end;
     display: flex;
     flex-direction: column;
 }
-.btn-filter{
-    background-color: #19f9a4;
-    border-radius: 5px;
-    width: 80px;
+.btn-filter {
+    border-radius: 0 5px 5px 0px;
+    width: 53px;
     height: 32px;
     align-items: center;
     display: flex;
     justify-content: center;
+    border: none;
 }
 .filterState {
     display: flex;
 }
 .titleView{
-    margin-left: 15px;
+    margin-left: 17px;
+color: #3c3c3c;
+width: max-content;
+height: 40px;
+background-color: #67fcb7;
+display: flex;
+align-items: center;
+padding: 0 5px;
+border-radius: 3px;
+}
+
+.dateOrders {
+    padding-bottom: 10px;
+    color: #3c3c3c;
+}
+
+.orderState {
+    text-align: right;
+}
+
+.orderState select {
+    background-color: #a8a8a8;
+    border: none;
+    height: 30px;
+    padding: 0 5px;
+    border-radius: 5px;
 }

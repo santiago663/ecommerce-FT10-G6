@@ -18,12 +18,37 @@ import './OrdersEdit.scss';
 const ModifyOrder = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const allOrders = useSelector((store) => store.reducerOrderUser.allOrders)
+    const orderState = useSelector(store => store.reducerOrderState.allOrderState)
+    const orderStateWithDate = orderState?.map((order) => {
+        let createdAt;
+       let createdDate;
+       let createdTime;
+   createdAt = new Date(order?.createdAt);
+   createdDate = createdAt.toLocaleDateString("es-AR");
+   createdTime = createdAt.toLocaleTimeString("es-AR");
+   
+   order.date = createdDate + " " + createdTime
+   return order
+   })
+    const ordersWithDate = allOrders.map((order) => {
+         let createdAt;
+        let createdDate;
+        let createdTime;
+    createdAt = new Date(order?.createdAt);
+    createdDate = createdAt.toLocaleDateString("es-AR");
+    createdTime = createdAt.toLocaleTimeString("es-AR");
+    
+    order.date = createdDate + " " + createdTime
+    return order
+    })
+    
+    
     const [orders, setOrders] = useState([])
     const toast = useRef(null);
     const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
     const [nrorders, setNrorders] = useState(0)
     useEffect(()=>{
-        setOrders(allOrders)
+        setOrders(ordersWithDate)
     },[])
 
     const onCellSelect = (event) => {
@@ -32,17 +57,17 @@ const ModifyOrder = () => {
         setNrorders(event.value)
     }
 
-    const onCellUnselect = (event) => {
-        toast.current.show({ severity: 'warn', summary: `Item Unselected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
-        console.log(event.value)
-    }
+    // const onCellUnselect = (event) => {
+    //     toast.current.show({ severity: 'warn', summary: `Item Unselected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
+    //     console.log(event.value)
+    // }
     
-    const toCapitalize = (str) => {
-        console.log('Esto es',str.slice(1))
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+    // const toCapitalize = (str) => {
+    //     console.log('Esto es',str.slice(1))
+    //     return str.charAt(0).toUpperCase() + str.slice(1);
+    // }
 
-    const orderState = useSelector(store => store.reducerOrderState.allOrderState)
+   
     
     const dispatch = useDispatch()
     const onChangeStatus = (e) => {
@@ -145,13 +170,13 @@ const ModifyOrder = () => {
                         </select>
                         </div>
                         <div>
-                            <button className="btn-filter" onClick={()=>setOrders(orderState)}>Filtrar</button>
+                            <button className="btn-filter" onClick={()=>setOrders(orderStateWithDate)}>Filtrar</button>
                         </div>
                     </div>
                 </div>
             </div>
             <DataTable value={orders} selectionMode="multiple" cellSelection onSelectionChange={e => setSelectedProduct(e.value)} dataKey="id"
-                    onCellSelect={onCellSelect} selection={selectedProduct} onCellUnselect={onCellUnselect} paginator rows={10}>
+                    onCellSelect={onCellSelect} selection={selectedProduct}  paginator rows={10}>
                     <Column field="id" header="Order N°"></Column>
                     <Column field="date" header="Date"></Column>
                     <Column field="user.name" header="Client"></Column>
