@@ -8,7 +8,7 @@ select {
     }
 }
 .mainDivAP {
-    // margin-top: 15px;
+    margin: 0 auto;
     padding: 0 15px;
     width: 100%;
     height: 100%;
@@ -18,12 +18,25 @@ select {
     align-items: center;
     justify-content: center;
     color: #252525;
+    @media only screen and(min-width: 1200px) {
+        justify-content: fit-content;
+        align-items: flex-start;
+        flex-direction: row;
+        .imgfile {
+            max-width: 500px;
+            max-height: 400px;
+            .image {
+                margin-left: 10px;
+                max-width: 100%;
+            }
+        }
+    }
 
     .filProductByAuthor {
         // margin: 15px 0px;
         background-color: #6c6c6c;
         border-radius: 5px;
-        margin: 5px;
+        margin: 10px auto;
         width: 100%;
         padding: 8px;
     }
@@ -53,6 +66,10 @@ select {
         display: flex;
         flex-direction: column;
         width: 100%;
+        @media only screen and(min-width: 600px) {
+            flex-direction: row;
+            max-width: 650px;
+        }
         .left {
             margin-right: 10px;
             .SelectorFile {
@@ -110,8 +127,8 @@ select {
                 width: 100%;
                 height: 100px;
                 font-family: "Roboto", sans-serif;
-                color: rgb(196, 196, 196);
-                padding: 0px 5px;
+                color: rgb(233, 228, 192);
+                padding: 5px;
                 text-align: justify;
             }
         }
@@ -175,11 +192,12 @@ select {
     align-content: center;
     align-items: center;
     width: 100%;
+    max-width: 640px;
     input {
         border: none;
         border-radius: 5px;
         min-width: 40%;
-        padding: 10px 0;
+        padding: 5px 0;
         margin: 15px;
         text-transform: uppercase;
         background-color: rgb(52, 52, 52);
@@ -213,4 +231,8 @@ select {
     align-items: center;
     justify-content: center;
     box-shadow: #295030 0 0px 1px 1px;
+}
+.editOrAdd-container {
+    display: flex;
+    justify-content: center;
 }
