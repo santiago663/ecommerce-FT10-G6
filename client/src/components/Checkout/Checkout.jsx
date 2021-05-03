@@ -263,7 +263,7 @@ const Checkout = () => {
               </>
 					)}
 				</div>
-          <Slider />
+          <Slider props={false} />
 			</div>
 		</>
   );

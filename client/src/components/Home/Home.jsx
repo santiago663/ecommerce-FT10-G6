@@ -74,6 +74,7 @@ function Home() {
 						},
 					}}
 				/>
+				<Slider props={true} />
 			</div>
 			<div className="botonesqueseio">
 				<h1 className="landing-title">
@@ -81,12 +82,11 @@ function Home() {
 					<span className="title-bg"> Support digital artists & </span>
 					<span className="title-bg">earn money by holding their art pieces .</span>
 				</h1>
-				<Slider />
+
 				<Link className="linkto" to="/Browser/products">
 					<button className="landing-action btn-rounded" type="button">
 						Browse now!
 					</button>
-					
 				</Link>
 			</div>
 		</div>
