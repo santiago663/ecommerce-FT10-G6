@@ -1,3 +1,11 @@
+.bigest-container {
+  height: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at center center, rgba(33, 33, 33, 0), #212121),
+    repeating-linear-gradient(135deg, #212121 0px, #212121 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(45deg, #383838 0px, #383838 5px, transparent 5px, transparent 6px),
+    linear-gradient(90deg, #212121, #212121);
+}
 .filterProductsByAuhorTitle {
   margin-bottom: 10px;
   line-height: 20px;
@@ -12,11 +20,11 @@
 .authorSelect .authorSelector {
   width: 100%;
   min-width: 250px;
-  max-width: 500px;
   background-color: #3c3c3c;
   height: 30px;
   border-radius: 3px;
   border: none;
+  max-width: 330px;
   color: white;
   font-weight: 500;
   &:hover {
@@ -26,31 +34,33 @@
 
 .authorsProduct {
   ul {
-    // position: absolute;
+    position: absolute;
     display: flex;
     flex-direction: column;
     border-radius: 0 0 5px 5px;
-    border: #afaeae 2px solid;
+    border: #2d2d2d 7px double;
     width: 100%;
-    max-width: 500px;
-    min-width: 300px;
+    max-width: 320px;
+    min-width: 270px;
     max-height: 400px;
     overflow-y: scroll;
+    margin-left: 3px;
     background-color: #3c3c3c;
     li {
-      margin: 5px;
       list-style: none;
-      width: max-content;
+      border-bottom: 1px solid gray;
       height: 30px;
-      background-color: #1ed38d;
-      border-radius: 2px;
+      background-color: #959595;
       padding: 5px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: left;
 
       a {
-        color: #3c3c3c;
+        color: #474747;
+        &:hover {
+          color: #1ed38d;
+        }
       }
     }
   }
