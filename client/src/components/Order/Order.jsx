@@ -241,7 +241,7 @@ function Order() {
               })}
             <br />
             <h3>
-              Total Price : <span>{sum}</span>
+              Total Price : <span>${sum}</span>
             </h3>
           </div>
         </div>

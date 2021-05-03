@@ -517,7 +517,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 665px) {
+@media only screen and (max-width: 600px) {
   .signNav {
     display: none;
   }
@@ -529,6 +529,8 @@ p {
 
 .nav-buttons_authentication {
   display: flex;
+  justify-content: space;
+  align-items: center;
 }
 
 .fa-shopping-cart {
@@ -575,17 +577,22 @@ p {
   box-shadow: 0px 1px 2px 2px #00000071;
   background-color: #24262c;
   padding: 5px;
+  text-align: center;
+  margin-right: -10px;
+  margin-left: 10px;
   border-radius: 3px;
   font-size: 15px;
-  width: 50px;
+  width: 40px;
+  height: 40px;
   transition: 250ms;
   cursor: pointer;
 }
 @media only screen and (max-width: 600px) {
   .Icon-Cart {
+    height: 30px;
     position: absolute;
-    top: 8px;
-    right: 2%;
+    top: 4px;
+    right: 23px;
   }
 }
 .Icon-Cart:hover {
@@ -628,27 +635,49 @@ p {
   transform: scale(1.1);
 }
 
+.navbarProfilePic {
+  box-shadow: 0px 1px 2px 2px #00000071;
+  background-color: #24262c;
+  width: 40px;
+  height: 40px;
+  margin-right: -10px;
+  margin-left: 16px;
+  display: flex;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 350ms;
+}
+.navbarProfilePic:hover {
+  box-shadow: 0px 0px 5px 1px #19f9a4;
+  color: #19f9a4;
+  transform: scale(1.1);
+}
+@media only screen and (max-width: 600px) {
+  .navbarProfilePic {
+    position: relative;
+    height: 30px;
+    top: 18px;
+    right: 5px;
+    box-shadow: 0px 1px 2px 2px #00000071;
+    margin: 0;
+    padding: 0;
+  }
+}
+@media only screen and (max-width: 760px) {
+  .navbarProfilePic {
+    margin-right: 0px;
+  }
+}
 .navbarProfilePic img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   cursor: pointer;
   transition: 250ms;
-  margin-right: 14px;
-  margin-top: 4px;
-  margin-left: 16px;
-}
-.navbarProfilePic img:hover {
-  box-shadow: 0px 0px 1px 2px #19f9a4;
-}
-@media only screen and (max-width: 600px) {
-  .navbarProfilePic img {
-    position: relative;
-    right: -5px;
-    top: 18px;
-    border: #313131 2px dotted;
-    box-shadow: 0px 1px 2px 2px #00000071;
-  }
+  box-shadow: 0px 1px 2px 2px #00000071;
+  background-color: #24262c;
 }
 
 .product-card {
@@ -805,6 +834,14 @@ a.link {
   padding-bottom: 6px;
 }
 
+.wishlistHeartCard {
+  position: absolute;
+  margin-left: 271px;
+  margin-top: -32px;
+  font-size: 25px;
+  color: #0bc970;
+}
+
 .big-container {
   display: flex;
   min-height: 100vh;
@@ -827,7 +864,7 @@ a.link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 100px;
   width: 100vw;
   max-width: 1350px;
 }
@@ -1007,6 +1044,13 @@ a.link {
   align-items: center;
   background-color: rgba(131, 131, 131, 0);
   margin-bottom: 20px;
+}
+
+.wish_productDetail {
+  margin-left: 15%;
+  position: absolute;
+  margin-top: 0px;
+  font-size: 40px;
 }
 
 .contecarrito {
@@ -1288,9 +1332,9 @@ a.link {
 }
 
 .order-form {
-  width: 80%;
+  width: 70%;
   max-width: 700px;
-  min-width: 320px;
+  min-width: 310px;
   padding: 10px 30px 20px 30px;
   margin: 0 auto;
   background-color: #ffffff;
@@ -1300,6 +1344,10 @@ a.link {
   border-radius: 1px;
   border: 1px solid rgba(255, 255, 255, 0.822);
   overflow-y: scroll;
+}
+
+.order-form {
+  background-color: #202020;
 }
 
 .Information {
@@ -1312,11 +1360,11 @@ a.link {
   font-size: 0.9rem;
   text-align: center;
   text-decoration: none;
-  background-color: rgba(245, 245, 245, 0.932);
+  background-color: rgba(0, 0, 0, 0.95);
   overflow-y: scroll;
 }
 .Information .Information-buttons {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.192);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   padding-bottom: 20px;
   width: 100%;
   display: flex;
@@ -1361,19 +1409,20 @@ a.link {
   color: #fff;
   border-radius: 5px;
   padding: 15px;
+  cursor: pointer;
 }
 .Information .Information-sidebar {
   margin: 20px 0 0 0;
-  color: #6b7685;
+  color: #aaabad;
 }
 .Information .Information-sidebar h2 {
   color: #6b7685;
 }
 .Information .Information-sidebar h3 {
-  color: #8e949c;
+  color: #fafafa;
 }
 .Information .Information-sidebar h3 span {
-  color: rgba(80, 179, 245, 0.733);
+  color: #fff099;
 }
 .Information .Information-item {
   display: flex;
@@ -1417,7 +1466,7 @@ a.link {
   margin: 0;
   font-weight: 500;
   text-transform: uppercase;
-  color: #0e0c0c;
+  color: #2fbe82;
   border-bottom: 3px solid #ddd;
 }
 .Information .Info-Back__container .Information-Back:hover {
@@ -1431,7 +1480,7 @@ a.link {
   justify-content: center;
 }
 .Information .Information-form .name-email__container {
-  width: 30%;
+  width: 50%;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -1442,8 +1491,9 @@ a.link {
 .Information .Information-form .name-email__container input {
   min-width: 200px;
   border: none;
-  background: transparent;
+  background-color: transparent;
   outline: none;
+  color: #aaabad;
 }
 .Information .Information-form .name-email__container .name__container {
   display: flex;
@@ -1503,6 +1553,7 @@ a.link {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: #fafafa;
 }
 
 .checkContactInfoHide {
