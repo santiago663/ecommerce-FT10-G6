@@ -35,8 +35,8 @@ export default function Profile() {
       available: currentUser.available,
       location_id: currentUser.location_id,
       password: currentUser.password,
-      phone_Number: currentUser.phone_Number[1],
-      phone_Code: currentUser.phone_Number[0],
+      phone_Number: currentUser.phone_Number && currentUser.phone_Number[1],
+      phone_Code: currentUser.phone_Number && currentUser.phone_Number[0],
       role: currentUser.role,
       roleId: currentUser.roleId,
       profilePic: currentUser.profilePic,
@@ -299,7 +299,7 @@ export default function Profile() {
               id="check2fa"
               onClick={(e) => activate2FA(e)}
             />
-            <span class="slider round"></span>
+            <span class="sli round"></span>
           </label>
         </div>
       </div>
