@@ -11,9 +11,16 @@ import {
 import { upgradeEditProducts } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_addProduct.scss';
 import { firebase } from '../../../../firebase/firebase-config';
+import SalesProduct from '../SalesProducts/SalesProduct';
+import ReactCardFlip from 'react-card-flip';
 
 function AddProduct() {
 
+    const [isFlipped, setIsFlipped] = useState(false);
+
+	const handleclick = () => {
+		setIsFlipped(!isFlipped);
+	};
     const dispatch = useDispatch()
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
@@ -293,300 +300,334 @@ function AddProduct() {
     }
 
     return (
-        <div className="mainDivAP">
-            <div className="Left-side container">
-                <div className="filProductByAuthor">
-                    <FilterProductByAuthor />
-                </div>
-                <div className="divAP">
-                    <h2 className="title">Add Product</h2>
-                    <form className="formAP" onSubmit={submitForm}>
-                        <div className="rigth">
-                            <div>
-                                Name:
-                        {id ?
-                                    <input
-                                        required
-                                        className="inputprod"
-                                        type="text"
-                                        onChange={handleInputChange}
-                                        name="name"
-                                        value={product.name}
-                                    /> :
-                                    <input
-                                        required
-                                        className="inputprod"
-                                        type="text"
-                                        onChange={handleInputChange}
-                                        name="name"
+		<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+			<div className="mainDivAP">
+				<div className="Left-side container">
+					<div className="filProductByAuthor">
+						<FilterProductByAuthor />
+					</div>
+					<div className="divAP">
+						<h2 className="title">Add Product</h2>
+						<form className="formAP" onSubmit={submitForm}>
+							<div className="rigth">
+								<div>
+									Name:
+									{id ? (
+										<input
+											required
+											className="inputprod"
+											type="text"
+											onChange={handleInputChange}
+											name="name"
+											value={product.name}
+										/>
+									) : (
+										<input
+											required
+											className="inputprod"
+											type="text"
+											onChange={handleInputChange}
+											name="name"
+										/>
+									)}
+								</div>
+								<div>
+									Description:
+									{id ? (
+										<textarea
+											required
+											className="textareaprod"
+											type="text"
+											onChange={handleInputChange}
+											name="description"
+											value={id ? product.description : ''}
+										/>
+									) : (
+										<textarea
+											required
+											className="textareaprod"
+											type="text"
+											onChange={handleInputChange}
+											name="description"
+										/>
+									)}
+								</div>
+								<div>
+									Artist:
+									{id ? (
+										<select
+											className="selector"
+											name="authorId"
+											id="selectorArAP"
+											onChange={handleInputChangeNro}
+											value={product.author?.id}
+										>
+											<option> </option>
+											{allArtist.map((a) => (
+												<option key={a.id} value={a.id}>
+													{a.name}
+												</option>
+											))}
+										</select>
+									) : (
+										<select
+											className="selector"
+											name="authorId"
+											id="selectorArAP"
+											onChange={handleInputChangeNro}
+										>
+											<option> </option>
+											{allArtist.map((a) => (
+												<option key={a.id} value={a.id}>
+													{a.name}
+												</option>
+											))}
+										</select>
+									)}
+								</div>
 
-                                    />}
+								<div>
+									Series:
+									<select className="selector" name="seriesId" id="selectorSeAP">
+										{allSeries.map((s) => (
+											<option key={s.id} value={s.id}>
+												{s.name}
+											</option>
+										))}
+									</select>
+								</div>
+								<div>
+									Categories:
+									<select
+										className="selector"
+										name="categories"
+										id="selectorCaAP"
+										onChange={handleInputChangeCa}
+									>
+										<option> </option>
+										{allCategories.map((c) => (
+											<option key={c.id} value={c.id}>
+												{c.name}
+											</option>
+										))}
+									</select>
+									{id
+										? product.categories.map((p) => (
+												<span
+													className="catego"
+													key={p?.id}
+													onClick={(event) => handleInputDeleteCa(event, p)}
+												>
+													{allCategories.find((c) => c.id == p)?.name}
+												</span>
+										  ))
+										: product.categories.map((id) => (
+												<span
+													className="catego"
+													key={id?.id}
+													onClick={(event) => handleInputDeleteCa(event, id)}
+												>
+													{allCategories.find((c) => c.id == id)?.name}
+												</span>
+										  ))}
+								</div>
+							</div>
+							<div className="left">
+								<div>
+									Price:
+									{id ? (
+										<input
+											required
+											className="inputprod"
+											type="number"
+											onChange={handleInputChangeNro}
+											name="price"
+											value={product.price}
+										/>
+									) : (
+										<input
+											required
+											className="inputprod"
+											type="number"
+											onChange={handleInputChangeNro}
+											name="price"
+										/>
+									)}
+								</div>
+								<div className="contentStock">
+									<div className="inputStock">
+										Stock:
+										{id ? (
+											<input
+												required
+												className="inputprod"
+												type="number"
+												onChange={handleInputChangeNro}
+												value={product.stock}
+												name="stock"
+											/>
+										) : (
+											<input
+												required
+												className="inputprod"
+												type="number"
+												onChange={handleInputChangeNro}
+												name="stock"
+											/>
+										)}
+									</div>
+									<div className="inputStock">
+										Max Stock:
+										{id ? (
+											<input
+												required
+												className="inputprod"
+												type="number"
+												onChange={handleInputChangeNro}
+												value={product.initialStock}
+												name="initialStock"
+											/>
+										) : (
+											<input
+												required
+												className="inputprod"
+												type="number"
+												onChange={handleInputChangeNro}
+												name="initialStock"
+											/>
+										)}
+									</div>
+								</div>
+								<div>
+									Available:
+									{id ? (
+										<select
+											className="selector"
+											name="available"
+											id="selectorAvAP"
+											onChange={handleInputChangeAv}
+											value={product.available ? 'Yes' : 'No'}
+										>
+											<option value="Yes">Yes</option>
+											<option value="No">No</option>
+										</select>
+									) : (
+										<select
+											className="selector"
+											name="available"
+											id="selectorAvAP"
+											onChange={handleInputChangeAv}
+										>
+											<option value="Yes">Yes</option>
+											<option value="No">No</option>
+										</select>
+									)}
+								</div>
+								<div>
+									Select File:
+									<input
+										className="SelectorFile"
+										type="file"
+										title="otra cosa"
+										onChange={handleOnChange}
+										name="file"
+									/>
+								</div>
+								<div>
+									FileLink:
+									{id ? (
+										<input
+											required
+											className="inputprod"
+											type="text"
+											onChange={handleInputChange}
+											name="fileLink"
+											value={product.fileLink}
+											onChangeCapture=""
+										/>
+									) : (
+										<input
+											required
+											className="inputprod"
+											type="text"
+											onChange={handleInputChange}
+											name="fileLink"
+											value={uploadValue.picture}
+											onChangeCapture=""
+										/>
+									)}
+								</div>
+								<div>
+									Preview:
+									{id ? (
+										<input
+											required
+											className="inputprod"
+											type="text"
+											onChange={handleInputChange}
+											name="preview"
+											value={product.preview}
+										/>
+									) : (
+										<input
+											required
+											className="inputprod"
+											type="text"
+											onChange={handleInputChange}
+											name="preview"
+											value={uploadValue.picture}
+										/>
+									)}
+								</div>
 
-                            </div>
-                            <div>
-                                Description:
-                        {id ?
-                                    <textarea
-                                        required
-                                        className="textareaprod"
-                                        type="text"
-                                        onChange={handleInputChange}
-                                        name="description"
-                                        value={id ? product.description : ""}
-                                    /> :
-                                    <textarea
-                                        required
-                                        className="textareaprod"
-                                        type="text"
-                                        onChange={handleInputChange}
-                                        name="description"
-                                    />
-                                }
-                            </div>
-                            <div>
-                                Artist:
-                        {id ?
-                                    <select
-                                        className="selector"
-                                        name="authorId"
-                                        id="selectorArAP"
-                                        onChange={handleInputChangeNro}
-                                        value={product.author?.id}
-                                    >
-                                        <option> </option>
-                                        {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
-                                    </select>
-                                    :
-                                    <select
-                                        className="selector"
-                                        name="authorId"
-                                        id="selectorArAP"
-                                        onChange={handleInputChangeNro}
-                                    >
-                                        <option> </option>
-                                        {allArtist.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
-                                    </select>
-                                }
-                            </div>
-
-                            <div>
-                                Series:
-                        <select
-                                    className="selector"
-                                    name="seriesId"
-                                    id="selectorSeAP"
-                                >
-                                    {allSeries.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-                                </select>
-                            </div>
-                            <div>
-                                Categories:
-                        <select
-                                    className="selector"
-                                    name="categories"
-                                    id="selectorCaAP"
-                                    onChange={handleInputChangeCa}
-                                >
-                                    <option> </option>
-                                    {allCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                                </select>
-                                {id ?
-                                    product.categories.map(p =>
-                                        <span className="catego" key={p?.id} onClick={(event) => handleInputDeleteCa(event, p)} >{allCategories.find(c => c.id == p)?.name}</span>)
-                                    :
-                                    product.categories.map(id =>
-                                        <span className="catego" key={id?.id} onClick={(event) => handleInputDeleteCa(event, id)} >{allCategories.find(c => c.id == id)?.name}</span>)
-                                }
-                            </div>
-
-                        </div>
-                        <div className="left">
-
-                            <div>
-                                Price:
-                        {id ?
-                                    <input
-                                        required
-                                        className="inputprod"
-                                        type="number"
-                                        onChange={handleInputChangeNro}
-                                        name="price"
-                                        value={product.price}
-                                    />
-                                    :
-                                    <input
-                                        required
-                                        className="inputprod"
-                                        type="number"
-                                        onChange={handleInputChangeNro}
-                                        name="price"
-                                    />}
-                            </div>
-                            <div className="contentStock">
-                                <div className="inputStock">
-                                    Stock:
-                            {id ?
-                                        <input
-                                            required
-                                            className="inputprod"
-                                            type="number"
-                                            onChange={handleInputChangeNro}
-                                            value={product.stock}
-                                            name="stock"
-                                        /> :
-                                        <input
-                                            required
-                                            className="inputprod"
-                                            type="number"
-                                            onChange={handleInputChangeNro}
-                                            name="stock"
-                                        />
-                                    }
-                                </div>
-                                <div className="inputStock">
-                                    Max Stock:
-                            {id ?
-                                        <input
-                                            required
-                                            className="inputprod"
-                                            type="number"
-                                            onChange={handleInputChangeNro}
-                                            value={product.initialStock}
-                                            name="initialStock"
-                                        />
-                                        :
-                                        <input
-                                            required
-                                            className="inputprod"
-                                            type="number"
-                                            onChange={handleInputChangeNro}
-                                            name="initialStock"
-                                        />
-                                    }
-                                </div>
-                            </div>
-                            <div>
-                                Available:
-                        {id ?
-                                    <select
-                                        className="selector"
-                                        name="available"
-                                        id="selectorAvAP"
-                                        onChange={handleInputChangeAv}
-                                        value={product.available ? "Yes" : "No"}
-                                    >
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                    :
-                                    <select
-                                        className="selector"
-                                        name="available"
-                                        id="selectorAvAP"
-                                        onChange={handleInputChangeAv}
-                                    >
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                }
-                            </div>
-                            <div>
-                                Select File:
-                        <input
-                                    className="SelectorFile"
-                                    type="file"
-                                    title="otra cosa"
-                                    onChange={handleOnChange}
-                                    name="file"
-                                />
-                            </div>
-                            <div>
-                                FileLink:
-                        {id ?
-                                    <input
-                                        required
-                                        className="inputprod"
-                                        type="text"
-                                        onChange={handleInputChange}
-                                        name="fileLink"
-                                        value={product.fileLink}
-                                        onChangeCapture=""
-                                    />
-                                    :
-                                    <input
-                                        required
-                                        className="inputprod"
-                                        type="text"
-                                        onChange={handleInputChange}
-                                        name="fileLink"
-                                        value={uploadValue.picture}
-                                        onChangeCapture=""
-                                    />
-                                }
-                            </div>
-                            <div>
-                                Preview:
-                        {id ?
-                                    <input
-                                        required
-                                        className="inputprod"
-                                        type="text"
-                                        onChange={handleInputChange}
-                                        name="preview"
-                                        value={product.preview}
-                                    />
-                                    :
-                                    <input
-                                        required
-                                        className="inputprod"
-                                        type="text"
-                                        onChange={handleInputChange}
-                                        name="preview"
-                                        value={uploadValue.picture}
-                                    />}
-                            </div>
-
-                            {id ?
-                                <div className="editOrAdd-container">
-                                    <input
-                                        className="EditOrAdd"
-                                        type="submit"
-                                        value="Update"
-                                    />
-                                    <input
-                                        className="EditOrAdd"
-                                        type="button"
-                                        value="Delete"
-                                        onClick={deleteProducts}
-                                    />
-                                </div>
-                                :
-                                <input
-                                    className="EditOrAdd"
-                                    type="submit"
-                                    value="Add"
-                                />
-                            }
-                        </div>
-                    </form>
-                </div>
-                <progress className="progress" value={uploadValue.uploadValue} max='100'>
-                    {uploadValue.uploadValue} %
-                </progress>
-            </div>
-            {id ?
-                <div className="imgfile">
-                    <div className="image">
-                        {id ? <img className="image" src={product.preview} />
-                            : <img className="image" src={uploadValue.picture} />}
+								{id ? (
+									<div className="editOrAdd-container">
+										<input className="EditOrAdd" type="submit" value="Update" />
+										<input
+											className="EditOrAdd"
+											type="button"
+											value="Delete"
+											onClick={deleteProducts}
+										/>
+									</div>
+								) : (
+									<>
+										<input className="EditOrAdd" type="submit" value="Add" />
+									</>
+								)}
+							</div>
+						</form>
+                                <button onClick={handleclick}>Sales</button>
+					</div>
+					<progress className="progress" value={uploadValue.uploadValue} max="100">
+						{uploadValue.uploadValue} %
+					</progress>
+				</div>
+				{id ? (
+					<div className="imgfile">
+						<div className="image">
+							{id ? (
+								<img className="image" src={product.preview} />
+							) : (
+								<img className="image" src={uploadValue.picture} />
+							)}
+						</div>
+						<input type="submit" value="delete image" onClick={deletefile} />
+					</div>
+				) : null}
+			</div>
+			<div className="mainDivAP">
+                <div className="Left-side container">
+                    <div className="filProductByAuthor">
+				<SalesProduct />
                     </div>
-                    <input type="submit" value="delete image" onClick={deletefile} />
+                    
+				<button onClick={handleclick}>Sales</button>
+
                 </div>
-                :
-                null
-            }
-        </div>
-    );
+			</div>
+		</ReactCardFlip>
+	);
 }
 
 export default AddProduct
