@@ -134,6 +134,38 @@ export const startLoginEmailPassword = (email, password) => {
             }
           });
         }
+        else {
+          var orderProducts = JSON.parse(
+            localStorage.getItem("orderProducts")
+          );
+          if (orderProducts?.length > 0) {
+            dispatch(emptyToCartUser(resp.data));
+
+            const userOrder = await axios.get(
+              `http://localhost:3001/get/order/users/${resp.data.id}/cart`
+            );
+
+            dispatch(
+              pushStorageToCartUser(
+                orderProducts,
+                resp.data,
+                userOrder.data.id
+              )
+            );
+            localStorage.clear();
+            localStorage.setItem(
+              "CurrentUser",
+              JSON.stringify(resp.data)
+            );
+            dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+          } else {
+            localStorage.setItem(
+              "CurrentUser",
+              JSON.stringify(resp.data)
+            );
+            dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+          }
+        }
       })
       .catch((error) => {
         if (error === "banned")
@@ -157,7 +189,8 @@ export const startGoogleLogin = () => {
         const findUser = await axios.get(
           `http://localhost:3001/get/user?email=${user.email}`
         )
-        if (findUser.data.roleId === 103) throw "banned";
+        
+        if (findUser.data?.roleId === 103) throw "banned";        
 
         return [findUser, user]
       })
@@ -184,70 +217,105 @@ export const startGoogleLogin = () => {
                 { email: respUser[0].data?.email, code: result.value }
               );
 
-                if (validation.data.success === false) {
-                  throw "wrongCode";
-                }
-
-                else {
-                  //new user
-                  if (respUser[0].data === null) {
-                    const resp = await axios({
-                      method: "post",
-                      url: "http://localhost:3001/post/user",
-                      data: { name: user.displayName, email: respUser[1].email, isGuest: false, profilePic: respUser[1].photoURL },
-                    });
-
-                    const currentProducts = JSON.parse(
-                      localStorage.getItem("orderProducts")
-                    );
-
-                    //si hay data en el carrito, se crea una orden nueva con los productos
-                    if (currentProducts) {
-                      dispatch(pushStorageToCartUser(currentProducts, resp.data));
-                    }
-                    localStorage.clear();
-                    localStorage.setItem("CurrentUser", JSON.stringify(resp.data));
-                    dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
-                  }
-
-                  //login
-                  else {
-                    const respUserLog = await axios.get(
-                      `http://localhost:3001/get/user?email=${respUser[1].email}`
-                    );
-
-                    //se busca el carrito del localStorage
-                    var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
-
-                    //si hay data en el carrito
-                    if (orderProducts?.length > 0) {
-                      dispatch(emptyToCartUser(respUserLog.data));
-
-                      const userOrder = await axios.get(
-                        `http://localhost:3001/get/order/users/${respUserLog.data.id}/cart`
-                      );
-
-                      dispatch(
-                        pushStorageToCartUser(
-                          orderProducts,
-                          respUserLog.data,
-                          userOrder.data?.id
-                        )
-                      );
-                      localStorage.clear();
-                      localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
-                      dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
-                    } else {
-                      localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
-                      dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
-                    }
-                  }
-                }
+              if (validation.data.success === false) {
+                throw "wrongCode";
               }
+
               else {
-                throw "windowsOutClick";
+                //login                
+                const respUserLog = await axios.get(
+                  `http://localhost:3001/get/user?email=${respUser[1].email}`
+                );
+
+                //se busca el carrito del localStorage
+                var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
+
+                //si hay data en el carrito
+                if (orderProducts?.length > 0) {
+                  dispatch(emptyToCartUser(respUserLog.data));
+
+                  const userOrder = await axios.get(
+                    `http://localhost:3001/get/order/users/${respUserLog.data.id}/cart`
+                  );
+
+                  dispatch(
+                    pushStorageToCartUser(
+                      orderProducts,
+                      respUserLog.data,
+                      userOrder.data?.id
+                    )
+                  );
+                  
+                  localStorage.clear();
+                  localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
+                  dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+                } else {
+                  localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
+                  dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+                }
               }
-            })
+            }
+            else {
+              throw "windowsOutClick";
+            }
+          })
+        }
+        else {
+
+          //new user
+          if (respUser[0].data === null) {
+
+            const resp = await axios({
+              method: "post",
+              url: "http://localhost:3001/post/user",
+              data: { name: respUser[1].displayName, email: respUser[1].email, isGuest: false, profilePic: respUser[1].photoURL },
+            });
+
+            const currentProducts = JSON.parse(
+              localStorage.getItem("orderProducts")
+            );
+
+            //si hay data en el carrito, se crea una orden nueva con los productos
+            if (currentProducts) {
+              dispatch(pushStorageToCartUser(currentProducts, resp.data));
+            }
+            localStorage.clear();
+            localStorage.setItem("CurrentUser", JSON.stringify(resp.data));
+            dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+          }
+
+          //login
+          else {
+            const respUserLog = await axios.get(
+              `http://localhost:3001/get/user?email=${respUser[1].email}`
+            );
+
+            //se busca el carrito del localStorage
+            var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
+
+            //si hay data en el carrito
+            if (orderProducts?.length > 0) {
+              dispatch(emptyToCartUser(respUserLog.data));
+
+              const userOrder = await axios.get(
+                `http://localhost:3001/get/order/users/${respUserLog.data.id}/cart`
+              );
+
+              dispatch(
+                pushStorageToCartUser(
+                  orderProducts,
+                  respUserLog.data,
+                  userOrder.data?.id
+                )
+              );
+              localStorage.clear();
+              localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
+              dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+            } else {
+              localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
+              dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+            }
+          }
         }
       })
       .catch((error) => {
