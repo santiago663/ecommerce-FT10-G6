@@ -1,4 +1,3 @@
-/* eslint-disable  */
 //Information
 import lucia from "./members/lucia";
 import angel from "./members/angel";

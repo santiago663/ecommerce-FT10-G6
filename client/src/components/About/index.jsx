@@ -1,4 +1,3 @@
-/* eslint-disable  */
 import "../../scss/components/_about.scss";
 import Card from "./Card";
 import team from "./team";

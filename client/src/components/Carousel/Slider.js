@@ -1,4 +1,3 @@
-/* eslint-disable  */
 import React, { useState, useEffect } from 'react';
 import ImagCarousel from './ImagCarousel';
 import { useSelector } from 'react-redux';
