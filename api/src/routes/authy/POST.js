@@ -32,10 +32,10 @@ server.post("/validation", async (req, res) => {
 
     try {
 
-        const { userId, code } = req.body
+        const { email, code } = req.body
 
         const user = await Users.findOne({
-            where: { id: userId }
+            where: { email: email }
         })
 
         authy.verify(user.authyId, code, function (err, res2) {

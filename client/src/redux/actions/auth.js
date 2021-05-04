@@ -22,9 +22,9 @@ export const logout = () => {
       .signOut()
       .then(async (resp) => {
         localStorage.removeItem("CurrentUser");
-        dispatch({ type: TYPES.AUTH_LOGIN, payload: true });        
+        dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
       })
-      .then(()=>{
+      .then(() => {
         location.assign("http://localhost:3000")
       });
   };
@@ -69,18 +69,56 @@ export const startLoginEmailPassword = (email, password) => {
     });
   }
 
+  function wrongCode() {
+    Swal.fire({
+      title: "Wrong code. Try again",
+      icon: "error",
+      timer: "2500",
+      showConfirmButton: false,
+    });
+  }
+
   return (dispatch) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
 
       .then(async ({ user }) => {
-        const resp = await axios.get(
+
+        const findUser = await axios.get(
           `http://localhost:3001/get/user?email=${user.email}`
-        );
+        )
+        if (findUser.data.roleId === 103) throw "banned";
 
-        if(resp.data?.roleId === 103) return alertError()
+        return findUser
+      })
+      .then(async (resp)=>{
 
+        if (resp.data?.authyId) {
+
+          const { value: password } = await Swal.fire({
+            title: 'Enter your Authy code',
+            input: 'text',
+            inputLabel: 'Authy code',
+            inputPlaceholder: 'Enter your Authy code',
+            inputAttributes: {
+              maxlength: 10,
+              autocapitalize: 'off',
+              autocorrect: 'off'
+            }
+          })
+
+          const validation = await axios.post(`http://localhost:3001/post/2fa/validation`, { email: resp.data?.email, code: password })
+
+          if (validation.data.success === false) {
+            throw "wrongCode"
+          }
+        }
+        
+        return resp
+
+      })
+      .then(async (resp)=>{
         var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
 
         if (orderProducts?.length > 0) {
@@ -100,17 +138,30 @@ export const startLoginEmailPassword = (email, password) => {
           localStorage.setItem("CurrentUser", JSON.stringify(resp.data));
           dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
         }
-      })
+      }) 
       .catch((error) => {
+        if (error === "banned") return alertError()
+        if (error === "wrongCode") return wrongCode()
+
         dispatch(setError(error.message));
       });
   };
 };
 
 export const startGoogleLogin = () => {
+
   function alertError() {
     Swal.fire({
       title: "Has sido baneado. No te puedes logear",
+      icon: "error",
+      timer: "2500",
+      showConfirmButton: false,
+    });
+  }
+
+  function wrongCode() {
+    Swal.fire({
+      title: "Wrong code. Try again",
       icon: "error",
       timer: "2500",
       showConfirmButton: false,
@@ -122,16 +173,50 @@ export const startGoogleLogin = () => {
       .auth()
       .signInWithPopup(googleAuthProvider)
       .then(async ({ user }) => {
+
         const findUser = await axios.get(
           `http://localhost:3001/get/user?email=${user.email}`
-        );
+        )
+        if (findUser.data.roleId === 103) throw "banned";
+
+        return [findUser, user]
+      })
+
+      .then(async (respUser) => {
+
+        if (respUser[0].data?.authyId) {
+
+          const { value: password } = await Swal.fire({
+            title: 'Enter your Authy code',
+            input: 'text',
+            inputLabel: 'Authy code',
+            inputPlaceholder: 'Enter your Authy code',
+            inputAttributes: {
+              maxlength: 10,
+              autocapitalize: 'off',
+              autocorrect: 'off'
+            }
+          })
+
+          const validation = await axios.post(`http://localhost:3001/post/2fa/validation`, { email: respUser[0].data?.email, code: password })
+
+          if (validation.data.success === false) {
+            throw "wrongCode"
+          }
+        }
+
+        return respUser
+
+      })
+
+      .then(async (findUser) => {
 
         //new user
-        if (findUser.data === null) {
+        if (findUser[0].data === null) {
           const resp = await axios({
             method: "post",
             url: "http://localhost:3001/post/user",
-            data: { name: user.displayName, email: user.email, isGuest: false, profilePic: user.photoURL },
+            data: { name: user.displayName, email: findUser[1].email, isGuest: false, profilePic: findUser[1].photoURL },
           });
 
           const currentProducts = JSON.parse(
@@ -150,10 +235,8 @@ export const startGoogleLogin = () => {
         //login
         else {
           const respUser = await axios.get(
-            `http://localhost:3001/get/user?email=${user.email}`
+            `http://localhost:3001/get/user?email=${findUser[1].email}`
           );
-
-          if (respUser.data.roleId === 103) return alertError();
 
           //se busca el carrito del localStorage
           var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
@@ -183,7 +266,13 @@ export const startGoogleLogin = () => {
         }
       })
       .catch((error) => {
-        dispatch(setError(error.message));
+
+        if (error === "banned") return alertError()
+        if (error === "wrongCode") return wrongCode()
+
+        else {
+          dispatch(setError(error.message));
+        }
       });
   };
 };
@@ -206,7 +295,7 @@ export const resetPassword = (email) => {
           );
         })
         .catch((error) => {
-          if(error.a === null){
+          if (error.a === null) {
             dispatch(setError(`No hay usuario registrado con el correo electrónico:  ${email}`));
           } else {
             dispatch(setError(`Ups... algo salio mal... Comuníquese con soporte, Gracias.`));

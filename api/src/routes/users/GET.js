@@ -14,7 +14,7 @@ server.get("/", async (req, res) => {
                 }
             )
 
-            usersLogin ? usersLogin.authyId = 0 : null
+            usersLogin ? usersLogin.authyId = true : null
 
             return res.status(200).json(usersLogin)
         } catch (error) {
