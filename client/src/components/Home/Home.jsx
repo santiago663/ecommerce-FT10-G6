@@ -3,6 +3,7 @@ import React from 'react';
 import '../../scss/containers/_home.scss';
 import Particles from 'react-particles-js'
 import { Link } from 'react-router-dom'
+import Slider from '../Carousel/Slider'
 
 function Home() {
 
@@ -73,6 +74,7 @@ function Home() {
 						},
 					}}
 				/>
+				<Slider props={true} />
 			</div>
 			<div className="botonesqueseio">
 				<h1 className="landing-title">
@@ -80,6 +82,7 @@ function Home() {
 					<span className="title-bg"> Support digital artists & </span>
 					<span className="title-bg">earn money by holding their art pieces .</span>
 				</h1>
+
 				<Link className="linkto" to="/Browser/products">
 					<button className="landing-action btn-rounded" type="button">
 						Browse now!
