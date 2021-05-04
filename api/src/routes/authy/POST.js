@@ -5,25 +5,27 @@ const authy = require('authy')(AUTHY_APIKEY);
 
 server.post("/", async (req, res) => {
 
-    const { email, cellphone, country_code } = req.body
+    try {
 
-    console.log(email, cellphone, country_code)
+        const { email, cellphone, country_code } = req.body
 
-    var resAuthy;
+        authy.register_user(email, cellphone, country_code, async function (err, res2) {
 
-    authy.register_user(email, cellphone, country_code, async function (err, res) {
-        console.log(res);
-        console.log(err)
-        await Users.update({
-            authyId: res.user.id
-        },
-            {
-                where: { email: email }
-            })
+            if (res2) {
+                await Users.update({
+                    authyId: res2.user.id
+                },
+                    {
+                        where: { email: email }
+                    })
+            }
 
-    })
-    res.json(resAuthy)
+            res.json(res2 ? res2 : err)
+        })
 
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 server.post("/validation", async (req, res) => {
@@ -36,26 +38,15 @@ server.post("/validation", async (req, res) => {
             where: { id: userId }
         })
 
-        var resp;
-
         authy.verify(user.authyId, code, function (err, res2) {
-            if(res2) {
-                console.log(res2);
-                resp = true
-            }
-            if(err) {
-                console.log(err);
-                resp = false
-            }
-            res.json(res2 ? res2 : err )
-        });
 
-        
+            res.json(res2 ? res2 : err)
+
+        });
 
     } catch (error) {
         console.log(error)
     }
-
 })
 
 module.exports = server;
