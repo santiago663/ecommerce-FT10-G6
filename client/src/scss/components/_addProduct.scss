@@ -23,8 +23,7 @@ select {
         align-items: flex-start;
         flex-direction: row;
         .imgfile {
-            max-width: 500px;
-            max-height: 400px;
+            max-width: 600px;
             .image {
                 margin-left: 10px;
                 max-width: 100%;
@@ -88,8 +87,8 @@ select {
                 display: inline-flex;
                 margin: 10px 15px 0 0;
                 &:hover {
-                    transform: scale(1.1);
-                    cursor: no-drop;
+                    // transform: scale(1.1);
+                    cursor: pointer;
                     background-color: rgb(146, 53, 53);
                     box-shadow: #512222 0 1px 1px 2px;
                     color: transparent;
@@ -189,20 +188,23 @@ select {
 .imgfile {
     display: flex;
     flex-direction: column;
-    align-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 640px;
+    height: 620px;
+    @media only screen and(max-width: 1200px) {
+        height: fit-content;
+    }
     input {
         border: none;
         border-radius: 5px;
         min-width: 40%;
-        padding: 5px 0;
+        padding: 10px;
         margin: 15px;
         text-transform: uppercase;
         background-color: rgb(52, 52, 52);
         box-shadow: #191919 0 3px 5px 2px;
-        font-size: 20px;
+        font-size: 16px;
         color: #fafafa;
         transition: 200ms;
         &:hover {
@@ -213,6 +215,7 @@ select {
     }
 }
 .image {
+    max-height: 550px;
     max-width: 100%;
     margin-top: 5px;
 }
