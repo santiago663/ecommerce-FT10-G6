@@ -21,8 +21,6 @@ server.post("/", async (req, res) => {
     //creación de usuario como guest
     if (isGuest) {
 
-
-
         if (!validateEmail(email)) return res.status(400).json({ message: "The email is invalid", status: 400})
 
         try {
@@ -40,7 +38,7 @@ server.post("/", async (req, res) => {
                 defaults: {
                     name,
                     email,
-                    phone_Number,
+                    phone_Number: phone_Number ? phone_Number : [0,0],
                     location_id,
                     roleId: roleGuest.id,
                     available: false,
@@ -77,7 +75,7 @@ server.post("/", async (req, res) => {
                 defaults: {
                     name,
                     email,
-                    phone_Number,
+                    phone_Number: phone_Number ? phone_Number : [0,0],
                     location_id,
                     roleId: role.id,
                     available: true,
@@ -95,7 +93,7 @@ server.post("/", async (req, res) => {
                 var guestUserRegister = await Users.update(
                     {
                         name,
-                        phone_Number,
+                        phone_Number: phone_Number ? phone_Number : [0,0],
                         location_id,
                         roleId: role.id,
                         available: true,
