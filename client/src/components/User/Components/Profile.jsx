@@ -299,7 +299,7 @@ export default function Profile() {
               id="check2fa"
               onClick={(e) => activate2FA(e)}
             />
-            <span class="slider round"></span>
+            <span class="sli round"></span>
           </label>
         </div>
       </div>

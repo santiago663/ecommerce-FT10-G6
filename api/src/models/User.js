@@ -35,7 +35,11 @@ module.exports = (sequelize) => {
       authyId: {
         type: DataTypes.STRING,
         allowNull: true,
-      },      
+      },
+      authy: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      }      
     },
     {
       timestamps: false,
