@@ -1,5 +1,5 @@
 {
-  "name": "finally-working",
+  "name": "digitalart",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,8 +15,6 @@
     "primereact": "^6.3.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
-    "react-app-rewire-stylus-modules": "^0.0.2",
-    "react-app-rewired": "^2.1.8",
     "react-card-flip": "^1.1.1",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
@@ -35,13 +33,10 @@
     "validator": "^13.5.2"
   },
   "scripts": {
-    "start": "env-cmd -f .env.local react-app-rewired start",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "build-staging": "env-cmd -f .env.staging react-app-rewired build",
-    "build-production": "env-cmd -f .env.production react-app-rewired build",
-    "eslint-dep": "npx install-peerdeps --dev eslint-config-airbnb"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -60,13 +55,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb": "18.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^1.7.0"
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable  */
 import ReactCardFlip from "react-card-flip";
 import { useState } from "react";
 import linkedin from "../../../assets/linkedin.png";
