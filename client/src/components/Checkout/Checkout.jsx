@@ -69,7 +69,7 @@ const Checkout = () => {
             localStorage.setItem("completed", JSON.stringify(""))
           )
           .then(() => window.localStorage.setItem("stripe", JSON.stringify("")))
-          .then(() => location.assign("/browser/products"));
+          .then(() => window.location.assign("/browser/products"));
       } else {        
         localStorage.setItem("completed", JSON.stringify({status: true}));
         dispatch(editProductStock({product: guestProducts.map(product => product.id), stock: guestProducts.map(product => product.stock == null ? null : product.stock - 1 )}));
@@ -107,7 +107,7 @@ const Checkout = () => {
               })
             )
           )
-          .then(() => location.assign("/browser/products"))
+          .then(() => window.location.assign("/browser/products"))
           .then(
             () => (
               localStorage.setItem("orderProducts", JSON.stringify("")),
@@ -262,7 +262,7 @@ const Checkout = () => {
               </>
 					)}
 				</div>
-          <Slider props={false} />
+          {/* <Slider props={false} /> */}
 			</div>
 		</>
   );

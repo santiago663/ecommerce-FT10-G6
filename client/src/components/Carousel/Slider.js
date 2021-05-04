@@ -53,7 +53,11 @@ function Slider(props) {
 
 	return()=> clearInterval(interval)
 	},[])
-props.props ? (interval = setInterval(() => {goRight();}, 5000)): null;
+  if(props.props){
+	( interval = setInterval(() => {goRight();}, 5000))
+  } else {
+interval = null
+  } ;
 
 	const goRight = () => {
 		clearInterval(interval);
