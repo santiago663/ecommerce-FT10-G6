@@ -5,13 +5,13 @@ import { editCurrentUser } from "../../../redux/actions/actionUser";
 import { removeError } from "../../../redux/actions/uiError";
 import Swal from "sweetalert2";
 import "../../../scss/components/_profileuser.scss";
-import {firebase} from '../../../firebase/firebase-config';
+import { firebase } from "../../../firebase/firebase-config";
 export default function Profile() {
   const { currentUser } = useSelector((store) => store.auth);
   const { msgError } = useSelector((store) => store.uiError);
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState(null);
   const [user, setInputs] = useState({
     available: true,
     email: "",
@@ -19,7 +19,8 @@ export default function Profile() {
     location_id: 0,
     name: "",
     password: "",
-    phone_Number: 0,
+    phone_Number: "",
+    phone_Code: "",
     role: {},
     roleId: 0,
     profilePic: "",
@@ -34,7 +35,8 @@ export default function Profile() {
       available: currentUser.available,
       location_id: currentUser.location_id,
       password: currentUser.password,
-      phone_Number: currentUser.phone_Number,
+      phone_Number: currentUser.phone_Number[1],
+      phone_Code: currentUser.phone_Number[0],
       role: currentUser.role,
       roleId: currentUser.roleId,
       profilePic: currentUser.profilePic,
@@ -44,16 +46,15 @@ export default function Profile() {
   const handleInputChange = (e) => {
     e.preventDefault();
     setActive(true);
-    if(e.target.name === "file"){
-        setFile(e.target.files[0])
-      const previewFile = e.target.files[0]
-        setInputs({...user,
-            profilePic: URL.createObjectURL(previewFile)})
+    if (e.target.name === "file") {
+      setFile(e.target.files[0]);
+      const previewFile = e.target.files[0];
+      setInputs({ ...user, profilePic: URL.createObjectURL(previewFile) });
     } else {
-        setInputs({
-            ...user,
-            [e.target.name]: e.target.value,
-          });
+      setInputs({
+        ...user,
+        [e.target.name]: e.target.value,
+      });
     }
   };
 
@@ -67,28 +68,37 @@ export default function Profile() {
       denyButtonText: `Don't save`,
     }).then((result) => {
       if (result.isConfirmed) {
-
         setActive(false);
 
-        if(file){
-            const storageRef = firebase.storage().ref(`profile/${file.name}`)
-            const task = storageRef.put(file)
-            task.on('state_changed', function(snapshot){
-            }, function(error) {console.log(error);
-            }, function() {
-
-              task.snapshot.ref.getDownloadURL().then(
-                  function(downloadURL) {
-                    dispatch(editCurrentUser(currentUser.id, {...user, profilePic:downloadURL}));
-                     
+        if (file) {
+          const storageRef = firebase.storage().ref(`profile/${file.name}`);
+          const task = storageRef.put(file);
+          task.on(
+            "state_changed",
+            function (snapshot) {},
+            function (error) {
+              console.log(error);
+            },
+            function () {
+              task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                dispatch(
+                  editCurrentUser(currentUser.id, {
+                    ...user,
+                    profilePic: downloadURL,
+                  })
+                );
               });
-            });
-            
+            }
+          );
         } else {
-          dispatch(editCurrentUser(currentUser.id, user));       
+          dispatch(
+            editCurrentUser(currentUser.id, {
+              ...user,
+              phone_Number: [user.phone_Code, user.phone_Number],
+            })
+          );
           Swal.fire("Saved!", "", "success");
         }
-    
       } else if (result.isDenied) {
         setInputs({
           ...user,
@@ -98,10 +108,11 @@ export default function Profile() {
           available: currentUser.available,
           location_id: currentUser.location_id,
           password: currentUser.password,
-          phone_Number: currentUser.phone_Number,
+          phone_Number: currentUser.phone_Number[1],
+          phone_Code: currentUser.phone_Number[0],
           role: currentUser.role,
           roleId: currentUser.roleId,
-          profilePic: currentUser.profilePic
+          profilePic: currentUser.profilePic,
         });
         Swal.fire("Changes are not saved", "", "info");
       }
@@ -118,18 +129,85 @@ export default function Profile() {
       dispatch(removeError());
     });
 
-    const initialState = {
-        uploadValue:0,
-        picture: ""
+  const activate2FA = (e) => {
+    
+    if (user.phone_Number.length > 0 && user.phone_Code.length > 0) {
+      if(document.getElementById("check2fa").checked === true){
+        Swal.fire({
+          title: '<strong>Do you want to activate 2FA?</strong>',
+          icon: 'info',
+          html:
+            '<h3>Important</h3> ' +
+            '<span>2FA will be activated for your account, you will receive a message on your cell phone asking you to install Authy, later you will have to register with the same phone number registered in your Digital Art account.</span> ' + '<span> The next time you log in you must perform the two-factor verification, once you enter your credentials you will receive a code in the Authy application which you must enter in order to access your account.</span>',
+          showCloseButton: true,
+          showCancelButton: true,
+          focusConfirm: false,
+          confirmButtonText:
+            '<i class="fa fa-thumbs-up"></i> Yes!',
+          confirmButtonAriaLabel: 'Thumbs up, great!',
+          cancelButtonText:
+            'No',
+          cancelButtonAriaLabel: 'Thumbs down'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            //validar si ya activo anteriormente --> cambie el estado de authy true
+            //si no se regitro anteriormente---> registrarlo en authy, guardar data authyid y authy true
+            Swal.fire('Saved!', '', 'success')
+          } else if (!result.isConfirmed) {
+            document.getElementById("check2fa").checked = false;
+            Swal.fire('Changes are not saved', '', 'info')
+          }
+        })
+        
+      }else{
+        Swal.fire({
+          title: '<strong>Do you want to disable 2FA??</strong>',
+          icon: 'info',
+          html:
+            '<h3>Important</h3> ' +
+            '<span>2FA will be deactivated for your account, if you wish to reactivate it you can do so at any time.</span> ' +
+            '<span>The next time you log in, you just have to enter your username and password.</span>',
+          showCloseButton: true,
+          showCancelButton: true,
+          focusConfirm: false,
+          confirmButtonText:
+            '<i class="fa fa-thumbs-up"></i> Great!',
+          confirmButtonAriaLabel: 'Thumbs up, great!',
+          cancelButtonText:
+            '<i class="fa fa-thumbs-down"></i>',
+          cancelButtonAriaLabel: 'Thumbs down'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            //validar si ya activo anteriormente --> cambie el estado de authy true
+            //si no se regitro anteriormente---> registrarlo en authy, guardar data authyid y authy true
+            Swal.fire('Saved!', '', 'success')
+          } else if (!result.isConfirmed) {
+            document.getElementById("check2fa").checked = true;
+            Swal.fire('Changes are not saved', '', 'info')
+          }
+        })
+      }
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text:
+          "Please make sure phone code area & phone number fields are completed",
+        icon: "error",
+        confirmButtonText: "Cool",
+      }).then(() => {
+        document.getElementById("check2fa").checked = false;
+      });
     }
+  };
 
   return (
     <div className="profile-body">
       <div className="profile-pic-div">
         <img src={user.profilePic} alt="profilePic" id="photo" />
-        <input type="file" id="file" name="file" onChange={handleInputChange}/>
-        <label for="file" id="uploadBtn">Choose Photo</label>
-      
+        <input type="file" id="file" name="file" onChange={handleInputChange} />
+        <label for="file" id="uploadBtn">
+          Choose Photo
+        </label>
       </div>
       <div className="title">
         <h1>Profile</h1>
@@ -138,6 +216,10 @@ export default function Profile() {
       <hr className="divisor" />
       <div className="user-info">
         <div className="container-user-info">
+          <h3>Update your information</h3>
+          <span>
+            Complete all the fields and submit your information pressing save
+          </span>
           <form onSubmit={submitUpdateProfile}>
             <div className="data">
               <label htmlFor="#" className="inputs-profile">
@@ -156,9 +238,16 @@ export default function Profile() {
                 PHONE
               </label>
               <input
+                className="ipro phonecountry"
+                type="text"
+                name="phone_Code"
+                placeholder="54"
+                value={user.phone_Code}
+                onChange={handleInputChange}
+              />
+              <input
                 className="ipro"
-                type="tel"
-                pattern="[0-9]{3}[0-9]{6}"
+                type="text"
                 value={user.phone_Number}
                 name="phone_Number"
                 onChange={handleInputChange}
@@ -197,7 +286,22 @@ export default function Profile() {
             </button>
           </form>
         </div>
-        <div className="imagecover"></div>
+        <div className="activate2fa">
+          <h3>Activate 2FA</h3>
+          <span>
+            To activate two factor authentication please complete your phone
+            number
+          </span>
+
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="check2fa"
+              onClick={(e) => activate2FA(e)}
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
       </div>
 
       <div className="profile-footer"></div>
