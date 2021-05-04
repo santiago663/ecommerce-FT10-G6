@@ -22,9 +22,9 @@ export const logout = () => {
       .signOut()
       .then(async (resp) => {
         localStorage.removeItem("CurrentUser");
-        dispatch({ type: TYPES.AUTH_LOGIN, payload: true });        
+        dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
       })
-      .then(()=>{
+      .then(() => {
         location.assign("http://localhost:3000")
       });
   };
@@ -60,130 +60,271 @@ export const startRegister = (name, email, password, profilePic) => {
 };
 
 export const startLoginEmailPassword = (email, password) => {
-  function alertError() {
-    Swal.fire({
-      title: "Has sido baneado. No te puedes logear",
-      icon: "error",
-      timer: "2500",
-      showConfirmButton: false,
-    });
-  }
 
   return (dispatch) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-
       .then(async ({ user }) => {
-        const resp = await axios.get(
+        const findUser = await axios.get(
           `http://localhost:3001/get/user?email=${user.email}`
         );
+        if (findUser.data.roleId === 103) throw "banned";
 
-        if(resp.data?.roleId === 103) return alertError()
+        return findUser;
+      })
+      .then(async (resp) => {
 
-        var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
+        if (resp.data?.authyId) {
 
-        if (orderProducts?.length > 0) {
-          dispatch(emptyToCartUser(resp.data));
+          await Swal.fire({
+            title: "Enter your Authy code",
+            input: "text",
+            inputLabel: "Authy code",
+            inputPlaceholder: "Enter your Authy code",
+            inputAttributes: {
+              maxlength: 10,
+              autocapitalize: "off",
+              autocorrect: "off",
+            },
+          }).then(async (result) => {
+            if (result.isDismissed === false && result.isConfirmed === true) {
+              const validation = await axios.post(
+                `http://localhost:3001/post/2fa/validation`,
+                { email: resp.data?.email, code: result.value }
+              );
 
-          const userOrder = await axios.get(
-            `http://localhost:3001/get/order/users/${resp.data.id}/cart`
+              if (validation.data.success === false) {
+                throw "wrongCode";
+              } else {
+                var orderProducts = JSON.parse(
+                  localStorage.getItem("orderProducts")
+                );
+
+                if (orderProducts?.length > 0) {
+                  dispatch(emptyToCartUser(resp.data));
+
+                  const userOrder = await axios.get(
+                    `http://localhost:3001/get/order/users/${resp.data.id}/cart`
+                  );
+
+                  dispatch(
+                    pushStorageToCartUser(
+                      orderProducts,
+                      resp.data,
+                      userOrder.data.id
+                    )
+                  );
+                  localStorage.clear();
+                  localStorage.setItem(
+                    "CurrentUser",
+                    JSON.stringify(resp.data)
+                  );
+                  dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+                } else {
+                  localStorage.setItem(
+                    "CurrentUser",
+                    JSON.stringify(resp.data)
+                  );
+                  dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+                }
+              }
+            } else {
+              throw "windowsOutClick";
+            }
+          });
+        }
+        else {
+          var orderProducts = JSON.parse(
+            localStorage.getItem("orderProducts")
           );
+          if (orderProducts?.length > 0) {
+            dispatch(emptyToCartUser(resp.data));
 
-          dispatch(
-            pushStorageToCartUser(orderProducts, resp.data, userOrder.data.id)
-          );
-          localStorage.clear();
-          localStorage.setItem("CurrentUser", JSON.stringify(resp.data));
-          dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
-        } else {
-          localStorage.setItem("CurrentUser", JSON.stringify(resp.data));
-          dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+            const userOrder = await axios.get(
+              `http://localhost:3001/get/order/users/${resp.data.id}/cart`
+            );
+
+            dispatch(
+              pushStorageToCartUser(
+                orderProducts,
+                resp.data,
+                userOrder.data.id
+              )
+            );
+            localStorage.clear();
+            localStorage.setItem(
+              "CurrentUser",
+              JSON.stringify(resp.data)
+            );
+            dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+          } else {
+            localStorage.setItem(
+              "CurrentUser",
+              JSON.stringify(resp.data)
+            );
+            dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+          }
         }
       })
       .catch((error) => {
-        dispatch(setError(error.message));
+        if (error === "banned")
+          return dispatch(setError("Has sido baneado. No te puedes logear"));
+        if (error === "wrongCode")
+          return dispatch(setError("Wrong code. Try again"));
+        if (error === "windowsOutClick")
+          return dispatch(setError("You don't type any code"));
       });
   };
 };
 
 export const startGoogleLogin = () => {
-  function alertError() {
-    Swal.fire({
-      title: "Has sido baneado. No te puedes logear",
-      icon: "error",
-      timer: "2500",
-      showConfirmButton: false,
-    });
-  }
 
   return (dispatch) => {
     firebase
       .auth()
       .signInWithPopup(googleAuthProvider)
       .then(async ({ user }) => {
+
         const findUser = await axios.get(
           `http://localhost:3001/get/user?email=${user.email}`
-        );
+        )
+        
+        if (findUser.data?.roleId === 103) throw "banned";        
 
-        //new user
-        if (findUser.data === null) {
-          const resp = await axios({
-            method: "post",
-            url: "http://localhost:3001/post/user",
-            data: { name: user.displayName, email: user.email, isGuest: false, profilePic: user.photoURL },
-          });
+        return [findUser, user]
+      })
 
-          const currentProducts = JSON.parse(
-            localStorage.getItem("orderProducts")
-          );
+      .then(async (respUser) => {
 
-          //si hay data en el carrito, se crea una orden nueva con los productos
-          if (currentProducts) {
-            dispatch(pushStorageToCartUser(currentProducts, resp.data));
-          }
-          localStorage.clear();
-          localStorage.setItem("CurrentUser", JSON.stringify(resp.data));
-          dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+        if (respUser[0].data?.authyId) {
+
+          await Swal.fire({
+            title: 'Enter your Authy code',
+            input: 'text',
+            inputLabel: 'Authy code',
+            inputPlaceholder: 'Enter your Authy code',
+            inputAttributes: {
+              maxlength: 10,
+              autocapitalize: 'off',
+              autocorrect: 'off'
+            }
+          }).then(async (result) => {
+            if (result.isDismissed === false && result.isConfirmed === true) {
+
+              const validation = await axios.post(
+                `http://localhost:3001/post/2fa/validation`,
+                { email: respUser[0].data?.email, code: result.value }
+              );
+
+              if (validation.data.success === false) {
+                throw "wrongCode";
+              }
+
+              else {
+                //login                
+                const respUserLog = await axios.get(
+                  `http://localhost:3001/get/user?email=${respUser[1].email}`
+                );
+
+                //se busca el carrito del localStorage
+                var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
+
+                //si hay data en el carrito
+                if (orderProducts?.length > 0) {
+                  dispatch(emptyToCartUser(respUserLog.data));
+
+                  const userOrder = await axios.get(
+                    `http://localhost:3001/get/order/users/${respUserLog.data.id}/cart`
+                  );
+
+                  dispatch(
+                    pushStorageToCartUser(
+                      orderProducts,
+                      respUserLog.data,
+                      userOrder.data?.id
+                    )
+                  );
+                  
+                  localStorage.clear();
+                  localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
+                  dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+                } else {
+                  localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
+                  dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+                }
+              }
+            }
+            else {
+              throw "windowsOutClick";
+            }
+          })
         }
-
-        //login
         else {
-          const respUser = await axios.get(
-            `http://localhost:3001/get/user?email=${user.email}`
-          );
 
-          if (respUser.data.roleId === 103) return alertError();
+          //new user
+          if (respUser[0].data === null) {
 
-          //se busca el carrito del localStorage
-          var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
+            const resp = await axios({
+              method: "post",
+              url: "http://localhost:3001/post/user",
+              data: { name: respUser[1].displayName, email: respUser[1].email, isGuest: false, profilePic: respUser[1].photoURL },
+            });
 
-          //si hay data en el carrito
-          if (orderProducts?.length > 0) {
-            dispatch(emptyToCartUser(respUser.data));
-
-            const userOrder = await axios.get(
-              `http://localhost:3001/get/order/users/${respUser.data.id}/cart`
+            const currentProducts = JSON.parse(
+              localStorage.getItem("orderProducts")
             );
 
-            dispatch(
-              pushStorageToCartUser(
-                orderProducts,
-                respUser.data,
-                userOrder.data?.id
-              )
-            );
+            //si hay data en el carrito, se crea una orden nueva con los productos
+            if (currentProducts) {
+              dispatch(pushStorageToCartUser(currentProducts, resp.data));
+            }
             localStorage.clear();
-            localStorage.setItem("CurrentUser", JSON.stringify(respUser.data));
+            localStorage.setItem("CurrentUser", JSON.stringify(resp.data));
             dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
-          } else {
-            localStorage.setItem("CurrentUser", JSON.stringify(respUser.data));
-            dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+          }
+
+          //login
+          else {
+            const respUserLog = await axios.get(
+              `http://localhost:3001/get/user?email=${respUser[1].email}`
+            );
+
+            //se busca el carrito del localStorage
+            var orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
+
+            //si hay data en el carrito
+            if (orderProducts?.length > 0) {
+              dispatch(emptyToCartUser(respUserLog.data));
+
+              const userOrder = await axios.get(
+                `http://localhost:3001/get/order/users/${respUserLog.data.id}/cart`
+              );
+
+              dispatch(
+                pushStorageToCartUser(
+                  orderProducts,
+                  respUserLog.data,
+                  userOrder.data?.id
+                )
+              );
+              localStorage.clear();
+              localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
+              dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+            } else {
+              localStorage.setItem("CurrentUser", JSON.stringify(respUserLog.data));
+              dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
+            }
           }
         }
       })
       .catch((error) => {
-        dispatch(setError(error.message));
+        if (error === "banned")
+          return dispatch(setError("Has sido baneado. No te puedes logear"));
+        if (error === "wrongCode")
+          return dispatch(setError("Wrong code. Try again"));
+        if (error === "windowsOutClick")
+          return dispatch(setError("You don't type any code"));
       });
   };
 };
@@ -206,7 +347,7 @@ export const resetPassword = (email) => {
           );
         })
         .catch((error) => {
-          if(error.a === null){
+          if (error.a === null) {
             dispatch(setError(`No hay usuario registrado con el correo electrónico:  ${email}`));
           } else {
             dispatch(setError(`Ups... algo salio mal... Comuníquese con soporte, Gracias.`));
