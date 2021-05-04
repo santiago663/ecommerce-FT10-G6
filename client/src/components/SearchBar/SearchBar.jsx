@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchByTitle } from '../../redux/actions/actionBack';
+import { paginate } from '../../redux/actions/request';
 import '../../scss/components/_searchBar.scss';
 
 function SearchBar() {
@@ -40,6 +41,7 @@ function SearchBar() {
     if (input.length > 0) {
       activeButton === "1" && dispatch(searchByTitle(input));
       activeButton === "1" && setArraySuggestions("");
+      dispatch(paginate(1))
     }
   };
 
@@ -47,6 +49,7 @@ function SearchBar() {
     dispatch(searchByTitle(name))
     setArraySuggestions("")
     setInput('')
+    dispatch(paginate(1))
   }
 
   return (
