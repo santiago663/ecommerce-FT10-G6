@@ -574,16 +574,17 @@ function AddProduct() {
                     {uploadValue.uploadValue} %
                 </progress>
             </div>
-            <div className="imgfile">
-                <div className="image">
-                    {id ? <img className="image" src={product.preview} />
-                        : <img className="image" src={uploadValue.picture} />}
-                </div>
-                {id ?
+            {id ?
+                <div className="imgfile">
+                    <div className="image">
+                        {id ? <img className="image" src={product.preview} />
+                            : <img className="image" src={uploadValue.picture} />}
+                    </div>
                     <input type="submit" value="delete image" onClick={deletefile} />
-                    : null
-                }
-            </div>
+                </div>
+                :
+                null
+            }
         </div>
     );
 }
