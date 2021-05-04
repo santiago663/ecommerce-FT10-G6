@@ -131,7 +131,7 @@ export default function Profile() {
 
   const activate2FA = (e) => {
     
-    if (user.phone_Number.length > 0 && user.phone_Code.length > 0) {
+    if (user.phone_Number.length > 5 && user.phone_Code.length > 1) {
       if(document.getElementById("check2fa").checked === true){
         Swal.fire({
           title: '<strong>Do you want to activate 2FA?</strong>',
@@ -188,6 +188,7 @@ export default function Profile() {
         })
       }
     } else {
+      
       Swal.fire({
         title: "Error!",
         text:
