@@ -2,7 +2,7 @@ import React from 'react';
 import '../../scss/containers/_home.scss';
 import Particles from 'react-particles-js'
 import { Link } from 'react-router-dom'
-import Slider from '../Carousel/Slider'
+// import Slider from '../Carousel/Slider'
 
 function Home() {
 

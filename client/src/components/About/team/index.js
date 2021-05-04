@@ -17,7 +17,7 @@ import nahuelProfilePic from "./members/nahuel/profilePic.jpeg";
 import santiagoProfilePic from "./members/santiago/profilePic.png";
 import leninProfilePic from "./members/lenin/profilePic.jpeg";
 
-export default {
+const data = {
   information: [
     lucia,
     angel,
@@ -39,3 +39,5 @@ export default {
     leninProfilePic,
   ],
 };
+
+export default data;
