@@ -58,8 +58,8 @@
 	transition: 1.8s;
 	overflow: hidden;
 	position: relative;
-	background-position: center; /* Center the image */
-	background-repeat: no-repeat; /* Do not repeat the image */
+	background-position: center; 
+	background-repeat: no-repeat; 
 	background-size: cover;
 	object-fit: cover;
 	border: none;
@@ -109,20 +109,7 @@
 	@extend %btn-styles;
 }
 
-.add {
-	font-size: 30px;
-	color: #a99cbf;
-	position: absolute;
-	left: 41%;
-	top: 25%;
-}
-.remove {
-	font-size: 30px;
-	color: #a99cbf;
-	position: absolute;
-	left: 41%;
-	top: 25%;
-}
+
 .title-image {
 	position: relative;
 	left: 10%;
@@ -174,7 +161,6 @@
 	color: #cccccc;
 	text-shadow: -1px -1px 3px rgba(0, 0, 0, 0.2), 1px 1px 2px rgba(255, 255, 255, 0.7);
 	animation: boton 0.5s infinite alternate;
-	/*sumar transform-origin: top left;------para cambiar el punto de rotacion*/
 	@media only screen and(min-width: 650px) {
 		display: none;
 		font-size: 30px;
