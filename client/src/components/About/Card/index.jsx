@@ -20,7 +20,7 @@ const MapAbout = (props) => {
       <div className="card-front">
         <img
           src={props.member.profilePic}
-          alt="picture"
+          alt={props.member.firstName}
           className="profilePic"
         />
         <div className="information">
@@ -29,10 +29,10 @@ const MapAbout = (props) => {
         </div>
         <div className="networks">
           <a href={props.member.linkedin}>
-            <img className="icon" src={linkedin} />
+            <img className="icon" src={linkedin} alt={props.member.firstName} />
           </a>
           <a href={props.member.github}>
-            <img className="icon" src={github} />
+            <img className="icon" src={github} alt={props.member.firstName}/>
           </a>
         </div>
         <BsFillCaretDownFill onClick={handleclick} className="goToBack" />

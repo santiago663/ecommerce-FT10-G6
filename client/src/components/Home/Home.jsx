@@ -73,7 +73,7 @@ function Home() {
 						},
 					}}
 				/>
-				<Slider props={true} />
+				{/* <Slider props={true} /> */}
 			</div>
 			<div className="botonesqueseio">
 				<h1 className="landing-title">

@@ -1,8 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from '../../redux/actions/actionFront';
-import { addToCartUser, removeToCartUser } from '../../redux/actions/actionOrder';
 
 import './_slider.scss';
 

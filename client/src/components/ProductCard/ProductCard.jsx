@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
 import { addToCartUser, removeToCartUser } from "../../redux/actions/actionOrder"
 import { putUserWhislist, deleteUserWhislist } from "../../redux/actions/actionWishlist"
-import * as IoIcons from "react-icons/io"
 import * as AiIcons from "react-icons/ai"
 import { useState, useEffect } from "react";
 import FunctionStar from "../FunctionStar/FunctionStar"
@@ -22,13 +21,13 @@ function ProductCard(props) {
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const { data: { name, author, preview, id, price, available, score, stock, initialStock }, } = props;
 
-  let backScores = allScores?.find(scores => scores.id == id)
-  const canBuy = allUserProducts.filter(product => product.id == id)
+  let backScores = allScores?.find(scores => scores.id === id)
+  const canBuy = allUserProducts.filter(product => product.id === id)
   const [canAdd, setCanAdd] = useState(false)
 
   useEffect(()=>{
     if(userWishlist?.id) {
-      setCanAdd(userWishlist?.products?.filter(product => product.id == id))
+      setCanAdd(userWishlist?.products?.filter(product => product.id === id))
     }
   },[userWishlist?.products?.length])
 
