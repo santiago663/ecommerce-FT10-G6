@@ -1,122 +1,155 @@
-.slider{
-  
-   width: 100%;
-   
-   box-sizing: border-box;
-   margin: 0;
-   padding: 0;
-   display: flex;
-   align-items: center;
-   position: relative;
-   overflow: hidden;
+.slider {
+	width: 100vh;
+	height: 100vh;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+	border: none;
+	left: 25%;
+	@media only screen and(min-width: 650px) {
+		max-width: 100%;
+		
+	}
 }
-.sliderHome{
-    width: 100%;
-   height: 100 vh;
-   box-sizing: border-box;
-   margin: 0;
-   padding: 0;
-   display: flex;
-   align-items: center;
-   position: absolute;
-   overflow: hidden;
+.sliderHome {
+	width: 100vh;
+	height: 100 vh;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	overflow: hidden;
+	border: none;
 }
-.icono{
-   font-size: 3vh;
+.icono {
+	font-size: 3vh;
 }
 
-.slide{
-   min-width: 100%;
-   height: 50vh;
-   transition: 0.5s;
-   overflow: hidden;
-   position: relative;
-   
-   background-size: cover;
+.slide {
+	min-width: 100vh;
+	height: 50vh;
+	transition: 0.5s;
+	overflow: hidden;
+	position: relative;
+	border: none;
 }
-.slideHome{
-   min-width: 100%;
-   height: 95vh;
-   transition: 1.8s;
-   overflow: hidden;
-   position: relative;
-   background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover;
+.slideHome {
+	min-width: 100vh;
+	height: 95vh;
+	transition: 1.8s;
+	overflow: hidden;
+	position: relative;
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover;
+	object-fit: cover;
+	border: none;
 }
-.slideHomeFondo{
-   min-width: 100%;
-   height: 100%;
-   transition: 1.8s;
-   overflow: hidden;
-   position: relative;
-   background-size:cover;
+.slideHomeFondo {
+	min-width: 100vh;
+	height: 100vh;
+	transition: 1.8s;
+	overflow: hidden;
+	position: relative;
+	background-size: cover;
+	border: none;
 }
-%btn-styles{
-position: absolute;
-   top: 60%;
-   background: none;
-   transform: translateY(-50%);
-   width: 10%;
-   height: 100%;
-   border: none;
-   outline: none;
-   transition: 1.8s;
-   &:hover{
-      background: rgba(0, 0, 0, 0.33);
-      box-shadow: 0px 0px 5px 1px #19f9a4;
-      cursor: pointer;
-      .icono{
-         
-         color: #19f9a4;
-    transform: scale(1.1);
-      }
-   }
+%btn-styles {
+	position: absolute;
+	top: 53%;
+	background: none;
+	transform: translateY(-50%);
+	width: 10%;
+	height: 60%;
+	border: none;
+	outline: none;
+	transition: 1.8s;
+	&:hover {
+		background: rgba(0, 0, 0, 0.33);
+		box-shadow: 0px 0px 5px 1px #19f9a4;
+		cursor: pointer;
+		.icono {
+			color: #19f9a4;
+			transform: scale(1.1);
+		}
+	}
 }
-#toLeft{
-   left: 0;
-   @extend %btn-styles;
+#toLeft {
+	left: 0;
+	@extend %btn-styles;
 }
-#toRight{
-   right: 0;
-   @extend %btn-styles
+#toRight {
+	right: 0;
+	@extend %btn-styles;
 }
 
 .add {
-  font-size: 30px;
-  color: #a99cbf;
-  position:absolute;
-  left: 41%;
-  top:25%;
+	font-size: 30px;
+	color: #a99cbf;
+	position: absolute;
+	left: 41%;
+	top: 25%;
 }
-.remove{
-  font-size: 30px;
-  color: #a99cbf;
-  position:absolute;
-  left: 41%;
-  top:25%;
+.remove {
+	font-size: 30px;
+	color: #a99cbf;
+	position: absolute;
+	left: 41%;
+	top: 25%;
 }
-.title-image{
-   position: relative;
-   left: 10%;
-   top: 40%;
-    @media only screen and(max-width: 840px) {
-   display: none;
-  }
+.title-image {
+	position: relative;
+	left: 10%;
+	top: 40%;
+	@media only screen and(max-width: 840px) {
+		display: none;
+	}
 }
 
-.imgStyles{
-   width: 100vh;
-	position: relative;
-	left: 26%
-}
-.imgStylesInCheckout{
-   width: 100%;
-	position: relative;
-	
-}
-.description-slider{
-   position: relative;
-   top: 20%;
+.imgStyles {
+	width: 100vh;
+
+	padding: 2rem 0 0 0;
+	background-size: cover;
+	@media only screen and(min-width: 6500px) {
+		max-width: 54%;
+	}
    
+}
+.imgStylesInCheckout {
+	width: 100vh;
+	position: relative;
+	top: -20px;
+	border: none;
+}
+.description-slider {
+	position: relative;
+	top: 20%;
+	height: auto;
+	border: none;
+}
+.title-image {
+	position: absolute;
+	display: flex;
+	z-index: 10;
+	transform: rotate(-35deg);
+	background-color: #b5b0b0;
+	color: #cccccc;
+	text-shadow: -1px -1px 3px rgba(0, 0, 0, 0.2), 1px 1px 2px rgba(255, 255, 255, 0.7);
+	animation: boton 0.5s infinite alternate;
+	/*sumar transform-origin: top left;------para cambiar el punto de rotacion*/
+}
+@keyframes boton {
+	from {
+		box-shadow: 0 0 10px 1px rgb(9, 255, 0);
+	}
+	to {
+		box-shadow: 0 0 25px 5px rgb(255, 204, 0);
+	}
 }
