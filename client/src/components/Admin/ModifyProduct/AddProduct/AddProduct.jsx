@@ -491,7 +491,7 @@ function AddProduct() {
                                 }
                             </div>
                             <div>
-                                Select to File:
+                                Select File:
                         <input
                                     className="SelectorFile"
                                     type="file"
@@ -575,13 +575,14 @@ function AddProduct() {
                 </progress>
             </div>
             <div className="imgfile">
-
-
                 <div className="image">
                     {id ? <img className="image" src={product.preview} />
                         : <img className="image" src={uploadValue.picture} />}
                 </div>
-                <input type="submit" value="quitar" onClick={deletefile} />
+                {id ?
+                    <input type="submit" value="delete image" onClick={deletefile} />
+                    : null
+                }
             </div>
         </div>
     );
