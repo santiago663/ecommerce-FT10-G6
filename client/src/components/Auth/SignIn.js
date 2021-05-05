@@ -9,9 +9,10 @@ import {
 import { removeError } from "../../redux/actions/uiError";
 import "../../scss/components/_signIn.scss";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const SignIn = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const loading = useSelector((store) => store.reducerLoading.loading);
   const { isLog } = useSelector((store) => store.auth);
@@ -23,7 +24,7 @@ const SignIn = () => {
   const { email, password } = signState;
 
   useEffect(() => {
-    if (isLog) location.assign("http://localhost:3000");
+    if (isLog) history.push("/");
   }, [isLog]);
 
   const handleInputChange = ({ target }) => {

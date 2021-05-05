@@ -5,12 +5,13 @@ import * as FiIcons from 'react-icons/fi';
 import * as AiIcons from 'react-icons/ai'
 import { setMenu } from '../../redux/actions/request'
 import { logout } from '../../redux/actions/auth';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import { IconContext } from 'react-icons';
 import '../../scss/components/_menu.scss';
 
 function Menu() {
+    const history = useHistory();
     const [rol, setRol] = useState(102)
     const dispatch = useDispatch()
     const { menu } = useSelector((store) => store.reducerLoading)
@@ -31,7 +32,7 @@ function Menu() {
 
     function handleLogOut() {
         dispatch(logout())
-        location.assign("http://localhost:3000")
+        history.push("/");
     }
 
     return (

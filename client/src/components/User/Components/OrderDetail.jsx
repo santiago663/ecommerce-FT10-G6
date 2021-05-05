@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as AiIcons from 'react-icons/ai';
 import Loading from '../../Loading/Loading'
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import "../../../scss/components/_orderDetail.scss";
 
 function OrderDetail() {
+  const history = useHistory();
   const userOrders = useSelector((store) => store.reducerOrderUser.userOrders);
   const { id } = useParams();
   let order;
@@ -20,7 +21,7 @@ function OrderDetail() {
         text: 'Something went wrong!',
         footer: '<a href>Why do I have this issue?</a>'
       }).then((result) => {
-        location.assign("http://localhost:3000/user/orders")
+        history.push("/user/orders")
       })
     }
   }

@@ -3,19 +3,20 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeError } from '../../redux/actions/uiError'
 import { startRegister } from '../../redux/actions/auth';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import validator from 'validator'
 import Swal from 'sweetalert2'
 import '../../scss/components/_register.scss'
 
 
 const Register = () => {
+    const history = useHistory();
     const { isLog } = useSelector((store) => store.auth)
     const { msgError } = useSelector((store) => store.uiError)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        isLog ? location.assign("http://localhost:3000") : console.log("error")
+        isLog ? history.push("/") : console.log("error")
       }, [isLog])
 
     const [regState, setRegState] = useState({

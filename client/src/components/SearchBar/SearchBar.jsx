@@ -21,7 +21,9 @@ function SearchBar() {
   // *** FUNCION PARA PEDIR "SUGERENCIAS" AL BACK ***
   const getSuggestions = async (input) => {
     if (input !== "") {
-      const response = await axios.get(`http://localhost:3001/get/product/search?keyword=${input}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/get/product/search?keyword=${input}`
+      );
 
       let filtered = [];
 
