@@ -1,49 +1,70 @@
-.ModifyProduct{
+.maincontainer {
+    width: 100%;
     display: flex;
+    justify-content: center;
+}
+.ModifyProduct {
+    color: #19f9a4;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
     margin: 5px;
+    width: 320px;
     height: 100vh;
+    h2 {
+        margin-bottom: 10px;
+    }
+    .formEP {
+        color: #fafafa;
+    }
+    .inputprod {
+        margin: 10px 0;
+    }
 
-    .FilterAndProducts{
+    .FilterAndProducts {
         margin-top: 20px;
-        .productContainer{
-            display:block;
-            margin:10px;
-            background-color: aliceblue;
-            
-            ul{ 
-                border: 1px solid black;
+        .productContainer {
+            display: block;
+            margin: 10px;
+            background-color: rgb(80, 80, 80);
+
+            ul {
+                border: 1px solid fafafa;
                 border-radius: 4px;
                 padding: 2px;
                 padding: 10px;
-                *{ 
-                    color: black;
-                    text-decoration: none;
+                .product {
+                    h4 {
+                        color: #19f9a4;
+                        font-size: 19px;
+                        margin-bottom: 5px;
+                    }
+                    h3 {
+                        color: #fafafa;
+                        margin-bottom: 20px;
+                        text-decoration: underline;
+                        text-underline-offset: 3px;
+                    }
+                    p {
+                        color: antiquewhite;
+                        margin-top: 5px;
+                    }
+                }
+                // * {
+                //     color: #fafafa;
+                //     text-decoration: none;
 
-                    padding: 0;
-                    
-                }  
-                li{
+                //     padding: 0;
+                // }
+                li {
                     padding: 2px;
-                    // h3{
-                    //     padding: 3px;
-                    //     font-size: 17px;
-                    // }
-                    // h4{
-                    //     padding-left: 15px;
-                    //     font-size: 15px;
-                    // }
-                    // p{
-                    //     padding: 2px;
-                    // }
-                    
-                    list-style:none;
+                    list-style: none;
                     width: 100%;
-                    
-                }         
+                }
             }
-        }  
+        }
     }
 }
-.productCategories{
+.productCategories {
     text-align: center;
 }

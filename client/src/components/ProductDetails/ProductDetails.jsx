@@ -177,12 +177,7 @@ function ProductDetails() {
                   </span>
                 )}
               </div>
-              <div className="linkClose">
-                <Link className="link" to="/Browser/products">
-                  <IoArrowUndoSharp />
-                </Link>
-              </div>
-			  <div className= "wish_productDetail">
+              <div className="wish_productDetail">
                 {currentUser?.id && (
                   <div className="wishlistHeartDetail">
                     {canAdd[0] ? (
@@ -200,9 +195,14 @@ function ProductDetails() {
                   </div>
                 )}
               </div>
+              <div className="linkClose">
+                <Link className="link" to="/Browser/products">
+                  <IoArrowUndoSharp />
+                </Link>
+              </div>
             </div>
             <div className="contDet">
-				<div className="titulo">{name}</div>
+              <div className="titulo">{name}</div>
               <div className="det">
                 <h3>Categories:</h3>
                 <div className="desc">
