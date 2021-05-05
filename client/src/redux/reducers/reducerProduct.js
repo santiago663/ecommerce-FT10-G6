@@ -37,10 +37,12 @@ export default function reducerProduct(state = initialState, action) {
 				backUpProducts: action.payload,
 			};
 		case TYPES.SET_SEARCH_PRODUCTS:
+			
+			let saveButNotRepeat = [...state.adminProducts].concat(action.payload)
 			return {
 				...state,
 				allProductCache: action.payload,
-				adminProducts: [...state.adminProducts].concat(action.payload),
+				adminProducts: [...new Set((saveButNotRepeat = [].concat.apply([], saveButNotRepeat)))],
 			};
 
 		case TYPES.GET_ONE_PRODUCT:
@@ -89,11 +91,11 @@ export default function reducerProduct(state = initialState, action) {
 						})
 					);
 				}
-
+				let noRepeat = [...state.adminProducts].concat(filteredProducts);
 				return {
 					...state,
 					allProductCache: filteredProducts,
-					adminProducts: [...state.adminProducts].concat(filteredProducts),
+					adminProducts: [...new Set((noRepeat = [].concat.apply([], noRepeat)))],
 					categorie: !state.categorie,
 					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
 					authorDisponible: [...new Set((actualAuthor = [].concat.apply([], actualAuthor)))],
@@ -112,17 +114,16 @@ export default function reducerProduct(state = initialState, action) {
 							: null
 					)
 				);
-				
+				let noRepeat = [...state.adminProducts].concat(filteredProducts)
 					return {
 						...state,
 						allProductCache: filteredProducts,
-						adminProducts: [...state.adminProducts].concat(filteredProducts),
+						adminProducts: [...new Set((noRepeat = [].concat.apply([], noRepeat)))],
 						categorie: action.admin ? false : true,
 						authorDisponible: [...new Set((actualAuthor = [].concat.apply([], actualAuthor)))],
 						actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
 						categorieBackUp: filteredProducts,
-					
-				}
+					};
 			}
 		case TYPES.ORDER_BY_AUTHOR:
 			if (action.payload === state.authorDisponible) {
@@ -143,11 +144,11 @@ export default function reducerProduct(state = initialState, action) {
 						: null
 				);
 				filteredProducts.forEach((f) => f.categories.filter((x) => actualCategories.push(x.name)));
-
+				let noRepeat = [...state.adminProducts].concat(filteredProducts)
 				return {
 					...state,
 					allProductCache: filteredProducts,
-					adminProducts: [...state.adminProducts].concat(filteredProducts),
+					adminProducts: [...new Set((noRepeat = [].concat.apply([], noRepeat)))],
 					author: !state.author,
 					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
 					contegorieDisponible: [...new Set((actualCategories = [].concat.apply([], actualCategories)))],
@@ -163,22 +164,17 @@ export default function reducerProduct(state = initialState, action) {
 						: null
 				);
 				filteredProducts.forEach((f) => f.categories.filter((x) => actualCategories.push(x.name)));
-				if (action.admin) {
-					return {
-						...state,
-						adminProducts: [...state.adminProducts].concat(filteredProducts),
-					};
-				} else {
+				let noRepeat = [...state.adminProducts].concat(filteredProducts);
 					return {
 						...state,
 						allProductCache: filteredProducts,
-						adminProducts: [...state.adminProducts].concat(filteredProducts),
+						adminProducts: [...new Set((noRepeat = [].concat.apply([], noRepeat)))],
 						author: action.admin ? false : true,
 						contegorieDisponible: [...new Set((actualCategories = [].concat.apply([], actualCategories)))],
 						authorBackUp: filteredProducts,
 						actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
 					};
-				}
+				
 			}
 		case TYPES.ALL_PRODUCTS_RESET:
 			return {
@@ -191,6 +187,7 @@ export default function reducerProduct(state = initialState, action) {
 			return {
 				...state,
 				allProductCache: state.backUpProducts,
+				adminProducts:state.backUpProducts,
 				author: false,
 				categorie: false,
 				score: false,
@@ -629,6 +626,11 @@ export default function reducerProduct(state = initialState, action) {
 				...state,
 				adminProducts: state.adminProducts.filter((item) => item.id !== action.payload),
 			};
+			case TYPES.DELETE_ALL_PRODUCTS_SALES:
+				return {
+					...state,
+					adminProducts: []
+				}
 		default:
 			return state;
 	}
