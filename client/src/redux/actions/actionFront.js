@@ -68,12 +68,12 @@ export const orderByCategories = (categories) => (dispatch) => {
   });
 };
 
-export const orderByAuthor = (author, admin) => (dispatch) => {
+export const orderByAuthor = (author) => (dispatch) => {
 	
 		dispatch({
 			type: TYPES.ORDER_BY_AUTHOR,
 			payload: author,
-      admin:admin,
+      
 		});
 
 };
@@ -149,7 +149,7 @@ export const sendEmailOrderSuccess = (data) => (dispatch) => {
 
 export const removeProductForAdmin = (id)=>(dispatch) =>{
   dispatch({
-    type: TYPE.REMOVE_FROM_ADMIN_PANEL,
+    type: TYPES.REMOVE_FROM_ADMIN_PANEL,
     payload: id
   })
 }

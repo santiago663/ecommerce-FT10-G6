@@ -624,10 +624,10 @@ export default function reducerProduct(state = initialState, action) {
 		case TYPES.PUT_NEW_USER_REVIEW:
 			//guarda el review editado y sobreescribe lo que habia antes en newProductReviews
 			return { ...state, productReview: action.payload };
-		case 'REMOVE_FROM_ADMIN_PANEL':
+		case TYPES.REMOVE_FROM_ADMIN_PANEL:
 			return {
 				...state,
-				adminProducts: state.adminProducts.filter((item) => item.id !== action.payload.id),
+				adminProducts: state.adminProducts.filter((item) => item.id !== action.payload),
 			};
 		default:
 			return state;
