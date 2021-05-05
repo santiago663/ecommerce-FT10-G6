@@ -23,7 +23,7 @@ const SignIn = () => {
   const { email, password } = signState;
 
   useEffect(() => {
-    if (isLog) location.assign("http://localhost:3000");
+    if (isLog) location.assign(process.env.REACT_APP_FRONT_URL);
   }, [isLog]);
 
   const handleInputChange = ({ target }) => {
