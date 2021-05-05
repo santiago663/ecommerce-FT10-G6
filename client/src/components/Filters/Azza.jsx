@@ -58,12 +58,16 @@ function Filter() {
 								</option>
 								{selectAuthor
 									? disponibleCategories &&
-									disponibleCategories.map((C) => {
-										return <option value={C}>{C}</option>;
+									disponibleCategories.map((C, i) => {
+										return <option key={`f1${i}`} value={C}>{C}</option>;
 									})
 									: allCategories &&
-									allCategories.map((C) => {
-										return <option value={C.name}>{C.name}</option>;
+									allCategories.map((C, i) => {
+										return (
+                      <option key={`f2${i}`} value={C.name}>
+                        {C.name}
+                      </option>
+                    );
 									})}
 							</select>
 
@@ -73,12 +77,20 @@ function Filter() {
 								</option>
 								{!selectCategorie
 									? allArtist &&
-									allArtist.map((a) => {
-										return <option value={a.name}>{a.name}</option>;
+									allArtist.map((a, i) => {
+										return (
+                      <option key={`f3${i}`} value={a.name}>
+                        {a.name}
+                      </option>
+                    );
 									})
 									: disponibleAuthor &&
-									disponibleAuthor.map((a) => {
-										return <option value={a}>{a}</option>;
+									disponibleAuthor.map((a, i) => {
+										return (
+                      <option key={`f4${i}`} value={a}>
+                        {a}
+                      </option>
+                    );
 									})}
 							</select>
 							<Score />

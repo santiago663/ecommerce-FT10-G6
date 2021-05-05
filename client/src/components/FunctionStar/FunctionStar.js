@@ -20,7 +20,7 @@ const FuncionEstrella = (star) => {
 			<>
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				{star < 2 && star >= 1.5 ? (
-					<i class="fas fa-star-half-alt" id="icon5" style={estar}></i>
+					<i className="fas fa-star-half-alt" id="icon5" style={estar}></i>
 				) : (
 					<i className="fas fa-star" id="icon5"></i>
 				)}
@@ -36,7 +36,7 @@ const FuncionEstrella = (star) => {
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				{star < 3 && star >= 2.5 ? (
-					<i class="fas fa-star-half-alt" id="icon5" style={estar}></i>
+					<i className="fas fa-star-half-alt" id="icon5" style={estar}></i>
 				) : (
 					<i className="fas fa-star" id="icon5"></i>
 				)}
@@ -52,7 +52,7 @@ const FuncionEstrella = (star) => {
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				{star < 4 && star >= 3.5 ? (
-					<i class="fas fa-star-half-alt" id="icon5" style={estar}></i>
+					<i className="fas fa-star-half-alt" id="icon5" style={estar}></i>
 				) : (
 					<i className="fas fa-star" id="icon5"></i>
 				)}
@@ -68,7 +68,7 @@ const FuncionEstrella = (star) => {
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				<i className="fas fa-star" id="icon5" style={estar}></i>
 				{star < 5 && star >= 4.5 ? (
-					<i class="fas fa-star-half-alt" id="icon5" style={estar}></i>
+					<i className="fas fa-star-half-alt" id="icon5" style={estar}></i>
 				) : (
 					<i className="fas fa-star" id="icon5"></i>
 				)}

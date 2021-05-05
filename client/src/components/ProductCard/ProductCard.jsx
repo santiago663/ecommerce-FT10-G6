@@ -134,7 +134,7 @@ function ProductCard(props) {
                   :
                   <span className="wishlistHeartOutLineCard" onClick={handleAddWishlist}><AiIcons.AiOutlineHeart /></span>}
               </div>}
-              <h4 maxlength="10" className="nameProductCard">{name}</h4>
+              <h4 className="nameProductCard">{name}</h4>
             </div>
           </div>
           <div>

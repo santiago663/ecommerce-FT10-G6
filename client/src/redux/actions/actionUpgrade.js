@@ -52,12 +52,17 @@ export const upgradeEditUsers = (users) => {
 
 export const getAllOrdersState = (state) => {
     return (dispatch) => {
-        axios.get("http://localhost:3001/get/order/?status=" + state)
-            .then((resp) => {
-                dispatch({ type: "TYPES.GET_ALL_ORDERS_STATE" , payload: resp.data })
-            }).catch(error => {
-                console.log(error)
-            })
+        axios
+          .get(`${process.env.REACT_APP_BACK_URL}/get/order/?status=${state}`)
+          .then((resp) => {
+            dispatch({
+              type: "TYPES.GET_ALL_ORDERS_STATE",
+              payload: resp.data,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 }
 

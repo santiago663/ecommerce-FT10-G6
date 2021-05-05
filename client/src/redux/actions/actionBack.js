@@ -13,7 +13,9 @@ export const getAllProducts = () => (
   async (dispatch) => {
 
     try {
-      const response = await axios.get('http://localhost:3001/get/product');
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK_URL}/get/product`
+      );
       if (response.status === 200) {
         dispatch({
           type: TYPES.GET_ALL_PRODUCTS,
@@ -36,7 +38,9 @@ export const getAllAuthors = () => (
 
     try {
       dispatch(requestData())
-      const response = await axios.get('http://localhost:3001/get/author');
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK_URL}/get/author`
+      );
       dispatch({
         type: TYPES.GET_ALL_AUTHORS,
         payload: response.data,
@@ -58,7 +62,9 @@ export const getAllCategories = () => (
 
     try {
       dispatch(requestData())
-      const response = await axios.get('http://localhost:3001/get/category');
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK_URL}/get/category`
+      );
       dispatch({
         type: TYPES.GET_ALL_CATEGORIES,
         payload: response.data,
@@ -79,7 +85,9 @@ export const getAllSeries = () => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get('http://localhost:3001/get/serie');
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK_URL}/get/serie`
+      );
       dispatch({
         type: TYPES.GET_ALL_SERIES,
         payload: response.data,
@@ -100,7 +108,9 @@ export const getAllrRoles = () => (
   async (dispatch) => {
     try {
       dispatch(requestData())
-      const response = await axios.get('http://localhost:3001/get/roles');
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK_URL}/get/roles`
+      );
       dispatch({
         type: TYPES.GET_ALL_ROLES,
         payload: response.data,
@@ -122,7 +132,9 @@ export const getOneProduct = (id) => (
 
     try {
       dispatch(requestData())
-      const response = await axios.get(`http://localhost:3001/get/product/${id}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK_URL}/get/product/${id}`
+      );
       dispatch({
         type: TYPES.GET_ONE_PRODUCT,
         payload: response.data,
@@ -144,7 +156,9 @@ export const searchByTitle = (keyword) => (
 
     try {
       dispatch(requestData())
-      const response = await axios.get(`http://localhost:3001/get/product/search?keyword=${keyword}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK_URL}/get/product/search?keyword=${keyword}`
+      );
 
       response.data.length !== 0 && dispatch({
         type: TYPES.SET_SEARCH_PRODUCTS,
@@ -167,15 +181,16 @@ export const addCategory = (form) => (
 
     try {
       dispatch(requestData())
-      axios.post('http://localhost:3001/post/category', form)
+      axios
+        .post(`${process.env.REACT_APP_BACK_URL}/post/category`, form)
         .then((res) => {
           dispatch({
             type: TYPES.POST_NEW_CATEGORY,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
+          dispatch(requestSuccess());
         })
-        .catch((error) => console.error(error))
+        .catch((error) => console.error(error));
     } catch (error) {
       console.error(error);
       dispatch({
@@ -192,14 +207,16 @@ export const addAuthor = (author) => (
 
     try {
       dispatch(requestData())
-      axios.post('http://localhost:3001/post/author', author)
+      axios
+        .post(`${process.env.REACT_APP_BACK_URL}/post/author`, author)
         .then((res) => {
           dispatch({
             type: TYPES.NEW_AUTHOR,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       console.error(error);
       dispatch({
@@ -216,14 +233,16 @@ export const addProducts = (product) => (
 
     try {
       dispatch(requestData())
-      axios.post('http://localhost:3001/post/product', product)
+      axios
+        .post(`${process.env.REACT_APP_BACK_URL}/post/product`, product)
         .then((res) => {
           dispatch({
             type: TYPES.POST_NEW_PRODUCT,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.POST_NEW_PRODUCT_ERROR,
@@ -240,14 +259,18 @@ export const editProductCategory = (productId, value) => (
 
     try {
       dispatch(requestData())
-      axios.put(`http://localhost:3001/put/product/${productId}/category/${value}`)
+      axios
+        .put(
+          `${process.env.REACT_APP_BACK_URL}/put/product/${productId}/category/${value}`
+        )
         .then((res) => {
           dispatch({
             type: TYPES.PUT_EDIT_PRODUCT_CATEGORY,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.PUT_EDIT_PRODUCT_CATEGORY_ERROR,
@@ -263,15 +286,19 @@ export const editProductByBody = (productId, product) => (
 
     try {
       dispatch(requestData())
-      axios.put(`http://localhost:3001/put/product/${productId}`, product)
+      axios
+        .put(
+          `${process.env.REACT_APP_BACK_URL}/put/product/${productId}`,
+          product
+        )
         .then((res) => {
           dispatch({
             type: TYPES.PUT_EDIT_PRODUCT_BYID,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.PUT_EDIT_PRODUCT_BYID_ERROR,
@@ -287,14 +314,16 @@ export const editAuthor = (authorId, author) => (
 
     try {
       dispatch(requestData())
-      axios.put(`http://localhost:3001/put/author/${authorId}`, author)
+      axios
+        .put(`${process.env.REACT_APP_BACK_URL}/put/author/${authorId}`, author)
         .then((res) => {
           dispatch({
             type: TYPES.PUT_EDIT_AUTHOR,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.PUT_EDIT_AUTHOR_ERROR,
@@ -309,14 +338,19 @@ export const editCategory = (categoryId, category) => (
 
     try {
       dispatch(requestData())
-      axios.put(`http://localhost:3001/put/category/${categoryId}`, category)
+      axios
+        .put(
+          `${process.env.REACT_APP_BACK_URL}/put/category/${categoryId}`,
+          category
+        )
         .then((res) => {
           dispatch({
             type: TYPES.PUT_CATEGORY,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.PUT_CATEGORY_ERROR,
@@ -331,14 +365,16 @@ export const editUser = (userId, user) => (
 
     try {
       dispatch(requestData())
-      axios.put(`http://localhost:3001/put/user/${userId}`, user)
+      axios
+        .put(`${process.env.REACT_APP_BACK_URL}/put/user/${userId}`, user)
         .then((res) => {
           dispatch({
             type: TYPES.PUT_USER,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.PUT_USER_ERROR,
@@ -354,14 +390,16 @@ export const deleteProduct = (productId) => (
 
     try {
       dispatch(requestData())
-      axios.delete(`http://localhost:3001/delete/product/${productId}`)
+      axios
+        .delete(`${process.env.REACT_APP_BACK_URL}/delete/product/${productId}`)
         .then((res) => {
           dispatch({
             type: TYPES.DELETE_ONE_PRODUCT,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.DELETE_ONE_PRODUCT_ERROR,
@@ -377,14 +415,18 @@ export const deleteProductCategory = (productId, id) => (
 
     try {
       dispatch(requestData())
-      axios.delete(`http://localhost:3001/delete/product/${productId}/category/${id}`)
+      axios
+        .delete(
+          `${process.env.REACT_APP_BACK_URL}/delete/product/${productId}/category/${id}`
+        )
         .then((res) => {
           dispatch({
             type: TYPES.DELETE_PRODUCT_CATEGORY,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.DELETE_ONE_PRODUCT_ERROR,
@@ -400,14 +442,16 @@ export const deleteAuthor = (authorId) => (
 
     try {
       dispatch(requestData())
-      axios.delete(`http://localhost:3001/delete/author/${authorId}`)
+      axios
+        .delete(`${process.env.REACT_APP_BACK_URL}/delete/author/${authorId}`)
         .then((res) => {
           dispatch({
             type: TYPES.DELETE_AUTHOR,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.DELETE_AUTHOR_ERROR,
@@ -423,14 +467,18 @@ export const deleteCategory = (categoryId) => (
 
     try {
       dispatch(requestData())
-      axios.delete(`http://localhost:3001/delete/category/${categoryId}`)
+      axios
+        .delete(
+          `${process.env.REACT_APP_BACK_URL}/delete/category/${categoryId}`
+        )
         .then((res) => {
           dispatch({
             type: TYPES.DELETE_CATEGORY,
-            payload: res
+            payload: res,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.DELETE_CATEGORY_ERROR,
@@ -446,14 +494,16 @@ export const getAllOrders = () => (
 
     try {
       dispatch(requestData())
-      axios.get("http://localhost:3001/get/order")
+      axios
+        .get(`${process.env.REACT_APP_BACK_URL}/get/order`)
         .then((res) => {
           dispatch({
             type: TYPES.GET_ALL_ORDERS,
-            payload: res.data
+            payload: res.data,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.GET_ALL_ORDERS_ERROR,
@@ -469,14 +519,16 @@ export const getAllUsers = () => (
 
     try {
       dispatch(requestData())
-      axios.get("http://localhost:3001/get/user")
+      axios
+        .get(`${process.env.REACT_APP_BACK_URL}/get/user`)
         .then((res) => {
           dispatch({
             type: TYPES.GET_ALL_USERS,
-            payload: res.data
+            payload: res.data,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.GET_ALL_USERS_ERROR,
@@ -490,7 +542,7 @@ export const deleteUserAction = (id) => (
   (dispatch) => {
     try {
       dispatch(requestData())
-      axios.delete(`http://localhost:3001/delete/user/${id}`)
+      axios.delete(`${process.env.REACT_APP_BACK_URL}/delete/user/${id}`);
       dispatch(requestSuccess())
     } catch (error) {
       console.log(error)
@@ -504,14 +556,18 @@ export const getProductReview = (productId) => (
 
     try {
       dispatch(requestData())
-      axios.get(`http://localhost:3001/get/review?productId=${productId}`)
+      axios
+        .get(
+          `${process.env.REACT_APP_BACK_URL}/get/review?productId=${productId}`
+        )
         .then((res) => {
           dispatch({
             type: TYPES.GET_PRODUCT_REVIEW,
-            payload: res.data
+            payload: res.data,
           });
-          dispatch(requestSuccess())
-        }).catch((error) => console.error(error))
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.GET_ALL_USERS_ERROR,
@@ -525,14 +581,18 @@ export const postUserReview = (productId, userId, review) => {
   return (dispatch) => {
     try {
             
-      axios.post(`http://localhost:3001/post/review?productId=${productId}&userId=${userId}`, review)
+      axios
+        .post(
+          `${process.env.REACT_APP_BACK_URL}/post/review?productId=${productId}&userId=${userId}`,
+          review
+        )
         .then((res) => {
           dispatch({
             type: TYPES.POST_NEW_USER_REVIEW,
-            payload: res.data
+            payload: res.data,
           });
-          
-        }).catch((error) => console.error(error))
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       dispatch({
         type: TYPES.POST_NEW_USER_REVIEW_ERROR,
@@ -545,7 +605,10 @@ export const postUserReview = (productId, userId, review) => {
 export const updateReviewProduct = (id, newScore) => {
   return async () => {
     try {
-      await axios.put(`http://localhost:3001/put/product/review/${id}`, {score: newScore})
+      await axios.put(
+        `${process.env.REACT_APP_BACK_URL}/put/product/review/${id}`,
+        { score: newScore }
+      );
     }
     catch (error) {
       console.log(error)
@@ -556,7 +619,9 @@ export const updateReviewProduct = (id, newScore) => {
 export const deleteUserReview = (id) => {
   return async () => {
     try {
-      await axios.delete(`http://localhost:3001/delete/review/${id}`)
+      await axios.delete(
+        `${process.env.REACT_APP_BACK_URL}/delete/review/${id}`
+      );
     }
     catch (error) {
       console.log(error)
@@ -567,13 +632,14 @@ export const deleteUserReview = (id) => {
 export const editUserReview = (id, review) => {
   return async (dispatch) => {
     try {
-      await axios.put(`http://localhost:3001/put/review/${id}`, review)
-      .then((res) => {
-        dispatch({
-          type: TYPES.PUT_NEW_USER_REVIEW,
-          payload: res.data
-        })
-      })
+      await axios
+        .put(`${process.env.REACT_APP_BACK_URL}/put/review/${id}`, review)
+        .then((res) => {
+          dispatch({
+            type: TYPES.PUT_NEW_USER_REVIEW,
+            payload: res.data,
+          });
+        });
     }
     catch (error) {
       console.log(error)
@@ -584,7 +650,10 @@ export const editUserReview = (id, review) => {
 export const editProductStock = (stock) => {
   return async () => {
     try {
-      await axios.put(`http://localhost:3001/put/product/stock/edit`, stock)
+      await axios.put(
+        `${process.env.REACT_APP_BACK_URL}/put/product/stock/edit`,
+        stock
+      );
     }
     catch (error) {
       console.log(error)
