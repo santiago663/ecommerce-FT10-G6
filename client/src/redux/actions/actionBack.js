@@ -486,6 +486,18 @@ export const getAllUsers = () => (
   }
 )
 
+export const deleteUserAction = (id) => (
+  (dispatch) => {
+    try {
+      dispatch(requestData())
+      axios.delete(`http://localhost:3001/delete/user/${id}`)
+      dispatch(requestSuccess())
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
 export const getProductReview = (productId) => (
 
   (dispatch) => {
