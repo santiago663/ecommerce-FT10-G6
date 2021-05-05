@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { editCurrentUser } from "../../../redux/actions/actionUser";
+import { editCurrentUser, activate2fa } from "../../../redux/actions/actionUser";
 import { removeError } from "../../../redux/actions/uiError";
 import Swal from "sweetalert2";
 import "../../../scss/components/_profileuser.scss";
@@ -24,6 +24,7 @@ export default function Profile() {
     role: {},
     roleId: 0,
     profilePic: "",
+    authy: false,
   });
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function Profile() {
       role: currentUser.role,
       roleId: currentUser.roleId,
       profilePic: currentUser.profilePic,
+      authy: currentUser.authy
     });
   }, [currentUser]);
 
@@ -51,10 +53,19 @@ export default function Profile() {
       const previewFile = e.target.files[0];
       setInputs({ ...user, profilePic: URL.createObjectURL(previewFile) });
     } else {
-      setInputs({
-        ...user,
-        [e.target.name]: e.target.value,
-      });
+      if(e.target.name === "phone_Number" || e.target.name === "phone_Code"){
+        setInputs({
+          ...user,
+          authy: false,
+          authyId: null,
+          [e.target.name]: e.target.value
+        })
+      } else {
+        setInputs({
+          ...user,
+          [e.target.name]: e.target.value,
+        });
+      }
     }
   };
 
@@ -150,7 +161,15 @@ export default function Profile() {
           cancelButtonAriaLabel: 'Thumbs down'
         }).then((result) => {
           if (result.isConfirmed) {
-            //validar si ya activo anteriormente --> cambie el estado de authy true
+            if(currentUser.authyId){
+              dispatch(editCurrentUser(currentUser.id, {
+                ...currentUser, authy: true
+              }))
+            } else {
+              dispatch(
+                activate2fa(currentUser.email, currentUser.phone_Number[1], currentUser.phone_Number[0])
+              )
+            }
             //si no se regitro anteriormente---> registrarlo en authy, guardar data authyid y authy true
             Swal.fire('Saved!', '', 'success')
           } else if (!result.isConfirmed) {
@@ -178,8 +197,10 @@ export default function Profile() {
           cancelButtonAriaLabel: 'Thumbs down'
         }).then((result) => {
           if (result.isConfirmed) {
-            //validar si ya activo anteriormente --> cambie el estado de authy true
-            //si no se regitro anteriormente---> registrarlo en authy, guardar data authyid y authy true
+            
+            dispatch(editCurrentUser(currentUser.id, {
+              ...currentUser, authy: false
+            }))
             Swal.fire('Saved!', '', 'success')
           } else if (!result.isConfirmed) {
             document.getElementById("check2fa").checked = true;
@@ -298,6 +319,7 @@ export default function Profile() {
               type="checkbox"
               id="check2fa"
               onClick={(e) => activate2FA(e)}
+              checked={currentUser.authy}
             />
             <span class="sli round"></span>
           </label>

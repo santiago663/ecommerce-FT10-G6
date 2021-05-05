@@ -75,7 +75,7 @@ export const startLoginEmailPassword = (email, password) => {
       })
       .then(async (resp) => {
 
-        if (resp.data?.authyId) {
+        if (resp.data?.authy) {
 
           await Swal.fire({
             title: "Enter your Authy code",
@@ -197,7 +197,7 @@ export const startGoogleLogin = () => {
 
       .then(async (respUser) => {
 
-        if (respUser[0].data?.authyId) {
+        if (respUser[0].data?.authy) {
 
           await Swal.fire({
             title: 'Enter your Authy code',

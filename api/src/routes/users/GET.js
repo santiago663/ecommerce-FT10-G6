@@ -13,8 +13,7 @@ server.get("/", async (req, res) => {
                     include: [Roles]
                 }
             )
-
-            if (usersLogin?.authyId) usersLogin.authyId = true            
+     
 
             return res.status(200).json(usersLogin)
         } catch (error) {
