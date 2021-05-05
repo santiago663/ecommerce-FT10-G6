@@ -2,7 +2,7 @@ import React from 'react';
 import '../../scss/containers/_home.scss';
 import Particles from 'react-particles-js'
 import { Link } from 'react-router-dom'
-// import Slider from '../Carousel/Slider'
+import Slider from '../Carousel/Image.jsx'
 
 function Home() {
 
@@ -73,7 +73,6 @@ function Home() {
 						},
 					}}
 				/>
-				{/* <Slider props={true} /> */}
 			</div>
 			<div className="botonesqueseio">
 				<h1 className="landing-title">
@@ -88,6 +87,8 @@ function Home() {
 					</button>
 				</Link>
 			</div>
+			
+			<Slider />
 		</div>
 	);
 }
