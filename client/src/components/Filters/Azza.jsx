@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './_filter.scss';
-import { orderAsc, orderByCategories, orderByAuthor, orderStar, getBackup } from '../../redux/actions/actionFront';
+import { orderAsc, orderByCategories, orderByAuthor, getBackup } from '../../redux/actions/actionFront';
+import { paginate } from '../../redux/actions/request';
 import Score from './Score';
 
 function Filter() {
@@ -16,17 +17,27 @@ function Filter() {
 	const disponibleCategories = useSelector((state) => state.reducerProduct.contegorieDisponible);
 
 	const handleFilter = (e) => {
-		e.target.value === 'All' ? dispatch(getBackup()) : dispatch(orderByCategories(e.target.value));
+		e.target.value === 'All' ?
+			dispatch(getBackup()) :
+			dispatch(orderByCategories(e.target.value));
+		dispatch(paginate(1))
 	};
 
 	const handleOrder = (e) => {
 		dispatch(orderAsc(e.target.value));
-		toggle ? setToggle(false) : setToggle(true);
+		toggle ?
+			setToggle(false) :
+			setToggle(true);
+		dispatch(paginate(1))
 	};
 
 	const handleAuthor = (e) => {
-		e.target.value === 'All' ? dispatch(getBackup()) : dispatch(orderByAuthor(e.target.value));
+		e.target.value === 'All' ?
+			dispatch(getBackup()) :
+			dispatch(orderByAuthor(e.target.value));
+		dispatch(paginate(1))
 	};
+
 	const handleBackUp = (e) => {
 		e.preventDefault();
 		dispatch(getBackup());

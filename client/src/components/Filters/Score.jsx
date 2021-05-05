@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderStar, getBackup, choiseStar } from '../../redux/actions/actionFront';
 import { paginate } from '../../redux/actions/request';
@@ -14,8 +14,10 @@ function Score() {
 
 	const handleStar = (e) => {
 		dispatch(orderStar(e.target.value));
-
-		toggle ? setToggle(false) : setToggle(true);
+		dispatch(paginate(1))
+		toggle ?
+			setToggle(false) :
+			setToggle(true);
 	};
 
 	const handleChoiseStar = (e) => {
