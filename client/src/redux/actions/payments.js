@@ -5,7 +5,7 @@ import * as TYPES from "../types/index";
 export const mercadoPago = (orderId) => async (dispatch) => {
   try {
     const response = await axios.post(
-      `http://localhost:3001/post/payments/mercado-pago/create-preference/${orderId}`
+      `${process.env.REACT_APP_BACK_URL}/post/payments/mercado-pago/create-preference/${orderId}`
     );
     if (response.status === 201) {
       dispatch({
@@ -34,7 +34,7 @@ export const mercadoPago = (orderId) => async (dispatch) => {
 export const stripe = (body) => async (dispatch) => {
   try {
     const response = await axios.post(
-      `http://localhost:3001/post/payments/stripe/create-session`,
+      `${process.env.REACT_APP_BACK_URL}/post/payments/stripe/create-session`,
       body
     );
     if (response.status === 201) {
