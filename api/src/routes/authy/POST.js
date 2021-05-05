@@ -8,19 +8,23 @@ server.post("/", async (req, res) => {
     try {
 
         const { email, cellphone, country_code } = req.body
+        console.log(req.body )
 
         authy.register_user(email, cellphone, country_code, async function (err, res2) {
 
             if (res2) {
-                await Users.update({
-                    authyId: res2.user.id
+                const userActivated =  await Users.update({
+                    authyId: "res2.user.id",
+                    authy: true,
                 },
                     {
-                        where: { email: email }
+                        where: { email: email },
+                        returning: true,
+                        plain: true,
                     })
             }
 
-            res.json(res2 ? res2 : err)
+            res.json(userActivated[1])
         })
 
     } catch (error) {
