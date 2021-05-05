@@ -154,3 +154,8 @@ export const removeProductForAdmin = (id)=>(dispatch) =>{
   })
 }
 
+export const deletAllProductsSales = () =>(dispatch) => {
+  dispatch({
+    type: TYPES.DELETE_ALL_PRODUCTS_SALES
+  })
+}
