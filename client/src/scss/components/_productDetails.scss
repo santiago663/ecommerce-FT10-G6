@@ -8,11 +8,6 @@
     animation-name: grow;
     animation-duration: 0.5s;
     background-color: #151515;
-    // background-image: radial-gradient(circle at center center, rgba(33, 33, 33, 0), #212121),
-    //     repeating-linear-gradient(135deg, #212121 0px, #212121 1px, transparent 1px, transparent 4px),
-    //     repeating-linear-gradient(45deg, #383838 0px, #383838 5px, transparent 5px, transparent 6px),
-    //     linear-gradient(90deg, #212121, #212121);
-    // overflow-x: hidden;
     @media only screen and(max-width: 1000px) {
         min-width: 320px;
     }
@@ -23,8 +18,6 @@
         margin-top: 100px;
         width: 100vw;
         max-width: 1350px;
-        // border: 3px solid #2d2e2e;
-
         @media only screen and(max-width: 1000px) {
             left: 0;
             flex-direction: column;
@@ -58,7 +51,6 @@
             background-color: #151515;
             align-content: center;
             border-left: 3px solid #2d2e2e;
-            // box-shadow: 0px 1px 15px 1px #2d2e2e;
             @media only screen and(max-width: 1000px) {
                 min-height: 600px;
                 align-items: center;
@@ -74,7 +66,6 @@
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                // border-bottom: 2px solid #19f9a4;
                 .titulo {
                     font-family: "Montserrat";
                     font-size: 24px;
@@ -85,11 +76,11 @@
             }
             .headerDet {
                 width: 100%;
+                display: flex;
+                justify-content: space-between;
                 .linkClose {
                     margin: 0px;
                     float: right;
-                    // border-radius: 9px 11px 0 0px;
-
                     .link {
                         font-size: 38px;
                         padding: 0px;
@@ -133,13 +124,9 @@
     height: 100%;
     display: flex;
     object-fit: contain;
-    // border-right: 1px solid #19f9a4;
     max-width: 90%;
     max-height: 600px;
-    // overflow: scroll;
     justify-content: center;
-
-    // object-fit: cover;
 }
 
 .reviewNumber {
@@ -147,16 +134,7 @@
     padding-bottom: 2px;
 }
 
-// .titulo {
-//     width: 100%;
-//     background-color: #d8dad9;
-//     align-self: left;
-//     color: #19f9a4;
-//     border-radius: 0px;
-// }
-
 .det {
-    // font-family: "Roboto";
     font-family: "Montserrat";
     color: #b5b8b7;
     border-radius: 2px;
@@ -169,12 +147,7 @@
     align-items: center;
     width: 100%;
     text-align: center;
-    // background-color: #2627277e;
     border-top: 2px solid #2d2e2e;
-    // border-bottom: 1px double #2d2e2e;
-    // border-radius: 10px 10px 9px 19px;
-    // border-radius: 2px 2px 0px 0px;
-    // box-shadow: 0 3px 5px 2px #626363f3;
     h3 {
         text-transform: uppercase;
         color: #19f9a369;
@@ -213,14 +186,12 @@
     height: 60px;
     align-items: center;
     background-color: rgba(131, 131, 131, 0);
-    // border-bottom: 2px solid #19f9a4;s
     margin-bottom: 20px;
 }
-.wish_productDetail { 
-    margin-left: 15%;
-    position: absolute;
+.wish_productDetail {
     margin-top: 0px;
     font-size: 40px;
+    margin-right: 70px;
 }
 .contecarrito {
     display: flex;
@@ -255,13 +226,9 @@
     width: 100%;
     .det {
         color: #fffdffdc;
-        // font-family: "Montserrat";
         padding-top: 20px;
         margin: 0 5px;
         font-size: 15px;
-        // border-top: 5px solid #19f9a377;
-        // border-bottom: 5px solid #19f9a377;
-        // box-shadow: 0 5px 10px 0px #19f9a33a;
         h3 {
             font-weight: 400;
             width: 100%;

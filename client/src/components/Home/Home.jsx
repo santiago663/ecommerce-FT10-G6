@@ -84,7 +84,7 @@ function Home() {
 
 				<Link className="linkto" to="/Browser/products">
 					<button className="landing-action btn-rounded" type="button">
-						Browse now!
+						Browse Catalogue!
 					</button>
 				</Link>
 			</div>

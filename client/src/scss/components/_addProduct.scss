@@ -186,7 +186,28 @@ select {
     padding: 0px 5px;
 }
 .compProd {
+    margin-top: 20px;
     width: 100%;
+    li {
+        color: antiquewhite;
+        margin-bottom: 10px;
+    }
+    .divEP {
+        margin-top: 20px;
+        .EditAndDelete {
+            margin-top: 20px;
+            margin-right: 10px;
+            width: 90px;
+            height: 30px;
+            border-radius: 5px;
+            border: none;
+            background-color: #272727;
+            color: #fff6a7;
+            box-shadow: 0 0px 1px 1px #fafafa;
+            font-weight: 900;
+            cursor: pointer;
+        }
+    }
 }
 .imgfile {
     display: flex;
