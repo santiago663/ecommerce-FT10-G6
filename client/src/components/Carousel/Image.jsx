@@ -22,7 +22,7 @@ const ImageCarousel = () => {
 			</div>
 		);
 	}
-	//<h1>SOS</h1>
+	
 	return (
 		<>
 			<div className="container-carousel">
