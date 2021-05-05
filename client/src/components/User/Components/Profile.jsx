@@ -315,14 +315,14 @@ export default function Profile() {
             number
           </span>
 
-          <label class="switch">
+          <label className="switch">
             <input
               type="checkbox"
               id="check2fa"
               onClick={(e) => activate2FA(e)}
               checked={currentUser.authy}
             />
-            <span class="sli round"></span>
+            <span className="sli round"></span>
           </label>
         </div>
       </div>

@@ -93,7 +93,7 @@ function SearchBar() {
             <button
               type="submit"
               className="btn-rounded searchbar-filters--btn_active search-button">
-              <i class="fas fa-search"></i></button>
+              <i className="fas fa-search"></i></button>
             {/* <button
             className={activeButton === "1" ? "btn-rounded searchbar-filters--btn_active" : "btn-rounded searchbar-filters--btn_inactive "}
             type="submit"

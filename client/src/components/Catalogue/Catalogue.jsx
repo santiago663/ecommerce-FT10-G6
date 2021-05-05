@@ -47,8 +47,8 @@ function Catalogue() {
     <Fragment>
       <div className="catalogue-wrapper">
         {currentProducts &&
-          currentProducts.map((artwork) => (
-            <ProductCard key={artwork.id} data={artwork} />
+          currentProducts.map((artwork, i) => (
+            <ProductCard key={`${i}`} data={artwork} />
           ))}
       </div>
       <div className="paginate">
