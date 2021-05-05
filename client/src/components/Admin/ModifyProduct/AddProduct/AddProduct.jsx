@@ -57,7 +57,6 @@ function AddProduct() {
         const findProduct = allProducts.find(f => f.id === Number(id))
 
         if (findProduct?.id) {
-
             setProduct({
                 id: findProduct.id,
                 name: findProduct.name,
@@ -133,7 +132,6 @@ function AddProduct() {
     function submitForm(event) {
         event.preventDefault();
         if (id) {
-
             Swal.fire({
                 title: 'Are you sure?',
                 text: `The Edit to ${product.name}`,
@@ -178,8 +176,6 @@ function AddProduct() {
                         e.target.value = 0;
                     }
                 })
-
-
             }
             else {
                 alertError();
@@ -200,7 +196,6 @@ function AddProduct() {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(deleteProduct(product.id))
-                // setBoolean(true)
                 setProduct({
                     name: "",
                     description: "",
@@ -251,8 +246,6 @@ function AddProduct() {
         productOrError.status = 0
     }
 
-    var key = 1;
-
     const initialState = {
         uploadValue: 0,
         picture: ""
@@ -288,7 +281,6 @@ function AddProduct() {
     const deletefile = () => {
         const storageRef = firebase.storage().ref()
         var desertRef = storageRef.child(uploadValue.picture);
-        console.log(desertRef);
         // Delete the file
         desertRef.delete().then(function () {
             // File deleted successfully
@@ -307,7 +299,11 @@ function AddProduct() {
 						<FilterProductByAuthor />
 					</div>
 					<div className="divAP">
+						{id ?
+						<h2 className="title">Edit Product</h2>
+						:
 						<h2 className="title">Add Product</h2>
+						}
 						<form className="formAP" onSubmit={submitForm}>
 							<div className="rigth">
 								<div>

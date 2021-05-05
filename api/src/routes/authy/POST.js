@@ -8,13 +8,12 @@ server.post("/", async (req, res) => {
     try {
 
         const { email, cellphone, country_code } = req.body
-        console.log(req.body )
-
+        
         authy.register_user(email, cellphone, country_code, async function (err, res2) {
 
             if (res2) {
-                const userActivated =  await Users.update({
-                    authyId: "res2.user.id",
+                var userActivated =  await Users.update({
+                    authyId: res2.user.id,
                     authy: true,
                 },
                     {

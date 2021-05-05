@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React from 'react';
 
 const FilterByProduct = (props) => {
@@ -11,7 +10,6 @@ const FilterByProduct = (props) => {
 
 				{props.allProducts &&
 					props.allProducts.map((G, i) => {
-						console.log(G)
 						return (
 							<option key={i} value={G.name}>
 								{G.name}
