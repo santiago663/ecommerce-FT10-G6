@@ -29,6 +29,7 @@ function ProductCard(props) {
     if(userWishlist?.id) {
       setCanAdd(userWishlist?.products?.filter(product => product.id === id))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[userWishlist?.products?.length])
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
