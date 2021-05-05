@@ -1,8 +1,63 @@
 /* DataTableDemo.css */
+.p-inputtext.p-component {
+    height: 30px;
+    border-radius: 8px;
+}
+.selectRol{
+    display: flex;
+    margin-top: 81px;
+    flex-direction: column;
+}
+.colDeleteUser {
+    display: table-cell;
+    border-radius: 0 25px 25px 0;
+    background-color: black;
+}
+.btnDelete{
+    background-color: brown;
+    color: cornsilk;
+    border-radius: 5px;
+}
+.FilterAndProducts {
+    display: flex;
+}
+button.p-paginator-page.p-paginator-element.p-link {
+    width: 20px;
+    font-family: fantasy;
+    background-color: rgb(187, 160, 147);
+}
+button.p-paginator-page.p-paginator-element.p-link.p-highlight {
+    background-color: aqua;
+}
+button.p-paginator-page.p-paginator-element.p-link.p-paginator-page-end.p-highlight {
+    background-color: chartreuse;
+}
+button.p-paginator-next.p-paginator-element {
+    width: 20px;
+    height: 15px;
+    margin: 3px;
+}
+button.p-paginator-prev.p-paginator-element.p-link {
+    width: 20px;
+    height: 15px;
+    margin: 3px;
+}
+button.p-paginator-last.p-paginator-element.p-link.p-disabled {
+    width: 20px;
+    height: 13px;
+}
+button.p-paginator-first.p-paginator-element.p-link {
+    width: 20px;
+    height: 13px;
+}
 .profileUser{
     border-radius: 25px 0px 0 25px;
     // border: 2px solid white;
     box-shadow: 1px 2px 5px rgb(117, 248, 105);
+}
+.ModifyUser {
+    display: flex;
+    justify-content: center;
 }
 .picPerfil{
     // display: flex;

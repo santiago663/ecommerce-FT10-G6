@@ -4,5 +4,8 @@
 		"lastName": "Elguero",
 		"linkedin": "https://www.linkedin.com/in/dario-elguero/",
 		"github": "https://github.com/Dario-Elguero",
-		"about": "Una breve descripción de prueba que ira en la parte trasera de la card"
+		"about": ["Amante de la Creación y de la Logica, me gusta superarme todo el tiempo,",
+		"aplicar mi conocimiento en cada proyectos que llevo a cabo para dejar lo mejor de mi.",
+		"CONOCIMIENTOS INFORMATICOS (Javascript, React, Redux, Visual Basic, SQL, Express,",
+		"Sequelize, Nodejs, CSS, HTML, Access, MySql, Workpress) DISEÑO (Photoshop, Illustrator)"]
 	}

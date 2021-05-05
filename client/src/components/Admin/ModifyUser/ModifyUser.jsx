@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import React, { useState, useEffect, useRef } from 'react';
+import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -7,65 +8,28 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { ProgressBar } from 'primereact/progressbar';
 import { Calendar } from 'primereact/calendar';
+import { editUser, deleteUserAction } from '../../../redux/actions/actionBack';
 import { MultiSelect } from 'primereact/multiselect';
 import { Link, Route } from 'react-router-dom';
-import EditUsers from './EditUsers/EditUsers';
 import '../../../scss/components/_modifyOrder.scss';
 import './tablaUser.scss'
-import { Profiler } from 'react';
 
 const ModifyUser = () => {
 
-    const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
-    const [customers, setCustomers] = useState(null);
-    const [selectedRepresentative, setSelectedRepresentative] = useState(null);
+    let allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
     const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState(null);
     const [globalFilter, setGlobalFilter] = useState(null);
+    const allRoles = useSelector((store) => store.reducerRoles.allRoles)
+    const dispatch = useDispatch();
     const dt = useRef(null);
     
     const statuses = [
         'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
     ];
 
-    
-    // useEffect(() => {
-        // customerService.getCustomersLarge().then(data => setCustomers(data));
-    // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-    const filterDate = (value, filter) => {
-        if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-            return true;
-        }
-
-        if (value === undefined || value === null) {
-            return false;
-        }
-
-        return value === formatDate(filter);
-    }
-
-    const formatDate = (date) => {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-
-        if (month < 10) {
-            month = '0' + month;
-        }
-
-        if (day < 10) {
-            day = '0' + day;
-        }
-
-        return date.getFullYear() + '-' + month + '-' + day;
-    }
-
-    const onRepresentativesChange = (e) => {
-        dt.current.filter(e.value, 'representative.name', 'in');
-        setSelectedRepresentative(e.value);
-    }
-
-    const onDateChange = (e) => {
+   const onDateChange = (e) => {
         dt.current.filter(e.value, 'date', 'custom');
         setSelectedDate(e.value);
     }
@@ -73,15 +37,6 @@ const ModifyUser = () => {
     const onStatusChange = (e) => {
         dt.current.filter(e.value, 'status', 'equals');
         setSelectedStatus(e.value);
-    }
-
-    const nameBodyTemplate = (rowData) => {
-        return (
-            <React.Fragment>
-                <span className="p-column-title">Name</span>
-                {rowData.name}
-            </React.Fragment>
-        );
     }
 
     const countryBodyTemplate = (rowData) => {
@@ -102,44 +57,45 @@ const ModifyUser = () => {
         );
     }
 
-    const dateBodyTemplate = (rowData) => {
-        return (
-            <React.Fragment>
-                <span className="p-column-title">Date</span>
-                <span>{rowData.date}</span>
-            </React.Fragment>
-        );
-    }
-
-    const statusBodyTemplate = (rowData) => {
-        return (
-            <React.Fragment>
-                <span className="p-column-title">Status</span>
-                <span className={`customer-badge status-${rowData.status}`}>{rowData.status}</span>
-            </React.Fragment>
-        );
-    }
-
-    const activityBodyTemplate = (rowData) => {
-        return (
-            <React.Fragment>
-                <span className="p-column-title">Activity</span>
-                <ProgressBar value={rowData.activity} showValue={false} />
-            </React.Fragment>
-        );
-    }
-
-    const representativesItemTemplate = (option) => {
-        return (
-            <div className="p-multiselect-representative-option">
-                <img alt={option.name} src={`showcase/demo/images/avatar/${option.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} width={32} style={{verticalAlign: 'middle'}} />
-                <span className="image-text">{option.name}</span>
-            </div>
-        );
-    }
-
     const statusItemTemplate = (option) => {
         return <span className={`customer-badge status-${option}`}>{option}</span>;
+    }
+    const deleteUser = (user)=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `The Delete to ${user.name}`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteUserAction(user.id))
+                // setBoolean(true)
+                Swal.fire(
+                    'Deleted!',
+                    'this User is deleted',
+                    'success'
+                )
+            } else {
+             
+            }
+        })
+    }
+    const deleteUserTemplate = (user) => {
+        return (
+            <React.Fragment>
+                <button className="btnDelete" onClick={()=> deleteUser(user)}>Delete</button>
+            </React.Fragment>
+        );
+    }
+    const stateBodyTemplate = (user) => {
+        return (
+            <React.Fragment>
+                {user.available ? <span>True</span> : <span>False</span>}
+            </React.Fragment>
+        );
     }
 
     const header = (
@@ -152,54 +108,79 @@ const ModifyUser = () => {
         </div>
     );
 
+    const onCellSelect = (event) => {
+        //alert("onCellSelect " + event.rowData.id + " " + event.rowData.name)
+        //setSelectedUser(event.rowData.name)
+    }
+    const onRowSelect = (event) => {
+        alert(event.name)
+    }
+    function handleInputChange(event) {
+        
+        if (selectedUser && event.target.value > 0){
+            setSelectedUser({...selectedUser,["roleId"] : Number(event.target.value)})
+            let rol = event.target.options[event.target.selectedIndex].text;
+            Swal.fire({
+                title: `Do you want to save the changes in User ${selectedUser.name}?`,
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: `Save`,
+                denyButtonText: `Don't save`,
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    dispatch( editUser(selectedUser.id, selectedUser) );
+                  allUsers = {...allUsers, [event.target.name]:event.target.value, ["role"]: rol }
+                  Swal.fire('Saved!', '', 'success')
+                  event.target.value = 0
+                } else if (result.isDenied) {
+                  Swal.fire('Changes are not saved', '', 'info')
+                  event.target.value = 0
+                }
+              })
+        }else{
+            Swal.fire('Select a User')
+            event.target.value = 0
+        }
+    }
     const dateFilter = <Calendar value={selectedDate} onChange={onDateChange} dateFormat="yy-mm-dd" className="p-column-filter" placeholder="Registration Date"/>;
     const statusFilter = <Dropdown value={selectedStatus} options={statuses} onChange={onStatusChange} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />;
 
     return ( 
-        <div className='ModifyProduct'>
+        <div className='ModifyUser'>
              <div className="FilterAndProducts">
-                <div className='authorFilter'>
-                </div>
                 <div className="datatable-filter-demo">
                     <div className="card">
-                        <DataTable ref={dt} value={allUsers} paginator rows={6}
-                            header={header} className="p-datatable-customers"
-                            globalFilter={globalFilter} emptyMessage="No customers found.">
-                            <Column field="profilePic" header="Perfil" id="id" className="picPerfil" body={representativeBodyTemplate} />
+                        <DataTable ref={dt} value={allUsers} paginator rows={6} 
+                            header={header} selectionMode="single" cellSelection selection={selectedUser} onRowSelect={onRowSelect} onSelectionChange={(e)=> setSelectedUser(e.value.rowData)} dataKey="id" className="p-datatable-customers"
+                            globalFilter={globalFilter} onCellSelect={onCellSelect} emptyMessage="No customers found.">
+                            <Column field="profilePic" header="Perfil" className="picPerfil" body={representativeBodyTemplate} />
                             <Column field="name" header="Name" className
                             ="colNameUser" filter filterPlaceholder="Search by name" />
                             <Column field="email" header="E-mail" className="mailUser" filter filterPlaceholder="Seach by E-mail" />
-                            <Column field="phone_Number" header="Rol" className="Phone" filter filterPlaceholder="Search by Phone" />
+                            <Column field="phone_Number" header="Phone" className="Phone" filter filterPlaceholder="Search by Phone" />
                             <Column field="role.description" header="Rol" className="RolUser" filter filterPlaceholder="Search by Rol" />
-                            <Column field="available" header="State" className="stateUser" filter filterPlaceholder="Search by State" />
-                            {/* <Column field="country" filterField="country.name" header="Country" body={countryBodyTemplate} filter filterPlaceholder="Search by country" filterMatchMode="contains" /> */}
-                            {/* <Column field="date" header="Date" body={dateBodyTemplate} filter filterElement={dateFilter} filterFunction={filterDate} /> */}
+                            <Column field="available" header="Available" body={stateBodyTemplate} className="stateUser" filter filterPlaceholder="Search by State" />
+                            <Column field="" header="Delete" body={deleteUserTemplate} className="colDeleteUser" />
                         </DataTable>
                     </div>
                 </div>
-            </div>
-                <div className="productContainer">
-                    {allUsers.length !==0 && allUsers.length !==0 
-                    ?<ul>
-                        {allUsers.length !== 0 && allUsers.map(m => {
-                            return(
-                                <li className="product" key={m.id}>
-                                    <Link to={`/Admin/User/Edit/${m.id}`}>
-                                        <h3>•{m.email}</h3>
-                                        <h4>{m.name}</h4>
-                                    </Link> 
-                                </li>           
-                            )
-                        })}
-                    </ul>
-                    
-                    : null
-                    }
-                </div>
-                
-            <div className='compProd'>
-                {/* <Route exact path="/Admin/Order" component={EditOrder} /> */}
-                <Route exact path="/Admin/User/Edit/:id" component={EditUsers} />
+                <div className="selectRol">
+                    <h3 className="title">SELECT NEW ROLE FOR <br/> {selectedUser?.name}</h3>
+                        <select 
+                            required
+                            className="selector"
+                            name="roleId" 
+                            id="selectorAvEP" 
+                            onChange={handleInputChange}
+                        >
+                            <option key="" value="0">
+                            Select a Rol
+                            </option>
+                                {allRoles.map(a => <option name={a.description} key={a.id} value={a.id}>{a.description}
+                            </option>)}
+                        </select>
+                    </div>
             </div>
         </div>
     );
