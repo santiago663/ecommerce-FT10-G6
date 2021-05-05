@@ -25,12 +25,12 @@ function ProductCard(props) {
   const canBuy = allUserProducts.filter(product => product.id === id)
   const [canAdd, setCanAdd] = useState(false)
 
-  useEffect(()=>{
-    if(userWishlist?.id) {
+  useEffect(() => {
+    if (userWishlist?.id) {
       setCanAdd(userWishlist?.products?.filter(product => product.id === id))
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[userWishlist?.products?.length])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userWishlist?.products?.length])
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {
@@ -129,7 +129,7 @@ function ProductCard(props) {
                 {score === null ? FunctionStar(0) : FunctionStar(Number(score))}
               </span>
               {currentUser?.id && <div className="wishlistHeartCard">
-                { canAdd[0] ? 
+                {canAdd && canAdd[0] ? //me decía cannot read property 0 of undefined
                   <span onClick={handleDeleteWishlist}><AiIcons.AiFillHeart /></span>
                   :
                   <span className="wishlistHeartOutLineCard" onClick={handleAddWishlist}><AiIcons.AiOutlineHeart /></span>}
