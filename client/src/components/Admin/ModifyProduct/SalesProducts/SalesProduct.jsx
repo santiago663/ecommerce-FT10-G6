@@ -9,7 +9,8 @@ import { removeProductForAdmin } from '../../../../redux/actions/actionFront';
 
 
 const SalesProduct = () =>{
-	const allProducts = useSelector((store) => store.reducerProduct.backUpProducts);
+	const dispatch = useDispatch()
+	const allProducts = useSelector((store) => store.reducerProduct.adminProducts);
 	const [input, setInput] = useState([]);
 
 	const handleChange = (e) => {
@@ -19,8 +20,7 @@ const SalesProduct = () =>{
 	};
 
 function onClose(g) {
-	
-		//dispatch(removeProductForAdmin(g));
+	dispatch(removeProductForAdmin(g));
 	}
 
 	const Send = () => {
@@ -73,7 +73,7 @@ function onClose(g) {
 							<>
 								<tr>
 									<td>
-										<button onClick={() => onClose(g)}>X</button>
+										<button onClick={() => onClose(g.id)}>X</button>
 									</td>
 									<td>{g.name}</td>
 									<td>{g.author.name}</td>

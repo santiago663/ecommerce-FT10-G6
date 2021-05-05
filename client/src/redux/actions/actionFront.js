@@ -69,9 +69,13 @@ export const orderByCategories = (categories) => (dispatch) => {
 };
 
 export const orderByAuthor = (author) => (dispatch) => {
-  dispatch({
-		type: TYPES.ORDER_BY_AUTHOR,
-    payload:author,})
+	
+		dispatch({
+			type: TYPES.ORDER_BY_AUTHOR,
+			payload: author,
+      
+		});
+
 };
 
 export const getBackup = () => (dispatch) =>{
@@ -140,5 +144,13 @@ export const allUserProducts = (products) => (dispatch) =>{
 
 export const sendEmailOrderSuccess = (data) => (dispatch) => {
   axios.post(`http://localhost:3001/emails/signup`, data);
+  
+}
+
+export const removeProductForAdmin = (id)=>(dispatch) =>{
+  dispatch({
+    type: TYPES.REMOVE_FROM_ADMIN_PANEL,
+    payload: id
+  })
 }
 
