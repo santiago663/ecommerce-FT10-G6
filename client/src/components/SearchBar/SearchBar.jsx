@@ -22,7 +22,7 @@ function SearchBar() {
   const getSuggestions = async (input) => {
     if (input !== "") {
       const response = await axios.get(
-        `${REACT_APP_BACK_URL}/get/product/search?keyword=${input}`
+        `${process.env.REACT_APP_BACK_URL}/get/product/search?keyword=${input}`
       );
 
       let filtered = [];

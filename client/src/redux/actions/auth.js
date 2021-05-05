@@ -25,7 +25,7 @@ export const logout = () => {
         dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
       })
       .then(() => {
-        location.assign("http://localhost:3000")
+        location.assign(process.env.REACT_APP_FRONT_URL);
       });
   };
 };
