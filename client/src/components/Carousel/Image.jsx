@@ -1,11 +1,16 @@
 /* eslint-disable  */
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
 import './_carousel.scss';
 import Loading from '../Loading/Loading.js';
 import {Link} from 'react-router-dom';
+import { getBackup } from '../../redux/actions/actionFront';
 
 const ImageCarousel = () => {
+	const dispatch = useDispatch()
+	useEffect(()=>{
+dispatch(getBackup());
+	},[])
 	const loading = useSelector((store) => store.reducerLoading.loading);
 	const products = useSelector((state) => state.reducerProduct.allProductCache);
 	let idProduct = [];
