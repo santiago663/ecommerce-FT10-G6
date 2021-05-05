@@ -19,6 +19,7 @@ const initialState = {
 	newProductReviews: [],
 	allProductsScores: [],
 	editProductReviews: [],
+	adminProducts:[],
 };
 
 export default function reducerProduct(state = initialState, action) {
@@ -39,6 +40,7 @@ export default function reducerProduct(state = initialState, action) {
 			return {
 				...state,
 				allProductCache: action.payload,
+				adminProducts: [...state.adminProducts].concat(action.payload),
 			};
 
 		case TYPES.GET_ONE_PRODUCT:
@@ -50,16 +52,18 @@ export default function reducerProduct(state = initialState, action) {
 			return {
 				...state,
 				allProductCache: action.payload.productsOrder,
+				adminProducts: action.payload.productsOrder,
 				arderBy: action.payload.name,
 			};
-		case TYPES.ORDER_DESC_NAME:
-			return {
-				...state,
-				allProductCache: action.payload.productsOrder,
+			case TYPES.ORDER_DESC_NAME:
+				return {
+					...state,
+					allProductCache: action.payload.productsOrder,
+					adminProducts: action.payload.productsOrder,
 				orderBy: action.payload.name,
 			};
 		case TYPES.ORDER_BY_CATEGORIES:
-			if (state.author) {
+			if (state.author ) {
 				let filteredProducts = [];
 				let actualStars = [];
 				let actualAuthor = [];
@@ -89,6 +93,7 @@ export default function reducerProduct(state = initialState, action) {
 				return {
 					...state,
 					allProductCache: filteredProducts,
+					adminProducts: [...state.adminProducts].concat(filteredProducts),
 					categorie: !state.categorie,
 					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
 					authorDisponible: [...new Set((actualAuthor = [].concat.apply([], actualAuthor)))],
@@ -107,15 +112,17 @@ export default function reducerProduct(state = initialState, action) {
 							: null
 					)
 				);
-
-				return {
-					...state,
-					allProductCache: filteredProducts,
-					categorie: true,
-					authorDisponible: [...new Set((actualAuthor = [].concat.apply([], actualAuthor)))],
-					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
-					categorieBackUp: filteredProducts,
-				};
+				
+					return {
+						...state,
+						allProductCache: filteredProducts,
+						adminProducts: [...state.adminProducts].concat(filteredProducts),
+						categorie: action.admin ? false : true,
+						authorDisponible: [...new Set((actualAuthor = [].concat.apply([], actualAuthor)))],
+						actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
+						categorieBackUp: filteredProducts,
+					
+				}
 			}
 		case TYPES.ORDER_BY_AUTHOR:
 			if (action.payload === state.authorDisponible) {
@@ -140,6 +147,7 @@ export default function reducerProduct(state = initialState, action) {
 				return {
 					...state,
 					allProductCache: filteredProducts,
+					adminProducts: [...state.adminProducts].concat(filteredProducts),
 					author: !state.author,
 					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
 					contegorieDisponible: [...new Set((actualCategories = [].concat.apply([], actualCategories)))],
@@ -155,15 +163,22 @@ export default function reducerProduct(state = initialState, action) {
 						: null
 				);
 				filteredProducts.forEach((f) => f.categories.filter((x) => actualCategories.push(x.name)));
-
-				return {
-					...state,
-					allProductCache: filteredProducts,
-					author: true,
-					contegorieDisponible: [...new Set((actualCategories = [].concat.apply([], actualCategories)))],
-					authorBackUp: filteredProducts,
-					actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
-				};
+				if (action.admin) {
+					return {
+						...state,
+						adminProducts: [...state.adminProducts].concat(filteredProducts),
+					};
+				} else {
+					return {
+						...state,
+						allProductCache: filteredProducts,
+						adminProducts: [...state.adminProducts].concat(filteredProducts),
+						author: action.admin ? false : true,
+						contegorieDisponible: [...new Set((actualCategories = [].concat.apply([], actualCategories)))],
+						authorBackUp: filteredProducts,
+						actualStars: [...new Set((actualStars = [].concat.apply([], actualStars)))].sort(),
+					};
+				}
 			}
 		case TYPES.ALL_PRODUCTS_RESET:
 			return {
@@ -609,7 +624,11 @@ export default function reducerProduct(state = initialState, action) {
 		case TYPES.PUT_NEW_USER_REVIEW:
 			//guarda el review editado y sobreescribe lo que habia antes en newProductReviews
 			return { ...state, productReview: action.payload };
-
+		case 'REMOVE_FROM_ADMIN_PANEL':
+			return {
+				...state,
+				adminProducts: state.adminProducts.filter((item) => item.id !== action.payload.id),
+			};
 		default:
 			return state;
 	}
