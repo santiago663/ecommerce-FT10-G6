@@ -668,11 +668,11 @@ export const sendDiscountToBack = (objectToApplyDiscount) => {
         axios.post(`${process.env.REACT_APP_BACK_URL}/post/discount`, objectToApplyDiscount)
         .then((res)=>{
           
-          console.log("--->",res.data),
+          
           dispatch({
-				type: TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT,
-        payload:res.data
-			})
+		type: TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT,
+        	payload:res.data
+		})
         })
           .catch((e) => console.log(e));
 	}
