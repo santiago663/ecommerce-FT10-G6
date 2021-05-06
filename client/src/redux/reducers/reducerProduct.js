@@ -651,6 +651,7 @@ export default function reducerProduct(state = initialState, action) {
 					if (x.id === z.productId) {
 						x.discountPrice = z.discountPrice
 						x.percet = z.percet
+						x.discount = 'true'
 					}
 					saveDiscountToShowInPanelAdmin.push(x);
 				});
@@ -666,6 +667,12 @@ export default function reducerProduct(state = initialState, action) {
 					...new Set((saveDiscountButNotReppeat = [].concat.apply([], saveDiscountButNotReppeat))),
 				],
 			};
+			case TYPES.REFRESH_PRICE_IN_FRONT:
+
+				return {
+					...state,
+					allProductCache: state.backUpProducts,
+				};
 		default:
 			return state;
 	}
