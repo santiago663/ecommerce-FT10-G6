@@ -6,13 +6,10 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { ProgressBar } from 'primereact/progressbar';
 import { Calendar } from 'primereact/calendar';
 import { editUser, deleteUserAction } from '../../../redux/actions/actionBack';
-import { MultiSelect } from 'primereact/multiselect';
-import { Link, Route } from 'react-router-dom';
 import '../../../scss/components/_modifyOrder.scss';
-import './tablaUser.scss'
+import './_tablaUser.scss'
 
 const ModifyUser = () => {
 
@@ -174,7 +171,7 @@ const ModifyUser = () => {
                             id="selectorAvEP" 
                             onChange={handleInputChange}
                         >
-                            <option key="" value="0">
+                            <option value="0">
                             Select a Rol
                             </option>
                                 {allRoles.map(a => <option name={a.description} key={a.id} value={a.id}>{a.description}
