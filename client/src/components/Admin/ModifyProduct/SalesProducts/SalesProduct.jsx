@@ -9,7 +9,6 @@ import { sendDiscountToBack } from '../../../../redux/actions/actionBack';
 import Swal from 'sweetalert2';
 
 
-
 const SalesProduct = () =>{
 	const dispatch = useDispatch()
 	const allProducts = useSelector((store) => store.reducerProduct.adminProducts);
@@ -38,10 +37,7 @@ function onClose(g) {
 			confirmButtonText: 'Cool',
 		});
 		dispatch(sendDiscountToBack(input))
-		.then((res)=>{
-			
-			//dispatch()
-		})
+		
 
 		}catch(err){
 			console.error(err.message);
@@ -133,7 +129,8 @@ function onClose(g) {
 						</select>
 					</td>
 				</tr>
-				{[...allProducts].map((g) => {
+				{allProducts &&
+				[...allProducts].map((g) => {
 					return (
 						<>
 							<tr key={g.id}>
@@ -143,14 +140,14 @@ function onClose(g) {
 									</button>
 								</td>
 								<td>{num++}</td>
-								<td>{g.name}</td>
-								<td>{g.author.name}</td>
+								<td>{g?.name}</td>
+								<td>{g?.author.name}</td>
 								<td>
-									{g.categories.map((x) => {
+									{g?.categories.map((x) => {
 										return x.name;
 									})}
 								</td>
-								<td>{g.price}</td>
+								<td>{g?.price}</td>
 								<td>$83</td>
 								<td>% {input.percent}</td>
 							</tr>

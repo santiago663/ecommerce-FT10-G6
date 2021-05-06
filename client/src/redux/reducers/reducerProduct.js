@@ -634,10 +634,22 @@ export default function reducerProduct(state = initialState, action) {
 					adminProducts: []
 				}
 		case TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT:
+			console.log("estoy en el reducer")
+			let saveDiscountButNotReppeat = [];
+
+			action.payload.forEach((z) => {
+				backUpProducts.forEach((x) => {
+					if (x.id === z.id) {
+						x.price = z.discountPrice;
+					}
+					saveDiscountButNotReppeat.push(x);
+				});
+			});
+ 
 			return {
 				...state,
 				adminProducts: action.payload,
-				backUpProducts: action.payload,
+				// backUpProducts: [...new Set((saveDiscountButNotReppeat = [].concat.apply([], nsaveDiscountButNotReppeat))),],
 			};
 		default:
 			return state;
