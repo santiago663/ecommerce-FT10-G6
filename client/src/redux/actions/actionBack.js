@@ -665,10 +665,10 @@ export const editProductStock = (stock) => {
 export const sendDiscountToBack = (objectToApplyDiscount) => {
 
 		return (dispatch) => {
-        await axios.post(`${process.env.REACT_APP_BACK_URL}/post/discount`, objectToApplyDiscount)
+        axios.post(`${process.env.REACT_APP_BACK_URL}/post/discount`, objectToApplyDiscount)
         .then((res)=>{
           
-          console.log(res.data),
+          console.log("--->",res.data),
           dispatch({
 				type: TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT,
         payload:res.data
