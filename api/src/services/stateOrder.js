@@ -1,11 +1,14 @@
+const { EMAIL_ENVIAR, EMAIL_SENGRID } = process.env;
+
+
 let stateOrder = (name2, ordIdDateStateTotal, prodsImgPrice, email) => {
 
     var msg = {};
 
     if(!!name2 && prodsImgPrice.length !==0){
         
-        msg["to"] = `${email}`,
-        msg["from"] = "lu_23-7-92@hotmail.com",
+        msg["to"] = `${EMAIL_ENVIAR}`,//`${email}`,
+        msg["from"] = `${EMAIL_SENGRID}`,
         msg["subject"] = "DigitalArt: Orden Completada",
         msg["html"] = `
         <body style="margin: 0; padding: 0;">

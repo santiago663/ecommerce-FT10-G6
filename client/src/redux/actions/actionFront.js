@@ -143,7 +143,7 @@ export const allUserProducts = (products) => (dispatch) =>{
 }
 
 export const sendEmailOrderSuccess = (data) => (dispatch) => {
-  axios.post(`http://localhost:3001/emails/signup`, data);
+  axios.post(`${process.env.REACT_APP_BACK_URL}/emails/signup`, data);
   
 }
 

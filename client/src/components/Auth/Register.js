@@ -15,7 +15,9 @@ const Register = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        isLog ? location.assign("http://localhost:3000") : console.log("error")
+        isLog
+          ? location.assign(process.env.REACT_APP_FRONT_URL)
+          : console.log("error");
       }, [isLog])
 
     const [regState, setRegState] = useState({

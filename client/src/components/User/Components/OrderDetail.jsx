@@ -20,7 +20,7 @@ function OrderDetail() {
         text: 'Something went wrong!',
         footer: '<a href>Why do I have this issue?</a>'
       }).then((result) => {
-        location.assign("http://localhost:3000/user/orders")
+        location.assign(`${process.env.REACT_APP_FRONT_URL}/user/orders`);
       })
     }
   }

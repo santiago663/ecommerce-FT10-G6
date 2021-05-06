@@ -1,7 +1,10 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { editCurrentUser, activate2fa } from "../../../redux/actions/actionUser";
+import {
+  editCurrentUser,
+  activate2fa,
+} from "../../../redux/actions/actionUser";
 import { removeError } from "../../../redux/actions/uiError";
 import Swal from "sweetalert2";
 import "../../../scss/components/_profileuser.scss";
@@ -41,7 +44,7 @@ export default function Profile() {
       role: currentUser.role,
       roleId: currentUser.roleId,
       profilePic: currentUser.profilePic,
-      authy: currentUser.authy
+      authy: currentUser.authy,
     });
   }, [currentUser]);
 
@@ -53,13 +56,13 @@ export default function Profile() {
       const previewFile = e.target.files[0];
       setInputs({ ...user, profilePic: URL.createObjectURL(previewFile) });
     } else {
-      if(e.target.name === "phone_Number" || e.target.name === "phone_Code"){
+      if (e.target.name === "phone_Number" || e.target.name === "phone_Code") {
         setInputs({
           ...user,
           authy: false,
           authyId: null,
-          [e.target.name]: e.target.value
-        })
+          [e.target.name]: e.target.value,
+        });
       } else {
         setInputs({
           ...user,
@@ -102,12 +105,26 @@ export default function Profile() {
             }
           );
         } else {
-          dispatch(
-            editCurrentUser(currentUser.id, {
-              ...user,
-              phone_Number: [user.phone_Code, user.phone_Number],
-            })
-          );
+          if (
+            currentUser.phone_Number[0] !== user.phone_Number ||
+            currentUser.phone_Number[1] !== user.phone_Code
+          ) {
+            dispatch(
+              editCurrentUser(currentUser.id, {
+                ...user,
+                phone_Number: [user.phone_Code, user.phone_Number],
+                authy: false,
+                authyId: false,
+              })
+            );
+          } else {
+            dispatch(
+              editCurrentUser(currentUser.id, {
+                ...user,
+                phone_Number: [user.phone_Code, user.phone_Number],
+              })
+            );
+          }
           Swal.fire("Saved!", "", "success");
         }
       } else if (result.isDenied) {
@@ -141,75 +158,78 @@ export default function Profile() {
     });
 
   const activate2FA = (e) => {
-    
     if (user.phone_Number.length > 5 && user.phone_Code.length > 1) {
-      if(document.getElementById("check2fa").checked === true){
+      if (document.getElementById("check2fa").checked === true) {
         Swal.fire({
-          title: '<strong>Do you want to activate 2FA?</strong>',
-          icon: 'info',
+          title: "<strong>Do you want to activate 2FA?</strong>",
+          icon: "info",
           html:
-            '<h3>Important</h3> ' +
-            '<span>2FA will be activated for your account, you will receive a message on your cell phone asking you to install Authy, later you will have to register with the same phone number registered in your Digital Art account.</span> ' + '<span> The next time you log in you must perform the two-factor verification, once you enter your credentials you will receive a code in the Authy application which you must enter in order to access your account.</span>',
+            "<h3>Important</h3> " +
+            "<span>2FA will be activated for your account, you will receive a message on your cell phone asking you to install Authy, later you will have to register with the same phone number registered in your Digital Art account.</span> " +
+            "<span> The next time you log in you must perform the two-factor verification, once you enter your credentials you will receive a code in the Authy application which you must enter in order to access your account.</span>",
           showCloseButton: true,
           showCancelButton: true,
           focusConfirm: false,
-          confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Yes!',
-          confirmButtonAriaLabel: 'Thumbs up, great!',
-          cancelButtonText:
-            'No',
-          cancelButtonAriaLabel: 'Thumbs down'
+          confirmButtonText: '<i class="fa fa-thumbs-up"></i> Yes!',
+          confirmButtonAriaLabel: "Thumbs up, great!",
+          cancelButtonText: "No",
+          cancelButtonAriaLabel: "Thumbs down",
         }).then((result) => {
           if (result.isConfirmed) {
-            if(currentUser.authyId){
-              dispatch(editCurrentUser(currentUser.id, {
-                ...currentUser, authy: true
-              }))
+            if (currentUser.authyId) {
+              dispatch(
+                editCurrentUser(currentUser.id, {
+                  ...currentUser,
+                  authy: true,
+                })
+              );
             } else {
               dispatch(
-                activate2fa(currentUser.email, currentUser.phone_Number[1], currentUser.phone_Number[0])
-              )
+                activate2fa(
+                  currentUser.email,
+                  currentUser.phone_Number[1],
+                  currentUser.phone_Number[0]
+                )
+              );
             }
             //si no se regitro anteriormente---> registrarlo en authy, guardar data authyid y authy true
-            Swal.fire('Saved!', '', 'success')
+            Swal.fire("Saved!", "", "success");
           } else if (!result.isConfirmed) {
             document.getElementById("check2fa").checked = false;
-            Swal.fire('Changes are not saved', '', 'info')
+            Swal.fire("Changes are not saved", "", "info");
           }
-        })
-        
-      }else{
+        });
+      } else {
         Swal.fire({
-          title: '<strong>Do you want to disable 2FA??</strong>',
-          icon: 'info',
+          title: "<strong>Do you want to disable 2FA??</strong>",
+          icon: "info",
           html:
-            '<h3>Important</h3> ' +
-            '<span>2FA will be deactivated for your account, if you wish to reactivate it you can do so at any time.</span> ' +
-            '<span>The next time you log in, you just have to enter your username and password.</span>',
+            "<h3>Important</h3> " +
+            "<span>2FA will be deactivated for your account, if you wish to reactivate it you can do so at any time.</span> " +
+            "<span>The next time you log in, you just have to enter your username and password.</span>",
           showCloseButton: true,
           showCancelButton: true,
           focusConfirm: false,
-          confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Great!',
-          confirmButtonAriaLabel: 'Thumbs up, great!',
-          cancelButtonText:
-            '<i class="fa fa-thumbs-down"></i>',
-          cancelButtonAriaLabel: 'Thumbs down'
+          confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+          confirmButtonAriaLabel: "Thumbs up, great!",
+          cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+          cancelButtonAriaLabel: "Thumbs down",
         }).then((result) => {
           if (result.isConfirmed) {
-            
-            dispatch(editCurrentUser(currentUser.id, {
-              ...currentUser, authy: false
-            }))
-            Swal.fire('Saved!', '', 'success')
+            dispatch(
+              editCurrentUser(currentUser.id, {
+                ...currentUser,
+                authy: false,
+              })
+            );
+            Swal.fire("Saved!", "", "success");
           } else if (!result.isConfirmed) {
             document.getElementById("check2fa").checked = true;
-            Swal.fire('Changes are not saved', '', 'info')
+            Swal.fire("Changes are not saved", "", "info");
           }
-        })
+        });
       }
     } else {
-      
       Swal.fire({
         title: "Error!",
         text:
@@ -315,14 +335,14 @@ export default function Profile() {
             number
           </span>
 
-          <label class="switch">
+          <label className="switch">
             <input
               type="checkbox"
               id="check2fa"
               onClick={(e) => activate2FA(e)}
               checked={currentUser.authy}
             />
-            <span class="sli round"></span>
+            <span className="sli round"></span>
           </label>
         </div>
       </div>

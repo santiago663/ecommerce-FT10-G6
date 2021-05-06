@@ -21,7 +21,9 @@ function SearchBar() {
   // *** FUNCION PARA PEDIR "SUGERENCIAS" AL BACK ***
   const getSuggestions = async (input) => {
     if (input !== "") {
-      const response = await axios.get(`http://localhost:3001/get/product/search?keyword=${input}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK_URL}/get/product/search?keyword=${input}`
+      );
 
       let filtered = [];
 
@@ -91,7 +93,7 @@ function SearchBar() {
             <button
               type="submit"
               className="btn-rounded searchbar-filters--btn_active search-button">
-              <i class="fas fa-search"></i></button>
+              <i className="fas fa-search"></i></button>
             {/* <button
             className={activeButton === "1" ? "btn-rounded searchbar-filters--btn_active" : "btn-rounded searchbar-filters--btn_inactive "}
             type="submit"

@@ -25,7 +25,7 @@ export const logout = () => {
         dispatch({ type: TYPES.AUTH_LOGIN, payload: true });
       })
       .then(() => {
-        location.assign("http://localhost:3000")
+        location.assign(process.env.REACT_APP_FRONT_URL);
       });
   };
 };
@@ -38,8 +38,13 @@ export const startRegister = (name, email, password, profilePic) => {
       .then(async ({ user, additionalUserInfo }) => {
         const resp = await axios({
           method: "post",
-          url: "http://localhost:3001/post/user",
-          data: { name: name, email: user.email, isGuest: false, profilePic: profilePic },
+          url: `${process.env.REACT_APP_BACK_URL}/post/user`,
+          data: {
+            name: name,
+            email: user.email,
+            isGuest: false,
+            profilePic: profilePic,
+          },
         });
         if (additionalUserInfo.isNewUser) {
           const currentProducts = JSON.parse(
@@ -67,7 +72,7 @@ export const startLoginEmailPassword = (email, password) => {
       .signInWithEmailAndPassword(email, password)
       .then(async ({ user }) => {
         const findUser = await axios.get(
-          `http://localhost:3001/get/user?email=${user.email}`
+          `${process.env.REACT_APP_BACK_URL}/get/user?email=${user.email}`
         );
         if (findUser.data.roleId === 103) throw "banned";
 
@@ -90,7 +95,7 @@ export const startLoginEmailPassword = (email, password) => {
           }).then(async (result) => {
             if (result.isDismissed === false && result.isConfirmed === true) {
               const validation = await axios.post(
-                `http://localhost:3001/post/2fa/validation`,
+                `${process.env.REACT_APP_BACK_URL}/post/2fa/validation`,
                 { email: resp.data?.email, code: result.value }
               );
 
@@ -105,7 +110,7 @@ export const startLoginEmailPassword = (email, password) => {
                   dispatch(emptyToCartUser(resp.data));
 
                   const userOrder = await axios.get(
-                    `http://localhost:3001/get/order/users/${resp.data.id}/cart`
+                    `${process.env.REACT_APP_BACK_URL}/get/order/users/${resp.data.id}/cart`
                   );
 
                   dispatch(
@@ -142,7 +147,7 @@ export const startLoginEmailPassword = (email, password) => {
             dispatch(emptyToCartUser(resp.data));
 
             const userOrder = await axios.get(
-              `http://localhost:3001/get/order/users/${resp.data.id}/cart`
+              `${process.env.REACT_APP_BACK_URL}/get/order/users/${resp.data.id}/cart`
             );
 
             dispatch(
@@ -187,8 +192,8 @@ export const startGoogleLogin = () => {
       .then(async ({ user }) => {
 
         const findUser = await axios.get(
-          `http://localhost:3001/get/user?email=${user.email}`
-        )
+          `${process.env.REACT_APP_BACK_URL}/get/user?email=${user.email}`
+        );
         
         if (findUser.data?.roleId === 103) throw "banned";        
 
@@ -213,7 +218,7 @@ export const startGoogleLogin = () => {
             if (result.isDismissed === false && result.isConfirmed === true) {
 
               const validation = await axios.post(
-                `http://localhost:3001/post/2fa/validation`,
+                `${process.env.REACT_APP_BACK_URL}/post/2fa/validation`,
                 { email: respUser[0].data?.email, code: result.value }
               );
 
@@ -224,7 +229,7 @@ export const startGoogleLogin = () => {
               else {
                 //login                
                 const respUserLog = await axios.get(
-                  `http://localhost:3001/get/user?email=${respUser[1].email}`
+                  `${process.env.REACT_APP_BACK_URL}/get/user?email=${respUser[1].email}`
                 );
 
                 //se busca el carrito del localStorage
@@ -235,7 +240,7 @@ export const startGoogleLogin = () => {
                   dispatch(emptyToCartUser(respUserLog.data));
 
                   const userOrder = await axios.get(
-                    `http://localhost:3001/get/order/users/${respUserLog.data.id}/cart`
+                    `${process.env.REACT_APP_BACK_URL}/get/order/users/${respUserLog.data.id}/cart`
                   );
 
                   dispatch(
@@ -267,8 +272,13 @@ export const startGoogleLogin = () => {
 
             const resp = await axios({
               method: "post",
-              url: "http://localhost:3001/post/user",
-              data: { name: respUser[1].displayName, email: respUser[1].email, isGuest: false, profilePic: respUser[1].photoURL },
+              url: `${process.env.REACT_APP_BACK_URL}/post/user`,
+              data: {
+                name: respUser[1].displayName,
+                email: respUser[1].email,
+                isGuest: false,
+                profilePic: respUser[1].photoURL,
+              },
             });
 
             const currentProducts = JSON.parse(
@@ -287,7 +297,7 @@ export const startGoogleLogin = () => {
           //login
           else {
             const respUserLog = await axios.get(
-              `http://localhost:3001/get/user?email=${respUser[1].email}`
+              `${process.env.REACT_APP_BACK_URL}/get/user?email=${respUser[1].email}`
             );
 
             //se busca el carrito del localStorage
@@ -298,7 +308,7 @@ export const startGoogleLogin = () => {
               dispatch(emptyToCartUser(respUserLog.data));
 
               const userOrder = await axios.get(
-                `http://localhost:3001/get/order/users/${respUserLog.data.id}/cart`
+                `${process.env.REACT_APP_BACK_URL}/get/order/users/${respUserLog.data.id}/cart`
               );
 
               dispatch(
