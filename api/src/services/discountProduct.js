@@ -1,4 +1,4 @@
-const { EMAIL_ENVIAR, EMAIL_SENGRID } = process.env;
+const { EMAIL_ENVIAR, EMAIL_SENGRID, FRONT_URL } = process.env;
 
 
 let discountProduct = (object) => {
@@ -96,7 +96,7 @@ let discountProduct = (object) => {
                                 <tr>
                                     <td class="aTotal" bgcolor="#153643" style="padding: 25px 30px 10px 25px;  border-radius: 5px;">
                                         <h4 style="font-family: Arial, sans-serif; color: #ffffff; " >
-                                            No te pierdas éstas promociones! <a href="http://localhost:3000/">DigitalArt</a>
+                                            No te pierdas éstas promociones! <a href=${FRONT_URL}>DigitalArt</a>
                                         </h4>
                                     </td>
                                 </tr>
