@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -L",
+    "start": "node index.js",
     "forever": "forever index.js",
     "test": "mocha -w ./tests/**/*.spec.js",
     "add-demos": "yarn sequelize-cli db:seed:all",
@@ -39,7 +39,6 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.1.1",
-    "nodemon": "^2.0.4",
     "supertest": "^4.0.2",
     "supertest-session": "^4.0.0"
   }
