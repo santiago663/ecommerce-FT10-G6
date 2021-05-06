@@ -666,7 +666,7 @@ export const sendDiscountToBack = (objectWithDiscount) =>{
 		try {
 			dispatch(requestData());
 			axios
-				.get(`http://localhost:3001/get/nombreDeruta{objectWithDiscount}`)
+				.get(`${process.env.REACT_APP_BACK_URL}/nombreDeruta{objectWithDiscount}`)
 				.then((res) => {
 					dispatch({
 						type: TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT,
