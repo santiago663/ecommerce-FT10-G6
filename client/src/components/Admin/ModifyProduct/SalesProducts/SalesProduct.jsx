@@ -39,7 +39,7 @@ function onClose(g) {
 		});
 		dispatch(sendDiscountToBack(input))
 		.then((res)=>{
-			console.log(res)
+			
 			//dispatch()
 		})
 
