@@ -661,22 +661,18 @@ export const editProductStock = (stock) => {
   }
 };
 
-export const sendDiscountToBack = (objectWithDiscount) =>{
-  (dispatch) => {
-		try {
-			dispatch(requestData());
-			axios
-				.get(`${process.env.REACT_APP_BACK_URL}/nombreDeruta{objectWithDiscount}`)
-				.then((res) => {
-					dispatch({
-						type: TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT,
-						payload: res.data,
-					});
-					
-				})
-				.catch((error) => console.error(error));
-		} catch (err) {
-			console.error(err)
-		}
-  };
-} 
+
+export const sendDiscountToBack = (objectToApplyDiscount) => {
+
+		return (dispatch) => {
+        axios.post(`${process.env.REACT_APP_BACK_URL}/post/discount`, objectToApplyDiscount)
+        .then((res)=>{
+          //action
+        })
+          .catch((e) => console.log(e));
+	}
+				
+	
+	
+}; 
+

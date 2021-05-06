@@ -5,18 +5,20 @@ import './_salesProduct.scss';
 import Azza from '../../../Filters/Azza';
 import SearchBar from '../../../SearchBar/SearchBar';
 import { removeProductForAdmin, deletAllProductsSales, getBackup } from '../../../../redux/actions/actionFront';
-// import { sendDiscountToBack } from '../../../../redux/actions/actionBack';
+import { sendDiscountToBack } from '../../../../redux/actions/actionBack';
+import Swal from 'sweetalert2';
+
 
 
 const SalesProduct = () =>{
 	const dispatch = useDispatch()
 	const allProducts = useSelector((store) => store.reducerProduct.adminProducts);
-	
+
 	const [input, setInput] = useState({
+		percent: 0,
 		productId: [],
-		discount: 0,
 	});
-		
+
 
 	
 
@@ -26,20 +28,37 @@ function onClose(g) {
 	const Delete = () =>{
 		dispatch(deletAllProductsSales())
 	}
-	const Send = async () => {
-		input.productId = await allProducts.map(x =>{return x.id})
-		alert(input.productId)
+	const Send = () => {
+		try{
+			input.productId = allProducts.map((x) => {return x.id})
+		Swal.fire({
+			title: 'please wait',
+			text: '',
+			icon: 'info',
+			confirmButtonText: 'Cool',
+		});
 		dispatch(sendDiscountToBack(input))
+		.then((res)=>{
+			
+			//dispatch()
+		})
+
+		}catch(err){
+			console.error(err.message);
+		}
 	};
 	const getAll = () =>{
 		dispatch(getBackup());
 	}
-	const handleValue= (e) =>{
-		setInput({
-			...input,
-			discount: e.target.value
-		})
-	}
+
+
+		const handleValue = (e) => {
+			setInput({
+				...input,
+				percent: e.target.value,
+			});
+		};
+
 	let num = 1;
    return (
 		<>
@@ -81,40 +100,39 @@ function onClose(g) {
 							<option default value="0">
 								%
 							</option>
-							<option name={input.discount} value="5">
+							<option name={input.percent} value="5">
 								5
 							</option>
-							<option name={input.discount} value="10">
+							<option name={input.percent} value="10">
 								10
 							</option>
-							<option name={input.discount} value="15">
+							<option name={input.percent} value="15">
 								15
 							</option>
-							<option name={input.discount} value="20">
+							<option name={input.percent} value="20">
 								20
 							</option>
-							<option name={input.discount} value="25">
+							<option name={input.percent} value="25">
 								25
 							</option>
-							<option name={input.discount} value="30">
+							<option name={input.percent} value="30">
 								30
 							</option>
-							<option name={input.discount} value="35">
+							<option name={input.percent} value="35">
 								35
 							</option>
-							<option name={input.discount} value="40">
+							<option name={input.percent} value="40">
 								40
 							</option>
-							<option name={input.discount} value="45">
+							<option name={input.percent} value="45">
 								45
 							</option>
-							<option name={input.discount} value="50">
+							<option name={input.percent} value="50">
 								50
 							</option>
 						</select>
 					</td>
 				</tr>
-
 				{[...allProducts].map((g) => {
 					return (
 						<>
@@ -134,7 +152,7 @@ function onClose(g) {
 								</td>
 								<td>{g.price}</td>
 								<td>$83</td>
-								<td>% {input.discount}</td>
+								<td>% {input.percent}</td>
 							</tr>
 						</>
 					);
