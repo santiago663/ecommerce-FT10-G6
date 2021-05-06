@@ -40,9 +40,9 @@ export const activate2fa = (email, cellphone, country_code) => (
               .then((res) => {
                 localStorage.setItem(
                   "CurrentUser",
-                  JSON.stringify(res.data.user)
+                  JSON.stringify(res.data)
                 );
-                dispatch(setCurrentUser(res.data.user));
+                dispatch(setCurrentUser(res.data));
               })
               .catch((error) => console.error(error));
         } catch (error) {

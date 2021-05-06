@@ -10,7 +10,7 @@ server.post("/", async (req, res) => {
         const { email, cellphone, country_code } = req.body
         
         authy.register_user(email, cellphone, country_code, async function (err, res2) {
-
+            console.log(err)
             if (res2) {
                 var userActivated =  await Users.update({
                     authyId: res2.user.id,
@@ -22,7 +22,6 @@ server.post("/", async (req, res) => {
                         plain: true,
                     })
             }
-
             res.json(userActivated[1])
         })
 
