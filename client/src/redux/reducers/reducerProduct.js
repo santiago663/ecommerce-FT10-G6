@@ -621,16 +621,23 @@ export default function reducerProduct(state = initialState, action) {
 		case TYPES.PUT_NEW_USER_REVIEW:
 			//guarda el review editado y sobreescribe lo que habia antes en newProductReviews
 			return { ...state, productReview: action.payload };
+			//Elimina un producto del panel de descuentos
 		case TYPES.REMOVE_FROM_ADMIN_PANEL:
 			return {
 				...state,
 				adminProducts: state.adminProducts.filter((item) => item.id !== action.payload),
 			};
+			
 			case TYPES.DELETE_ALL_PRODUCTS_SALES:
 				return {
 					...state,
 					adminProducts: []
 				}
+		case TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT:
+			return {
+				...state,
+				adminProducts: action.payload,
+			};
 		default:
 			return state;
 	}

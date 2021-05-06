@@ -661,6 +661,7 @@ export const editProductStock = (stock) => {
   }
 };
 
+
 export const sendDiscountToBack = (objectToApplyDiscount) => {
 
 			axios.post(`${process.env.REACT_APP_BACK_URL}/post/discount`, `${objectToApplyDiscount}`)
@@ -674,3 +675,4 @@ export const sendDiscountToBack = (objectToApplyDiscount) => {
 	
 	
 }; 
+
