@@ -12,7 +12,7 @@ import { editUser, deleteUserAction } from '../../../redux/actions/actionBack';
 import { MultiSelect } from 'primereact/multiselect';
 import { Link, Route } from 'react-router-dom';
 import '../../../scss/components/_modifyOrder.scss';
-import './tablaUser.scss'
+import './_tablaUser.scss'
 
 const ModifyUser = () => {
 
@@ -24,12 +24,12 @@ const ModifyUser = () => {
     const allRoles = useSelector((store) => store.reducerRoles.allRoles)
     const dispatch = useDispatch();
     const dt = useRef(null);
-    
+
     const statuses = [
         'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
     ];
 
-   const onDateChange = (e) => {
+    const onDateChange = (e) => {
         dt.current.filter(e.value, 'date', 'custom');
         setSelectedDate(e.value);
     }
@@ -43,7 +43,7 @@ const ModifyUser = () => {
         return (
             <React.Fragment>
                 <span className="p-column-title">Country</span>
-                <img alt="flag" src="showcase/demo/images/flag_placeholder.png" onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className={`flag flag-${rowData.country.code}`} width={30} />
+                <img alt="flag" src="showcase/demo/images/flag_placeholder.png" onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className={`flag flag-${rowData.country.code}`} width={30} />
                 <span className="image-text">{rowData.country.name}</span>
             </React.Fragment>
         );
@@ -52,15 +52,15 @@ const ModifyUser = () => {
     const representativeBodyTemplate = (allUsers) => {
         return (
             <React.Fragment>
-                <img className="profileUser" alt={allUsers.name} src={allUsers.profilePic} onError={(e) => e.target.src='No_se_si_funciona'} width={50} style={{verticalAlign: 'middle'}} />
-          </React.Fragment>
+                <img className="profileUser" alt={allUsers.name} src={allUsers.profilePic} onError={(e) => e.target.src = 'No_se_si_funciona'} width={50} style={{ verticalAlign: 'middle' }} />
+            </React.Fragment>
         );
     }
 
     const statusItemTemplate = (option) => {
         return <span className={`customer-badge status-${option}`}>{option}</span>;
     }
-    const deleteUser = (user)=>{
+    const deleteUser = (user) => {
         Swal.fire({
             title: 'Are you sure?',
             text: `The Delete to ${user.name}`,
@@ -79,14 +79,14 @@ const ModifyUser = () => {
                     'success'
                 )
             } else {
-             
+
             }
         })
     }
     const deleteUserTemplate = (user) => {
         return (
             <React.Fragment>
-                <button className="btnDelete" onClick={()=> deleteUser(user)}>Delete</button>
+                <button className="btnDelete" onClick={() => deleteUser(user)}>Delete</button>
             </React.Fragment>
         );
     }
@@ -116,9 +116,9 @@ const ModifyUser = () => {
         alert(event.name)
     }
     function handleInputChange(event) {
-        
-        if (selectedUser && event.target.value > 0){
-            setSelectedUser({...selectedUser,["roleId"] : Number(event.target.value)})
+
+        if (selectedUser && event.target.value > 0) {
+            setSelectedUser({ ...selectedUser, ["roleId"]: Number(event.target.value) })
             let rol = event.target.options[event.target.selectedIndex].text;
             Swal.fire({
                 title: `Do you want to save the changes in User ${selectedUser.name}?`,
@@ -126,37 +126,37 @@ const ModifyUser = () => {
                 showCancelButton: true,
                 confirmButtonText: `Save`,
                 denyButtonText: `Don't save`,
-              }).then((result) => {
+            }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    dispatch( editUser(selectedUser.id, selectedUser) );
-                  allUsers = {...allUsers, [event.target.name]:event.target.value, ["role"]: rol }
-                  Swal.fire('Saved!', '', 'success')
-                  event.target.value = 0
+                    dispatch(editUser(selectedUser.id, selectedUser));
+                    allUsers = { ...allUsers, [event.target.name]: event.target.value, ["role"]: rol }
+                    Swal.fire('Saved!', '', 'success')
+                    event.target.value = 0
                 } else if (result.isDenied) {
-                  Swal.fire('Changes are not saved', '', 'info')
-                  event.target.value = 0
+                    Swal.fire('Changes are not saved', '', 'info')
+                    event.target.value = 0
                 }
-              })
-        }else{
+            })
+        } else {
             Swal.fire('Select a User')
             event.target.value = 0
         }
     }
-    const dateFilter = <Calendar value={selectedDate} onChange={onDateChange} dateFormat="yy-mm-dd" className="p-column-filter" placeholder="Registration Date"/>;
+    const dateFilter = <Calendar value={selectedDate} onChange={onDateChange} dateFormat="yy-mm-dd" className="p-column-filter" placeholder="Registration Date" />;
     const statusFilter = <Dropdown value={selectedStatus} options={statuses} onChange={onStatusChange} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />;
 
-    return ( 
+    return (
         <div className='ModifyUser'>
-             <div className="FilterAndProducts">
+            <div className="FilterAndProducts">
                 <div className="datatable-filter-demo">
                     <div className="card">
-                        <DataTable ref={dt} value={allUsers} paginator rows={6} 
-                            header={header} selectionMode="single" cellSelection selection={selectedUser} onRowSelect={onRowSelect} onSelectionChange={(e)=> setSelectedUser(e.value.rowData)} dataKey="id" className="p-datatable-customers"
+                        <DataTable ref={dt} value={allUsers} paginator rows={6}
+                            header={header} selectionMode="single" cellSelection selection={selectedUser} onRowSelect={onRowSelect} onSelectionChange={(e) => setSelectedUser(e.value.rowData)} dataKey="id" className="p-datatable-customers"
                             globalFilter={globalFilter} onCellSelect={onCellSelect} emptyMessage="No customers found.">
                             <Column field="profilePic" header="Perfil" className="picPerfil" body={representativeBodyTemplate} />
                             <Column field="name" header="Name" className
-                            ="colNameUser" filter filterPlaceholder="Search by name" />
+                                ="colNameUser" filter filterPlaceholder="Search by name" />
                             <Column field="email" header="E-mail" className="mailUser" filter filterPlaceholder="Seach by E-mail" />
                             <Column field="phone_Number" header="Phone" className="Phone" filter filterPlaceholder="Search by Phone" />
                             <Column field="role.description" header="Rol" className="RolUser" filter filterPlaceholder="Search by Rol" />
@@ -166,21 +166,21 @@ const ModifyUser = () => {
                     </div>
                 </div>
                 <div className="selectRol">
-                    <h3 className="title">SELECT NEW ROLE FOR <br/> {selectedUser?.name}</h3>
-                        <select 
-                            required
-                            className="selector"
-                            name="roleId" 
-                            id="selectorAvEP" 
-                            onChange={handleInputChange}
-                        >
-                            <option key="" value="0">
+                    <h3 className="title">SELECT NEW ROLE FOR <br /> {selectedUser?.name}</h3>
+                    <select
+                        required
+                        className="selector"
+                        name="roleId"
+                        id="selectorAvEP"
+                        onChange={handleInputChange}
+                    >
+                        <option key="" value="0">
                             Select a Rol
                             </option>
-                                {allRoles.map(a => <option name={a.description} key={a.id} value={a.id}>{a.description}
-                            </option>)}
-                        </select>
-                    </div>
+                        {allRoles.map(a => <option name={a.description} key={a.id} value={a.id}>{a.description}
+                        </option>)}
+                    </select>
+                </div>
             </div>
         </div>
     );

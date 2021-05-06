@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrdersState } from '../../../redux/actions/actionUpgrade'
 import EditOrder from './EditOrder/EditOrder'
 //import '../../../scss/components/_modifyOrder.scss';
-import './OrdersEdit.scss';
+import './_ordersEdit.scss';
 
 const ModifyOrder = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -21,35 +21,35 @@ const ModifyOrder = () => {
     const orderState = useSelector(store => store.reducerOrderState.allOrderState)
     const orderStateWithDate = orderState?.map((order) => {
         let createdAt;
-       let createdDate;
-       let createdTime;
-   createdAt = new Date(order?.createdAt);
-   createdDate = createdAt.toLocaleDateString("es-AR");
-   createdTime = createdAt.toLocaleTimeString("es-AR");
-   
-   order.date = createdDate + " " + createdTime
-   return order
-   })
-    const ordersWithDate = allOrders.map((order) => {
-         let createdAt;
         let createdDate;
         let createdTime;
-    createdAt = new Date(order?.createdAt);
-    createdDate = createdAt.toLocaleDateString("es-AR");
-    createdTime = createdAt.toLocaleTimeString("es-AR");
-    
-    order.date = createdDate + " " + createdTime
-    return order
+        createdAt = new Date(order?.createdAt);
+        createdDate = createdAt.toLocaleDateString("es-AR");
+        createdTime = createdAt.toLocaleTimeString("es-AR");
+
+        order.date = createdDate + " " + createdTime
+        return order
     })
-    
-    
+    const ordersWithDate = allOrders.map((order) => {
+        let createdAt;
+        let createdDate;
+        let createdTime;
+        createdAt = new Date(order?.createdAt);
+        createdDate = createdAt.toLocaleDateString("es-AR");
+        createdTime = createdAt.toLocaleTimeString("es-AR");
+
+        order.date = createdDate + " " + createdTime
+        return order
+    })
+
+
     const [orders, setOrders] = useState([])
     const toast = useRef(null);
     const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
     const [nrorders, setNrorders] = useState(0)
-    useEffect(()=>{
+    useEffect(() => {
         setOrders(ordersWithDate)
-    },[])
+    }, [])
 
     const onCellSelect = (event) => {
         //toast.current.show({ severity: 'info', summary: `Orders Selected`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
@@ -61,21 +61,21 @@ const ModifyOrder = () => {
     //     toast.current.show({ severity: 'warn', summary: `Item Unselected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
     //     console.log(event.value)
     // }
-    
+
     // const toCapitalize = (str) => {
     //     console.log('Esto es',str.slice(1))
     //     return str.charAt(0).toUpperCase() + str.slice(1);
     // }
 
-   
-    
+
+
     const dispatch = useDispatch()
     const onChangeStatus = (e) => {
         dispatch(getAllOrdersState(e.target.value))
     }
-    const handleFilterClient = (e)=>{
-    const filter = allOrders.filter(user => user.user.name.toLowerCase().includes(e.target.value.toLowerCase()))    
-    setOrders(filter)
+    const handleFilterClient = (e) => {
+        const filter = allOrders.filter(user => user.user.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        setOrders(filter)
     }
     const [products1, setProducts1] = useState(null);
     const [products2, setProducts2] = useState(null);
@@ -83,7 +83,7 @@ const ModifyOrder = () => {
     const [products4, setProducts4] = useState(null);
     const [editingRows, setEditingRows] = useState({});
     const [editingCellRows, setEditingCellRows] = useState([]);
-    
+
     const columns = [
         { field: 'code', header: 'Code' },
         { field: 'name', header: 'Name' },
@@ -101,11 +101,11 @@ const ModifyOrder = () => {
         'products4': setProducts4
     };
     const statuses = [
-        { label: 'Open', value: 'open'},
-        { label: 'Loading', value: 'loading'},
-        { label: 'Pending', value: 'pending'},
-        { label: 'Cancelled', value: 'cancelled'},
-        { label: 'Completed', value: 'completed'}
+        { label: 'Open', value: 'open' },
+        { label: 'Loading', value: 'loading' },
+        { label: 'Pending', value: 'pending' },
+        { label: 'Cancelled', value: 'cancelled' },
+        { label: 'Completed', value: 'completed' }
     ];
     const onEditorValueChange = (productKey, props, value) => {
         let updatedProducts = [...props.value];
@@ -131,7 +131,7 @@ const ModifyOrder = () => {
 
             case 'pending':
                 return 'Pending';
-            
+
             case 'cancelled':
                 return 'Cancelled';
 
@@ -145,55 +145,55 @@ const ModifyOrder = () => {
     const statusBodyTemplate = (rowData) => {
         return getStatusLabel(rowData.state);
     }
-    return ( 
+    return (
         <div className='Orders'>
             <Toast ref={toast} />
             <div className="filterorders">
                 <div className="typesfilters">
-                    <button className="allOrders" onClick={()=>setOrders(allOrders)}>All Orders</button>
+                    <button className="allOrders" onClick={() => setOrders(allOrders)}>All Orders</button>
                 </div>
                 <div className="typesfilters">
                     <b>Filter Client</b>
-                    <input className="inputfilter" type="text" placeholder="search client" onChange={handleFilterClient}/>
+                    <input className="inputfilter" type="text" placeholder="search client" onChange={handleFilterClient} />
                 </div>
                 <div className="typesfilters">
-                        <b>Filter State</b>
+                    <b>Filter State</b>
                     <div className="filterState">
                         <div className="containSelect">
-                        <select className="selector" onChange={onChangeStatus}>
-                            <option value="" disabled selected >Selected State</option>
-                            <option value="open">Open</option>
-                            <option value="loading">Loading</option>
-                            <option value="pending">Pending</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="completed">Completed</option>
-                        </select>
+                            <select className="selector" onChange={onChangeStatus}>
+                                <option value="" disabled selected >Selected State</option>
+                                <option value="open">Open</option>
+                                <option value="loading">Loading</option>
+                                <option value="pending">Pending</option>
+                                <option value="cancelled">Cancelled</option>
+                                <option value="completed">Completed</option>
+                            </select>
                         </div>
                         <div>
-                            <button className="btn-filter" onClick={()=>setOrders(orderStateWithDate)}>Filtrar</button>
+                            <button className="btn-filter" onClick={() => setOrders(orderStateWithDate)}>Filtrar</button>
                         </div>
                     </div>
                 </div>
             </div>
             <DataTable value={orders} selectionMode="multiple" cellSelection onSelectionChange={e => setSelectedProduct(e.value)} dataKey="id"
-                    onCellSelect={onCellSelect} selection={selectedProduct}  paginator rows={10}>
-                    <Column field="id" header="Order N°"></Column>
-                    <Column field="date" header="Date"></Column>
-                    <Column field="user.name" header="Client"></Column>
-                    <Column field="state" header="State" body={statusBodyTemplate} editor={(props) => statusEditor('products3', props)}></Column>
-                    <Column field="method.description" header="Payment"></Column>
-                    <Column field="total" header="Total $"></Column>
-             </DataTable>
+                onCellSelect={onCellSelect} selection={selectedProduct} paginator rows={10}>
+                <Column field="id" header="Order N°"></Column>
+                <Column field="date" header="Date"></Column>
+                <Column field="user.name" header="Client"></Column>
+                <Column field="state" header="State" body={statusBodyTemplate} editor={(props) => statusEditor('products3', props)}></Column>
+                <Column field="method.description" header="Payment"></Column>
+                <Column field="total" header="Total $"></Column>
+            </DataTable>
             <Link to={`/admin/order/${nrorders}`}>
                 <div className="titleView">
                     <h3>View detail Order N° {nrorders}</h3>
-                </div> 
+                </div>
             </Link>
-             <div className="compoEditOrder">
-                 <Route path="/admin/order/:id" component={EditOrder} />
-             </div>
+            <div className="compoEditOrder">
+                <Route path="/admin/order/:id" component={EditOrder} />
+            </div>
         </div>
     );
 }
- 
+
 export default ModifyOrder;

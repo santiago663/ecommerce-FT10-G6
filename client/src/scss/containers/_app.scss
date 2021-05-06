@@ -3,6 +3,8 @@
 #root {
   height: 100%;
   font-size: 10pt;
+  --blue: rgb(26, 57, 87);
+  --white: rgb(236, 236, 236);
 }
 * {
   padding: 0;
@@ -13,7 +15,7 @@
 
 body {
   height: 100vh;
-  background: #fff;
+  background: rgb(28, 249, 150);
   font-family: "Roboto", sans-serif;
   scroll-behavior: smooth;
 }
