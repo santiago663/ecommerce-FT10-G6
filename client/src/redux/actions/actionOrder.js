@@ -143,3 +143,9 @@ export const formUserOrder = (form) => {
           .catch((e) => console.log(e));
 	};
 };
+
+export const refreshPrice = () =>{
+  dispatch({
+    type: TYPES.REFRESH_PRICE_IN_FRONT,
+  })
+}
