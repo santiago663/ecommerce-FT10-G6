@@ -5,12 +5,18 @@ import './_salesProduct.scss';
 import Azza from '../../../Filters/Azza';
 import SearchBar from '../../../SearchBar/SearchBar';
 import { removeProductForAdmin, deletAllProductsSales, getBackup } from '../../../../redux/actions/actionFront';
+// import { sendDiscountToBack } from '../../../../redux/actions/actionBack';
 
 
 const SalesProduct = () =>{
 	const dispatch = useDispatch()
 	const allProducts = useSelector((store) => store.reducerProduct.adminProducts);
-	const [input, setInput] = useState([]);
+	
+	const [input, setInput] = useState({
+		productId: [],
+		discount: 0,
+	});
+		
 
 	
 
@@ -20,11 +26,19 @@ function onClose(g) {
 	const Delete = () =>{
 		dispatch(deletAllProductsSales())
 	}
-	const Send = () => {
-		//dispatch(action at to back (input))
+	const Send = async () => {
+		input.productId = await allProducts.map(x =>{return x.id})
+		alert(input.productId)
+		dispatch(sendDiscountToBack(input))
 	};
 	const getAll = () =>{
 		dispatch(getBackup());
+	}
+	const handleValue= (e) =>{
+		setInput({
+			...input,
+			discount: e.target.value
+		})
 	}
 	let num = 1;
    return (
@@ -61,37 +75,72 @@ function onClose(g) {
 					<td>Categorie</td>
 					<td>Regular Price</td>
 					<td>Precio con descuento</td>
-					<td>Descuento %</td>
+					<td>
+						Descuento %
+						<select onChange={handleValue}>
+							<option default value="0">
+								%
+							</option>
+							<option name={input.discount} value="5">
+								5
+							</option>
+							<option name={input.discount} value="10">
+								10
+							</option>
+							<option name={input.discount} value="15">
+								15
+							</option>
+							<option name={input.discount} value="20">
+								20
+							</option>
+							<option name={input.discount} value="25">
+								25
+							</option>
+							<option name={input.discount} value="30">
+								30
+							</option>
+							<option name={input.discount} value="35">
+								35
+							</option>
+							<option name={input.discount} value="40">
+								40
+							</option>
+							<option name={input.discount} value="45">
+								45
+							</option>
+							<option name={input.discount} value="50">
+								50
+							</option>
+						</select>
+					</td>
 				</tr>
-				
-				{input &&
-					[...allProducts].map((g) => {
-						
-						return (
-							<>
-								<tr>
-									<td>
-										<button onClick={() => onClose(g.id)}>
-											<i className="fas fa-trash"></i>
-										</button>
-									</td>
-									<td>{num++}</td>
-									<td>{g.name}</td>
-									<td>{g.author.name}</td>
-									<td>
-										{g.categories.map((x) => {
-											return x.name;
-										})}
-									</td>
-									<td>{g.price}</td>
-									<td>$83</td>
-									<td>10</td>
-								</tr>
-							</>
-						);
-					})}
+
+				{[...allProducts].map((g) => {
+					return (
+						<>
+							<tr key={g.id}>
+								<td>
+									<button onClick={() => onClose(g.id)}>
+										<i className="fas fa-trash"></i>
+									</button>
+								</td>
+								<td>{num++}</td>
+								<td>{g.name}</td>
+								<td>{g.author.name}</td>
+								<td>
+									{g.categories.map((x) => {
+										return x.name;
+									})}
+								</td>
+								<td>{g.price}</td>
+								<td>$83</td>
+								<td>% {input.discount}</td>
+							</tr>
+						</>
+					);
+				})}
 			</table>
-			<button onClick={() => Send}>OK</button>
+			<button onClick={() => Send()}>OK</button>
 		</>
    );
 }
