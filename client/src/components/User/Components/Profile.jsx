@@ -114,7 +114,7 @@ export default function Profile() {
                 ...user,
                 phone_Number: [user.phone_Code, user.phone_Number],
                 authy: false,
-                authyId: false,
+                authyId: null,
               })
             );
           } else {
