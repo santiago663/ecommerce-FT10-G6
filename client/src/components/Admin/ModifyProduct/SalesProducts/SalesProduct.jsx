@@ -5,12 +5,15 @@ import './_salesProduct.scss';
 import Azza from '../../../Filters/Azza';
 import SearchBar from '../../../SearchBar/SearchBar';
 import { removeProductForAdmin, deletAllProductsSales, getBackup } from '../../../../redux/actions/actionFront';
+import { sendDiscountToBack } from '../../../../redux/actions/actionBack';
 
 
 const SalesProduct = () =>{
 	const dispatch = useDispatch()
 	const allProducts = useSelector((store) => store.reducerProduct.adminProducts);
-	const [input, setInput] = useState([]);
+	const [percent, setPercent] = useState(0);
+	const [productId, setProductId] = useState()
+	// productId: [],
 
 	
 
@@ -20,12 +23,18 @@ function onClose(g) {
 	const Delete = () =>{
 		dispatch(deletAllProductsSales())
 	}
-	const Send = () => {
-		//dispatch(action at to back (input))
+	const Send =  () => {
+		setProductId(allProducts.map((x) => {return x.id;}))
+		
+		 dispatch(sendDiscountToBack(percent,productId));
 	};
 	const getAll = () =>{
 		dispatch(getBackup());
 	}
+
+		const handleValue = (e) => {
+			setPercent(e.target.value)
+		}
 	let num = 1;
    return (
 		<>
@@ -61,12 +70,48 @@ function onClose(g) {
 					<td>Categorie</td>
 					<td>Regular Price</td>
 					<td>Precio con descuento</td>
-					<td>Descuento %</td>
+					<td>
+						Descuento %
+						<select onChange={handleValue}>
+							<option default value="0">
+								%
+							</option>
+							<option name={percent} value="5">
+								5
+							</option>
+							<option name={percent} value="10">
+								10
+							</option>
+							<option name={percent} value="15">
+								15
+							</option>
+							<option name={percent} value="20">
+								20
+							</option>
+							<option name={percent} value="25">
+								25
+							</option>
+							<option name={percent} value="30">
+								30
+							</option>
+							<option name={percent} value="35">
+								35
+							</option>
+							<option name={percent} value="40">
+								40
+							</option>
+							<option name={percent} value="45">
+								45
+							</option>
+							<option name={percent} value="50">
+								50
+							</option>
+						</select>
+					</td>
 				</tr>
-				
-				{input &&
+
+				{percent &&
 					[...allProducts].map((g) => {
-						
 						return (
 							<>
 								<tr>
@@ -85,13 +130,13 @@ function onClose(g) {
 									</td>
 									<td>{g.price}</td>
 									<td>$83</td>
-									<td>10</td>
+									<td>{percent}</td>
 								</tr>
 							</>
 						);
 					})}
 			</table>
-			<button onClick={() => Send}>OK</button>
+			<button onClick={() => Send()}>OK</button>
 		</>
    );
 }
