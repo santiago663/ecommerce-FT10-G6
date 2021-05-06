@@ -57,7 +57,7 @@ router.use("/put/wishlist", require("./wishlist/PUT"));
 router.use("/post/2fa", require("./authy/POST"));
 // => Discount
 router.use("/post/discount", require("./discounts/POST"));
-router.use("/delete/discount", require("./discounts/DELETE"));
+// router.use("/delete/discount", require("./discounts/DELETE"));
 router.use("/get/discount", require("./discounts/GET"));
 
 module.exports = router;
