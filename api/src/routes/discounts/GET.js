@@ -20,7 +20,6 @@ try{
         where: { id: e.product.authorId},
         attributes:[ "name", "email"]
     })
-    console.log(author)
     const discountPrice = e.product.price - (e.product.price * e.percent)/100 
     const info = {
         percet: e.percent,
@@ -32,7 +31,7 @@ try{
     } 
     return info
    }))
-    res.send(discountInfo)
+    res.status(200).json(discountInfo)
 }catch(error){
     res.status(500).json({ message: "Internal server error", status: 500 })
 }
