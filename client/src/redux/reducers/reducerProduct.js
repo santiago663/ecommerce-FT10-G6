@@ -637,6 +637,7 @@ export default function reducerProduct(state = initialState, action) {
 			return {
 				...state,
 				adminProducts: action.payload,
+				backUpProducts: action.payload,
 			};
 		default:
 			return state;
