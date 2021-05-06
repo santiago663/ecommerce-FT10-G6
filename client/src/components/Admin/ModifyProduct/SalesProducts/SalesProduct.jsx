@@ -16,7 +16,7 @@ const SalesProduct = () =>{
 		productId: [],
 		discount: 0,
 	});
-		// allProducts.forEach(x=> {setInput(...input,input.discount = x.id) })
+		
 
 	
 
