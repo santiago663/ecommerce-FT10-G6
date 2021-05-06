@@ -661,9 +661,9 @@ export const editProductStock = (stock) => {
   }
 };
 
-export const sendDiscountToBack = (productId,) => {
+export const sendDiscountToBack = (objectToApplyDiscount) => {
 
-			axios.post(`${process.env.REACT_APP_BACK_URL}/post/discount`, `${productId}``${percent}`);
+			axios.post(`${process.env.REACT_APP_BACK_URL}/post/discount`, `${objectToApplyDiscount}`)
 				// .then((res) => {
 				// 	dispatch({
 				// 		type: 'UPLOAD_PRODUCTS_WITH_DISCOUNT',
