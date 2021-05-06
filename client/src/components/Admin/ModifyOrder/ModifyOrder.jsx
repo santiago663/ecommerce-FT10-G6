@@ -2,18 +2,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect } from 'primereact/multiselect';
 import { Toast } from 'primereact/toast';
 import { Link, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrdersState } from '../../../redux/actions/actionUpgrade'
 import EditOrder from './EditOrder/EditOrder'
-//import '../../../scss/components/_modifyOrder.scss';
-import './OrdersEdit.scss';
+import './_OrdersEdit.scss';
 
 const ModifyOrder = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -21,54 +16,39 @@ const ModifyOrder = () => {
     const orderState = useSelector(store => store.reducerOrderState.allOrderState)
     const orderStateWithDate = orderState?.map((order) => {
         let createdAt;
-       let createdDate;
-       let createdTime;
-   createdAt = new Date(order?.createdAt);
-   createdDate = createdAt.toLocaleDateString("es-AR");
-   createdTime = createdAt.toLocaleTimeString("es-AR");
-   
-   order.date = createdDate + " " + createdTime
-   return order
-   })
-    const ordersWithDate = allOrders.map((order) => {
-         let createdAt;
         let createdDate;
         let createdTime;
-    createdAt = new Date(order?.createdAt);
-    createdDate = createdAt.toLocaleDateString("es-AR");
-    createdTime = createdAt.toLocaleTimeString("es-AR");
-    
-    order.date = createdDate + " " + createdTime
-    return order
+        createdAt = new Date(order?.createdAt);
+        createdDate = createdAt.toLocaleDateString("es-AR");
+        createdTime = createdAt.toLocaleTimeString("es-AR");
+        
+        order.date = createdDate + " " + createdTime
+        return order
+   })
+    const ordersWithDate = allOrders.map((order) => {
+        let createdAt;
+        let createdDate;
+        let createdTime;
+        createdAt = new Date(order?.createdAt);
+        createdDate = createdAt.toLocaleDateString("es-AR");
+        createdTime = createdAt.toLocaleTimeString("es-AR");
+        
+        order.date = createdDate + " " + createdTime
+        return order
     })
-    
     
     const [orders, setOrders] = useState([])
     const toast = useRef(null);
-    const allUsers = useSelector((store) => store.reducerOrderUser.allUsers)
     const [nrorders, setNrorders] = useState(0)
+    
     useEffect(()=>{
         setOrders(ordersWithDate)
     },[])
 
     const onCellSelect = (event) => {
-        //toast.current.show({ severity: 'info', summary: `Orders Selected`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
-        //console.log(event.value)
-        setNrorders(event.value)
+       setNrorders(event.rowData.id)
     }
 
-    // const onCellUnselect = (event) => {
-    //     toast.current.show({ severity: 'warn', summary: `Item Unselected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 10000 });
-    //     console.log(event.value)
-    // }
-    
-    // const toCapitalize = (str) => {
-    //     console.log('Esto es',str.slice(1))
-    //     return str.charAt(0).toUpperCase() + str.slice(1);
-    // }
-
-   
-    
     const dispatch = useDispatch()
     const onChangeStatus = (e) => {
         dispatch(getAllOrdersState(e.target.value))
@@ -77,29 +57,7 @@ const ModifyOrder = () => {
     const filter = allOrders.filter(user => user.user.name.toLowerCase().includes(e.target.value.toLowerCase()))    
     setOrders(filter)
     }
-    const [products1, setProducts1] = useState(null);
-    const [products2, setProducts2] = useState(null);
-    const [products3, setProducts3] = useState(null);
-    const [products4, setProducts4] = useState(null);
-    const [editingRows, setEditingRows] = useState({});
-    const [editingCellRows, setEditingCellRows] = useState([]);
-    
-    const columns = [
-        { field: 'code', header: 'Code' },
-        { field: 'name', header: 'Name' },
-        { field: 'quantity', header: 'Quantity' },
-        { field: 'price', header: 'Price' }
-    ];
-
-    let originalRows = {};
-    let originalRows2 = {};
-
-    const dataTableFuncMap = {
-        'products1': setProducts1,
-        'products2': setProducts2,
-        'products3': setProducts3,
-        'products4': setProducts4
-    };
+        
     const statuses = [
         { label: 'Open', value: 'open'},
         { label: 'Loading', value: 'loading'},
@@ -175,7 +133,7 @@ const ModifyOrder = () => {
                     </div>
                 </div>
             </div>
-            <DataTable value={orders} selectionMode="multiple" cellSelection onSelectionChange={e => setSelectedProduct(e.value)} dataKey="id"
+            <DataTable value={orders} selectionMode="single" cellSelection onSelectionChange={e => setSelectedProduct(e.value)} dataKey="id"
                     onCellSelect={onCellSelect} selection={selectedProduct}  paginator rows={10}>
                     <Column field="id" header="Order N°"></Column>
                     <Column field="date" header="Date"></Column>

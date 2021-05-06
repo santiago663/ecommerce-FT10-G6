@@ -599,18 +599,18 @@ function AddProduct() {
 						{uploadValue.uploadValue} %
 					</progress>
 				</div>
-				{id ? (
 					<div className="imgfile">
 						<div className="image">
-							{id ? (
+							{id ? 
 								<img className="image" src={product.preview} />
-							) : (
+								: 
 								<img className="image" src={uploadValue.picture} />
-							)}
+							}
 						</div>
+						{id || uploadValue.picture? 
 						<input type="submit" value="delete image" onClick={deletefile} />
+						 : null}
 					</div>
-				) : null}
 			</div>
 			<div className="mainDivAP">
                 <div className="Left-side container">
