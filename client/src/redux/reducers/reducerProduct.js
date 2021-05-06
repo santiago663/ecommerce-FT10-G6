@@ -634,9 +634,37 @@ export default function reducerProduct(state = initialState, action) {
 					adminProducts: []
 				}
 		case TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT:
+			let saveDiscountButNotReppeat = [];
+			let saveDiscountToShowInPanelAdmin= [];
+			
+
+			action.payload.forEach((z) => {
+				state.backUpProducts.forEach((x) => {
+					if (x.id === z.productId) {
+						x.discountPrice = z.discountPrice;
+					}
+					saveDiscountButNotReppeat.push(x);
+				});
+			});
+			action.payload.forEach((z) => {
+				state.adminProducts.forEach((x) => {
+					if (x.id === z.productId) {
+						x.discountPrice = z.discountPrice
+						x.percet = z.percet
+					}
+					saveDiscountToShowInPanelAdmin.push(x);
+				});
+			});
+
+ 
 			return {
 				...state,
-				adminProducts: action.payload,
+				adminProducts: [
+					...new Set((saveDiscountToShowInPanelAdmin = [].concat.apply([], saveDiscountToShowInPanelAdmin))),
+				],
+				backUpProducts: [
+					...new Set((saveDiscountButNotReppeat = [].concat.apply([], saveDiscountButNotReppeat))),
+				],
 			};
 		default:
 			return state;
