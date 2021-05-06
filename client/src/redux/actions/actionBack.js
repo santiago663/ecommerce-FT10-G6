@@ -591,3 +591,26 @@ export const editProductStock = (stock) => {
     }
   }
 };
+
+export const sendDiscountToBack = (objectWithDiscount) =>{
+  (dispatch) => {
+		try {
+			dispatch(requestData());
+			axios
+				.get(`http://localhost:3001/get/review?productId=${objectWithDiscount}`)
+				.then((res) => {
+					dispatch({
+						type: TYPES.UPLOAD_PRODUCTS_WITH_DISCOUNT,
+						payload: res.data,
+					});
+					dispatch(requestSuccess());
+				})
+				.catch((error) => console.error(error));
+		} catch (error) {
+			dispatch({
+				type: TYPES.GET_ALL_USERS_ERROR,
+				payload: error,
+			});
+		}
+  };
+} 
