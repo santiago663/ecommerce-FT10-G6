@@ -2,8 +2,9 @@ require("dotenv").config();
 const server = require("express").Router();
 const mercadopago = require("mercadopago");
 const { Orders, Products, Categories } = require("../../db");
-const { ACCESS_TOKEN_MP, STRIPE, FRONT_URL } = process.env;
+const { ACCESS_TOKEN_MP, STRIPE, FRONT_URL  } = process.env;
 const stripe = require("stripe")(STRIPE);
+
 
 mercadopago.configure({
   access_token: ACCESS_TOKEN_MP,
@@ -109,8 +110,8 @@ server.post("/stripe/create-session", async (req, res) => {
           quantity: 1,
         })),
         mode: "payment",
-        success_url: `${domainFront}/checkout/?success=true`,
-        cancel_url: `${domainFront}/checkout/?canceled=true`,
+        success_url: `${FRONT_URL}/checkout/?success=true`,
+        cancel_url: `${FRONT_URL}/checkout/?canceled=true`,
       });
 
       order.state = "pending"; // change order state
@@ -136,8 +137,8 @@ server.post("/stripe/create-session", async (req, res) => {
           quantity: 1,
         })),
         mode: "payment",
-        success_url: `${domainFront}/checkout/?success=true`,
-        cancel_url: `${domainFront}/checkout/?canceled=true`,
+        success_url: `${FRONT_URL}/checkout/?success=true`,
+        cancel_url: `${FRONT_URL}/checkout/?canceled=true`,
       });
 
       res.status(201).json({
