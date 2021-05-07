@@ -58,11 +58,12 @@ $background-two: linear-gradient(
 //Styles
 .section-about {
   padding: 2rem 0;
-  background-size: cover;
+  // background-size: cover;
   background-position: center center;
   animation-name: grow;
   animation-duration: 0.5s;
   background-image: $background;
+  min-height: 100vh;
 }
 
 .team {
