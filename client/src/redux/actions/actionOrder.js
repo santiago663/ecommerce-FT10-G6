@@ -144,7 +144,7 @@ export const formUserOrder = (form) => {
 	};
 };
 
-export const refreshPrice = () =>{
+export const refreshPrice = ()=> (dispatch) =>{
   dispatch({
     type: TYPES.REFRESH_PRICE_IN_FRONT,
   })
