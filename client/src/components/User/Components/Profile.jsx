@@ -95,9 +95,11 @@ export default function Profile() {
             },
             function () {
               task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                console.log(downloadURL)
                 dispatch(
                   editCurrentUser(currentUser.id, {
                     ...user,
+                    phone_Number: [user.phone_Code, user.phone_Number],
                     profilePic: downloadURL,
                   })
                 );
