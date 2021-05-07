@@ -17,65 +17,6 @@ const ModifyUser = () => {
   const dispatch = useDispatch();
   const dt = useRef(null);
 
-//   const dateFilter = (
-//     <Calendar
-//       value={selectedDate}
-//       onChange={onDateChange}
-//       dateFormat="yy-mm-dd"
-//       className="p-column-filter"
-//       placeholder="Registration Date"
-//     />
-//   );
-//   const statusFilter = (
-//     <Dropdown
-//       value={selectedStatus}
-//       options={statuses}
-//       onChange={onStatusChange}
-//       itemTemplate={statusItemTemplate}
-//       placeholder="Select a Status"
-//       className="p-column-filter"
-//       showClear
-//     />
-//   );
-
-//   const statuses = [
-//     "unqualified",
-//     "qualified",
-//     "new",
-//     "negotiation",
-//     "renewal",
-//     "proposal",
-//   ];
-
-//   const onDateChange = (e) => {
-//     dt.current.filter(e.value, "date", "custom");
-//     setSelectedDate(e.value);
-//   };
-
-//   const onStatusChange = (e) => {
-//     dt.current.filter(e.value, "status", "equals");
-//     setSelectedStatus(e.value);
-//   };
-
-//   const countryBodyTemplate = (rowData) => {
-//     return (
-//       <React.Fragment>
-//         <span className="p-column-title">Country</span>
-//         <img
-//           alt="flag"
-//           src="showcase/demo/images/flag_placeholder.png"
-//           onError={(e) =>
-//             (e.target.src =
-//               "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-//           }
-//           className={`flag flag-${rowData.country.code}`}
-//           width={30}
-//         />
-//         <span className="image-text">{rowData.country.name}</span>
-//       </React.Fragment>
-//     );
-//   };
-
   const representativeBodyTemplate = (allUsers) => {
     return (
       <React.Fragment>
@@ -102,8 +43,9 @@ const ModifyUser = () => {
       confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
+
         dispatch(deleteUserAction(user.id));
-        // setBoolean(true)
+
         Swal.fire("Deleted!", "this User is deleted", "success");
       } else {
       }
@@ -113,7 +55,7 @@ const ModifyUser = () => {
     return (
       <React.Fragment>
         <button className="btnDelete" onClick={() => deleteUser(user)}>
-          Delete
+          Disable
         </button>
       </React.Fragment>
     );
@@ -157,7 +99,6 @@ const ModifyUser = () => {
 
     let rol = e.target.options[e.target.selectedIndex].text;
     console.log(rol);
-    
   }
 
   function submitRol(event) {
@@ -165,7 +106,7 @@ const ModifyUser = () => {
 
     if (selectedUser) {
 
-        console.log(selectedUser)
+    console.log(selectedUser)
 
       Swal.fire({
         title: `Do you want to save the changes in User ${selectedUser.name}?`,

@@ -615,7 +615,7 @@ function AddProduct() {
 			<div className="mainDivAP">
                 <div className="Left-side container">
                     <div className="filProductByAuthor">
-				<SalesProduct />
+						{isFlipped && <SalesProduct />}
                     </div>
                     
 				<button onClick={handleclick}>Sales</button>
