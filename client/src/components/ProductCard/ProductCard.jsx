@@ -17,6 +17,7 @@ function ProductCard(props) {
   const allScores = useSelector((store) => store.reducerProduct.allProductsScores)
   const allUserProducts = useSelector((store) => store.reducerOrderUser.allUserProducts)
   const userWishlist = useSelector((store) => store.reducerWishlist.wishlist)
+  const currentPage = useSelector((store) => store.reducerPagination.currentPage)
 
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   const { data: { name, author, preview, id, price, available, score, stock, initialStock }, } = props;
@@ -29,8 +30,7 @@ function ProductCard(props) {
     if (userWishlist?.id) {
       setCanAdd(userWishlist?.products?.filter(product => product.id === id))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userWishlist?.products?.length])
+  }, [userWishlist, currentPage])
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {

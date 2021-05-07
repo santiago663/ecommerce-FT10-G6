@@ -32,7 +32,7 @@ dispatch(getBackup());
 		<>
 			<div className="container-carousel">
 				<div className="slider">
-				<span className="titulo-vidriera">VIDRIERA EN REPARACION</span>
+				<span className="titulo-vidriera"></span>
 					<div className="slide-track">
 						<div className="Slide">
 							<Link  to={`/product/${idProduct[25]}`}><img className="img-carousel"src={srcPreview[25]} id={idProduct[25]} products={products[25]} /></Link></div>
