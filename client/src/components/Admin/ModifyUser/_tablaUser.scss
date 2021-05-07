@@ -8,6 +8,10 @@
     margin-top: 81px;
     flex-direction: column;
 }
+.p-paginator-last.p-paginator-element.p-link {
+    width: 20px;
+    height: 13px;
+}
 .colDeleteUser {
     display: table-cell;
     border-radius: 0 25px 25px 0;
