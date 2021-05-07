@@ -95,7 +95,6 @@ export default function Profile() {
             },
             function () {
               task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                console.log(downloadURL)
                 dispatch(
                   editCurrentUser(currentUser.id, {
                     ...user,
