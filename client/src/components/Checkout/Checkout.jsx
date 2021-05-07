@@ -172,7 +172,7 @@ const Checkout = () => {
   // calculate total
   const handleSumTotal = () => {
     const reducer = (accumulator, currentValue) =>
-      Number(currentValue.price) + accumulator;
+		(currentValue.discountPrice ? Number(currentValue.discountPrice) : Number(currentValue.price)) + accumulator;
     const sum = shoppingCart.reduce(reducer, 0);
     return sum;
   };
@@ -250,7 +250,7 @@ const Checkout = () => {
                       <div className="price-item">
                         <h4>{item.name}</h4>
                         <div className="price-item__checkout">
-                          ${item.price}
+                          ${item.booleanDiscount? item.discountPrice :item.price}
                         </div>
                         <button
                           type="button"

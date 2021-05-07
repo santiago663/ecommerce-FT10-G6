@@ -20,7 +20,22 @@ function ProductCard(props) {
   const currentPage = useSelector((store) => store.reducerPagination.currentPage)
 
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
-  const { data: { name, author, preview, id, price, available, score, stock, initialStock }, } = props;
+  const {
+		data: {
+			name,
+			author,
+			preview,
+			id,
+			price,
+			available,
+			score,
+			stock,
+			initialStock,
+			booleanDiscount,
+			percent,
+			discountPrice,
+		},
+  } = props;
 
   let backScores = allScores?.find(scores => scores.id === id)
   const canBuy = allUserProducts.filter(product => product.id === id)
@@ -90,59 +105,76 @@ function ProductCard(props) {
   }
 
   return (
-    <>
-      <div className="product-card">
-        {available === true ? (
-          <div className="shopping">
-            <div className="price">
-              <b>$ {price} </b>
+		<>
+			<div className="product-card">
+				{available === true ? (
+					<div className="shopping">
+						<div className="price">{booleanDiscount ?( 
+              <>
+             
+            <b>$ {discountPrice} %{percent} Off</b>
+            </>
+            ) : <b>$ {price} </b>}
             </div>
-            <div>
-              {canBuy[0] ? <span className="acquiredPC">Acquired</span> : false
-                ||
-                !lStorage ? (
-                <i
-                  className="fas fa-cart-plus add"
-                  key={id}
-                  onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
-                ></i>
-              ) : (
-                <i
-                  className="fas fa-cart-arrow-down remove"
-                  key={id}
-                  onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
-                >
-                  <br />
-                </i>
-              )}
-            </div>
-          </div>
-        ) : null}
-        <Link className="link" to={`/product/${id}`}>
-          <img src={preview} alt={name} />
-        </Link>
-        <div className="contenInfo">
-          <div className="conten">
-            <div className="nameAutor">
-              <span className="scoreCard">
-                {score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
-                {score === null ? FunctionStar(0) : FunctionStar(Number(score))}
-              </span>
-              {currentUser?.id && <div className="wishlistHeartCard">
-                {canAdd && canAdd[0] ? //me decía cannot read property 0 of undefined
-                  <span onClick={handleDeleteWishlist}><AiIcons.AiFillHeart /></span>
-                  :
-                  <span className="wishlistHeartOutLineCard" onClick={handleAddWishlist}><AiIcons.AiOutlineHeart /></span>}
-              </div>}
-              <h4 className="nameProductCard">{name}</h4>
-            </div>
-          </div>
-          <div>
-            {stock ? <span className="stockProductCard">Edition of {initialStock} - <span className="stockNumberPC">{stock}</span> left</span> : <h6>{author.name}</h6>}
-          </div>
-        </div>
-      </div>
-    </>
+						<div>
+							{canBuy[0] ? (
+								<span className="acquiredPC">Acquired</span>
+							) : false || !lStorage ? (
+								<i
+									className="fas fa-cart-plus add"
+									key={id}
+									onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
+								></i>
+							) : (
+								<i
+									className="fas fa-cart-arrow-down remove"
+									key={id}
+									onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
+								>
+									<br />
+								</i>
+							)}
+						</div>
+					</div>
+				) : null}
+				<Link className="link" to={`/product/${id}`}>
+					<img src={preview} alt={name} />
+				</Link>
+				<div className="contenInfo">
+					<div className="conten">
+						<div className="nameAutor">
+							<span className="scoreCard">
+								{score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
+								{score === null ? FunctionStar(0) : FunctionStar(Number(score))}
+							</span>
+							{currentUser?.id && (
+								<div className="wishlistHeartCard">
+									{canAdd && canAdd[0] ? ( //me decía cannot read property 0 of undefined
+										<span onClick={handleDeleteWishlist}>
+											<AiIcons.AiFillHeart />
+										</span>
+									) : (
+										<span className="wishlistHeartOutLineCard" onClick={handleAddWishlist}>
+											<AiIcons.AiOutlineHeart />
+										</span>
+									)}
+								</div>
+							)}
+							<h4 className="nameProductCard">{name}</h4>
+						</div>
+					</div>
+					<div>
+						{stock ? (
+							<span className="stockProductCard">
+								Edition of {initialStock} - <span className="stockNumberPC">{stock}</span> left
+							</span>
+						) : (
+							<h6>{author.name}</h6>
+						)}
+					</div>
+				</div>
+			</div>
+		</>
   );
 }
 
