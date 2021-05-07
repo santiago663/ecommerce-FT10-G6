@@ -28,10 +28,10 @@ const MapAbout = (props) => {
           <span className="name">{props.member.lastName}</span>
         </div>
         <div className="networks">
-          <a href={props.member.linkedin}>
+          <a href={props.member.linkedin} target="_blank" rel="noreferrer">
             <img className="icon" src={linkedin} alt={props.member.firstName} />
           </a>
-          <a href={props.member.github}>
+          <a href={props.member.github} target="_blank" rel="noreferrer">
             <img className="icon" src={github} alt={props.member.firstName}/>
           </a>
         </div>
