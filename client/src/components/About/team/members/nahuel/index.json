@@ -4,5 +4,9 @@
 		"lastName": "Rojas",
 		"linkedin": "https://www.linkedin.com/in/nahuelrojas-dev",
 		"github": "https://github.com/nahwish",
-		"about": "Una breve descripción de prueba que ira en la parte trasera de la card"
+		"about":  [
+			"Me empuja la curiosidad en el desarrollo web, el Arte y los Videojuegos",
+			"Full Stack Development PERN"
+			
+		]
 	}
