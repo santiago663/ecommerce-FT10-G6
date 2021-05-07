@@ -17,12 +17,12 @@
    align-items: center;
    width: 100vw;
    display: flex;
-   background: rgb(37, 37, 37);
+   background: rgb(25, 25, 25);
 }
 
 .slide-track {
    display: flex;
-   width: 200vw;
+   width: 70vw;
    animation: scroll 20s infinite alternate;
 }
 .Slide {
@@ -46,8 +46,7 @@
    }
 }
 .img-carousel {
-   width: 1vw;
-   min-width: 300px;
+   width: 350px;
    transition: transform 0.5s;
    box-shadow: -1px 0px 15px 2px rgb(31, 30, 30);
    padding: 0px;
