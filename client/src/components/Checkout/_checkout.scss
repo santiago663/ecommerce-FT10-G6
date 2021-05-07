@@ -1,7 +1,7 @@
 .checkout-container {
-	margin: 0px 0;
+	margin: 0 auto;
 	height: 100%;
-	width: 100vw;
+	width: 100%;
 	min-height: 100vh;
 	padding-top: 100px;
 	background-image: radial-gradient(circle at center center, rgba(33, 33, 33, 0), rgb(33, 33, 33)),
@@ -11,7 +11,8 @@
 }
 .Checkout {
 	font-family: "Montserrat";
-	width: 300px;
+	min-width: 310px;
+	max-width: 310px;
 	border: 1px solid rgba(0, 0, 0, 0.075);
 	box-shadow: 0px 5px 10px 5px #00000078;
 	margin: 0px auto;
@@ -23,20 +24,21 @@
 	padding: 1em 0 2em 0em;
 	background-color: rgb(74, 74, 74);
 	@media only screen and(min-width: 650px) {
-		min-width: 580px;
+		width: 100%;
+		max-width: 900px;
 	}
 	.Checkout-content {
 		margin: 0 auto;
-		width: 270px;
 		@media only screen and(min-width: 650px) {
-			min-width: 550px;
 		}
 		h3 {
+			height: 50px;
 			padding: 10px;
 			background-color: #3f7764ce;
 			color: #fff;
 			border-radius: 2px;
 			font-weight: 500;
+			font-size: 24px;
 		}
 	}
 }
@@ -66,15 +68,19 @@
 }
 
 .Checkout-element {
-	width: 250px;
-	height: 100px;
+	width: 300px;
+	max-height: 100px;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	border: 1px solid rgb(91, 91, 91);
 	margin: 5px 0;
+	padding: 10px;
 	@media only screen and(min-width: 650px) {
-		margin: 5px;
+		width: 45%;
+		height: 400px;
+		max-height: 150px;
+		margin: 10px;
 	}
 	h4 {
 		color: rgb(192, 190, 190);
@@ -86,12 +92,20 @@
 		text-align: center;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-evenly;
+		justify-content: space-around;
+		@media only screen and(min-width: 650px) {
+			height: 160px;
+			font-size: 18px;
+		}
 	}
 	img {
-		width: 25%;
+		width: 50%;
 		height: auto;
-		max-height: 100px;
+		object-fit: contain;
+		max-height: 90px;
+		@media only screen and(min-width: 650px) {
+			max-height: 140px;
+		}
 	}
 	.price-item__checkout {
 		color: rgb(144, 203, 162);
@@ -111,6 +125,8 @@
 	border-top: 1px dashed rgb(91, 91, 91);
 	padding-top: 10px;
 	@media only screen and(min-width: 650px) {
+		font-size: 24px;
+		width: 100%;
 		min-width: 550px;
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -118,7 +134,7 @@
 	}
 	button {
 		margin-top: 20px;
-		width: 96%;
+		width: 70%;
 		height: 40px;
 		border-radius: 3px;
 		cursor: pointer;
@@ -126,7 +142,7 @@
 		color: rgb(214, 214, 214);
 		background-color: #1b1d20;
 		border: none;
-		font-size: 18px;
+		font-size: 22px;
 		&:hover {
 			box-shadow: none;
 			background-color: #24262cda;
@@ -147,7 +163,7 @@ a {
 	text-decoration: none;
 }
 .fa-trash {
-	font-size: 20px;
+	font-size: 25px;
 	&:hover {
 		color: red;
 	}

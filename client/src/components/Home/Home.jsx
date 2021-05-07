@@ -87,11 +87,7 @@ function Home() {
 					</button>
 				</Link>
 			</div>
-			<div className="footerhome">
-				<h2>What's new!</h2>
 			<Slider />
-			</div>
-			
 		</div>
 	);
 }
