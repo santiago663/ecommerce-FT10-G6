@@ -26,7 +26,7 @@ export const SidebarData = [
     {
         title: 'Wishlist',
         path: '/user/wishlist',
-        icon: <FaIcons.FaImages />,
+        icon: <FaIcons.FaHeart />,
         cName: 'navm-text',
         belong: [101]
     },
