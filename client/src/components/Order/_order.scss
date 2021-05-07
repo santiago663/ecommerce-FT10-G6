@@ -39,9 +39,12 @@
 			align-items: center;
 			justify-content: space-between;
 			.Pay-methods {
+				background-color: #9e9e9e;
+				border-radius: 20px;
+				padding:40px;
 				width: 100%;
 				display: flex;
-				align-items: center;
+				align-items:flex-start;
 				justify-content: space-between;
 				@media only screen and(max-width: 630px) {
 					flex-direction: column;
@@ -110,7 +113,7 @@
 		justify-content: space-between;
 		align-items: center;
 		width: 100%;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid #2fbe82;
 	}
 	.Information-element h4 {
 		margin: 0;
@@ -121,7 +124,7 @@
 		display: ruby;
 	}
 	.Info-Back__container {
-		margin-bottom: 30px;
+		margin: 5px 0px 40px 0px;
 		Link {
 			width: 50px;
 			margin: 0px;
@@ -156,15 +159,23 @@
 			// background-color: #aaabad;
 
 			// border: 1px solid rgb(255, 0, 0);
+			.order_Inputs{
+				margin-bottom: 17px;
+			}
 			span {
 				min-width: 50px;
+				font-weight:bold;
+				margin-right: 5px;
+
 			}
+			
 			input {
 				min-width: 200px;
 				border: none;
 				background-color: transparent;
 				outline: none;
-				color: #aaabad;
+				color: #32d58e;
+				font-size: 15px;
 			}
 			.name__container {
 				display: flex;
@@ -221,7 +232,7 @@
 	display: flex;
 	justify-content: space-around;
 	width: 80%;
-	margin-bottom: 15px;
+	margin: 50px 0px 20px 0px;
 	font-size: 16px;
 }
 
@@ -234,15 +245,27 @@
 	color: #fafafa;
 }
 
-.checkContactInfoHide {
-	display: none;
-}
-
 .checkPaymentHide {
 	display: none;
 }
 
+.checkContactInfoHide {
+	display: none;
+}
+
+.checkContactInfo{
+	color: #23be98;
+	font-weight: bold;
+	font-size: 20px;
+	
+}
+
+.spanPayment {
+	padding-top: 4px;
+	color: #f6faf9;
+}
 .spanPaymentGrey {
+	// padding-top: 4px;
 	color: #b1b1b1;
 }
 
