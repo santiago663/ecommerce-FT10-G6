@@ -137,11 +137,6 @@ function Order() {
                 keep looking art
               </Link>
             </div>
-            <div className="cartSteps">
-              <span>1 <IoIcons.IoMdCheckmark className={input.ok ? "checkContactInfo" : "checkContactInfoHide"} /> Contact information</span>
-              <span className={input.ok ? "spanPayment" : "spanPaymentGrey"}>2 <IoIcons.IoMdCheckmark className={completed?.status ? "checkPayment" : "checkPaymentHide"} />
-              Payment method</span>
-            </div>
             <div className="Information-head">
               {currentUser.id ? (
                 <h2>
@@ -153,20 +148,25 @@ function Order() {
                 <h2>Contact Information</h2>
               )}
             </div>
+            <div className="cartSteps">
+              <span>1 <IoIcons.IoMdCheckmark className={input.ok ? "checkContactInfo" : "checkContactInfoHide"} /> Contact information</span>
+              <span className={input.ok ? "spanPayment" : "spanPaymentGrey"}>2 <IoIcons.IoMdCheckmark className={completed?.status ? "checkPayment" : "checkPaymentHide"} />
+              Payment method</span>
+            </div>
             <br />
             <br />
             <div className="Information-form">
               {currentUser.id ? (
                 <div className="name-email__container">
                   <div className="name__container">
-                    <span>Name:</span>
-                    <input
+                    <div className="order_Inputs"><span className="span_order">Name:</span></div>
+                    <div className="order_Inputs"><input className="input_order"
                       type="text"
                       placeholder="Name"
                       name="name"
                       value={(input.name = currentUser.name)}
                       onChange={handleInputChange}
-                    />
+                    /></div>
                   </div>
                   <div className="email__container">
                     <span>E-mail:</span>
