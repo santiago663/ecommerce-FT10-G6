@@ -6,6 +6,7 @@ import Azza from '../../../Filters/Azza';
 import SearchBar from '../../../SearchBar/SearchBar';
 import { removeProductForAdmin, deletAllProductsSales, getBackup } from '../../../../redux/actions/actionFront';
 import { sendDiscountToBack } from '../../../../redux/actions/actionBack';
+import {refreshPrice} from '../../../../redux/actions/actionOrder'
 import Swal from 'sweetalert2';
 import ReactCardFlip from 'react-card-flip';
 
@@ -24,7 +25,9 @@ const SalesProduct = () =>{
 		setIsFlipped(!isFlipped);
 	};
 	
-
+	const SaveDiscountPrice = () =>{
+		dispatch(refreshPrice());
+	}
 function onClose(g) {dispatch(removeProductForAdmin(g));}
 
 	const Delete = () =>{dispatch(deletAllProductsSales());}
