@@ -214,9 +214,7 @@ function AddProduct() {
                     'this product is deleted',
                     'success'
                 )
-            } else {
-                e.target.value = 0;
-            }
+            } 
         })
     }
 
@@ -524,7 +522,6 @@ function AddProduct() {
 									<input
 										className="SelectorFile"
 										type="file"
-										title="otra cosa"
 										onChange={handleOnChange}
 										name="file"
 									/>
@@ -582,7 +579,7 @@ function AddProduct() {
 										<input
 											className="EditOrAdd"
 											type="button"
-											value="Delete"
+											value="Disable"
 											onClick={deleteProducts}
 										/>
 									</div>
