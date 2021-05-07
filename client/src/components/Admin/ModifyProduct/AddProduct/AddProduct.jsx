@@ -67,7 +67,7 @@ function AddProduct() {
                 preview: findProduct.preview,
                 stock: findProduct.stock ? findProduct.stock : 0,
                 initialStock: findProduct.initialStock ? findProduct.initialStock : 0,
-                categories: findProduct.categories.map(cat => cat.id),
+                categories: findProduct.categories?.map(cat => cat.id),
                 author: findProduct.author,
                 seriesId: findProduct.seriesId,
             })

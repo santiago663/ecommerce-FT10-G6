@@ -7,7 +7,7 @@ let stateOrder = (name2, ordIdDateStateTotal, prodsImgPrice, email) => {
 
     if(!!name2 && prodsImgPrice.length !==0){
         
-        msg["to"] = `${EMAIL_ENVIAR}`,//`${email}`,
+        msg["to"] = `${email}`,
         msg["from"] = `${EMAIL_SENGRID}`,
         msg["subject"] = "DigitalArt: Orden Completada",
         msg["html"] = `

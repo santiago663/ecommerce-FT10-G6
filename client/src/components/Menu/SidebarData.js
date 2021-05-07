@@ -37,13 +37,13 @@ export const SidebarData = [
         cName: 'navm-text',
         belong: [101]
     },
-    {
-        title: 'Questions',
-        path: '/user/questions',
-        icon: <FiIcons.FiHelpCircle />,
-        cName: 'navm-text',
-        belong: [102,101]
-    },
+    // {
+    //     title: 'Questions',
+    //     path: '/user/questions',
+    //     icon: <FiIcons.FiHelpCircle />,
+    //     cName: 'navm-text',
+    //     belong: [102,101]
+    // },
     {
         title: 'Products',
         path: '/admin/Product',
