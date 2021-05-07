@@ -179,7 +179,7 @@ function ProductDetails() {
 						<div className="wish_productDetail">
 							{currentUser?.id && (
 								<div className="wishlistHeartDetail">
-									{canAdd[0] ? (
+									{canAdd && canAdd[0] ? (
 										<span onClick={deleteWish}>
 											<AiIcons.AiFillHeart />
 										</span>
