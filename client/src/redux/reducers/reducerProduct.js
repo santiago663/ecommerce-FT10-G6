@@ -46,6 +46,20 @@ export default function reducerProduct(state = initialState, action) {
 			};
 
 		case TYPES.GET_ONE_PRODUCT:
+			
+			state.adminProducts.forEach((z) => {
+				
+					if (action.payload.id === z.id) {
+						action.payload.discountPrice = z.discountPrice;
+						action.payload.percent = z.discountPercent;
+						action.payload.booleanDiscount = 'true';
+						return{
+							...state,
+							productCache: action.payload,
+						}
+					}
+				
+			});
 			return {
 				...state,
 				productCache: action.payload,
@@ -642,6 +656,8 @@ export default function reducerProduct(state = initialState, action) {
 				state.backUpProducts.forEach((x) => {
 					if (x.id === z.productId) {
 						x.discountPrice = z.discountPrice;
+						x.percent = z.discountPercent;
+						x.booleanDiscount = 'true';
 					}
 					saveDiscountButNotReppeat.push(x);
 				});
@@ -650,8 +666,8 @@ export default function reducerProduct(state = initialState, action) {
 				state.adminProducts.forEach((x) => {
 					if (x.id === z.productId) {
 						x.discountPrice = z.discountPrice
-						x.percet = z.percet
-						x.discount = 'true'
+						x.percent = z.discountPercent;
+						x.booleanDiscount = 'true'
 					}
 					saveDiscountToShowInPanelAdmin.push(x);
 				});
