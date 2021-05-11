@@ -45,7 +45,7 @@ function ProductCard(props) {
     if (userWishlist?.id) {
       setCanAdd(userWishlist?.products?.filter(product => product.id === id))
     }
-  }, [userWishlist, currentPage])
+  }, [userWishlist, currentPage, id])
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {

@@ -458,7 +458,7 @@ module.exports = {
       },
       {
         id: 135,
-        name: "Zoth the Corruptor",
+        name: "N'Zoth the Corruptor",
         description:
           "simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno",
         price: "289",
