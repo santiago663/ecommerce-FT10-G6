@@ -20,6 +20,8 @@ function ProductCard(props) {
   const currentPage = useSelector((store) => store.reducerPagination.currentPage)
 
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
+
+  
   const {
 		data: {
 			name,
@@ -31,9 +33,7 @@ function ProductCard(props) {
 			score,
 			stock,
 			initialStock,
-			booleanDiscount,
-			percent,
-			discountPrice,
+      discount
 		},
   } = props;
 
@@ -47,14 +47,33 @@ function ProductCard(props) {
     }
   }, [userWishlist, currentPage, id])
 
+  const getPriceWithDiscount = (discount, price)=>{
+    let discountPrice = 0;
+    return discountPrice = price - (price * Number(discount))/100
+  }
+
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach(product => {
-        total += product.price ? Number(product.price) : 0
+        if(product.discount !== null){
+          console.log(product.discount)
+          total += product.discount ? Number(getPriceWithDiscount(product.discount.percent, price)) : 0
+        }
+        else{
+          total += product.price ? Number(product.price) : 0
+        }
+        
       })
-      total = total + Number(productOnClick.price)
+      if(discount !== null){
+        total = total + Number(getPriceWithDiscount(discount.percent, price))
+      }
+      else{
+        total = total + Number(productOnClick.price)
+      }
+      
       dispatch(addToCartUser(productOnClick, currentUser, currentOrder, total))
+      
     } else {
       let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
       let found = data.filter((product) => product.id === productOnClick.id);
@@ -62,6 +81,7 @@ function ProductCard(props) {
       if (found.length === 0) {
         data.push(productOnClick);
         localStorage.setItem("orderProducts", JSON.stringify(data));
+
         dispatch(addToCart(productOnClick));
       }
     }
@@ -71,9 +91,21 @@ function ProductCard(props) {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach(product => {
-        total += product.price ? Number(product.price) : 0
+        if(discount !== null){
+          total += product.discount ? Number(getPriceWithDiscount(product.discount.percent, price)) : 0
+        }
+        else{
+          total += product.price ? Number(product.price) : 0
+        }
+        
       })
-      total = total - Number(productOnClick.price)
+      if(discount !== null){
+        total = total - Number(getPriceWithDiscount(discount.percent, price))
+      }
+      else{
+        total = total - Number(productOnClick.price)
+      }
+      
       dispatch(removeToCartUser(productOnClick, currentUser, currentOrder, total))
 
     } else {
@@ -109,12 +141,17 @@ function ProductCard(props) {
 			<div className="product-card">
 				{available === true ? (
 					<div className="shopping">
-						<div className="price">{booleanDiscount ?( 
-              <>
-             
-            <b>$ {discountPrice} %{percent} Off</b>
-            </>
-            ) : <b>$ {price} </b>}
+              <div className="price">
+                {discount !==null ?( 
+                <>
+                <div>
+                  <b>${getPriceWithDiscount(discount.percent, price)}</b>
+                  <br/>
+                  <b className="strikethrough">$ {price} </b>
+                </div>
+              </>
+
+              ) : <b>${price} </b>}
             </div>
 						<div>
 							{canBuy[0] ? (
@@ -143,6 +180,14 @@ function ProductCard(props) {
 				<div className="contenInfo">
 					<div className="conten">
 						<div className="nameAutor">
+              <div className="divDiscountProd-wrap">
+                <div className="divDiscountProd">
+                  <span className="percentDiscountProd">
+                    {discount !== null ? (`-${discount.percent}%`):null}
+                  </span>
+                </div>
+              </div>
+             
 							<span className="scoreCard">
 								{score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
 								{score === null ? FunctionStar(0) : FunctionStar(Number(score))}
