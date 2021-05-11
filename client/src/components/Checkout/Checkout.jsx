@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/actionFront";
-import { editProductStock } from "../../redux/actions/actionBack";
+import { editProductStock } from "../../redux/actions/actionStock-Review";
 import { removeToCartUser } from "../../redux/actions/actionOrder";
 import { formUserOrder, formGuestOrder } from "../../redux/actions/actionOrder";
 import { stripe } from "../../redux/actions/payments";

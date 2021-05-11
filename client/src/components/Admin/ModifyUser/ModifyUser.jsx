@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { editUser, deleteUserAction } from "../../../redux/actions/actionBack";
+import { editUser, deleteUserAction } from "../../../redux/actions/actionUsers-Roles";
 import "../../../scss/components/_modifyOrder.scss";
 import "./_tablaUser.scss";
 

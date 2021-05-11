@@ -18,7 +18,7 @@ export default function Wishlist() {
     setPreview(image);
   };
 
-  const deleteProduct = (e) => {
+  const deleteProductWish = (e) => {
     let body = {
       userId: wishlistUser.userId,
       productId: e,
@@ -75,7 +75,7 @@ export default function Wishlist() {
                       className=" button-wishlist"
                       type="button"
                       key={product.id}
-                      onClick={() => deleteProduct(product.id)}
+                      onClick={() => deleteProductWish(product.id)}
                     >
                       <GiIcons.GiHeartMinus />
                     </button>

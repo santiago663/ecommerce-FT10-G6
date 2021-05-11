@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import Swal from 'sweetalert2';
-import { addAuthor, getAllAuthors } from  '../../../../redux/actions/actionBack';
+import { addAuthor, getAllAuthors } from  '../../../../redux/actions/actionAuthors';
+
 
 function CreateAuthor() {
 

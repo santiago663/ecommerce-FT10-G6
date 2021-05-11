@@ -3,6 +3,32 @@ import axios from 'axios';
 import * as TYPES from '../types/index';
 import { addToCart, removeFromCart } from './actionFront'
 
+
+export const getAllOrders = () => (
+
+  (dispatch) => {
+
+    try {
+      dispatch(requestData())
+      axios
+        .get(`${process.env.REACT_APP_BACK_URL}/get/order`)
+        .then((res) => {
+          dispatch({
+            type: TYPES.GET_ALL_ORDERS,
+            payload: res.data,
+          });
+          dispatch(requestSuccess());
+        })
+        .catch((error) => console.error(error));
+    } catch (error) {
+      dispatch({
+        type: TYPES.GET_ALL_ORDERS_ERROR,
+        payload: error,
+      });
+    }
+  }
+)
+
 export const getCurrentOrder = (userId) => {
     return (dispatch) => {
         axios
@@ -87,6 +113,16 @@ export const pushStorageToCartUser = (payload, currentUser, orderId) => {
     }
 }
 
+export const formGuestOrder = (form) => {
+	return async (dispatch) => {
+        let res = await axios
+          .post(`${process.env.REACT_APP_BACK_URL}/post/order/`, form)
+          .catch((e) => console.log(e));
+        let guestOrderDetails = JSON.parse(localStorage.getItem("guestOrderDetails"));
+        guestOrderDetails.orderId = res.data.id;
+        localStorage.setItem("guestOrderDetails", JSON.stringify(guestOrderDetails));
+	};
+};
 
 export const removeToCartUser = (payload, currentUser, currentOrder, total) => {
     return (dispatch) => {
@@ -109,33 +145,6 @@ export const removeToCartUser = (payload, currentUser, currentOrder, total) => {
     }
 }
 
-
-export const emptyToCartUser = (currentUser) => {
-    return (dispatch) => {
-        axios
-          .delete(
-            `${process.env.REACT_APP_BACK_URL}/delete/order/users/${currentUser.id}/cart`
-          )
-          .then((resp) => {
-            dispatch(addToCart());
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    }
-}
-
-export const formGuestOrder = (form) => {
-	return async (dispatch) => {
-        let res = await axios
-          .post(`${process.env.REACT_APP_BACK_URL}/post/order/`, form)
-          .catch((e) => console.log(e));
-        let guestOrderDetails = JSON.parse(localStorage.getItem("guestOrderDetails"));
-        guestOrderDetails.orderId = res.data.id;
-        localStorage.setItem("guestOrderDetails", JSON.stringify(guestOrderDetails));
-	};
-};
-
 export const formUserOrder = (form) => {
     return (dispatch) => {
         axios
@@ -143,6 +152,21 @@ export const formUserOrder = (form) => {
           .catch((e) => console.log(e));
 	};
 };
+
+export const emptyToCartUser = (currentUser) => {
+  return (dispatch) => {
+      axios
+        .delete(
+          `${process.env.REACT_APP_BACK_URL}/delete/order/users/${currentUser.id}/cart`
+        )
+        .then((resp) => {
+          dispatch(addToCart());
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+}
 
 export const refreshPrice = ()=> (dispatch) =>{
   dispatch({

@@ -4,10 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, useParams } from 'react-router-dom';
 import FilterProductByAuthor from '../FilterProductByAuthor';
 import Swal from 'sweetalert2';
-import {
-    addProducts, getAllProducts, deleteProductCategory,
-    editProductByBody, deleteProduct, editProductCategory
-} from '../../../../redux/actions/actionBack';
+import { getAllProducts, addProducts, editProductByBody,editProductCategory, deleteProduct, deleteProductCategory } from "../../../../redux/actions/actionProducts-Discounts";
 import { upgradeEditProducts } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_addProduct.scss';
 import { firebase } from '../../../../firebase/firebase-config';

@@ -3,6 +3,7 @@ import axios from "axios";
 import * as TYPES from "../types/index";
 import { requestData, requestSuccess } from './request.js'
 
+
 //                                      //
 //          ACTIONS SHOPPINGCART        //
 //                                      //
@@ -19,6 +20,7 @@ export const getLocalStorageGuest = () => {
 export const removeFromCart = (payload) => {
   return { type: TYPES.REMOVE_FROM_CART, payload };
 };
+
 
 //                                                  //
 //          ACTION FILTERS alphabetical:            //
@@ -54,6 +56,7 @@ export const orderAsc = (type) => (dispatch, getState) => {
     });
   }
 };
+
 
 //                                                  //
 //          ACTION FILTERS orderBy Categories:      //
@@ -96,6 +99,7 @@ export const orderStar = (payload)=> (dispatch) => {
 		});
   }
 
+  
 //                                                  //
 //          ACTION FILTERS orderBy unitStars:      //
 //                                                  //
@@ -131,20 +135,11 @@ export const filterAllProductReviews = (reviews) => (dispatch) =>{
   })
 }
 
-export const cleanShoopingCart = () => {
-	return { type: TYPES.CLEAN_SHOPPING_CART };
-};
-
 export const allUserProducts = (products) => (dispatch) =>{ 
   dispatch({
     type: TYPES.ALL_USER_PRODUCTS,
     payload: products
   })
-}
-
-export const sendEmailOrderSuccess = (data) => (dispatch) => {
-  axios.post(`${process.env.REACT_APP_BACK_URL}/emails/signup`, data);
-  
 }
 
 export const removeProductForAdmin = (id)=>(dispatch) =>{
@@ -158,4 +153,15 @@ export const deletAllProductsSales = () =>(dispatch) => {
   dispatch({
     type: TYPES.DELETE_ALL_PRODUCTS_SALES
   })
+}
+
+
+
+export const cleanShoopingCart = () => {
+	return { type: TYPES.CLEAN_SHOPPING_CART };
+};
+
+export const sendEmailOrderSuccess = (data) => (dispatch) => {
+  axios.post(`${process.env.REACT_APP_BACK_URL}/emails/signup`, data);
+  
 }
