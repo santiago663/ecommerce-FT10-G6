@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import '../../../../scss/components/_editOrder.scss';
-import { getDetailOrders, formUserOrder } from "../../../../redux/actions/actionOrder";
-import { getAllOrders } from '../../../../redux/actions/actionOrder';
+import { getDetailOrders, formUserOrder, getAllOrders } from "../../../../redux/actions/actionOrder";
 
 function EditProduct() {
     const dispatch = useDispatch()
