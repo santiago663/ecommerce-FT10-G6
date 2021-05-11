@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getOneProduct,
-  getProductReview,
-} from "../../redux/actions/actionBack";
+import { getProductReview } from "../../redux/actions/actionStock-Review";
+import { getOneProduct } from "../../redux/actions/actionProducts-Discounts"
 import { addToCart, removeFromCart } from "../../redux/actions/actionFront";
 import {
   addToCartUser,

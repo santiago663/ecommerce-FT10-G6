@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { formGuestOrder, formUserOrder } from '../../redux/actions/actionOrder';
 import { cleanShoopingCart, sendEmailOrderSuccess } from '../../redux/actions/actionFront';
-import { editProductStock } from "../../redux/actions/actionBack";
+import { editProductStock } from "../../redux/actions/actionStock-Review";
 import Swal from 'sweetalert2';
 
 

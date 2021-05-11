@@ -1,7 +1,8 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { postUserReview, updateReviewProduct, deleteUserReview, editUserReview } from '../../redux/actions/actionBack';
+import { postUserReview, updateReviewProduct } from '../../redux/actions/actionStock-Review';
+import { deleteUserReview, editUserReview } from "../../redux/actions/actionStock-Review"
 import { allProductsScores, filterNewProductReviews, filterAllProductReviews } from '../../redux/actions/actionFront';
 import { upgradeEditProducts } from '../../redux/actions/actionUpgrade';
 import ChangeColor from '../FunctionStar/ChangeColor';
