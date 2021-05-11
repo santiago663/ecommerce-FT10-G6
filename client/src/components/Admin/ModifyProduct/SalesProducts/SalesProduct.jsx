@@ -9,7 +9,7 @@ import {
   deletAllProductsSales,
   getBackup,
 } from "../../../../redux/actions/actionFront";
-import { sendDiscountToBack } from "../../../../redux/actions/actionProducts-Discounts";
+import { sendDiscountToBack, deleteDiscount } from "../../../../redux/actions/actionProducts-Discounts";
 import { refreshPrice } from "../../../../redux/actions/actionOrder";
 import Swal from "sweetalert2";
 import ReactCardFlip from "react-card-flip";
@@ -53,7 +53,11 @@ const SalesProduct = () => {
         icon: "info",
         confirmButtonText: "Cool",
       });
-      dispatch(sendDiscountToBack(input));
+      if(input.percent ==="1"){
+        dispatch(deleteDiscount(input.productId))
+      } else {
+        dispatch(sendDiscountToBack(input));
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -118,6 +122,9 @@ const SalesProduct = () => {
               <select onChange={handleValue}>
                 <option default value="0">
                   %
+                </option>
+                <option default value="1">
+                  Delete Discounts
                 </option>
                 <option name={input.percent} value="5">
                   5
