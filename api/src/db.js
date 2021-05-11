@@ -68,8 +68,8 @@ Orders.belongsTo(Users);
 Users.belongsTo(Roles);
 Roles.hasMany(Users);
 
-Discounts.belongsTo(Products);
-Products.hasOne(Discounts);
+Products.belongsTo(Discounts);
+Products.hasOne(Discounts, {constraints: false, allowNull: true, defaultValue:null});
 
 Products.belongsToMany(Categories, { through: "products_categories" });
 Categories.belongsToMany(Products, { through: "products_categories" });
