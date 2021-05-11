@@ -150,7 +150,7 @@
     border-top: 2px solid #2d2e2e;
     h3 {
         text-transform: uppercase;
-        color: #19f9a369;
+        color: #1cd08b;
         padding-bottom: 3px;
     }
     span {
@@ -230,9 +230,9 @@
         margin: 0 5px;
         font-size: 15px;
         h3 {
-            font-weight: 400;
-            width: 100%;
-            color: #19f9a4;
+            text-transform: uppercase;
+            color: #1cd08b;
+            padding-bottom: 3px;
         }
     }
 }
@@ -297,7 +297,7 @@
 }
 
 .stockProductDetail {
-    color: #1cd08b;
+    color: whitesmoke;
     font-size: 15px;
     font-family: "Roboto", sans-serif;
     padding: 4px;
@@ -309,4 +309,16 @@
 
 .limiteded {
     color: rgb(205, 68, 50);
+}
+
+.priceBeforeNowPD {
+    position: absolute;
+    margin-top: 40px;
+    color: tomato;
+    font-size: 18px;
+}
+
+.spanPriceBeforePD {
+    text-decoration: line-through;
+    color:rgb(172, 172, 172)
 }

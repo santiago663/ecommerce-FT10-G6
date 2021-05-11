@@ -80,6 +80,7 @@ function ProductDetails() {
 		booleanDiscount,
 		percent,
 		discountPrice,
+		discount,
 	} = productCache;
     if (available) {
       available = "Available";
@@ -226,10 +227,10 @@ function ProductDetails() {
 						<div className="det">
 							<h3>Price:</h3>
 							<div className="desc">
-								{booleanDiscount ? (
+								{discount ? (
 									<>
-										{discountPrice}% {percent} Off
-										<b>Before $ {price}</b>
+										<p>{discount.percent}% Off</p>
+										<p className="priceBeforeNowPD"><span className="spanPriceBeforePD">${price}</span> ${price*Number(1-discount.percent/100)}</p> 
 									</>
 								) : (
 									<b className="price-before">$ {price} </b>
