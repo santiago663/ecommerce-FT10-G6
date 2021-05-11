@@ -2,24 +2,24 @@ const server = require("express").Router();
 const { Discounts, Products, Authors, Categories } = require("../../db");
 
 server.post("/", async (req, res) => {
-  const { products, percent } = req.body;
+  const { productId, percent } = req.body;
 
   try {
     Promise.all(
-      products.map(async (productId) => {
+      productId.map(async (id) => {
         const findProductDiscount= await Discounts.findOne({
-         where: { productId: productId }})
+         where: { productId: id }})
 
         if (!findProductDiscount) {
            Discounts.create({
             percent: percent,
-            productId: productId,
+            productId: id,
           });
         }
         if (findProductDiscount) {
            Discounts.update(
             { percent: percent },
-            { where: { productId: productId } }
+            { where: { productId: id } }
           );
         }
       }
