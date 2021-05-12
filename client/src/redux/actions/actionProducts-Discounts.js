@@ -227,12 +227,9 @@ export const deleteDiscount = (productsId) => {
 console.log(productsId)
   return (dispatch) => {
       axios.delete(`${process.env.REACT_APP_BACK_URL}/delete/discount`, { data: { productsId } })
-      .then((res)=>{
-        dispatch({
-          type: TYPES.GET_ALL_PRODUCTS,
-          payload: res.data
-        });
+      .then(()=>{
+        dispatch(getAllProducts()) 
       })
-        .catch((e) => console.log(e));
-}
+      .catch((e) => console.log(e));
+  }
 }; 
