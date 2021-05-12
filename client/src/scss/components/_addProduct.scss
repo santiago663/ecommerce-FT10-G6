@@ -41,6 +41,26 @@ select {
         margin: 10px auto;
         width: 100%;
         padding: 8px;
+        .manageDiscounts {
+            margin: 10px 0;
+            height: 20px;
+            span {
+                font-size: 16px;
+                color: #4de09b;
+            }
+            .Discounts {
+                margin: 0 10px;
+                padding: 5px;
+                width: 40px;
+                border-radius: 5px;
+                border: 1px solid rgb(216, 215, 215);
+                background-color: #272727;
+                color: rgb(255, 227, 71);
+                box-shadow: 0 1px 1px 1px rgb(58, 57, 57);
+                font-weight: 100;
+                cursor: pointer;
+            }
+        }
     }
 
     .formAP {

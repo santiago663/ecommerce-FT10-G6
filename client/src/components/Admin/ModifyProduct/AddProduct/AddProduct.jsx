@@ -13,11 +13,12 @@ import ReactCardFlip from 'react-card-flip';
 
 function AddProduct() {
 
-    const [isFlipped, setIsFlipped] = useState(false);
+	const [isFlipped, setIsFlipped] = useState(false);
 
 	const handleclick = () => {
 		setIsFlipped(!isFlipped);
 	};
+
     const dispatch = useDispatch()
     const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
     const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
@@ -292,12 +293,16 @@ function AddProduct() {
 				<div className="Left-side container">
 					<div className="filProductByAuthor">
 						<FilterProductByAuthor />
+						<div className="manageDiscounts">
+							<span>Manage the Product Discounts</span>
+							<button className="Discounts" onClick={handleclick}>GO</button>
+						</div>
 					</div>
 					<div className="divAP">
 						{id ?
-						<h2 className="title">Edit Product</h2>
-						:
-						<h2 className="title">Add Product</h2>
+							<h2 className="title">Edit Product</h2>
+							:
+							<h2 className="title">Add Product</h2>
 						}
 						<form className="formAP" onSubmit={submitForm}>
 							<div className="rigth">
@@ -404,23 +409,23 @@ function AddProduct() {
 									</select>
 									{id
 										? product.categories.map((p) => (
-												<span
-													className="catego"
-													key={p?.id}
-													onClick={(event) => handleInputDeleteCa(event, p)}
-												>
-													{allCategories.find((c) => c.id == p)?.name}
-												</span>
-										  ))
+											<span
+												className="catego"
+												key={p?.id}
+												onClick={(event) => handleInputDeleteCa(event, p)}
+											>
+												{allCategories.find((c) => c.id == p)?.name}
+											</span>
+										))
 										: product.categories.map((id) => (
-												<span
-													className="catego"
-													key={id?.id}
-													onClick={(event) => handleInputDeleteCa(event, id)}
-												>
-													{allCategories.find((c) => c.id == id)?.name}
-												</span>
-										  ))}
+											<span
+												className="catego"
+												key={id?.id}
+												onClick={(event) => handleInputDeleteCa(event, id)}
+											>
+												{allCategories.find((c) => c.id == id)?.name}
+											</span>
+										))}
 								</div>
 							</div>
 							<div className="left">
@@ -587,34 +592,33 @@ function AddProduct() {
 								)}
 							</div>
 						</form>
-                                <button onClick={handleclick}>Sales</button>
 					</div>
 					<progress className="progress" value={uploadValue.uploadValue} max="100">
 						{uploadValue.uploadValue} %
 					</progress>
 				</div>
-					<div className="imgfile">
-						<div className="image">
-							{id ? 
-								<img className="image" src={product.preview} />
-								: 
-								<img className="image" src={uploadValue.picture} />
-							}
-						</div>
-						{id || uploadValue.picture? 
-						<input type="submit" value="delete image" onClick={deletefile} />
-						 : null}
+				<div className="imgfile">
+					<div className="image">
+						{id ?
+							<img className="image" src={product.preview} />
+							:
+							<img className="image" src={uploadValue.picture} />
+						}
 					</div>
+					{id || uploadValue.picture ?
+						<input type="submit" value="delete image" onClick={deletefile} />
+						: null}
+				</div>
 			</div>
 			<div className="mainDivAP">
-                <div className="Left-side container">
-                    <div className="filProductByAuthor">
+				<div className="Left-side container">
+					<div className="filProductByAuthor">
 						{isFlipped && <SalesProduct />}
-                    </div>
-                    
-				<button onClick={handleclick}>Sales</button>
+					</div>
 
-                </div>
+					<button className="BackProducts" onClick={handleclick}> Back</button>
+
+				</div>
 			</div>
 		</ReactCardFlip>
 	);

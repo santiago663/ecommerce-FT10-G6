@@ -1,162 +1,114 @@
-.contentDetail {
+.ordertitle {
+    font-size: 20px;
+    color: rgb(15, 201, 139);
+    margin-bottom: 20px;
+    span {
+        color: darkgrey;
+    }
+}
+@media screen and (max-width: 600px) {
+    .paymentMethod {
+        display: none;
+    }
+}
+.filterorders {
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    align-content: center;
     align-items: center;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-.products {
-    background-color: #67fcb7;
-    margin: 15px;
-    border-radius: 10px;
-}
-.TOTAL {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-    font-size: 15px;
-    background-color: #6ff1f18f;
-    border-radius: 0 0 5px 5px;
-    border: 2px solid #ffffff91;
-    margin-top: 7px;
-}
-.conteinOrders {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 10px 5px 10px;
-    align-items: stretch;
-    background-color: #ffffffa6;
-    border-radius: 5px 5px 0 0;
-}
-.open{
-    color: rgb(16, 135, 16);
-}
-.cancelled{
-    color: rgb(165, 12, 12);
-}
-.loading{
-    color: rgb(213, 80, 18);
-}
-.completed{
-    color: rgb(12, 17, 165);
-}
-.p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
-    display: none;
-}
-
-.datatable .p-paginator .p-paginator-current {
-    margin-left: auto;
-}
-
-.datatable .p-progressbar {
-    height: .5rem;
-    background-color: #D8DADC;
-}
-.p-datatable-wrapper {
-    padding: 16px;
-}
-.datatable .p-progressbar .p-progressbar-value {
-    background-color: #607D8B;
-}
-
-.datatable .table-header {
-    display: flex;
-    justify-content: space-between;
-}
-
-.datatable .p-datepicker {
-    min-width: 25rem;
-}
-
-.datatable .p-datepicker td {
-    font-weight: 400;
-}
-
-.datatable .p-datatable.p-datatable-customers .p-datatable-header {
-    padding: 1rem;
-    text-align: left;
-    font-size: 1.5rem;
-}
-
-.datatable .p-datatable.p-datatable-customers .p-paginator {
-    padding: 1rem;
-}
-
-.datatable .p-datatable.p-datatable-customers .p-datatable-thead > tr > th {
-    text-align: left;
-}
-
-.datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
-    cursor: auto;
-}
-
-.datatable .p-datatable.p-datatable-customers .p-dropdown-label:not(.p-placeholder) {
-    text-transform: uppercase;
-}
-
-.datatable .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
-    display: none;
-}
-
-@media screen and (max-width: 960px) {
-    .datatable .p-datatable.p-datatable-customers .p-datatable-thead > tr > th,
-    .datatable .p-datatable.p-datatable-customers .p-datatable-tfoot > tr > td {
-        display: none !important;
+    justify-content: space-around;
+    flex-direction: row;
+    background-color: rgb(70, 70, 70);
+    border: 3px solid #4e4d4d;
+    height: 50px;
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
     }
-
-    .datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr {
-        border-bottom: 1px solid var(--layer-2);
+    input {
+        height: 30px;
+        margin: 10px 0;
+        padding: 5px 10px;
+        background-color: #4e4d4d;
+        cursor: pointer;
+        padding: 5px 10px;
+        border: 1px solid gray;
+        border-radius: 1px;
+        color: rgb(167, 167, 167);
+        font-weight: 700;
     }
-
-    .datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
-        text-align: left;
-        display: block;
-        border: 0 none !important;
-        width: 100% !important;
-        float: left;
-        clear: left;
-        border: 0 none;
+    .ostateselector {
+        background-color: #4e4d4d;
+        color: #747474;
+        height: 30px;
+        align-self: center;
+        margin-right: 10px;
     }
-
-    .datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
-        padding: .4rem;
-        min-width: 30%;
-        display: inline-block;
-        margin: -.4rem 1rem -.4rem -.4rem;
-        font-weight: bold;
+    button {
+        margin: 10px 0;
+        padding: 5px 10px;
+        background-color: #4e4d4d;
+        cursor: pointer;
+        padding: 5px 10px;
+        border: 1px solid gray;
+        border-radius: 2px;
+        box-shadow: 0 2px 1px 0px rgb(15, 15, 15);
+        color: rgb(167, 167, 167);
+        font-weight: 700;
+        &:hover {
+            color: rgb(15, 201, 139);
+            border-color: rgb(15, 201, 139);
+        }
     }
-
-    .datatable .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-progressbar {
-        margin-top: .5rem;
+    .typesfilters {
+        .filterState {
+            height: 47px;
+            align-items: center;
+            padding: 5px 10px;
+            border: 3px solid #4e4d4d;
+            display: flex;
+            flex-direction: row;
+        }
     }
 }
-
-@media screen and (max-width: 40em) {
-    .p-datatable {
-        &.p-datatable-responsive-demo {
-            .p-datatable-thead > tr > th,
-            .p-datatable-tfoot > tr > td {
-                display: none !important;
+.buttonseemorecontainer {
+    .titleView {
+        text-decoration: none;
+        color: rgb(15, 201, 139);
+    }
+}
+.compoEditOrder {
+    margin-top: 20px;
+    .conteinOrders {
+        color: aliceblue;
+        h4 {
+            font-size: 18px;
+            color: rgb(15, 201, 139);
+            margin-bottom: 10px;
+        }
+        .orderState {
+            h3 {
+                color: rgb(15, 201, 139);
+                margin-bottom: 10px;
             }
-
-            .p-datatable-tbody > tr > td {
-                text-align: left;
-                display: block;
-                border: 0 none !important;
-                width: 100% !important;
-                float: left;
-                clear: left;
-
-                .p-column-title {
-                    padding: .4rem;
-                    min-width: 30%;
-                    display: inline-block;
-                    margin: -.4em 1em -.4em -.4rem;
-                    font-weight: bold;
-                }
+            select {
+                color: #c7c7c7;
+                background-color: #4e4d4d;
             }
         }
+    }
+    .oneProduct {
+        font-family: "Montserrat";
+        font-weight: 100;
+        margin: 20px 0;
+        color: #c7c7c7;
+        font-size: 14px;
+        img {
+            min-width: 300px;
+            height: auto;
+        }
+    }
+    .TOTAL {
+        font-size: 17px;
+        color: #c7c7c7;
     }
 }

@@ -8,7 +8,7 @@ import { Link, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersState } from "../../../redux/actions/actionUpgrade";
 import EditOrder from "./EditOrder/EditOrder";
-import "./_OrdersEdit.scss";
+// import "./_OrdersEdit.scss";
 
 const ModifyOrder = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -193,7 +193,7 @@ const ModifyOrder = () => {
             body={statusBodyTemplate}
             editor={(props) => statusEditor("products3", props)}
           ></Column>
-          <Column field="method.description" header="Payment"></Column>
+          <Column field="method.description" header="Payment" className="paymentMethod"></Column>
           <Column field="total" header="Total $"></Column>
         </DataTable>
         <Link to={`/admin/order/${nrorders}`}>

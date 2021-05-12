@@ -9,44 +9,54 @@
   border-collapse: collapse;
   border: 3px solid #ddd;
   width: 100%;
+  @media screen and (max-width: 600px) {
+    font-size: 9px;
+    padding: 0;
+    display: flex;
+    // flex-direction: column;
+  }
 }
 
-#products td, #products th {
+#products td,
+#products th {
   border: 1px solid #ddd;
-  padding: 8px;
+  @media screen and (max-width: 600px) {
+    margin: 0;
+    padding: 0px;
+  }
 }
 
-
-
-#tr:hover {background-color: #ddd;}
-#trHeader{
-   background-color: #4CAF50;
+#tr:hover {
+  background-color: #ddd;
 }
-#trHeader:hover{
-background-color: #4CAF50;
+#trHeader {
+  background-color: #4caf50;
+}
+#trHeader:hover {
+  background-color: #4caf50;
 }
 
 #products th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
-.delete-td{
+.delete-td {
   background: rgba(255, 0, 0, 0.227);
 }
-.delete-td:hover{
+.delete-td:hover {
   background: rgba(255, 0, 0, 0.72);
 }
-.getall-td{
+.getall-td {
   background: rgba(13, 255, 0, 0.227);
 }
-.getall-td:hover{
+.getall-td:hover {
   background: rgba(30, 255, 0, 0.72);
 }
 
-.disable{
-background: rgb(60, 52, 52);
+.disable {
+  background: rgb(60, 52, 52);
 }
