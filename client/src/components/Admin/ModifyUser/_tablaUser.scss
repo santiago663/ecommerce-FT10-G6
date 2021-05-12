@@ -1,176 +1,196 @@
-/* DataTableDemo.css */
-.p-inputtext.p-component {
+.Orders {
+    width: 80%;
+}
+
+.allorders {
+    min-width: 100%;
+}
+
+.p-datatable-header {
+    display: flex;
+    align-items: flex-end;
     height: 30px;
-    border-radius: 8px;
+    margin: 30px 0;
+    font-size: 26px;
+    font-weight: 500;
+    color: rgb(15, 201, 139);
+    .p-input-icon-left {
+        margin-left: 20px;
+        .p-inputtext {
+            color: #d6d6d4;
+            padding: 5px;
+            font-size: 16px;
+            background-color: #4e4d4d;
+            border: 1px solid rgb(101, 101, 101);
+        }
+    }
 }
-.selectRol{
-    display: flex;
-    margin-top: 81px;
-    flex-direction: column;
+.p-datatable-wrapper {
+    font-family: "Montserrat";
+    background-color: #4e4d4d;
+    padding: 0;
+    min-width: 100%;
+    cursor: pointer;
+    table {
+        width: 100%;
+    }
+
+    th {
+        max-width: fit-content;
+        height: 50px;
+        font-size: 15px;
+    }
+
+    td {
+        background-color: rgb(70, 70, 70);
+        text-align: center;
+        font-size: 12px;
+        padding: 5px;
+        color: #d6d6d4;
+    }
+
+    .btnDelete {
+        background-color: transparent;
+        color: rgb(167, 167, 167);
+        padding: 5px;
+        border: 1px solid gray;
+        border-radius: 2px;
+        box-shadow: 0 2px 2px rgb(29, 28, 28);
+        font-size: 12px;
+        &:hover {
+            cursor: pointer;
+            color: tomato;
+            border: 1px solid tomato;
+        }
+    }
+    .picPerfil {
+        .profileUser {
+            background-color: transparent;
+            border-radius: 9999px;
+            border: 4px double rgb(88, 143, 112);
+            box-shadow: 0 2px 2px 1px rgb(20, 20, 20);
+        }
+    }
+    .columnheader {
+        max-width: 50px;
+    }
+    .p-datatable-thead {
+        background-color: rgb(70, 70, 70);
+        tr {
+            grid-auto-columns: auto;
+            height: 30px;
+            color: rgb(15, 201, 139);
+            input {
+                font-size: 12px;
+                background-color: transparent;
+                padding: 10px 5px;
+                border: none;
+                color: #fafafa;
+                border: 1px solid #4e4d4d;
+                width: 95%;
+            }
+        }
+    }
 }
-.p-paginator-last.p-paginator-element.p-link {
-    width: 20px;
-    height: 13px;
-}
-.colDeleteUser {
-    display: table-cell;
-    border-radius: 0 25px 25px 0;
-    background-color: black;
-}
-.btnDelete{
-    background-color: brown;
-    color: cornsilk;
-    border-radius: 5px;
-}
-.FilterAndProducts {
-    display: flex;
-}
-button.p-paginator-page.p-paginator-element.p-link {
-    width: 20px;
-    font-family: fantasy;
-    background-color: rgb(187, 160, 147);
-}
-button.p-paginator-page.p-paginator-element.p-link.p-highlight {
-    background-color: aqua;
-}
-button.p-paginator-page.p-paginator-element.p-link.p-paginator-page-end.p-highlight {
-    background-color: chartreuse;
-}
-button.p-paginator-next.p-paginator-element {
-    width: 20px;
-    height: 15px;
-    margin: 3px;
-}
-button.p-paginator-prev.p-paginator-element.p-link {
-    width: 20px;
-    height: 15px;
-    margin: 3px;
-}
-button.p-paginator-last.p-paginator-element.p-link.p-disabled {
-    width: 20px;
-    height: 13px;
-}
-button.p-paginator-first.p-paginator-element.p-link {
-    width: 20px;
-    height: 13px;
-}
-.profileUser{
-    border-radius: 25px 0px 0 25px;
-    // border: 2px solid white;
-    box-shadow: 1px 2px 5px rgb(117, 248, 105);
-}
-.ModifyUser {
+
+.p-paginator {
+    width: 100%;
     display: flex;
     justify-content: center;
-}
-.picPerfil{
-    // display: flex;
-    border-radius: 25px 0px 0 25px;
-    padding: 1px;
-    // background-color: rgb(148, 148, 151);
-}
-.colNameUser{
-    height: 50px;
-    width: 80px;
-    padding: 5px;
-    font-size: 15px;
-    font-family: 'Montserrat';
-    font-weight: 600;
-}
-.RolUser {
-    text-align: center;
-    font-weight: 500;
-}
-.mailUser{
-    padding: 5px;
-}
-.p-inputtext.p-component.p-column-filter {
-    height: 30px;
-    padding: 5px;
+    margin: 15px 0;
+    button {
+        margin: 0 5px;
+        padding: 0 5px;
+        cursor: pointer;
+    }
 }
 
-.datatable-filter-demo .p-paginator .p-paginator-current {
-    margin-left: auto;
+.selectRol {
+    line-height: 30px;
+    form {
+        margin: 10px 0;
+        input {
+            margin: 10px 0;
+            padding: 5px 10px;
+            background-color: #4e4d4d;
+            cursor: pointer;
+            padding: 5px 10px;
+            border: 1px solid gray;
+            border-radius: 2px;
+            box-shadow: 0 2px 1px 0px rgb(15, 15, 15);
+            color: rgb(167, 167, 167);
+            font-weight: 700;
+            &:hover {
+                color: rgb(217, 219, 54);
+                border-color: darkkhaki;
+            }
+        }
+    }
 }
-
-.datatable-filter-demo .p-progressbar {
-    height: .5rem;
-    background-color: #D8DADC;
-}
-
-.datatable-filter-demo .p-progressbar .p-progressbar-value {
-    background-color: #607D8B;
-}
-
-.datatable-filter-demo .table-header {
-    display: flex;
-    justify-content: space-between;
-}
-
-.datatable-filter-demo .p-datepicker {
-    min-width: 25rem;
-}
-
-.datatable-filter-demo .p-datepicker td {
-    font-weight: 400;
-}
-
-.datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-header {
-    padding: 1rem;
-    text-align: left;
-    font-size: 1.5rem;
-    color: white;
-}
-
-.datatable-filter-demo .p-datatable.p-datatable-customers .p-paginator {
-    padding: 1rem;
-}
-
-.datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-thead > tr > th {
-    text-align: center;
-}
-
-.datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
-    cursor: auto;
-}
-
-.datatable-filter-demo .p-datatable.p-datatable-customers .p-dropdown-label:not(.p-placeholder) {
-    text-transform: uppercase;
-}
-
-.datatable-filter-demo .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
-    display: none;
-}
-
-@media screen and (max-width: 960px) {
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-thead > tr > th,
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tfoot > tr > td {
-        display: none !important;
+//******************************* RESPONSIVE ******************************\\
+@media screen and (max-width: 600px) {
+    .p-datatable-header {
+        justify-content: center;
+        width: 100%;
+        font-size: 20px;
+        margin: 0;
+        margin: 5px 0;
     }
 
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr {
-        border-bottom: 1px solid var(--layer-2);
+    // esto se oculta en mobile porque no entra----
+    .p-datatable-wrapper {
+        margin: 0;
+        table {
+            thead {
+                tr:last-child {
+                    height: auto;
+                }
+            }
+        }
+        .Phone,
+        .picPerfil,
+        .stateUser,
+        .p-filter-column {
+            display: none;
+        }
+        //------------------------------------------
+
+        th {
+            font-size: 10px;
+            padding: 0 1px;
+        }
+
+        td {
+            font-size: 9px;
+            padding: 5px;
+            color: #d6d6d4;
+        }
+
+        .btnDelete {
+            font-size: 10px;
+        }
+
+        .columnheader {
+            max-width: 50px;
+        }
     }
 
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
-        text-align: left;
-        display: block;
-        border: 0 none !important;
-        width: 100% !important;
-        float: left;
-        clear: left;
-        border: 0 none;
+    .p-paginator {
+        margin: 10px 0;
+        button {
+            margin: 0 3px;
+            padding: 0 3px;
+        }
     }
 
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
-        padding: .4rem;
-        min-width: 30%;
-        display: inline-block;
-        margin: -.4rem 1rem -.4rem -.4rem;
-        font-weight: bold;
-    }
-
-    .datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-progressbar {
-        margin-top: .5rem;
+    .selectRol {
+        line-height: 10px;
+        font-size: 12px;
+        form {
+            font-size: 10px;
+            input {
+                margin-bottom: 30px;
+            }
+        }
     }
 }
