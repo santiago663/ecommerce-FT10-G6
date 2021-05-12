@@ -2,7 +2,7 @@
 import axios from 'axios'
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchByTitle } from '../../redux/actions/actionBack';
+import { searchByTitle } from '../../redux/actions/actionProducts-Discounts';
 import { paginate } from '../../redux/actions/request';
 import '../../scss/components/_searchBar.scss';
 

@@ -1,6 +1,6 @@
 const server = require("express").Router();
 const { Op } = require("sequelize");
-const { Products, Categories, Authors } = require("../../db");
+const { Products, Categories, Authors, Discounts } = require("../../db");
 
 server.get("/search", async (req, res) => {
   let keyword = req.query.keyword;
@@ -30,6 +30,7 @@ server.get("/search", async (req, res) => {
         },
         include: [
           { model: Authors },
+          { model: Discounts },
           {
             model: Categories,
             through: { attributes: [] },
@@ -83,7 +84,7 @@ server.get("/", async (req, res) => {
         "stock",
         "initialStock",
       ],
-      include: [{ model: Authors }, { model: Categories }],
+      include: [{ model: Authors }, { model: Categories }, { model: Discounts },],
     });
 
     products === null
@@ -103,7 +104,7 @@ server.get("/:id", (req, res) => {
     where: {
       id: id,
     },
-    include: [{ model: Authors }, { model: Categories }],
+    include: [{ model: Authors }, { model: Categories }, { model: Discounts }],
   })
     .then((resp) => {
       if (resp === null) {

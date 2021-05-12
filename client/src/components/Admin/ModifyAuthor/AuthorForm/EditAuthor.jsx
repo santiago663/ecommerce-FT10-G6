@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom'
 import Swal from 'sweetalert2';
-import { editAuthor, deleteAuthor } from '../../../../redux/actions/actionBack';
+import { editAuthor, deleteAuthor } from '../../../../redux/actions/actionAuthors';
 import { upgradeEditAuthors } from '../../../../redux/actions/actionUpgrade';
 
 function EditAuthor() {

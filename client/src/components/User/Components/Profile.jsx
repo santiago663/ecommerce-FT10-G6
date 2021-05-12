@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   editCurrentUser,
   activate2fa,
-} from "../../../redux/actions/actionUser";
+} from "../../../redux/actions/actionUserAuth";
 import { removeError } from "../../../redux/actions/uiError";
 import Swal from "sweetalert2";
 import "../../../scss/components/_profileuser.scss";

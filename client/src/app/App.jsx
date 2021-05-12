@@ -2,12 +2,9 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import routes from "../routes/routes";
-import {
-  getAllProducts,
-  getAllAuthors,
-  getAllCategories,
-  getAllSeries,
-} from "../redux/actions/actionBack";
+import { getAllProducts } from "../redux/actions/actionProducts-Discounts";
+import { getAllAuthors } from "../redux/actions/actionAuthors";
+import { getAllCategories, getAllSeries } from "../redux/actions/actionCategories-Series";
 import { getUserWhislist } from "../redux/actions/actionWishlist"
 import { getLocalStorageGuest } from "../redux/actions/actionFront";
 import { getCurrentOrder, getAllUserOrders } from "../redux/actions/actionOrder";

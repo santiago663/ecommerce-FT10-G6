@@ -95,7 +95,7 @@ a.link {
 }
 .price {
   display: flex;
-  margin-right: 5px;
+  margin: 5px 5px 0px 0px;
   font-size: 15px;
   color: gray;
 }
@@ -141,3 +141,39 @@ a.link {
   font-size: 25px;
   color: #0bc970;
 }
+
+.strikethrough{
+  text-decoration: line-through;
+  color: red;
+  font-size: 11px;
+  margin: 0;
+  padding: 0px;
+}
+
+.divDiscountProd-wrap{
+
+  filter: drop-shadow(-1px 2px 4px rgb(34, 34, 34));
+
+  .divDiscountProd{
+  
+    z-index: 0;
+    display: flex;
+    width: 67px;
+    position: absolute;
+    margin-left: 234px;
+    margin-top: -200px;
+    justify-content: center;
+    padding: 0px 2px 6px 2px;
+    background-color: #eb0029;
+  
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+    
+    .percentDiscountProd{
+     
+      font-size: 25px;
+      color: #fafafa;
+      font-weight: 500;
+    }
+  }
+}
+

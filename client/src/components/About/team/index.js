@@ -14,7 +14,7 @@ import darioProfilePic from "./members/dario/profilePic.jpeg";
 import ezequielProfilePic from "./members/ezequiel/profilePic.jpeg";
 import cristianProfilePic from "./members/cristian/profilePic.png";
 import nahuelProfilePic from "./members/nahuel/profilePic.jpeg";
-import santiagoProfilePic from "./members/santiago/profilePic.png";
+import santiagoProfilePic from "./members/santiago/profilePic.jpeg";
 import leninProfilePic from "./members/lenin/profilePic.jpeg";
 
 const data = {

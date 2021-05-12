@@ -4,10 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, useParams } from 'react-router-dom';
 import FilterProductByAuthor from '../FilterProductByAuthor';
 import Swal from 'sweetalert2';
-import {
-	addProducts, getAllProducts, deleteProductCategory,
-	editProductByBody, deleteProduct, editProductCategory
-} from '../../../../redux/actions/actionBack';
+import { getAllProducts, addProducts, editProductByBody,editProductCategory, deleteProduct, deleteProductCategory } from "../../../../redux/actions/actionProducts-Discounts";
 import { upgradeEditProducts } from '../../../../redux/actions/actionUpgrade';
 import '../../../../scss/components/_addProduct.scss';
 import { firebase } from '../../../../firebase/firebase-config';
@@ -21,275 +18,276 @@ function AddProduct() {
 	const handleclick = () => {
 		setIsFlipped(!isFlipped);
 	};
-	const dispatch = useDispatch()
-	const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
-	const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
-	const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
-	const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
-	const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
 
-	const { id } = useParams();
+    const dispatch = useDispatch()
+    const allArtist = useSelector((store) => store.reducerArtist.allArtistCache)
+    const allCategories = useSelector((store) => store.reducerCategories.allCategoriesCache)
+    const allSeries = useSelector((store) => store.reducerSeries.allSeriesCache)
+    const allProducts = useSelector((store) => store.reducerProduct.backUpProducts)
+    const productOrError = useSelector((store) => store.reducerErrorRoutes.stateAction)
 
-	const [product, setProduct] = useState({
-		name: "",
-		description: "",
-		price: 0,
-		available: true,
-		fileLink: "",
-		preview: "",
-		stock: 0,
-		initialStock: 0,
-		categories: [],
-		authorId: 0,
-		seriesId: null
-	})
+    const { id } = useParams();
 
-	const [authorName, setAuthorName] = useState("")
-	const [boolean, setBoolean] = useState(false)
+    const [product, setProduct] = useState({
+        name: "",
+        description: "",
+        price: 0,
+        available: true,
+        fileLink: "",
+        preview: "",
+        stock: 0,
+        initialStock: 0,
+        categories: [],
+        authorId: 0,
+        seriesId: null
+    })
 
-	useEffect(() => {
-		if (id) {
-			setBoolean(true)
-		} else {
-			setBoolean(false)
-		}
+    const [authorName, setAuthorName] = useState("")
+    const [boolean, setBoolean] = useState(false)
 
-		const findProduct = allProducts.find(f => f.id === Number(id))
+    useEffect(() => {
+        if (id) {
+            setBoolean(true)
+        } else {
+            setBoolean(false)
+        }
 
-		if (findProduct?.id) {
-			setProduct({
-				id: findProduct.id,
-				name: findProduct.name,
-				description: findProduct.description,
-				price: findProduct.price,
-				available: findProduct.available,
-				fileLink: findProduct.fileLink,
-				preview: findProduct.preview,
-				stock: findProduct.stock ? findProduct.stock : 0,
-				initialStock: findProduct.initialStock ? findProduct.initialStock : 0,
-				categories: findProduct.categories.map(cat => cat.id),
-				author: findProduct.author,
-				seriesId: findProduct.seriesId,
-			})
+        const findProduct = allProducts.find(f => f.id === Number(id))
 
-			const findArtist = allArtist.find(g => g.id == findProduct.author.id)
-			setAuthorName(findArtist.name)
-		}
+        if (findProduct?.id) {
+            setProduct({
+                id: findProduct.id,
+                name: findProduct.name,
+                description: findProduct.description,
+                price: findProduct.price,
+                available: findProduct.available,
+                fileLink: findProduct.fileLink,
+                preview: findProduct.preview,
+                stock: findProduct.stock ? findProduct.stock : 0,
+                initialStock: findProduct.initialStock ? findProduct.initialStock : 0,
+                categories: findProduct.categories?.map(cat => cat.id),
+                author: findProduct.author,
+                seriesId: findProduct.seriesId,
+            })
 
-	}, [id])
+            const findArtist = allArtist.find(g => g.id == findProduct.author.id)
+            setAuthorName(findArtist.name)
+        }
 
-	function handleInputChange(event) {
-		setProduct({ ...product, [event.target.name]: event.target.value })
-	}
-	function handleInputChangeNro(event) {
-		setProduct({ ...product, [event.target.name]: Number(event.target.value) })
-	}
+    }, [id])
 
-	//Handle input para available
-	function handleInputChangeAv(event) {
-		event.preventDefault();
-		var option;
-		if (event.target.value === "Yes") option = true;
-		if (event.target.value === "No") option = false;
-		setProduct({ ...product, [event.target.name]: option })
-	}
+    function handleInputChange(event) {
+        setProduct({ ...product, [event.target.name]: event.target.value })
+    }
+    function handleInputChangeNro(event) {
+        setProduct({ ...product, [event.target.name]: Number(event.target.value) })
+    }
 
-	//Handle input para categories
-	function handleInputChangeCa(event) {
+    //Handle input para available
+    function handleInputChangeAv(event) {
+        event.preventDefault();
+        var option;
+        if (event.target.value === "Yes") option = true;
+        if (event.target.value === "No") option = false;
+        setProduct({ ...product, [event.target.name]: option })
+    }
 
-		var cat = product.categories
-		cat.push(allCategories.find(c => c.id == Number(event.target.value)).id)
+    //Handle input para categories
+    function handleInputChangeCa(event) {
 
-		if (boolean) {
-			dispatch(editProductCategory(product.id, event.target.value))
-		}
+        var cat = product.categories
+        cat.push(allCategories.find(c => c.id == Number(event.target.value)).id)
 
-		//borra los repetidos
-		cat = cat.filter((arg, pos) => cat.indexOf(arg) == pos)
-		setProduct({ ...product, [event.target.name]: cat })
-	}
+        if (boolean) {
+            dispatch(editProductCategory(product.id, event.target.value))
+        }
 
-	//Handle input para borrar categoria
-	function handleInputDeleteCa(event, id) {
-		var cat = product.categories
-		if (boolean) {
-			dispatch(deleteProductCategory(product.id, id));
-		}
-		cat = cat.filter(cId => cId != Number(id))
-		setProduct({ ...product, categories: cat })
-	}
+        //borra los repetidos
+        cat = cat.filter((arg, pos) => cat.indexOf(arg) == pos)
+        setProduct({ ...product, [event.target.name]: cat })
+    }
+
+    //Handle input para borrar categoria
+    function handleInputDeleteCa(event, id) {
+        var cat = product.categories
+        if (boolean) {
+            dispatch(deleteProductCategory(product.id, id));
+        }
+        cat = cat.filter(cId => cId != Number(id))
+        setProduct({ ...product, categories: cat })
+    }
 
 
-	const alertError = () => {
-		Swal.fire({
-			title: "Error Creating Product",
-			icon: "error",
-			timer: "1500",
-			showConfirmButton: false,
-		})
-	}
+    const alertError = () => {
+        Swal.fire({
+            title: "Error Creating Product",
+            icon: "error",
+            timer: "1500",
+            showConfirmButton: false,
+        })
+    }
 
-	function submitForm(event) {
-		event.preventDefault();
-		if (id) {
-			Swal.fire({
-				title: 'Are you sure?',
-				text: `The Edit to ${product.name}`,
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					dispatch(editProductByBody(product.id, product));
-					Swal.fire(
-						'Updated!',
-						'this product is updated',
-						'success'
-					)
-				} else {
-					e.target.value = 0;
-				}
-			})
-		} else {
-			if (product.categories.length !== 0 || product.authorId !== 0) {
-				Swal.fire({
-					title: 'Are you sure?',
-					text: `The Add to ${product.name}`,
-					icon: 'warning',
-					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					confirmButtonText: 'Yes'
-				}).then((result) => {
-					if (result.isConfirmed) {
-						dispatch(addProducts(product));
-						dispatch(getAllProducts());
-						Swal.fire(
-							'Salved!',
-							'this product is SAlved',
-							'success'
-						)
-						location.reload();
-					} else {
-						e.target.value = 0;
-					}
-				})
-			}
-			else {
-				alertError();
-			}
-		}
-	}
+    function submitForm(event) {
+        event.preventDefault();
+        if (id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `The Edit to ${product.name}`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(editProductByBody(product.id, product));
+                    Swal.fire(
+                        'Updated!',
+                        'this product is updated',
+                        'success'
+                    )
+                } else {
+                    e.target.value = 0;
+                }
+            })
+        } else {
+            if (product.categories.length !== 0 || product.authorId !== 0) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: `The Add to ${product.name}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        dispatch(addProducts(product));
+                        dispatch(getAllProducts());
+                        Swal.fire(
+                            'Salved!',
+                            'this product is SAlved',
+                            'success'
+                        )
+                        location.reload();
+                    } else {
+                        e.target.value = 0;
+                    }
+                })
+            }
+            else {
+                alertError();
+            }
+        }
+    }
 
-	const deleteProducts = (e) => {
-		e.preventDefault()
-		Swal.fire({
-			title: 'Are you sure?',
-			text: `The Delete to ${product.name}`,
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes'
-		}).then((result) => {
-			if (result.isConfirmed) {
-				dispatch(deleteProduct(product.id))
-				setProduct({
-					name: "",
-					description: "",
-					price: 0,
-					available: true,
-					fileLink: "",
-					preview: "",
-					stock: null,
-					initialStock: null,
-					categories: [],
-					authorId: 0,
-					seriesId: null
-				})
-				Swal.fire(
-					'Deleted!',
-					'this product is deleted',
-					'success'
-				)
-			}
-		})
-	}
+    const deleteProducts = (e) => {
+        e.preventDefault()
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `The Delete to ${product.name}`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteProduct(product.id))
+                setProduct({
+                    name: "",
+                    description: "",
+                    price: 0,
+                    available: true,
+                    fileLink: "",
+                    preview: "",
+                    stock: null,
+                    initialStock: null,
+                    categories: [],
+                    authorId: 0,
+                    seriesId: null
+                })
+                Swal.fire(
+                    'Deleted!',
+                    'this product is deleted',
+                    'success'
+                )
+            } 
+        })
+    }
 
-	if (productOrError && productOrError.status === 200) {
-		if (id) {
-			let allProductsCop = allProducts
-			if (product.id !== 0) {
+    if (productOrError && productOrError.status === 200) {
+        if (id) {
+            let allProductsCop = allProducts
+            if (product.id !== 0) {
 
-				let indice = allProductsCop.findIndex((elemento) => {
-					if (elemento.id === Number(id)) return true;
-				});
+                let indice = allProductsCop.findIndex((elemento) => {
+                    if (elemento.id === Number(id)) return true;
+                });
 
-				if (indice !== -1) {
-					allProductsCop[indice] = product
-				}
-				allProductsCop = []
-			}
-			if (allProductsCop.length !== 0) upgradeEditProducts(allProductsCop);
-		}
-		// alertSucces();
-		productOrError.status = 0
-	}
+                if (indice !== -1) {
+                    allProductsCop[indice] = product
+                }
+                allProductsCop = []
+            }
+            if (allProductsCop.length !== 0) upgradeEditProducts(allProductsCop);
+        }
+        // alertSucces();
+        productOrError.status = 0
+    }
 
-	if (productOrError && productOrError.status === 200) {
+    if (productOrError && productOrError.status === 200) {
 
-		alertSucces();
-		productOrError.status = 0
-	}
+        alertSucces();
+        productOrError.status = 0
+    }
 
-	const initialState = {
-		uploadValue: 0,
-		picture: ""
-	}
-	const [uploadValue, setUploadValue] = useState(initialState)
-	const handleOnChange = (e) => {
-		const file = e.target.files[0]
-		const storageRef = firebase.storage().ref(`pictures/${file.name}`)
-		const task = storageRef.put(file)
+    const initialState = {
+        uploadValue: 0,
+        picture: ""
+    }
+    const [uploadValue, setUploadValue] = useState(initialState)
+    const handleOnChange = (e) => {
+        const file = e.target.files[0]
+        const storageRef = firebase.storage().ref(`pictures/${file.name}`)
+        const task = storageRef.put(file)
 
-		task.on('state_changed', (snapshot) => {
-			let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-			setUploadValue({
-				uploadValue: percentage
-			})
+        task.on('state_changed', (snapshot) => {
+            let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            setUploadValue({
+                uploadValue: percentage
+            })
 
-		}, (error) => {
-			console.error(error.message)
-		}, async () => {
-			// Upload complete
-			setUploadValue({
-				message: 'subido',
-				picture: await task.snapshot.ref.getDownloadURL()
-			})
-			setProduct({
-				...product,
-				fileLink: await task.snapshot.ref.getDownloadURL(),
-				preview: await task.snapshot.ref.getDownloadURL()
-			})
-		})
-	}
+        }, (error) => {
+            console.error(error.message)
+        }, async () => {
+            // Upload complete
+            setUploadValue({
+                message: 'subido',
+                picture: await task.snapshot.ref.getDownloadURL()
+            })
+            setProduct({
+                ...product,
+                fileLink: await task.snapshot.ref.getDownloadURL(),
+                preview: await task.snapshot.ref.getDownloadURL()
+            })
+        })
+    }
 
-	const deletefile = () => {
-		const storageRef = firebase.storage().ref()
-		var desertRef = storageRef.child(uploadValue.picture);
-		// Delete the file
-		desertRef.delete().then(function () {
-			// File deleted successfully
-			console.log('eliminado con exito');
-		}).catch(function (error) {
-			// Uh-oh, an error occurred!
-			console.log(error);
-		});
-	}
+    const deletefile = () => {
+        const storageRef = firebase.storage().ref()
+        var desertRef = storageRef.child(uploadValue.picture);
+        // Delete the file
+        desertRef.delete().then(function () {
+            // File deleted successfully
+            console.log('eliminado con exito');
+        }).catch(function (error) {
+            // Uh-oh, an error occurred!
+            console.log(error);
+        });
+    }
 
-	return (
+    return (
 		<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
 			<div className="mainDivAP">
 				<div className="Left-side container">
