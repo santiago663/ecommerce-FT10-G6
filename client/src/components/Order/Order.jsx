@@ -19,7 +19,6 @@ function Order() {
   const reducer = (accumulator, currentValue) =>
     Number(currentValue.price) + accumulator;
 
-  //mirar suma discount
   const sum = shoppingCart.reduce(reducer, 0);
 
   function validateEmail(email) {
@@ -28,7 +27,6 @@ function Order() {
   }
 
   let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
-  //mirar pride discount
   const [input, setInput] = useState({
     name: "",
     email: "",
