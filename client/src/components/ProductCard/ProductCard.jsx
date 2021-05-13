@@ -21,20 +21,20 @@ function ProductCard(props) {
 
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 
-  
+
   const {
-		data: {
-			name,
-			author,
-			preview,
-			id,
-			price,
-			available,
-			score,
-			stock,
-			initialStock,
+    data: {
+      name,
+      author,
+      preview,
+      id,
+      price,
+      available,
+      score,
+      stock,
+      initialStock,
       discount
-		},
+    },
   } = props;
 
   let backScores = allScores?.find(scores => scores.id === id)
@@ -47,33 +47,33 @@ function ProductCard(props) {
     }
   }, [userWishlist, currentPage, id])
 
-  const getPriceWithDiscount = (discount, price)=>{
+  const getPriceWithDiscount = (discount, price) => {
     let discountPrice = 0;
-    return discountPrice = price - (price * Number(discount))/100
+    return discountPrice = price - (price * Number(discount)) / 100
   }
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach(product => {
-        if(product.discount !== null){
+        if (product.discount !== null) {
           console.log(product.discount)
           total += product.discount ? Number(getPriceWithDiscount(product.discount.percent, price)) : 0
         }
-        else{
+        else {
           total += product.price ? Number(product.price) : 0
         }
-        
+
       })
-      if(discount !== null){
+      if (discount !== null) {
         total = total + Number(getPriceWithDiscount(discount.percent, price))
       }
-      else{
+      else {
         total = total + Number(productOnClick.price)
       }
-      
+
       dispatch(addToCartUser(productOnClick, currentUser, currentOrder, total))
-      
+
     } else {
       let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
       let found = data.filter((product) => product.id === productOnClick.id);
@@ -91,21 +91,21 @@ function ProductCard(props) {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach(product => {
-        if(discount !== null){
+        if (discount !== null) {
           total += product.discount ? Number(getPriceWithDiscount(product.discount.percent, price)) : 0
         }
-        else{
+        else {
           total += product.price ? Number(product.price) : 0
         }
-        
+
       })
-      if(discount !== null){
+      if (discount !== null) {
         total = total - Number(getPriceWithDiscount(discount.percent, price))
       }
-      else{
+      else {
         total = total - Number(productOnClick.price)
       }
-      
+
       dispatch(removeToCartUser(productOnClick, currentUser, currentOrder, total))
 
     } else {
@@ -137,89 +137,88 @@ function ProductCard(props) {
   }
 
   return (
-		<>
-			<div className="product-card">
-				{available === true ? (
-					<div className="shopping">
-              <div className="price">
-                {discount !==null ?( 
+    <>
+      <div className="product-card">
+        {available === true ? (
+          <div className="shopping">
+            <div className="price">
+              {discount !== null ? (
                 <>
-                <div>
-                  <b>${getPriceWithDiscount(discount.percent, price)}</b>
-                  <br/>
-                  <b className="strikethrough">$ {price} </b>
-                </div>
-              </>
+                  <div>
+                    <b>${getPriceWithDiscount(discount.percent, price)}</b>
+                    <br />
+                    <b className="strikethrough">$ {price} </b>
+                  </div>
+                </>
 
               ) : <b>${price} </b>}
             </div>
-						<div>
-							{canBuy[0] ? (
-								<span className="acquiredPC">Acquired</span>
-							) : false || !lStorage ? (
-								<i
-									className="fas fa-cart-plus add"
-									key={id}
-									onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
-								></i>
-							) : (
-								<i
-									className="fas fa-cart-arrow-down remove"
-									key={id}
-									onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
-								>
-									<br />
-								</i>
-							)}
-						</div>
-					</div>
-				) : null}
-				<Link className="link" to={`/product/${id}`}>
-					<img src={preview} alt={name} />
-				</Link>
-				<div className="contenInfo">
-					<div className="conten">
-						<div className="nameAutor">
-              <div className="divDiscountProd-wrap">
+            <div>
+              {canBuy[0] ? (
+                <span className="acquiredPC">Acquired</span>
+              ) : false || !lStorage ? (
+                <i
+                  className="fas fa-cart-plus add"
+                  key={id}
+                  onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
+                ></i>
+              ) : (
+                <i
+                  className="fas fa-cart-arrow-down remove"
+                  key={id}
+                  onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
+                >
+                  <br />
+                </i>
+              )}
+            </div>
+          </div>
+        ) : null}
+        <Link className="link" to={`/product/${id}`}>
+          <img src={preview} alt={name} />
+        </Link>
+        <div className="contenInfo">
+          <div className="conten">
+            <div className="nameAutor">
+              {discount && <div className="divDiscountProd-wrap">
                 <div className="divDiscountProd">
                   <span className="percentDiscountProd">
-                    {discount !== null ? (`-${discount.percent}%`):null}
+                    {discount !== null ? (`-${discount.percent}%`) : null}
                   </span>
                 </div>
-              </div>
-             
-							<span className="scoreCard">
-								{score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
-								{score === null ? FunctionStar(0) : FunctionStar(Number(score))}
-							</span>
-							{currentUser?.id && (
-								<div className="wishlistHeartCard">
-									{canAdd && canAdd[0] ? ( //me decía cannot read property 0 of undefined
-										<span onClick={handleDeleteWishlist}>
-											<AiIcons.AiFillHeart />
-										</span>
-									) : (
-										<span className="wishlistHeartOutLineCard" onClick={handleAddWishlist}>
-											<AiIcons.AiOutlineHeart />
-										</span>
-									)}
-								</div>
-							)}
-							<h4 className="nameProductCard">{name}</h4>
-						</div>
-					</div>
-					<div>
-						{stock ? (
-							<span className="stockProductCard">
-								Edition of {initialStock} - <span className="stockNumberPC">{stock}</span> left
-							</span>
-						) : (
-							<h6>{author.name}</h6>
-						)}
-					</div>
-				</div>
-			</div>
-		</>
+              </div>}
+              <span className="scoreCard">
+                {score?.score || backScores?.score ? score?.score || backScores?.score : '-'}{' '}
+                {score === null ? FunctionStar(0) : FunctionStar(Number(score))}
+              </span>
+              {currentUser?.id && (
+                <div className="wishlistHeartCard">
+                  {canAdd && canAdd[0] ? ( //me decía cannot read property 0 of undefined
+                    <span onClick={handleDeleteWishlist}>
+                      <AiIcons.AiFillHeart />
+                    </span>
+                  ) : (
+                    <span className="wishlistHeartOutLineCard" onClick={handleAddWishlist}>
+                      <AiIcons.AiOutlineHeart />
+                    </span>
+                  )}
+                </div>
+              )}
+              <h4 className="nameProductCard">{name}</h4>
+            </div>
+          </div>
+          <div>
+            {stock ? (
+              <span className="stockProductCard">
+                Edition of {initialStock} - <span className="stockNumberPC">{stock}</span> left
+              </span>
+            ) : (
+              <h6>{author.name}</h6>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
