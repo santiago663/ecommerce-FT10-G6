@@ -18,6 +18,8 @@ function Order() {
   const payments = useSelector((state) => state.payments);
   const reducer = (accumulator, currentValue) =>
     Number(currentValue.price) + accumulator;
+
+  //mirar suma discount
   const sum = shoppingCart.reduce(reducer, 0);
 
   function validateEmail(email) {
@@ -26,13 +28,13 @@ function Order() {
   }
 
   let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
-
+  //mirar pride discount
   const [input, setInput] = useState({
     name: "",
     email: "",
     productId: [...data].map((pi) => pi.id),
     price: [...data].map((p) => Number(p.price)),
-    total: sum,
+    total: 0,
     payment: "",
     methodId: 0,
     ok: currentUser?.id ? true : false

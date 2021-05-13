@@ -12,6 +12,7 @@ export default function Wishlist() {
   const dispatch = useDispatch();
 
   const wishlistUser = useSelector((store) => store.reducerWishlist.wishlist);
+  console.log(wishlistUser, "1111")
 
   const openPreview = (e, image) => {
     e.preventDefault();
@@ -28,6 +29,12 @@ export default function Wishlist() {
       dispatch(deleteUserWhislist(body));
     }
   };
+
+  // if( discount !== null){
+
+  //   priceDiscpunt = Math.round( price - (price * Number(discount.percent)) / 100 );
+  //   objProduct.price = priceDiscpunt;
+  // }
 
   return (
     <>
@@ -67,9 +74,17 @@ export default function Wishlist() {
                   <div className="libraryProductName-wishlist">
                     <h4> {product.name}</h4>
                   </div>
-                  <div className="libraryProductPrice-wishlist">
-                    <h4> ${product.price}</h4>
-                  </div>
+                  {product.discount !== null 
+                  ?
+                    <div className="libraryProductPrice-wishlist">
+                      <h4>$ { product.price - (product.price * Number(product.discount.percent)) / 100 }</h4>
+                      <h4 className="ProductDiscounttWish"> $ {product.price}</h4>
+                    </div>
+                  :
+                    <div className="libraryProductPrice-wishlist">
+                      <h4> $ {product.price}</h4>
+                    </div>
+                  }
                   <div className="libraryDownload-wishlist">
                     <button
                       className=" button-wishlist"
@@ -79,7 +94,7 @@ export default function Wishlist() {
                     >
                       <GiIcons.GiHeartMinus />
                     </button>
-                    <Link to={`/product/${product.id}`}>
+                    <Link className="IconEyeWish" to={`/product/${product.id}`}>
                       <AiIcons.AiFillEye />
                     </Link>
                   </div>
