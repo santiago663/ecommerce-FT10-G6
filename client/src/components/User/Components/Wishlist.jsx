@@ -30,12 +30,6 @@ export default function Wishlist() {
     }
   };
 
-  // if( discount !== null){
-
-  //   priceDiscpunt = Math.round( price - (price * Number(discount.percent)) / 100 );
-  //   objProduct.price = priceDiscpunt;
-  // }
-
   return (
     <>
       <div className="profile-body ">
