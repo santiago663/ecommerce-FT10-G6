@@ -1,7 +1,8 @@
 /*eslint-disable*/
 import axios from 'axios';
 import * as TYPES from '../types/index';
-import { addToCart, removeFromCart } from './actionFront'
+import { addToCart, removeFromCart } from './actionFront';
+import { requestData, requestSuccess } from './request.js';
 
 
 export const getAllOrders = () => (
@@ -10,6 +11,7 @@ export const getAllOrders = () => (
 
     try {
       dispatch(requestData())
+      console.log('Si entre')
       axios
         .get(`${process.env.REACT_APP_BACK_URL}/get/order`)
         .then((res) => {

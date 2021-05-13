@@ -146,8 +146,6 @@ function AddProduct() {
                         'this product is updated',
                         'success'
                     )
-                } else {
-                    e.target.value = 0;
                 }
             })
         } else {
@@ -170,8 +168,7 @@ function AddProduct() {
                             'success'
                         )
                         location.reload();
-                    } else {
-                        e.target.value = 0;
+                    
                     }
                 })
             }
