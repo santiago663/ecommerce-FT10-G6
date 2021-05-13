@@ -11,7 +11,6 @@ export const getAllOrders = () => (
 
     try {
       dispatch(requestData())
-      console.log('Si entre')
       axios
         .get(`${process.env.REACT_APP_BACK_URL}/get/order`)
         .then((res) => {
