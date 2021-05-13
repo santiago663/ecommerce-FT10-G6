@@ -14,7 +14,6 @@ export const getAllOrders = () => (
       axios
         .get(`${process.env.REACT_APP_BACK_URL}/get/order`)
         .then((res) => {
-          console.log("ALGO2")
           dispatch({
             type: TYPES.GET_ALL_ORDERS,
             payload: res.data,
