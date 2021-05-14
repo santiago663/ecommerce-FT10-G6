@@ -1,8 +1,8 @@
 /*eslint-disable*/
 import axios from 'axios';
 import * as TYPES from '../types/index';
-import { addToCart, removeFromCart } from './actionFront'
-import { requestData, requestSuccess } from './request.js'
+import { addToCart, removeFromCart } from './actionFront';
+import { requestData, requestSuccess } from './request.js';
 
 export const getAllOrders = () => (
 
