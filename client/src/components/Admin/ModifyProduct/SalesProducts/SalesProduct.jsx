@@ -85,7 +85,7 @@ const SalesProduct = () => {
       <div>
         <tbody>
           <th>
-            <h1 className="title">List de productos para aplicar descuento</h1>
+            <h1 className="title">Apply Discounts</h1>
           </th>
         </tbody>
 
@@ -94,19 +94,19 @@ const SalesProduct = () => {
             <SearchBar />
             <Azza />
           </td>
-          <td onClick={() => handleclick()} className="delete-td">
+          {/* <td onClick={() => handleclick()} className="delete-td">
             descuento aplicados
-          </td>
+          </td> */}
           <td onClick={() => Delete()} className="delete-td">
-            Delete <br />
-            All
+            Delete All
           </td>
           <td onClick={() => getAll()} className="getall-td">
-            Select <br />
-            All
+            Select All
           </td>
         </table>
         <br />
+        <br/>
+        <br/>
 
         <table id="products">
           <tr id="trHeader">
@@ -116,9 +116,9 @@ const SalesProduct = () => {
             <td>Author Name</td>
             <td>Categorie</td>
             <td>Regular Price</td>
-            <td>Precio con descuento</td>
+            <td>Price With Discount</td>
             <td>
-              Descuento %
+              Discount % &nbsp;
               <select onChange={handleValue}>
                 <option default value="0">
                   %
@@ -170,7 +170,7 @@ const SalesProduct = () => {
                   <tr key={g.id}>
                     <td>
                       <button onClick={() => onClose(g.id)}>
-                        <i className="fas fa-trash"></i>
+                        <i className="fas fa-trash fontSizeIcon"></i>
                       </button>
                     </td>
                     <td>{num++}</td>
@@ -193,12 +193,12 @@ const SalesProduct = () => {
               );
             })}
         </table>
-        <button onClick={() => Send()}>Apply</button>
-        <button onClick={() => SaveDiscountPrice()}>Save</button>
+        <button className="buttonDiscountComp" onClick={() => Send()}>Apply</button>
+        <button className="buttonDiscountComp" onClick={() => SaveDiscountPrice()}>Save</button>
       </div>
       <div>
-        <h1>hola</h1>
-        <button onClick={handleclick}>back</button>
+        {/* <h1>hola</h1> */}
+        <button className="buttonBackComp" onClick={handleclick}> Back </button>
       </div>
     </ReactCardFlip>
   );

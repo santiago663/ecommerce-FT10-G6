@@ -20,9 +20,12 @@
 #products td,
 #products th {
   border: 1px solid #ddd;
+  padding: 5px;
+  font-weight: 900;
+  color: #0c0c0c;
   @media screen and (max-width: 600px) {
     margin: 0;
-    padding: 0px;
+    padding: 2px;
   }
 }
 
@@ -30,33 +33,59 @@
   background-color: #ddd;
 }
 #trHeader {
-  background-color: #4caf50;
+  margin-top: 100px;
+  background-color: #1ed38d;
 }
 #trHeader:hover {
-  background-color: #4caf50;
+  background-color: #1ed38d;
 }
 
 #products th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #4caf50;
+  background-color: #1ed38d;
   color: white;
 }
 
 .delete-td {
-  background: rgba(255, 0, 0, 0.227);
+  background: rgba(255, 0, 0, 0.4);
+  font-size: 15px;
+  font-weight: 900;
+  margin: 0px 5px 0px 5px;
 }
 .delete-td:hover {
-  background: rgba(255, 0, 0, 0.72);
+  background: rgba(223, 16, 16, 0.852);
 }
 .getall-td {
-  background: rgba(13, 255, 0, 0.227);
+  background: #209367;
+  font-size: 15px;
+  font-weight: 900;
+  margin: 0px 5px 0px 5px;
 }
 .getall-td:hover {
-  background: rgba(30, 255, 0, 0.72);
+  background: #0abf7a;
 }
 
 .disable {
-  background: rgb(60, 52, 52);
+  background: rgb(96, 86, 86);
+}
+
+.fontSizeIcon{
+  font-size: 20px !important;
+  padding: 1px;
+
+}
+
+.buttonDiscountComp{
+  background: #209367;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px 10px 10px 0px;
+  
+}
+.buttonBackComp{
+  background: #209367 !important;
+  padding: 5px;
+  border-radius: 5px;
 }

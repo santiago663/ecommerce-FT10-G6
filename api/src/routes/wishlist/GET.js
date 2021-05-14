@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Users, Wishlists, Products } = require("../../db");
+const { Users, Wishlists, Products, Discounts } = require("../../db");
 
 server.get("/", async (req, res) => {
 
@@ -14,6 +14,9 @@ server.get("/", async (req, res) => {
                 {
                     model: Products,
                     through: { attributes: [] },
+                    include: [{ 
+                        model: Discounts,
+                    }]
                 },
             ],
         })
@@ -46,7 +49,11 @@ server.get("/:userId", async (req, res) => {
                 {
                     model: Products,
                     through: { attributes: [] },
+                    include: [{ 
+                        model: Discounts,
+                    }]
                 },
+                
             ],
         })
 

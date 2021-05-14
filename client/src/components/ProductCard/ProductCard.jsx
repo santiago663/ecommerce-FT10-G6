@@ -21,7 +21,6 @@ function ProductCard(props) {
 
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
 
-
   const {
     data: {
       name,
@@ -37,6 +36,26 @@ function ProductCard(props) {
     },
   } = props;
 
+  let objProduct = {
+    name,
+    author,
+    preview,
+    id,
+    price,
+    available,
+    score,
+    stock,
+    initialStock,
+    discount
+  };
+  let priceDiscpunt = 0;
+
+  if( discount !== null){
+
+    priceDiscpunt = price - (price * Number(discount.percent)) / 100;
+    objProduct.price = priceDiscpunt;
+  }
+
   let backScores = allScores?.find(scores => scores.id === id)
   const canBuy = allUserProducts.filter(product => product.id === id)
   const [canAdd, setCanAdd] = useState(false)
@@ -47,31 +66,18 @@ function ProductCard(props) {
     }
   }, [userWishlist, currentPage, id])
 
-  const getPriceWithDiscount = (discount, price) => {
-    let discountPrice = 0;
-    return discountPrice = price - (price * Number(discount)) / 100
-  }
 
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach(product => {
-        if (product.discount !== null) {
-          console.log(product.discount)
-          total += product.discount ? Number(getPriceWithDiscount(product.discount.percent, price)) : 0
-        }
-        else {
-          total += product.price ? Number(product.price) : 0
-        }
-
+  
+        total += productOnClick.price ? Number(productOnClick.price) : 0
+        
       })
-      if (discount !== null) {
-        total = total + Number(getPriceWithDiscount(discount.percent, price))
-      }
-      else {
-        total = total + Number(productOnClick.price)
-      }
-
+   
+      total = total + Number(productOnClick.price)
+      
       dispatch(addToCartUser(productOnClick, currentUser, currentOrder, total))
 
     } else {
@@ -91,20 +97,12 @@ function ProductCard(props) {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach(product => {
-        if (discount !== null) {
-          total += product.discount ? Number(getPriceWithDiscount(product.discount.percent, price)) : 0
-        }
-        else {
-          total += product.price ? Number(product.price) : 0
-        }
 
+        total += productOnClick.price ? Number(productOnClick.price) : 0
+        
       })
-      if (discount !== null) {
-        total = total - Number(getPriceWithDiscount(discount.percent, price))
-      }
-      else {
-        total = total - Number(productOnClick.price)
-      }
+
+      total = total - Number(productOnClick.price)
 
       dispatch(removeToCartUser(productOnClick, currentUser, currentOrder, total))
 
@@ -136,6 +134,7 @@ function ProductCard(props) {
     }
   }
 
+
   return (
     <>
       <div className="product-card">
@@ -145,9 +144,9 @@ function ProductCard(props) {
               {discount !== null ? (
                 <>
                   <div>
-                    <b>${getPriceWithDiscount(discount.percent, price)}</b>
+                    <b>${objProduct.price}</b>
                     <br />
-                    <b className="strikethrough">$ {price} </b>
+                    <b className="strikethrough">$ {price}</b>
                   </div>
                 </>
 
@@ -160,13 +159,13 @@ function ProductCard(props) {
                 <i
                   className="fas fa-cart-plus add"
                   key={id}
-                  onClick={() => handleAddToCart(props.data, currentUser, currentOrder)}
+                  onClick={() => handleAddToCart(objProduct, currentUser, currentOrder)}
                 ></i>
               ) : (
                 <i
                   className="fas fa-cart-arrow-down remove"
                   key={id}
-                  onClick={() => handleRemoveFromCart(props.data, currentUser, currentOrder)}
+                  onClick={() => handleRemoveFromCart(objProduct, currentUser, currentOrder)}
                 >
                   <br />
                 </i>
@@ -193,7 +192,7 @@ function ProductCard(props) {
               </span>
               {currentUser?.id && (
                 <div className="wishlistHeartCard">
-                  {canAdd && canAdd[0] ? ( //me decía cannot read property 0 of undefined
+                  {canAdd && canAdd[0] ? (
                     <span onClick={handleDeleteWishlist}>
                       <AiIcons.AiFillHeart />
                     </span>

@@ -58,6 +58,9 @@ server.get("/category/:name", async (req, res) => {
         {
           model: Products,
           through: { attributes: [] },
+          include: [{ 
+              model: Discounts,
+          }]
         },
       ],
     });

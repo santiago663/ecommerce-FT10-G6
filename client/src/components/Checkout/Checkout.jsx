@@ -36,7 +36,9 @@ const Checkout = () => {
   // Verificando el estado del pago
   useEffect(() => {
     let guestOrder = JSON.parse(localStorage.getItem("guestOrderDetails"));
+    console.log(guestOrder, 1)
     let guestProducts = JSON.parse(localStorage.getItem("orderProducts"));
+    console.log(guestProducts, 2)
     const loggedUser = JSON.parse(window.localStorage.getItem("CurrentUser"));
     const beforeOrder = JSON.parse(localStorage.getItem("beforeOrder"));
     const query = new URLSearchParams(window.location.search);
@@ -105,6 +107,7 @@ const Checkout = () => {
         })
           .then(
             dispatch(
+
               formGuestOrder({
                 name: guestOrder.name,
                 email: guestOrder.email,
@@ -169,7 +172,6 @@ const Checkout = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // calculate total
   const handleSumTotal = () => {
     const reducer = (accumulator, currentValue) =>
 		(currentValue.discountPrice ? Number(currentValue.discountPrice) : Number(currentValue.price)) + accumulator;
@@ -182,7 +184,8 @@ const Checkout = () => {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach((product) => {
-        total += product.price ? Number(product.price) : 0;
+
+        total += productOnClick.price ? Number(productOnClick.price) : 0;
       });
       total = total - Number(productOnClick.price);
       dispatch(
@@ -250,7 +253,7 @@ const Checkout = () => {
                       <div className="price-item">
                         <h4>{item.name}</h4>
                         <div className="price-item__checkout">
-                          ${item.booleanDiscount? item.discountPrice :item.price}
+                          ${item.price}
                         </div>
                         <button
                           type="button"
