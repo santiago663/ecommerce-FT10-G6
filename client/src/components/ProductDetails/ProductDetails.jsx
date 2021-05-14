@@ -77,9 +77,6 @@ function ProductDetails() {
 		categories,
 		stock,
 		initialStock,
-		booleanDiscount,
-		percent,
-		discountPrice,
 		discount,
 	} = productCache;
     if (available) {
@@ -89,14 +86,38 @@ function ProductDetails() {
     }
   }
 
+  let objProduct = {
+    name,
+    author,
+    preview,
+    id,
+    price,
+    available,
+    stock,
+    initialStock,
+    discount,
+  };
+  let priceDiscpunt = 0;
+
+  if( typeof discount === "object" && discount !== null){
+
+    priceDiscpunt = price - (price * Number(discount.percent)) / 100;
+    objProduct.price = priceDiscpunt;
+  }
+
   const handleAddToCart = (productOnClick, currentUser, currentOrder) => {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach((product) => {
-        total += product.price ? Number(product.price) : 0;
+
+        total += productOnClick.price ? Number(productOnClick.price) : 0;
+
       });
+
       total = total + Number(productOnClick.price);
+
       dispatch(addToCartUser(productOnClick, currentUser, currentOrder, total));
+
     } else {
       let data = JSON.parse(localStorage.getItem("orderProducts")) || [];
       let found = data.filter((product) => product.id === productOnClick.id);
@@ -113,12 +134,17 @@ function ProductDetails() {
     if (currentUser.id) {
       let total = 0;
       shoppingCart.forEach((product) => {
-        total += product.price ? Number(product.price) : 0;
+
+        total += productOnClick.price ? Number(productOnClick.price) : 0;
+
       });
+
       total = total - Number(productOnClick.price);
+
       dispatch(
         removeToCartUser(productOnClick, currentUser, currentOrder, total)
       );
+
     } else {
       let data = JSON.parse(localStorage.getItem("orderProducts"));
       let found = data.filter((product) => product.id !== productOnClick.id);
@@ -230,7 +256,7 @@ function ProductDetails() {
 								{discount ? (
 									<>
 										<p>{discount.percent}% Off</p>
-										<p className="priceBeforeNowPD"><span className="spanPriceBeforePD">${price}</span> ${price*Number(1-discount.percent/100)}</p> 
+										<p className="priceBeforeNowPD"><span className="spanPriceBeforePD">${price}</span> ${objProduct.price}</p> 
 									</>
 								) : (
 									<b className="price-before">$ {price} </b>
@@ -254,16 +280,16 @@ function ProductDetails() {
 								) : false || !lStorage ? (
 									<button
 										className="fas fa-cart-plus add btn btn-Det espV"
-										key={productCache.id}
-										onClick={() => handleAddToCart(productCache, currentUser, currentOrder)}
+										key={objProduct.id}
+										onClick={() => handleAddToCart(objProduct, currentUser, currentOrder)}
 									>
 										&nbsp;ADD
 									</button>
 								) : (
 									<button
 										className="fas fa-cart-arrow-down remove btn btn-Det espR"
-										key={productCache.id}
-										onClick={() => handleRemoveFromCart(productCache, currentUser, currentOrder)}
+										key={objProduct.id}
+										onClick={() => handleRemoveFromCart(objProduct, currentUser, currentOrder)}
 									>
 										&nbsp;DROP
 									</button>

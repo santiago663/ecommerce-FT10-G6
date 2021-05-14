@@ -16,6 +16,7 @@ function Order() {
   const shoppingCart = useSelector((state) => state.reducerShoppingCart.shoppingCart);
   let completed = JSON.parse(window.localStorage.getItem("completed"));
   const payments = useSelector((state) => state.payments);
+  
   const reducer = (accumulator, currentValue) =>
     Number(currentValue.price) + accumulator;
 

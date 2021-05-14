@@ -72,12 +72,11 @@ function ProductCard(props) {
       let total = 0;
       shoppingCart.forEach(product => {
   
-        total += product.price ? Number(objProduct.price) : 0
+        total += productOnClick.price ? Number(productOnClick.price) : 0
         
-
       })
    
-      total = total + Number(objProduct.price)
+      total = total + Number(productOnClick.price)
       
       dispatch(addToCartUser(productOnClick, currentUser, currentOrder, total))
 
@@ -99,11 +98,11 @@ function ProductCard(props) {
       let total = 0;
       shoppingCart.forEach(product => {
 
-        total += product.price ? Number(objProduct.price) : 0
+        total += productOnClick.price ? Number(productOnClick.price) : 0
         
       })
 
-      total = total - Number(objProduct.price)
+      total = total - Number(productOnClick.price)
 
       dispatch(removeToCartUser(productOnClick, currentUser, currentOrder, total))
 
@@ -193,7 +192,7 @@ function ProductCard(props) {
               </span>
               {currentUser?.id && (
                 <div className="wishlistHeartCard">
-                  {canAdd && canAdd[0] ? ( //me decía cannot read property 0 of undefined
+                  {canAdd && canAdd[0] ? (
                     <span onClick={handleDeleteWishlist}>
                       <AiIcons.AiFillHeart />
                     </span>
