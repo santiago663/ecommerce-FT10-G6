@@ -8,11 +8,11 @@ server.post("/", async (req, res) => {
     try {
 
         const { email, cellphone, country_code } = req.body
-        
+
         authy.register_user(email, cellphone, country_code, async function (err, res2) {
             console.log(err)
             if (res2) {
-                var userActivated =  await Users.update({
+                var userActivated = await Users.update({
                     authyId: res2.user.id,
                     authy: true,
                 },
@@ -21,8 +21,11 @@ server.post("/", async (req, res) => {
                         returning: true,
                         plain: true,
                     })
+                res.json(userActivated[1])
             }
-            res.json(userActivated[1])
+            else {
+                res.json(err)
+            }
         })
 
     } catch (error) {

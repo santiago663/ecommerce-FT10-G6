@@ -29,7 +29,6 @@ export const editCurrentUser = (userId, user) => (
 export const activate2fa = (email, cellphone, country_code) => (
     
     (dispatch) => {
-        console.log(email, cellphone, country_code)
         try {
             axios
               .post(`${process.env.REACT_APP_BACK_URL}/post/2fa`, {
@@ -38,11 +37,16 @@ export const activate2fa = (email, cellphone, country_code) => (
                 country_code,
               })
               .then((res) => {
+                if (res.data.success === false) {
+                  console.log(res.data)
+                }
+                else {
                 localStorage.setItem(
                   "CurrentUser",
                   JSON.stringify(res.data)
                 );
                 dispatch(setCurrentUser(res.data));
+              }
               })
               .catch((error) => console.error(error));
         } catch (error) {
